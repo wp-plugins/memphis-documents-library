@@ -129,7 +129,7 @@ function mdoc_doc_list($current_cat) {
 			<tr>
 				<td class="mdocs-td-social" colspan="2">
 					<div class="mdocs-social">
-						<input type="button" onclick="mdocs_download_file('<?php echo $the_mdoc['id']; ?>');" class="mdocs-download-btn small right" value="<?php echo __('Download');  ?>"></h2>
+						<input type="button" onclick="mdocs_download_file('<?php echo $mdocs[$index]['id']; ?>');" class="mdocs-download-btn small right" value="<?php echo __('Download');  ?>"></h2>
 						<div class="mdocs-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo site_url().'/?mdocs-file='.$mdocs[$index]['id'];?>" data-counturl="<?php echo site_url().'/?mdocs-file='.$mdocs[$index]['id'];?>" width="50">Tweet</a></div>
 						<div class="mdocs-like"><iframe src="//www.facebook.com/plugins/like.php?href=<?php echo site_url().'/?mdocs-file='.$mdocs[$index]['id'];?>&amp;width=450&amp;height=21&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe></div>
 						<div class="mdocs-plusone"><div class="g-plusone" data-size="medium" data-href="<?php echo site_url().'/?mdocs-file='.$mdocs[$index]['id'];?>"</div></div>

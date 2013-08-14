@@ -29,7 +29,7 @@ function mdocs_post_page() {
 			
 			<div class="mdocs-post-file-info">
 				<!--<p><i class="icon-star"></i> 4.4 Stars (102)</p>-->
-				<p><i class="icon-cloud-download"></i> <?php echo $the_mdoc['downloads'].' '.__('Downloads'); ?></p>
+				<p><i class="icon-cloud-download"></i> <b class="mdocs-orange"><?php echo $the_mdoc['downloads'].' '.__('Downloads'); ?></b></p>
 				<p><i class="icon-pencil"></i> <?php _e('Author'); ?>: <i class="mdocs-green"><?php echo $user_info->display_name; ?></i></p>
 				<p><i class="icon-off"></i> <?php _e('Version') ?>:  <b class="mdocs-blue"><?php echo $the_mdoc['version']; ?></b></p>
 				<p><i class="icon-calendar"></i> <?php _e('Last Updated'); ?>: <b class="mdocs-red"><?php echo $last_modified; ?></b></p>

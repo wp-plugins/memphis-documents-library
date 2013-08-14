@@ -56,7 +56,7 @@ function mdocs_page() {
 					<a href="<?php echo $the_mdoc_permalink; ?>" title="<?php echo $mdocs[$index]['name']; ?> "><strong><?php echo $mdocs[$index]['name']; ?> </strong></a>
 					<div>
 						<!--<p><i class="icon-star"></i> 4.4 Stars (102)</p>-->
-						<p><i class="icon-cloud-download"></i> <?php _e('Downloads'); ?>: <b class="mdocs-orange"><?php echo $mdocs[$index]['downloads']; ?></b></p>
+						<p><i class="icon-cloud-download"></i> <b class="mdocs-orange"><?php echo $mdocs[$index]['downloads'].' '. __('Downloads'); ?></b></p>
 						<p><i class="icon-pencil"></i> <?php _e('Author'); ?>: <i class="mdocs-green"><?php echo $mdocs[$index]['owner']; ?></i></p>
 						<p><i class="icon-off"></i> <?php _e('Version'); ?>: <b class="mdocs-blue"><?php echo $mdocs[$index]['version']; ?></b></p>
 						<p><i class="icon-calendar"></i> <?php _e('Date Modified'); ?>: <b class="mdocs-red"><?php  echo gmdate('F jS Y \a\t g:i A',filemtime($upload_dir['basedir'].'/mdocs/'.$mdocs[$index]['filename'])+MDOCS_TIME_OFFSET); ?></b>
@@ -71,7 +71,7 @@ function mdocs_page() {
 			<tr>
 				<td class="mdocs-td-social" colspan="2">
 					<div class="mdocs-social">
-						<input type="button" onclick="mdocs_download_file('<?php echo $the_mdoc['id']; ?>');" class="mdocs-download-btn small right" value="<?php echo __('Download');  ?>"></h2>
+						<input type="button" onclick="mdocs_download_file('<?php echo $mdocs[$index]['id']; ?>');" class="mdocs-download-btn small right" value="<?php echo __('Download');  ?>"></h2>
 						<div class="mdocs-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo site_url().'/?mdocs-file='.$mdocs[$index]['id'];?>" data-counturl="<?php echo site_url().'/?mdocs-file='.$mdocs[$index]['id'];?>" width="50">Tweet</a></div>
 						<div class="mdocs-like"><iframe src="//www.facebook.com/plugins/like.php?href=<?php echo site_url().'/?mdocs-file='.$mdocs[$index]['id'];?>&amp;width=450&amp;height=21&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe></div>
 						<div class="mdocs-plusone"><div class="g-plusone" data-size="medium" data-href="<?php echo site_url().'/?mdocs-file='.$mdocs[$index]['id'];?>"</div></div>

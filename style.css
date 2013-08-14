@@ -78,7 +78,7 @@
 .mdocs-red { color: #990000; }
 .mdocs-green { color: #779F00; }
 .mdocs-clear-both { clear: both; }
-.mdocs-nofiles { font-size: 24px; font-weight: bold; text-align: center; padding: 20px !important;}
+.mdocs-nofiles { font-size: 14px !important; font-weight: bold; text-align: center; padding: 20px !important;}
 #icon-edit-pages { width: 32px; height: 34px; background-position: -312px -5px; margin: 2px 8px 0 0; float: left; }
 .icon32 {  background: url('../assets/imgs/icons32-vs.png?ver=20121105/') no-repeat transparent; }
 

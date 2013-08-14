@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 3.6
-Stable tag: 1.0
+Stable tag: 1.0.1
 
 A documents library for WordPress.  
 
@@ -75,6 +75,8 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 5. screenshot-5.png
 
 == Changelog ==
+= 1.0.1 =
+* Download button fix.
 = 1.0 =
 * Initial Release of Memphis Documents Library
 
