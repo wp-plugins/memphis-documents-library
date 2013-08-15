@@ -88,7 +88,7 @@ function mdocs_file_upload() {
 					else $desc = $mdocs_desc;
 					if($mdocs_name == '') $mdocs[$mdocs_index]['name'] = $_POST['mdocs-pname'];
 					else $mdocs[$mdocs_index]['name'] = $mdocs_name;
-					if($mdocs_version == '' || $mdocs_version == $mdocs[$mdocs_index]['version']) $mdocs_version = $mdocs[$mdocs_index]['version'].'.'.time();
+					if($mdocs_version == '') $mdocs_version = $mdocs[$mdocs_index]['version'];
 					$mdocs[$mdocs_index]['desc'] = $desc;
 					$mdocs[$mdocs_index]['version'] = (string)$mdocs_version;
 					$mdocs[$mdocs_index]['cat'] = $mdocs_cat;
@@ -99,7 +99,7 @@ function mdocs_file_upload() {
 						'post_title' => $mdocs_name,
 						'post_content' => '[mdocs_post_page]',
 						'post_status' => 'publish',
-						'post_excerpt' => $desc
+						'post_excerpt' => $desc,
 					);
 					wp_update_post( $mdocs_post );
 					$mdocs_attachment = array(

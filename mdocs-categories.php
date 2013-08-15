@@ -3,7 +3,7 @@ function mdocs_edit_cats() {
 	$mdocs_cats = get_option('mdocs-cats');
 	//var_dump($mdocs_cats);
 	?>
-	<div class="mdocs-container">
+	<div class="mdocs-ds-container">
 		<h2>Category Editor <a href="" id="mdocs-add-cat" class="mdocs-grey-btn">Add Category</a></h2>
 		<form  id="mdocs-cats" method="post" action="admin.php?page=memphis-documents.php&cat=cats" >
 			<input type="hidden" value="mdocs-update-cats" name="action"/>
