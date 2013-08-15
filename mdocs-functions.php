@@ -1,4 +1,40 @@
 <?php
+function mdocs_file_info($the_mdoc) {
+	$upload_dir = wp_upload_dir();
+	$the_mdoc_permalink = get_permalink($the_mdoc['parent']);
+	$the_post = get_post($the_mdoc['parent']);
+	$post_date = strtotime($the_post->post_date);
+	$last_modified = gmdate('F jS Y \a\t g:i A',$post_date+MDOCS_TIME_OFFSET);
+	?>
+	<div class="mdocs-post-button-box">
+		<h2><a href="<?php echo $the_mdoc_permalink; ?>" title="<?php echo $the_mdoc['name']; ?> "><?php echo $the_mdoc['name']; ?></a>
+		<input type="button" onclick="mdocs_download_file('<?php echo $the_mdoc['id']; ?>');" class="mdocs-download-btn" value="<?php echo __('Download'); ?>"</h2>
+	</div>
+	<div class="mdocs-post-file-info">
+		<!--<p><i class="icon-star"></i> 4.4 Stars (102)</p>-->
+		<p class="mdocs-file-info"><i class="icon-cloud-download"></i> <b class="mdocs-orange"><?php echo $the_mdoc['downloads'].' '.__('Downloads'); ?></b></p>
+		<p><i class="icon-pencil"></i> <?php _e('Author'); ?>: <i class="mdocs-green"><?php echo $the_mdoc['owner']; ?></i></p>
+		<p><i class="icon-off"></i> <?php _e('Version') ?>:  <b class="mdocs-blue"><?php echo $the_mdoc['version']; ?></b></p>
+		<p><i class="icon-calendar"></i> <?php _e('Last Updated'); ?>: <b class="mdocs-red"><?php echo $last_modified; ?></b></p>
+	</div>
+<?php
+}
+
+function mdocs_edit_file($the_mdocs, $index, $current_cat) {
+	?>
+	<div class="mdocs-edit-file">
+		<span class="update" id="<?php echo $index ?>">
+			<i class="icon-pencil"></i> <a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat.'&action=update-doc&mdocs-index='.$index; ?>" title="Update this file" class="edit"><?php _e('Update'); ?></a> |
+		</span>
+		<span class='delete'>
+			<i class="icon-remove"></i> <a class='submitdelete' onclick="return showNotice.warn();" href="<?php echo 'admin.php?mdocs-nonce='.$_SESSION['mdocs-nonce'].'&page=memphis-documents.php&cat='.$current_cat.'&action=delete-doc&mdocs-index='.$index; ?>"><?php _e('Delete'); ?></a> |
+		</span>
+		<span class="versions">
+			<i class="icon-off"></i> <a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat.'&mdocs-index='.$index; ?>&action=mdocs-versions" title="<?php _e('Versions'); ?>" class="edit"><?php _e('Versions'); ?></a></span>
+	</div>
+	<?php
+}
+
 function mdocs_post_page() {
 	global $post;
 	$post_category = get_the_category( $post->ID );
@@ -18,32 +54,16 @@ function mdocs_post_page() {
 		$permalink = get_permalink($query->post->ID);
 		if( strrchr($permalink, '?page_id=')) $mdocs_link = '/'.strrchr($permalink, '?page_id=');
 		else $mdocs_link = '/'.$query->post->post_name.'/';
-		$the_mdoc_permalink = get_permalink($the_mdoc['parent']);
+		$mdocs_desc = apply_filters('the_content', $post->post_excerpt);
 		?>
-		
 		<div class="mdocs-post">
-			<div class="mdocs-post-button-box">
-				<h2><a href="<?php echo $the_mdoc_permalink; ?>" title="<?php echo $the_mdoc['name']; ?> "><?php echo $the_mdoc['name']; ?></a>
-				<input type="button" onclick="mdocs_download_file('<?php echo $the_mdoc['id']; ?>');" class="mdocs-download-btn" value="<?php echo __('Download'); ?>"</h2>
-			</div>
-			
-			<div class="mdocs-post-file-info">
-				<!--<p><i class="icon-star"></i> 4.4 Stars (102)</p>-->
-				<p><i class="icon-cloud-download"></i> <b class="mdocs-orange"><?php echo $the_mdoc['downloads'].' '.__('Downloads'); ?></b></p>
-				<p><i class="icon-pencil"></i> <?php _e('Author'); ?>: <i class="mdocs-green"><?php echo $user_info->display_name; ?></i></p>
-				<p><i class="icon-off"></i> <?php _e('Version') ?>:  <b class="mdocs-blue"><?php echo $the_mdoc['version']; ?></b></p>
-				<p><i class="icon-calendar"></i> <?php _e('Last Updated'); ?>: <b class="mdocs-red"><?php echo $last_modified; ?></b></p>
-			</div>
+			<?php mdocs_file_info($the_mdoc); ?>
 			<div class="mdocs-clear-both"></div>
-			<div class="mdocs-social">
-				<div class="mdocs-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>" data-counturl="<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>" width="50">Tweet</a></div>
-				<div class="mdocs-like"><iframe src="//www.facebook.com/plugins/like.php?href=<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>&amp;width=450&amp;height=21&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe></div>
-				<div class="mdocs-plusone"><div class="g-plusone" data-size="medium" data-href="<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>"</div></div>
-			</div>
+			<?php mdocs_social($the_mdoc); ?>
 		</div>
 		<div class="mdocs-clear-both"></div>
 		<h3>Description</h3>
-		<p><?php echo $post->post_excerpt; ?></p>
+		<p><?php echo $mdocs_desc; ?></p>
 		<div class="mdocs-clear-both"></div>
 		</div>
 		<?php
@@ -133,7 +153,8 @@ function mdocs_process_file($file, $import=false) {
 			'post_content' => '[mdocs_post_page]',
 			'post_author' => $current_user->ID,
 			'post_category' => array($mdocs_post_cat->cat_ID),
-			'post_excerpt' => $desc
+			'post_excerpt' => $desc,
+			'post_date' => gmdate('Y-m-d H:i:s', time()),
 		);
 		$mdocs_post_id = wp_update_post( $mdocs_post );
 		$attachment = array(
@@ -144,6 +165,7 @@ function mdocs_process_file($file, $import=false) {
 			'post_author' => $current_user->ID,
 			'post_status' => 'inherit',
 			'post_excerpt' => $upload['url'],
+			'post_date' => gmdate('Y-m-d H:i:s', time()),
 		 );
 		update_attached_file( $file['id'], $upload['file'] );
 		$mdocs_attach_id = wp_update_post( $attachment );
@@ -201,6 +223,17 @@ function mdocs_errors($error, $type='updated') {
     <?php
 }
 
+function mdocs_social($the_mdoc) {
+	?>
+	<div class="mdocs-social"  id="mdocs-social-<?php echo $the_mdoc['id']; ?>">
+		<div class="mdocs-share" onclick="mdocs_share('<?php echo site_url().'/?mdocs-file='.$the_mdoc['id']; ?>', 'mdocs-social-<?php echo $the_mdoc['id']; ?>');"><p><i class="icon-share-sign mdocs-green"></i> Share</p></div>
+		<div class="mdocs-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>" data-counturl="<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>" width="50">Tweet</a></div>
+		<div class="mdocs-like"><iframe src="//www.facebook.com/plugins/like.php?href=<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>&amp;width=450&amp;height=21&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe></div>
+		<div class="mdocs-plusone"><div class="g-plusone" data-size="medium" data-href="<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>"</div></div>
+	</div>
+	<?php
+}
+
 function mdocs_social_scripts() {
 	?>
 <div id="fb-root"></div>
@@ -223,4 +256,413 @@ function mdocs_social_scripts() {
 })();
 </script>
 	<?php
+}
+
+function mdocs_is_bot() {
+    $spiders = array(
+        "abot",
+        "dbot",
+        "ebot",
+        "hbot",
+        "kbot",
+        "lbot",
+        "mbot",
+        "nbot",
+        "obot",
+        "pbot",
+        "rbot",
+        "sbot",
+        "tbot",
+        "vbot",
+        "ybot",
+        "zbot",
+        "bot.",
+        "bot/",
+        "_bot",
+        ".bot",
+        "/bot",
+        "-bot",
+        ":bot",
+        "(bot",
+        "crawl",
+        "slurp",
+        "spider",
+        "seek",
+        "accoona",
+        "acoon",
+        "adressendeutschland",
+        "ah-ha.com",
+        "ahoy",
+        "altavista",
+        "ananzi",
+        "anthill",
+        "appie",
+        "arachnophilia",
+        "arale",
+        "araneo",
+        "aranha",
+        "architext",
+        "aretha",
+        "arks",
+        "asterias",
+        "atlocal",
+        "atn",
+        "atomz",
+        "augurfind",
+        "backrub",
+        "bannana_bot",
+        "baypup",
+        "bdfetch",
+        "big brother",
+        "biglotron",
+        "bjaaland",
+        "blackwidow",
+        "blaiz",
+        "blog",
+        "blo.",
+        "bloodhound",
+        "boitho",
+        "booch",
+        "bradley",
+        "butterfly",
+        "calif",
+        "cassandra",
+        "ccubee",
+        "cfetch",
+        "charlotte",
+        "churl",
+        "cienciaficcion",
+        "cmc",
+        "collective",
+        "comagent",
+        "combine",
+        "computingsite",
+        "csci",
+        "curl",
+        "cusco",
+        "daumoa",
+        "deepindex",
+        "delorie",
+        "depspid",
+        "deweb",
+        "die blinde kuh",
+        "digger",
+        "ditto",
+        "dmoz",
+        "docomo",
+        "download express",
+        "dtaagent",
+        "dwcp",
+        "ebiness",
+        "ebingbong",
+        "e-collector",
+        "ejupiter",
+        "emacs-w3 search engine",
+        "esther",
+        "evliya celebi",
+        "ezresult",
+        "falcon",
+        "felix ide",
+        "ferret",
+        "fetchrover",
+        "fido",
+        "findlinks",
+        "fireball",
+        "fish search",
+        "fouineur",
+        "funnelweb",
+        "gazz",
+        "gcreep",
+        "genieknows",
+        "getterroboplus",
+        "geturl",
+        "glx",
+        "goforit",
+        "golem",
+        "grabber",
+        "grapnel",
+        "gralon",
+        "griffon",
+        "gromit",
+        "grub",
+        "gulliver",
+        "hamahakki",
+        "harvest",
+        "havindex",
+        "helix",
+        "heritrix",
+        "hku www octopus",
+        "homerweb",
+        "htdig",
+        "html index",
+        "html_analyzer",
+        "htmlgobble",
+        "hubater",
+        "hyper-decontextualizer",
+        "ia_archiver",
+        "ibm_planetwide",
+        "ichiro",
+        "iconsurf",
+        "iltrovatore",
+        "image.kapsi.net",
+        "imagelock",
+        "incywincy",
+        "indexer",
+        "infobee",
+        "informant",
+        "ingrid",
+        "inktomisearch.com",
+        "inspector web",
+        "intelliagent",
+        "internet shinchakubin",
+        "ip3000",
+        "iron33",
+        "israeli-search",
+        "ivia",
+        "jack",
+        "jakarta",
+        "javabee",
+        "jetbot",
+        "jumpstation",
+        "katipo",
+        "kdd-explorer",
+        "kilroy",
+        "knowledge",
+        "kototoi",
+        "kretrieve",
+        "labelgrabber",
+        "lachesis",
+        "larbin",
+        "legs",
+        "libwww",
+        "linkalarm",
+        "link validator",
+        "linkscan",
+        "lockon",
+        "lwp",
+        "lycos",
+        "magpie",
+        "mantraagent",
+        "mapoftheinternet",
+        "marvin/",
+        "mattie",
+        "mediafox",
+        "mediapartners",
+        "mercator",
+        "merzscope",
+        "microsoft url control",
+        "minirank",
+        "miva",
+        "mj12",
+        "mnogosearch",
+        "moget",
+        "monster",
+        "moose",
+        "motor",
+        "multitext",
+        "muncher",
+        "muscatferret",
+        "mwd.search",
+        "myweb",
+        "najdi",
+        "nameprotect",
+        "nationaldirectory",
+        "nazilla",
+        "ncsa beta",
+        "nec-meshexplorer",
+        "nederland.zoek",
+        "netcarta webmap engine",
+        "netmechanic",
+        "netresearchserver",
+        "netscoop",
+        "newscan-online",
+        "nhse",
+		"ning",
+        "nokia6682/",
+        "nomad",
+        "noyona",
+        "nutch",
+        "nzexplorer",
+        "objectssearch",
+        "occam",
+        "omni",
+        "open text",
+        "openfind",
+        "openintelligencedata",
+        "orb search",
+        "osis-project",
+        "pack rat",
+        "pageboy",
+        "pagebull",
+        "page_verifier",
+        "panscient",
+        "parasite",
+        "partnersite",
+        "patric",
+        "pear.",
+        "pegasus",
+        "peregrinator",
+        "pgp key agent",
+        "phantom",
+        "phpdig",
+        "picosearch",
+        "piltdownman",
+        "pimptrain",
+        "pinpoint",
+        "pioneer",
+        "piranha",
+        "plumtreewebaccessor",
+        "pogodak",
+        "poirot",
+        "pompos",
+        "poppelsdorf",
+        "poppi",
+        "popular iconoclast",
+        "psycheclone",
+        "publisher",
+        "python",
+        "rambler",
+        "raven search",
+        "roach",
+        "road runner",
+        "roadhouse",
+        "robbie",
+        "robofox",
+        "robozilla",
+        "rules",
+        "salty",
+        "sbider",
+        "scooter",
+        "scoutjet",
+        "scrubby",
+        "search.",
+        "searchprocess",
+        "semanticdiscovery",
+        "senrigan",
+        "sg-scout",
+        "shai'hulud",
+        "shark",
+        "shopwiki",
+        "sidewinder",
+        "sift",
+        "silk",
+        "simmany",
+        "site searcher",
+        "site valet",
+        "sitetech-rover",
+        "skymob.com",
+        "sleek",
+        "smartwit",
+        "sna-",
+        "snappy",
+        "snooper",
+        "sohu",
+        "speedfind",
+        "sphere",
+        "sphider",
+        "spinner",
+        "spyder",
+        "steeler/",
+        "suke",
+        "suntek",
+        "supersnooper",
+        "surfnomore",
+        "sven",
+        "sygol",
+        "szukacz",
+        "tach black widow",
+        "tarantula",
+        "templeton",
+        "/teoma",
+        "t-h-u-n-d-e-r-s-t-o-n-e",
+        "theophrastus",
+        "titan",
+        "titin",
+        "tkwww",
+        "toutatis",
+        "t-rex",
+        "tutorgig",
+		"tweetmemebot",
+        "twiceler",
+        "twisted",
+        "ucsd",
+        "udmsearch",
+        "url check",
+        "updated",
+        "vagabondo",
+        "valkyrie",
+        "verticrawl",
+        "victoria",
+        "vision-search",
+        "volcano",
+        "voyager/",
+        "voyager-hc",
+        "w3c_validator",
+        "w3m2",
+        "w3mir",
+        "walker",
+        "wallpaper",
+        "wanderer",
+        "wauuu",
+        "wavefire",
+        "web core",
+        "web hopper",
+        "web wombat",
+        "webbandit",
+        "webcatcher",
+        "webcopy",
+        "webfoot",
+        "weblayers",
+        "weblinker",
+        "weblog monitor",
+        "webmirror",
+        "webmonkey",
+        "webquest",
+        "webreaper",
+        "websitepulse",
+        "websnarf",
+        "webstolperer",
+        "webvac",
+        "webwalk",
+        "webwatch",
+        "webwombat",
+        "webzinger",
+        "wget",
+        "whizbang",
+        "whowhere",
+        "wild ferret",
+        "worldlight",
+        "wwwc",
+        "wwwster",
+        "xenu",
+        "xget",
+        "xift",
+        "xirq",
+        "yandex",
+        "yanga",
+        "yeti",
+        "yodao",
+        "zao/",
+        "zippp",
+        "zyborg",
+        "...."
+    );
+
+    foreach($spiders as $spider) {
+        //If the spider text is found in the current user agent, then return true
+        if ( stripos($_SERVER['HTTP_USER_AGENT'], $spider) !== false ) return true;
+    }
+    //If it gets this far then no bot was found!
+    return false;
+
+}
+
+function mdocs_send_bot_alert() {
+	$to      = 'ian@howatson.net';
+	$subject = 'Bot Alert';
+	$message = 'User Agent Info: '.$_SERVER['HTTP_USER_AGENT']."\r\nIs this a bot: ".mdocs_is_bot();
+	$headers = 'From: '.get_bloginfo('admin_email') . "\r\n" .
+		'Reply-To: '.get_bloginfo('admin_email') . "\r\n" .
+		'X-Mailer: PHP/' . phpversion();
+	mail($to, $subject, $message, $headers);
 }

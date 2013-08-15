@@ -48,7 +48,7 @@ add_shortcode( 'mdocs_post_page', 'mdocs_post_page_shortcode' );
 function mdocs_admin_script() {
 	wp_register_style( 'mdocs-admin-style', MDOC_URL.'/style.css');
 	wp_enqueue_style( 'mdocs-admin-style' );
-	wp_register_script( 'mdocs-admin-script', MDOC_URL.'/mdocs-admin.js');
+	wp_register_script( 'mdocs-admin-script', MDOC_URL.'/mdocs-script.js');
 	wp_enqueue_script('mdocs-admin-script');
 	//FONT-AWESOME STYLE
 	//wp_register_style( 'mdocs-font-awesome1-style', '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css');

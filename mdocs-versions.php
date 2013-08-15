@@ -14,31 +14,31 @@ function mdocs_versions() {
 		<div class="close"><a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat; ?>"><img src='<?php echo MDOC_URL; ?>/assets/imgs/close.png'/></a></div>
 		<?php echo __('Versions').': '.$the_mdoc['name']; ?>
 	</h2>
-	<div class="mdocs-container">
+	<div class="mdocs-ds-container">
 		<div class="mdocs-uploader-content">
 			<form class="mdocs-uploader-form" enctype="multipart/form-data" action="<?php echo $_REQUEST['REQUEST_URI']; ?>" method="POST">
 				<input type="hidden" name="mdocs-nonce" value="<?php echo MDOCS_NONCE; ?>" />
 				<input type="hidden" name="mdocs-index" value="<?php echo $mdoc_index; ?>" />
 				<input type="hidden" name="action" value="mdocs-update-revision" />
-				<table>
+				<table  class="wp-list-table widefat plugins">
 					<thead>
 						<tr>
-							<th scope="col" class="mdocs-table-header" ><?php _e('File'); ?></th>
-							<th scope="col" class="mdocs-table-header" ><?php _e('Version'); ?></th>
-							<th scope="col" class="mdocs-table-header" ><?php _e('Date Modified'); ?></th>
-							<th scope="col" class="mdocs-table-header" ><?php _e('Download'); ?></th>
-							<th scope="col" class="mdocs-table-header" ><?php _e('Delete'); ?></th>
-							<th scope="col" class="mdocs-table-header" ><?php _e('Current'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('File'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Version'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Date Modified'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Download'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Delete'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Current'); ?></th>
 						</tr>
 					</thead>
 					<tfoot>
 						<tr>
-							<th scope="col" class="mdocs-table-header" ><?php _e('File'); ?></th>
-							<th scope="col" class="mdocs-table-header" ><?php _e('Version'); ?></th>
-							<th scope="col" class="mdocs-table-header" ><?php _e('Date Modified'); ?></th>
-							<th scope="col" class="mdocs-table-header" ><?php _e('Download'); ?></th>
-							<th scope="col" class="mdocs-table-header" ><?php _e('Delete'); ?></th>
-							<th scope="col" class="mdocs-table-header" ><?php _e('Current'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('File'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Version'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Date Modified'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Download'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Delete'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Current'); ?></th>
 						</tr>
 					</tfoot>
 					<tbody id="the-list">
@@ -72,6 +72,7 @@ function mdocs_versions() {
 						?>
 					</tbody>
 				</table>
+				<br/>
 				<input type="submit" class="button button-primary" value="<?php _e('Update To Revision') ?>" /><br/>
 			</form>
 		</div>
