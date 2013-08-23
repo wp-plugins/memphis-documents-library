@@ -259,8 +259,8 @@ function mdocs_social_scripts() {
 }
 function mdocs_is_bot() {
 	$upload_dir = wp_upload_dir();
-	$bots = strip_tags(file_get_contents($upload_dir['basedir'].'/mdocs/mdocs-robots.txt'));
-	//$bots = strip_tags(file_get_contents(dirname(__FILE__).'/mdocs-robots.txt'));
+	//$bots = strip_tags(file_get_contents($upload_dir['basedir'].'/mdocs/mdocs-robots.txt'));
+	$bots = strip_tags(file_get_contents(dirname(__FILE__).'/mdocs-robots.txt'));
 	$bots = explode('|:::|',$bots);
 	foreach($bots as $bot) {
 		//echo $bot.'<br>';
