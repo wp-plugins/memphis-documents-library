@@ -10,12 +10,14 @@ function mdocs_download_file($export_file='') {
 	if(!empty($export_file) ) { $filename = $export_file; }
 	else {
 		foreach($mdocs as $index => $value) {
-			if($value['id'] == $_GET["mdocs-file"] && mdocs_is_bot() == false) {
+			if($value['id'] == $_GET["mdocs-file"] ) {
 				$filename = $mdocs[$index]['filename'];
-				$mdocs[$index]['downloads'] = (string)(intval($mdocs[$index]['downloads'])+1);
-				update_option('mdocs-list', $mdocs);
+				if(mdocs_is_bot() == false) {
+					$mdocs[$index]['downloads'] = (string)(intval($mdocs[$index]['downloads'])+1);
+					update_option('mdocs-list', $mdocs);
+				}
 				break;
-			} else $filename = 'mdocs-empty';
+			} //else $filename = 'mdocs-empty';
 		}
 	}
 	if(isset($_GET['mdocs-export-file'])) mdocs_export_zip();
@@ -37,6 +39,6 @@ function mdocs_download_file($export_file='') {
 		flush();
 		readfile($file);
 		exit;
-	} else die('Error Downloading File: '.$filename);	
+	} else die(__('Check this file out').' <b>'.$filename. '</b>.  '.  __('Download it from').' <b>'.get_bloginfo('name').'</b>.<br><sup>'.__('powered by Memphis Documents Library').'</sup>');	
 }
 ?>
