@@ -5,6 +5,7 @@ define('MDOCS_DIR','/mdocs/');
 define('MDOC_PATH',plugin_dir_path(__FILE__));
 define('MDOC_URL',plugin_dir_url(__FILE__));
 define('MDOCS_TIME_OFFSET', get_option('gmt_offset')*60*60);
+define('MDOCS_ROBOTS','http://www.kingofnothing.net/memphis/robots/memphis-robots.txt');
 
 $add_error = false;
 

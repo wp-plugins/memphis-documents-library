@@ -1,6 +1,6 @@
 <?php
 function mdocs_page() {
-	//mdocs_update_bot_list();
+	//mdocs_update_bot_list(); 
 	//mdocs_is_bot();
 	global $post;
 	$site_url = site_url();
