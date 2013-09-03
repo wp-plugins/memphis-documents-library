@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 3.6
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 
 A documents library for WordPress.  
 
@@ -75,7 +75,9 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 5. screenshot-5.png
 
 == Changelog ==
-= 1.2.2 =
+== 1.2.3 ==
+* Fixed a compatibility bug with Memphis Custom Login.
+= 1.2.2 
 * Updated robots list.
 = 1.2.1 =
 * correct path to the mdocs-robots.txt file
