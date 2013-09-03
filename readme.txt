@@ -75,7 +75,10 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 5. screenshot-5.png
 
 == Changelog ==
-== 1.2.3 ==
+== 1.2.4 ==
+* Fixed a compatibility bug with Memphis Custom Login.
+* Removed debugging text.
+== 1.2.3 =
 * Fixed a compatibility bug with Memphis Custom Login.
 = 1.2.2 
 * Updated robots list.
