@@ -89,7 +89,9 @@ function mdoc_doc_list($current_cat) {
 				</div>
 				<div class="mdocs-clear-both"></div>
 				<h3>Description</h3>
-				<p><?php echo $mdocs_desc; ?></p>
+				<div class="mdoc-desc">
+					<?php echo $mdocs_desc; ?>
+				</div>
 				<div class="mdocs-clear-both"></div>
 				<?php mdocs_edit_file($value, $index, $current_cat); ?>
 				

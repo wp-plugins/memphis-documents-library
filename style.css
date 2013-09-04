@@ -73,6 +73,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 	font-size: 17px;
 	font-weight: bold;
 	}
+.mdoc-desc img { margin: 5px !important; padding: 0 !important; border: solid 1px #E2E2E2 !important;}
 .mdocs-container { font-family: 'Bitter', "HelveticaNeue-Light",sans-serif !important; }
 .mdocs-container h2 { margin: 5px 10px; padding:0; font-weight: normal; }
 .mdocs-nav-wrapper { padding: 0 15px 4px 0; line-height: 29px; display: block; overflow: hidden; margin: 0 !important; }
