@@ -52,8 +52,8 @@ function mdocs_post_page() {
 		$last_modified = gmdate('F jS Y \a\t g:i A',filemtime($upload_dir['basedir'].'/mdocs/'.$file)+MDOCS_TIME_OFFSET);
 		$query = new WP_Query('pagename=mdocuments-library');	
 		$permalink = get_permalink($query->post->ID);
-		if( strrchr($permalink, '?page_id=')) $mdocs_link = '/'.strrchr($permalink, '?page_id=');
-		else $mdocs_link = '/'.$query->post->post_name.'/';
+		if( strrchr($permalink, '?page_id=')) $mdocs_link = site_url().'/'.strrchr($permalink, '?page_id=');
+		else $mdocs_link = site_url().'/'.$query->post->post_name.'/';
 		$mdocs_desc = apply_filters('the_content', $post->post_excerpt);
 		?>
 		<div class="mdocs-post">
@@ -63,7 +63,9 @@ function mdocs_post_page() {
 		</div>
 		<div class="mdocs-clear-both"></div>
 		<h3>Description</h3>
-		<p><?php echo $mdocs_desc; ?></p>
+		<div class="mdoc-desc">
+			<?php echo $mdocs_desc; ?>
+		</div>
 		<div class="mdocs-clear-both"></div>
 		</div>
 		<?php
@@ -260,7 +262,8 @@ function mdocs_social_scripts() {
 function mdocs_is_bot() {
 	$upload_dir = wp_upload_dir();
 	//$bots = strip_tags(file_get_contents($upload_dir['basedir'].'/mdocs/mdocs-robots.txt'));
-	$bots = strip_tags(file_get_contents(dirname(__FILE__).'/mdocs-robots.txt'));
+	//$bots = strip_tags(file_get_contents(dirname(__FILE__).'/mdocs-robots.txt'));
+	$bots = strip_tags(file_get_contents(MDOCS_ROBOTS));
 	$bots = explode('|:::|',$bots);
 	foreach($bots as $bot) {
 		//echo $bot.'<br>';
