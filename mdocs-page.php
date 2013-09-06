@@ -1,7 +1,7 @@
 <?php
 function mdocs_page() {
 	//mdocs_update_bot_list(); 
-	//mdocs_is_bot();
+	//echo 'Is bot: '.mdocs_is_bot();
 	global $post;
 	$site_url = site_url();
 	$upload_dir = wp_upload_dir();	
@@ -31,7 +31,8 @@ function mdocs_page() {
 	foreach($mdocs as $the_mdoc) {
 		if($the_mdoc['cat'] == $current_cat) {
 			$count ++;
-			$mdocs_desc = apply_filters('the_content', $the_mdoc['desc']);
+			$mdocs_post = get_post($the_mdoc['parent']);
+			$mdocs_desc = apply_filters('the_content', $mdocs_post->post_excerpt);
 			?>
 			<div class="mdocs-post">
 				<?php mdocs_file_info($the_mdoc); ?>
@@ -40,7 +41,9 @@ function mdocs_page() {
 			</div>
 			<div class="mdocs-clear-both"></div>
 			<h3>Description</h3>
-			<p><?php echo $mdocs_desc; ?></p>
+			<div class="mdoc-desc">
+				<?php echo $mdocs_desc; ?>
+			</div>
 			<div class="mdocs-clear-both"></div>
 			</div>
 			<?php

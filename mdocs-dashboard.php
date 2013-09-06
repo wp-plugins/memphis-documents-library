@@ -3,7 +3,7 @@ function mdocs_dashboard_menu() {
 	global $add_error;
 	//MEMPHIS CUSTOM LOGIN INTEGRATION 3.0 AND HIGHER
 	$plugin_path = preg_replace('/memphis-documents-library/','',dirname(__FILE__));
-	$memphis_custom_login = (get_plugin_data($plugin_path.'memphis-wordpress-custom-login/memphis-wp-login.php'));
+	If (is_plugin_active('memphis-wordpress-custom-login/memphis-wp-login.php')) $memphis_custom_login = (get_plugin_data($plugin_path.'memphis-wordpress-custom-login/memphis-wp-login.php'));
 	$memphis_version = intval($memphis_custom_login['Version']);
 	If (!is_plugin_active('memphis-wordpress-custom-login/memphis-wp-login.php') || $memphis_version < 3) {
 		add_menu_page( __('Memphis Documents Library'), __('Memphis Docs'), 'administrator', 'memphis-documents.php', 'mdocs_dashboard', MDOC_URL.'/assets/imgs/kon.ico'  );
@@ -89,7 +89,9 @@ function mdoc_doc_list($current_cat) {
 				</div>
 				<div class="mdocs-clear-both"></div>
 				<h3>Description</h3>
-				<p><?php echo $mdocs_desc; ?></p>
+				<div class="mdoc-desc">
+					<?php echo $mdocs_desc; ?>
+				</div>
 				<div class="mdocs-clear-both"></div>
 				<?php mdocs_edit_file($value, $index, $current_cat); ?>
 				

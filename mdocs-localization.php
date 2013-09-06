@@ -16,8 +16,8 @@ function mdocs_localize() {
 	global $upload_dir, $mdocs_zip;
 	$query = new WP_Query('pagename=mdocuments-library');	
 	$permalink = get_permalink($query->post->ID);
-	if( strrchr($permalink, '?page_id=')) $mdocs_link = '/'.strrchr($permalink, '?page_id=');
-	else $mdocs_link = '/'.$query->post->post_name.'/';
+	if( strrchr($permalink, '?page_id=')) $mdocs_link = site_url().'/'.strrchr($permalink, '?page_id=');
+	else $mdocs_link = site_url().'/'.$query->post->post_name.'/';
 	define('MDOCS_ZIP_STATUS_OK',__('Memphis Documents Library has an export file on this WordPress instance it was created on '.gmdate('F jS Y \a\t g:i A',@filemtime($upload_dir['basedir'].'/mdocs/'.$mdocs_zip)+MDOCS_TIME_OFFSET).'.<br><br>Click <a href="'.$upload_dir['baseurl'].'/mdocs/'.$mdocs_zip.'" tiltle="Old Export File">here</a> to download this version of the export file.'));
 	define('MDOCS_ZIP_STATUS_FAIL',__('Memphis Documents Library has no export file on this WordPress instance.  You may want to create an export file now.'));
 	define('MDOCS_DEFAULT_DESC', __('This file is part of the Documents Library.  The Documents Library can be found by clicking this link').' <a href="'.$mdocs_link.'">'.__('Goto Documents Library').'</a>.');
