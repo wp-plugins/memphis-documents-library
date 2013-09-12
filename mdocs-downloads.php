@@ -4,6 +4,7 @@ if(isset($_GET['mdocs-version'])) mdocs_download_file($_GET['mdocs-version']);
 if(isset($_GET['mdocs-export-file'])) mdocs_download_file($_GET['mdocs-export-file']);
 
 function mdocs_download_file($export_file='') {
+	require_once(ABSPATH . 'wp-includes/pluggable.php');
 	mdocs_send_bot_alert();
 	$upload_dir = wp_upload_dir();
 	$mdocs = get_option('mdocs-list');
@@ -23,11 +24,11 @@ function mdocs_download_file($export_file='') {
 	if(isset($_GET['mdocs-export-file'])) mdocs_export_zip();
 	$file = $upload_dir['basedir']."/mdocs/".$filename;
 	if(isset($_GET['mdocs-version'])) $filename = substr($filename, 0, strrpos($filename, '-'));
-	$filetype = wp_check_filetype($file, null );
+	$filetype = wp_check_filetype($file );
 	//if(mdocs_is_bot()) mdocs_send_bot_alert();
 	if (file_exists($file) && mdocs_is_bot() == false ) {		
 		header('Content-Description: File Transfer');
-		header('Content-Type: '.$filetype);
+		header('Content-Type: '.$filetype['type']);
 		header('Content-Disposition: attachment; filename='.$filename);
 		header('Content-Transfer-Encoding: binary');
 		header('Expires: 0');
