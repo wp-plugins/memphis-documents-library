@@ -5,8 +5,8 @@ Tags: plugin,documents,memphis,bhaldie,wordpress,library,repository,files,versio
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
-Tested up to: 3.6
-Stable tag: 1.2.6
+Tested up to: 3.6.1
+Stable tag: 1.2.7
 
 A documents library for WordPress.  
 
@@ -76,6 +76,10 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 
 == Changelog ==
 
+= 1.2.8 =
+*  Fixed broken category issue.
+= 1.2.7 =
+* * fixed download error where the ability to download a file was broken.  This error occurring with the latest WordPress update 3.6.1. The fix was to include a WordPress file ' wp-includes/pluggable.php' that was removed from the WordPress master include list.
 = 1.2.6 =
 * Stylesheet changes.
 =1.2.5 =

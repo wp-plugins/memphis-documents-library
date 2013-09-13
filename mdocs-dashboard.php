@@ -162,6 +162,16 @@ function mdocs_uploader($edit_type='Add Document') {
 			</select>
 			<h3><?php _e('Version'); ?></h3>
 			<input type="text" name="mdocs-version" <?php if($edit_type=='Update Document') echo 'value="'.$mdocs[$mdoc_index]['version'].'"'; else echo 'value="1.0"'; ?> />
+			<!--
+			<h3><?php _e('Configuration Settings'); ?></h3>
+			<label>Show Social Apps: <input type="checkbox" name="mdocs-social" <?php if($edit_type=='Update Document') echo 'checked="'.$mdocs[$mdoc_index]['version'].'"'; else echo 'checked'; ?> /></label>
+			<label>: <input type="checkbox" name="mdocs-social" <?php if($edit_type=='Update Document') echo 'checked="'.$mdocs[$mdoc_index]['version'].'"'; else echo 'checked'; ?> /></label>
+			<label>Post Publish State: <select name="mdocs-post-state">
+				<option value="publish">Published</option>
+				<option value="pending">Pending Review</option>
+				<option value="draft">Draft</option>
+			</select></label>
+			-->
 			<h3><?php _e('Description'); ?></h3>
 			<?php wp_editor($mdocs_desc, "mdocs-desc", array('media_buttons'=>false)); ?><br>
 			<?php if($edit_type=='Update Document') { ?>

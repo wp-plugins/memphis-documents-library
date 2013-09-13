@@ -11,8 +11,10 @@ function mdocs_page() {
 	elseif(!is_string($cats)) $current_cat = key($cats);
 	
 	$permalink = get_permalink($post->ID);
-	if(preg_match('/\?page_id=/',$permalink)) $mdocs_get = $_SERVER['REQUEST_URI'].'&cat=';
-	else $mdocs_get = '?cat=';
+	if(preg_match('/\?page_id=/',$permalink)) {
+		$explode = explode('&',$_SERVER['REQUEST_URI']);
+		$mdocs_get = site_url().$explode[0].'&cat=';
+	} else $mdocs_get = $permalink.'?cat=';
 ?>
 <div class="mdocs-container">	
 	<h2 class="mdocs-nav-wrapper">
@@ -21,7 +23,7 @@ function mdocs_page() {
 		if(!empty($cats)) {
 			foreach( $cats as $cat => $name ){
 				$class = ( $cat == $current_cat ) ? ' mdocs-nav-tab-active' : '';
-				echo "<a class='mdocs-nav-tab$class' href='$mdocs_get$cat'>$name<hr /></a>";
+				echo '<a class="mdocs-nav-tab'.$class.'" href="'.$mdocs_get.$cat.'">'.$name.'<hr /></a>';
 			}
 		}
 		?>
