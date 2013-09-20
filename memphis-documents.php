@@ -34,6 +34,7 @@ include 'mdocs-upload.php';
 include 'mdocs-categories.php';
 include 'mdocs-downloads.php';
 include 'mdocs-versions.php';
+include 'mdocs-settings-page.php';
 include 'mdocs-localization.php';
 mdocs_nonce();
 add_action('admin_menu', 'mdocs_dashboard_menu');

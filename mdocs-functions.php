@@ -5,10 +5,18 @@ function mdocs_file_info($the_mdoc) {
 	$the_post = get_post($the_mdoc['parent']);
 	$post_date = strtotime($the_post->post_date);
 	$last_modified = gmdate('F jS Y \a\t g:i A',$post_date+MDOCS_TIME_OFFSET);
+	$user_logged_in = is_user_logged_in();
+	if($the_mdoc['post_status_sys'] == 'private') $post_status = $the_mdoc['post_status_sys'];
+	else $post_status = $the_mdoc['post_status'];
+	//var_dump(is_admin());
 	?>
 	<div class="mdocs-post-button-box">
 		<h2><a href="<?php echo $the_mdoc_permalink; ?>" title="<?php echo $the_mdoc['name']; ?> "><?php echo $the_mdoc['name']; ?></a>
+		<?php if($the_mdoc['non_members'] == 'on' || $user_logged_in) { ?>
 		<input type="button" onclick="mdocs_download_file('<?php echo $the_mdoc['id']; ?>');" class="mdocs-download-btn" value="<?php echo __('Download'); ?>"</h2>
+		<?php } else { ?>
+			<div class="mdocs-login-msg"><?php _e('Please login<br>to download this file'); ?></div>
+		<?php } ?>
 	</div>
 	<div class="mdocs-post-file-info">
 		<!--<p><i class="icon-star"></i> 4.4 Stars (102)</p>-->
@@ -16,6 +24,10 @@ function mdocs_file_info($the_mdoc) {
 		<p><i class="icon-pencil"></i> <?php _e('Author'); ?>: <i class="mdocs-green"><?php echo $the_mdoc['owner']; ?></i></p>
 		<p><i class="icon-off"></i> <?php _e('Version') ?>:  <b class="mdocs-blue"><?php echo $the_mdoc['version']; ?></b></p>
 		<p><i class="icon-calendar"></i> <?php _e('Last Updated'); ?>: <b class="mdocs-red"><?php echo $last_modified; ?></b></p>
+		<?php if(is_admin()) { ?>
+		<p><i class="icon-file "></i> <?php echo __('File Status').': <b class="mdocs-olive">'.strtoupper($the_mdoc['file_status']).'</b>'; ?></p>
+		<p><i class="icon-file-text"></i> <?php echo __('Post Status').': <b class="mdocs-salmon">'.strtoupper($post_status).'</b>'; ?></p>
+		<?php } ?>
 	</div>
 <?php
 }
@@ -101,6 +113,7 @@ function mdocs_process_file($file, $import=false) {
 	$mdocs_type = $_POST['mdocs-type'];
 	if($_POST['mdocs-desc'] == '') $desc = MDOCS_DEFAULT_DESC;
 	else $desc = $_POST['mdocs-desc'];
+	$post_status = $file['post-status'];
 	if($import) $desc = $file['desc'];
 	$upload_dir = wp_upload_dir();
 	if($import == false) {
@@ -125,7 +138,7 @@ function mdocs_process_file($file, $import=false) {
 	if($mdocs_type == 'mdocs-add' || $import == true) {
 		$mdocs_post = array(
 			'post_title' => $upload['name'],
-			'post_status' => 'publish',
+			'post_status' => $post_status,
 			'post_content' => '[mdocs_post_page]',
 			'post_author' => $current_user->ID,
 			'post_category' => array($mdocs_post_cat->cat_ID),
@@ -151,13 +164,14 @@ function mdocs_process_file($file, $import=false) {
 		$mdocs_post = array(
 			'ID' => $file['parent'],
 			'post_title' => $upload['name'],
-			'post_status' => 'publish',
+			'post_status' =>$post_status,
 			'post_content' => '[mdocs_post_page]',
 			'post_author' => $current_user->ID,
 			'post_category' => array($mdocs_post_cat->cat_ID),
 			'post_excerpt' => $desc,
 			'post_date' => gmdate('Y-m-d H:i:s', time()),
 		);
+		var_dump($mdocs_post);
 		$mdocs_post_id = wp_update_post( $mdocs_post );
 		$attachment = array(
 			'ID' => $file['id'],
@@ -228,12 +242,20 @@ function mdocs_errors($error, $type='updated') {
 function mdocs_social($the_mdoc) {
 	?>
 	<div class="mdocs-social"  id="mdocs-social-<?php echo $the_mdoc['id']; ?>">
+	<?php if($the_mdoc['show_social'] ==='on' && $the_mdoc['non_members'] === 'on') { ?>
 		<div class="mdocs-share" onclick="mdocs_share('<?php echo site_url().'/?mdocs-file='.$the_mdoc['id']; ?>', 'mdocs-social-<?php echo $the_mdoc['id']; ?>');"><p><i class="icon-share-sign mdocs-green"></i> Share</p></div>
 		<div class="mdocs-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>" data-counturl="<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>" data-text="<?php echo __('Download').' #'.strtolower(preg_replace('/-| /','_',$the_mdoc['name'])).' #MemphisDocumentsLibrary'; ?>" width="50">Tweet</a></div>
 		<div class="mdocs-like"><iframe src="//www.facebook.com/plugins/like.php?href=<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>&amp;width=450&amp;height=21&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe></div>
-		<div class="mdocs-plusone"><div class="g-plusone" data-size="medium" data-href="<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>"</div></div>
+		<div class="mdocs-plusone" ><div class="g-plusone" data-size="medium" data-href="<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>"</div></div>
 	</div>
 	<?php
+	} elseif ($the_mdoc['show_social'] ==='on' && $the_mdoc['non_members'] === '' && is_user_logged_in()) { ?>
+		 <div class="mdocs-share" onclick="mdocs_share('<?php echo site_url().'/?mdocs-file='.$the_mdoc['id']; ?>', 'mdocs-social-<?php echo $the_mdoc['id']; ?>');"><p><i class="icon-share-sign mdocs-green"></i> Share</p></div>
+		<div class="mdocs-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>" data-counturl="<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>" data-text="<?php echo __('Download').' #'.strtolower(preg_replace('/-| /','_',$the_mdoc['name'])).' #MemphisDocumentsLibrary'; ?>" width="50">Tweet</a></div>
+		<div class="mdocs-like"><iframe src="//www.facebook.com/plugins/like.php?href=<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>&amp;width=450&amp;height=21&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe></div>
+		<div class="mdocs-plusone" ><div class="g-plusone" data-size="medium" data-href="<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>"</div></div>
+	</div>
+	<?php } elseif($the_mdoc['show_social'] ==='on' && is_user_logged_in() == false) _e('You must be logged in to share this file.');
 }
 
 function mdocs_social_scripts() {
@@ -261,17 +283,15 @@ function mdocs_social_scripts() {
 }
 function mdocs_is_bot() {
 	$upload_dir = wp_upload_dir();
-	//$bots = strip_tags(file_get_contents($upload_dir['basedir'].'/mdocs/mdocs-robots.txt'));
-	//$bots = strip_tags(file_get_contents(dirname(__FILE__).'/mdocs-robots.txt'));
 	$bots = strip_tags(file_get_contents(MDOCS_ROBOTS));
 	$bots = explode('|:::|',$bots);
 	foreach($bots as $bot) {
-		//echo $bot.'<br>';
         if ( stripos($_SERVER['HTTP_USER_AGENT'], $bot) !== false ) return true;
     }
 	return false;
 }
 
+/* RETIRED FUNCTIONS 
 function mdocs_update_bot_list() {
 	$upload_dir = wp_upload_dir();
 	$bots = strip_tags(file_get_contents('http://www.robotstxt.org/db.html'));
@@ -302,11 +322,12 @@ function mdocs_add_bots($bots) {
 	return $bots;
 }
 function string_length_less_than_one($var) { if(strlen($var) > 1) return str_replace(array('.', ' ', "\n", "\t", "\r"), '', $var); }
+*/
 
 function mdocs_send_bot_alert() {
 	$to      = 'ian@howatson.net';
 	$subject = 'Bot Alert';
-	$message = 'User Agent Info: '.$_SERVER['HTTP_USER_AGENT']."\r\nIs this a bot: ".mdocs_is_bot();
+	$message = 'User Agent Info: '.$_SERVER['HTTP_USER_AGENT']."\r\nIs this a bot: ".mdocs_is_bot()."\r\nSite URL: ".site_url();
 	$headers = 'From: '.get_bloginfo('admin_email') . "\r\n" .
 		'Reply-To: '.get_bloginfo('admin_email') . "\r\n" .
 		'X-Mailer: PHP/' . phpversion();

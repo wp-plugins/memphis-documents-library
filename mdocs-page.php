@@ -32,23 +32,26 @@ function mdocs_page() {
 	$count = 0;
 	foreach($mdocs as $the_mdoc) {
 		if($the_mdoc['cat'] == $current_cat) {
-			$count ++;
-			$mdocs_post = get_post($the_mdoc['parent']);
-			$mdocs_desc = apply_filters('the_content', $mdocs_post->post_excerpt);
-			?>
-			<div class="mdocs-post">
-				<?php mdocs_file_info($the_mdoc); ?>
+			if($the_mdoc['file_status'] == 'public' ) {
+				$count ++;
+				$mdocs_post = get_post($the_mdoc['parent']);
+				$mdocs_desc = apply_filters('the_content', $mdocs_post->post_excerpt);
+			
+				?>
+				<div class="mdocs-post">
+					<?php mdocs_file_info($the_mdoc); ?>
+					<div class="mdocs-clear-both"></div>
+					<?php mdocs_social($the_mdoc); ?>
+				</div>
 				<div class="mdocs-clear-both"></div>
-				<?php mdocs_social($the_mdoc); ?>
-			</div>
-			<div class="mdocs-clear-both"></div>
-			<h3>Description</h3>
-			<div class="mdoc-desc">
-				<?php echo $mdocs_desc; ?>
-			</div>
-			<div class="mdocs-clear-both"></div>
-			</div>
-			<?php
+				<h3>Description</h3>
+				<div class="mdoc-desc">
+					<?php echo $mdocs_desc; ?>
+				</div>
+				<div class="mdocs-clear-both"></div>
+				</div>
+				<?php
+			}
 		} 
 	}
 	if($count == 0) {
