@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 3.6.1
-Stable tag: 1.3
+Stable tag: 1.3.1
 
 A documents library for WordPress.  
 
@@ -76,6 +76,8 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 
 == Changelog ==
 
+= 1.3.1 =
+* small bug fixs
 = 1.3 =
 * Added the ability to disable social apps
 * Added the ability to only allow members to download file

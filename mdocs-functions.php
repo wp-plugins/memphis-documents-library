@@ -171,7 +171,7 @@ function mdocs_process_file($file, $import=false) {
 			'post_excerpt' => $desc,
 			'post_date' => gmdate('Y-m-d H:i:s', time()),
 		);
-		var_dump($mdocs_post);
+		//var_dump($mdocs_post);
 		$mdocs_post_id = wp_update_post( $mdocs_post );
 		$attachment = array(
 			'ID' => $file['id'],
