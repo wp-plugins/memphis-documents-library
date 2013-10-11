@@ -1,4 +1,8 @@
-function mdocs_admin(plugin_url) {	
+var toggle_share = false;
+function mdocs_admin(plugin_url) {
+	//INITIALIZE IRIS COLOR PICKER
+	//jQuery('.mdocs-color-picker').wpColorPicker();
+	
 	var cat_index = parseInt(jQuery('input[name$="[order]"]').last().prop('value'))+1;
 	if (isNaN(cat_index)) cat_index = 1;
 	jQuery('#mdocs-add-cat').click(function(event) {
@@ -32,7 +36,10 @@ function mdocs_admin(plugin_url) {
 			jQuery('[name="mdocs-cats['+cat+'][remove]"]').prop('value',1);
 			jQuery('#mdocs-cats').submit();
 		}
-		
+	});
+	jQuery('#mdocs-file-status').change(function() {
+		if (jQuery(this).val() == 'hidden') jQuery('#mdocs-post-status').prop('disabled','true');
+		else if (jQuery(this).val() == 'public') jQuery('#mdocs-post-status').removeAttr('disabled');
 	});
 }
 function mdocs_set_onleave() { window.onbeforeunload = function() { return mdocs_js.leave_page;}; }
@@ -47,6 +54,13 @@ function mdocs_delete_version(version_file, index, category, nonce) {
 }
 function mdocs_download_file(mdocs_file) { window.location.href = '?mdocs-file='+mdocs_file; }
 function mdocs_share(mdocs_link,the_id) {
-	jQuery('#'+the_id+' .mdocs-share-link').remove();
-	jQuery('#'+the_id).append('<div class="mdocs-share-link">'+mdocs_link+"</div>");
+	if (toggle_share == false) {
+		jQuery('#'+the_id+' .mdocs-share-link').remove();
+		jQuery('#'+the_id).append('<div class="mdocs-share-link">'+mdocs_link+"</div>");
+		toggle_share = true;
+	} else {
+		jQuery('#'+the_id+' .mdocs-share-link').remove();
+		toggle_share = false;
+	}
+	
 }
