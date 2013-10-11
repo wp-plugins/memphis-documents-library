@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Memphis Documents Library v1.0\n"
-"POT-Creation-Date: 2013-09-20 13:04-0500\n"
-"PO-Revision-Date: 2013-09-20 13:04-0500\n"
+"POT-Creation-Date: 2013-10-11 10:16-0500\n"
+"PO-Revision-Date: 2013-10-11 10:16-0500\n"
 "Last-Translator: Ian Howatson <ian@howatson.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -82,7 +82,7 @@ msgid "Export"
 msgstr ""
 
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-dashboard.php:112
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-page.php:58
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-page.php:60
 msgid "No files found in this category."
 msgstr ""
 

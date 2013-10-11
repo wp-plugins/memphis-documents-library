@@ -11,10 +11,12 @@ function mdocs_page() {
 	elseif(!is_string($cats)) $current_cat = key($cats);
 	
 	$permalink = get_permalink($post->ID);
-	if(preg_match('/\?page_id=/',$permalink)) {
-		$explode = explode('&',$_SERVER['REQUEST_URI']);
-		$mdocs_get = site_url().$explode[0].'&cat=';
+	if(preg_match('/\?page_id=/',$permalink) || preg_match('/\?p=/',$permalink)) {
+		//$explode = explode('&',$_SERVER['REQUEST_URI']);
+		//$mdocs_get = site_url().$explode[0].'&cat=';
+		$mdocs_get = $permalink.'&cat=';
 	} else $mdocs_get = $permalink.'?cat=';
+	
 ?>
 <div class="mdocs-container">	
 	<h2 class="mdocs-nav-wrapper">
