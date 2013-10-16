@@ -12,7 +12,8 @@ $add_error = false;
 function mdocs_register_settings() {
 	//CREATE REPOSITORY DIRECTORY
 	$upload_dir = wp_upload_dir();
-	if(!is_dir($upload_dir['basedir'].'/mdocs/')) mkdir($upload_dir['basedir'].'/mdocs/');
+	if(!is_dir($upload_dir['basedir'].'/mdocs/') && $upload_dir['error'] === false) mkdir($upload_dir['basedir'].'/mdocs/');
+	elseif(!is_dir($upload_dir['basedir'].'/mdocs/') && $upload_dir['error'] !== false) mdocs_errors(__('Unable to create the directory "mdocs" which is needed by Memphis Documents Library. Is its parent directory writable by the server?'),'error');
 	//CREATE MDOCS POST CATEGORY
 	if(get_category_by_slug( 'mdocs_media' ) == false) wp_create_category('mdocs-media');
 	//CREATE MDOCS PAGE
@@ -47,22 +48,26 @@ add_shortcode( 'mdocs', 'mdocs_shortcode' );
 function mdocs_post_page_shortcode($att, $content=null) { mdocs_post_page(); }
 add_shortcode( 'mdocs_post_page', 'mdocs_post_page_shortcode' );
 function mdocs_admin_script() {
-	wp_register_style( 'mdocs-admin-style', MDOC_URL.'/style.css');
+	wp_register_style( 'mdocs-admin-style', MDOC_URL.'/style.php');
 	wp_enqueue_style( 'mdocs-admin-style' );
 	wp_register_script( 'mdocs-admin-script', MDOC_URL.'/mdocs-script.js');
 	wp_enqueue_script('mdocs-admin-script');
 	//FONT-AWESOME STYLE
-	//wp_register_style( 'mdocs-font-awesome1-style', '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css');
-	//wp_enqueue_style( 'mdocs-font-awesome1-style' );
 	wp_register_style( 'mdocs-font-awesome2-style', '//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css');
 	wp_enqueue_style( 'mdocs-font-awesome2-style' );
+	//WORDPRESS IRIS COLOR PICKER
+	wp_enqueue_style( 'wp-color-picker' );
+    wp_enqueue_script( 'mdocs-color-picker', plugins_url('mdocs-script.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
+	
+	
 	mdocs_js_handle();
 }
 
 function mdocs_script() {
+	wp_enqueue_script("jquery");
 	wp_register_script( 'mdocs-script', MDOC_URL.'/mdocs-script.js');
 	wp_enqueue_script('mdocs-script');
-	wp_register_style( 'mdocs-style', MDOC_URL.'/style.css');
+	wp_register_style( 'mdocs-style', MDOC_URL.'/style.php');
 	wp_enqueue_style( 'mdocs-style' );
 	//FONT-AWESOME STYLE
 	//wp_register_style( 'mdocs-font-awesome1-style', '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css');
