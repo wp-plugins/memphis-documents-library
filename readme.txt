@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 3.6.1
-Stable tag: 1.4
+Stable tag: 1.3.2
 
 A documents library for WordPress.  
 
@@ -76,9 +76,6 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 
 == Changelog ==
 
-= 1.4 =
-* Changed the why sharing works.  Now you share the page that the file is on not the file itself.
-* minor bug fixes.
 = 1.3.2 =
 * fixed permalink bug where the default setting would cause errors when trying to move from one category to another.
 = 1.3.1 =

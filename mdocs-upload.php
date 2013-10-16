@@ -77,7 +77,6 @@ function mdocs_file_upload() {
 						$_FILES['mdocs']['name'] = $filename;
 						$_FILES['mdocs']['parent'] = $old_doc['parent'];
 						$_FILES['mdocs']['id'] = $old_doc['id'];
-						$_FILES['mdocs']['post-status'] = $mdocs_post_status;
 						$upload = mdocs_process_file($_FILES['mdocs']);
 						if($upload['error'] == '') {
 							//$new_version = floatval($mdocs_version)+floatval($mdocs[$mdocs_index]['version']);

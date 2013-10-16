@@ -50,8 +50,8 @@ header("Content-type: text/css; charset: UTF-8");
 .mdocs-tweet { float: left; height: 20px; width: 90px; }
 .mdocs-like { float: left; height: 20px;  width: 90px;}
 .mdocs-plusone { float: left; width: 70px !important; height: 22px; }
-.mdocs-share { float: left; margin: 0 10px 0 0; cursor: pointer; }
-.mdocs-share p { width: 60px !important; border: solid 1px #CCC; background: #F8F8F8; border-radius: 5px; margin: 0 0 0 5px !important; padding: 1px 3px !important; font-size: 11px !important; font-weight: bold; background: rgb(252,252,252); /* Old browsers */
+.mdocs-share { float: left; margin: 0 10px 0 0; height: 20px !important; cursor: pointer; }
+.mdocs-share p { height: 20px; width: 70px !important; border: solid 1px #CCC; background: #F8F8F8; border-radius: 5px; margin: 0 0 0 5px !important; padding: 1px 3px !important; font-size: 11px !important; font-weight: bold; background: rgb(252,252,252); /* Old browsers */
 	background: #fcfcfc; /* Old browsers */
 	background: -moz-linear-gradient(top,  #fcfcfc 0%, #dbdbdb 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fcfcfc), color-stop(100%,#dbdbdb)); /* Chrome,Safari4+ */
@@ -60,16 +60,6 @@ header("Content-type: text/css; charset: UTF-8");
 	background: -ms-linear-gradient(top,  #fcfcfc 0%,#dbdbdb 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  #fcfcfc 0%,#dbdbdb 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#dbdbdb',GradientType=0 ); /* IE6-9 */
-
- }
- .mdocs-share p:hover { background: rgb(238,238,238); /* Old browsers */
-background: -moz-linear-gradient(top,  rgba(238,238,238,1) 0%, rgba(224,224,224,1) 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(238,238,238,1)), color-stop(100%,rgba(224,224,224,1))); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(224,224,224,1) 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(224,224,224,1) 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(224,224,224,1) 100%); /* IE10+ */
-background: linear-gradient(to bottom,  rgba(238,238,238,1) 0%,rgba(224,224,224,1) 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#e0e0e0',GradientType=0 ); /* IE6-9 */
 
  }
 .mdocs-share-link { clear: both; 
@@ -85,8 +75,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdoc-desc img { margin: 5px !important; padding: 0 !important; border: solid 1px #E2E2E2 !important;}
 .mdocs-container { font-family: 'Bitter', "HelveticaNeue-Light",sans-serif !important; }
 .mdocs-container h2 { margin: 5px 10px; padding:0; font-weight: normal; }
-.mdocs-nav-wrapper { padding: 0 15px 0px 0 !important; line-height: 29px; display: block; overflow: hidden; margin: 0 !important; }
-.mdocs-nav-tab { font-family: 'Bitter', "HelveticaNeue-Light",sans-serif !important; font-weight: normal !important; font-size: 20px !important; background: #e7e7e7; font-size: 20px; border-top:  solid 1px #DCDCDC !important; border-left:  solid 1px #DCDCDC; border-right:  solid 1px #DCDCDC; line-height: 24px; display: inline-block; padding: 4px 10px 6px; margin: 4px 2px 0px 2px !important; border-radius: 3px 3px 0 0; text-decoration: none; color: #AAA !important; text-shadow: none !important; white-space:nowrap !important; }
+.mdocs-nav-wrapper { padding: 0 15px 4px 0; line-height: 29px; display: block; overflow: hidden; margin: 0 !important; }
+.mdocs-nav-tab { font-family: 'Bitter', "HelveticaNeue-Light",sans-serif !important; font-weight: normal !important; font-size: 20px !important; background: #e7e7e7; font-size: 20px; border-top:  solid 1px #DCDCDC !important; border-left:  solid 1px #DCDCDC; border-right:  solid 1px #DCDCDC; line-height: 24px; display: inline-block; padding: 4px 10px 6px; margin: 4px 2px -1px 2px !important; border-radius: 3px 3px 0 0; text-decoration: none; color: #AAA !important; text-shadow: none !important; white-space:nowrap !important; }
 .mdocs-nav-tab:link, .mdocs-nav-tab:visited { color: #CCC; } 
 .mdocs-nav-tab:hover { color: #FFBF40 !important; border-top:  solid 1px #DCDCDC !important; border-left:  solid 1px #DCDCDC !important; border-right:  solid 1px #DCDCDC !important;}
 .mdocs-nav-tab-active { color: #086FA1 !important; background: #fff !important;  }
