@@ -8,7 +8,11 @@ function mdocs_file_info($the_mdoc) {
 	$user_logged_in = is_user_logged_in();
 	if($the_mdoc['post_status_sys'] == 'private') $post_status = $the_mdoc['post_status_sys'];
 	else $post_status = $the_mdoc['post_status'];
-	//var_dump(is_admin());
+	$permalink = get_permalink($post->ID);
+	if(preg_match('/\?page_id=/',$permalink) || preg_match('/\?p=/',$permalink)) {
+		$mdocs_get = $permalink.'&cat=';
+	} else $mdocs_get = $permalink.'?cat=';
+	var_dump($_SERVER['REQUEST_URI']);
 	?>
 	<div class="mdocs-post-button-box">
 		<h2><a href="<?php echo $the_mdoc_permalink; ?>" title="<?php echo $the_mdoc['name']; ?> "><?php echo $the_mdoc['name']; ?></a>
@@ -22,7 +26,7 @@ function mdocs_file_info($the_mdoc) {
 		<!--<p><i class="icon-star"></i> 4.4 Stars (102)</p>-->
 		<p class="mdocs-file-info"><i class="icon-cloud-download"></i> <b class="mdocs-orange"><?php echo $the_mdoc['downloads'].' '.__('Downloads'); ?></b></p>
 		<p><i class="icon-pencil"></i> <?php _e('Author'); ?>: <i class="mdocs-green"><?php echo $the_mdoc['owner']; ?></i></p>
-		<p><i class="icon-off"></i> <?php _e('Version') ?>:  <b class="mdocs-blue"><?php echo $the_mdoc['version']; ?></b></p>
+		<p><i class="icon-off"></i> <?php _e('Version') ?>:  <b class="mdocs-blue"><?php echo $the_mdoc['version']; ?></b> <a href="<?php echo $the_mdoc_permalink.'&cat='.$current_cat.'&mdocs-index='.$index; ?>&action=mdocs-versions">[ View More Versions ]</a></p>
 		<p><i class="icon-calendar"></i> <?php _e('Last Updated'); ?>: <b class="mdocs-red"><?php echo $last_modified; ?></b></p>
 		<?php if(is_admin()) { ?>
 		<p><i class="icon-file "></i> <?php echo __('File Status').': <b class="mdocs-olive">'.strtoupper($the_mdoc['file_status']).'</b>'; ?></p>
@@ -240,22 +244,17 @@ function mdocs_errors($error, $type='updated') {
 }
 
 function mdocs_social($the_mdoc) {
+	$the_permalink = get_permalink($the_mdoc['parent']);
 	?>
 	<div class="mdocs-social"  id="mdocs-social-<?php echo $the_mdoc['id']; ?>">
-	<?php if($the_mdoc['show_social'] ==='on' && $the_mdoc['non_members'] === 'on') { ?>
-		<div class="mdocs-share" onclick="mdocs_share('<?php echo site_url().'/?mdocs-file='.$the_mdoc['id']; ?>', 'mdocs-social-<?php echo $the_mdoc['id']; ?>');"><p><i class="icon-share-sign mdocs-green"></i> Share</p></div>
-		<div class="mdocs-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>" data-counturl="<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>" data-text="<?php echo __('Download').' #'.strtolower(preg_replace('/-| /','_',$the_mdoc['name'])).' #MemphisDocumentsLibrary'; ?>" width="50">Tweet</a></div>
-		<div class="mdocs-like"><iframe src="//www.facebook.com/plugins/like.php?href=<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>&amp;width=450&amp;height=21&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe></div>
-		<div class="mdocs-plusone" ><div class="g-plusone" data-size="medium" data-href="<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>"</div></div>
+		<div class="mdocs-share" onclick="mdocs_share('<?php echo $the_permalink; ?>', 'mdocs-social-<?php echo $the_mdoc['id']; ?>');"><p><i class="icon-share-sign mdocs-green"></i> Share</p></div>
+	<?php if($the_mdoc['show_social'] ==='on' ) { ?>
+		<div class="mdocs-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo $the_permalink;?>" data-counturl="<?php echo $the_permalink;?>" data-text="<?php echo __('Download').' #'.strtolower(preg_replace('/-| /','_',$the_mdoc['name'])).' #MemphisDocumentsLibrary'; ?>" width="50">Tweet</a></div>
+		<div class="mdocs-like"><iframe src="//www.facebook.com/plugins/like.php?href=<?php echo $the_permalink;?>&amp;width=450&amp;height=21&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe></div>
+		<div class="mdocs-plusone" ><div class="g-plusone" data-size="medium" data-href="<?php echo $the_permalink;?>"</div></div>
 	</div>
 	<?php
-	} elseif ($the_mdoc['show_social'] ==='on' && $the_mdoc['non_members'] === '' && is_user_logged_in()) { ?>
-		 <div class="mdocs-share" onclick="mdocs_share('<?php echo site_url().'/?mdocs-file='.$the_mdoc['id']; ?>', 'mdocs-social-<?php echo $the_mdoc['id']; ?>');"><p><i class="icon-share-sign mdocs-green"></i> Share</p></div>
-		<div class="mdocs-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>" data-counturl="<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>" data-text="<?php echo __('Download').' #'.strtolower(preg_replace('/-| /','_',$the_mdoc['name'])).' #MemphisDocumentsLibrary'; ?>" width="50">Tweet</a></div>
-		<div class="mdocs-like"><iframe src="//www.facebook.com/plugins/like.php?href=<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>&amp;width=450&amp;height=21&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe></div>
-		<div class="mdocs-plusone" ><div class="g-plusone" data-size="medium" data-href="<?php echo site_url().'/?mdocs-file='.$the_mdoc['id'];?>"</div></div>
-	</div>
-	<?php } elseif($the_mdoc['show_social'] ==='on' && is_user_logged_in() == false) _e('You must be logged in to share this file.');
+	} 
 }
 
 function mdocs_social_scripts() {

@@ -47,7 +47,15 @@
 .mdocs-like { float: left; height: 20px;  width: 90px;}
 .mdocs-plusone { float: left; width: 70px !important; height: 22px; }
 .mdocs-share { float: left; margin: 0 10px 0 0; height: 20px !important; cursor: pointer; }
-.mdocs-share p { height: 20px; width: 70px !important; border: solid 1px #CCC; background: #F8F8F8; border-radius: 5px; margin: 0 0 0 5px !important; padding: 1px 3px !important; font-size: 11px !important; font-weight: bold; background: rgb(252,252,252); /* Old browsers */
+.mdocs-share p { height: 20px !important; width: 70px !important;
+border: solid 1px #CCC;
+background: #F8F8F8;
+border-radius: 5px;
+margin: 0 0 0 5px !important;
+padding: 1px 3px !important;
+font-size: 11px !important;
+font-weight: bold;
+background: rgb(252,252,252); /* Old browsers */
 background: -moz-linear-gradient(top,  rgba(252,252,252,1) 32%, rgba(219,219,219,1) 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(32%,rgba(252,252,252,1)), color-stop(100%,rgba(219,219,219,1))); /* Chrome,Safari4+ */
 background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 32%,rgba(219,219,219,1) 100%); /* Chrome10+,Safari5.1+ */
