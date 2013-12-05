@@ -1,7 +1,59 @@
 var toggle_share = false;
+function mdocs_wp(plugin_url) {
+	//JQUERY UI TOOLTIP INIT
+	jQuery(function () {
+		jQuery('.mdocs-tooltip' ).tooltip({ content: function () { return jQuery(this).prop('title'); }});
+	});
+}
 function mdocs_admin(plugin_url) {
+	//JQUERY UI TOOLTIP INIT
+	jQuery(function () {
+		jQuery('.mdocs-tooltip' ).tooltip({ content: function () { return jQuery(this).prop('title'); }});
+	});
 	//INITIALIZE IRIS COLOR PICKER
-	//jQuery('.mdocs-color-picker').wpColorPicker();
+	var color_options = {
+		change: function(event, ui) {
+			jQuery('.mdocs-download-btn-config').css("background-color", ui.color.toString());
+		}
+	}
+	jQuery('.mdocs-color-picker').wpColorPicker(color_options);
+	
+	mdocs_toogle_disable_setting('#mdocs-hide-all-files','#mdocs-hide-all-files-non-members');
+	mdocs_toogle_disable_setting('#mdocs-hide-all-files-non-members','#mdocs-hide-all-files');
+	mdocs_toogle_disable_setting('#mdocs-hide-all-posts','#mdocs-hide-all-posts-non-members');
+	mdocs_toogle_disable_setting('#mdocs-hide-all-posts-non-members','#mdocs-hide-all-posts');
+	
+	/*
+	jQuery('#download-normal').iris({
+		hide: false,
+		toggle: true,
+		change: function(event, ui) {
+			// event = standard jQuery event, produced by whichever control was changed.
+			// ui = standard jQuery UI object, with a color member containing a Color.js object
+	
+			// change the headline color
+			jQuery('#help').css( 'color', ui.color.toString());
+		}
+	});
+	*/
+	jQuery('.mdocs-show-social').click(function() {
+		if (jQuery(this).hasClass('icon-plus-sign-alt')) {
+			jQuery(this).removeClass('icon-plus-sign-alt');
+			jQuery(this).addClass('icon-minus-sign-alt');
+			var raw_id = jQuery(this).prop('id');
+		raw_id = raw_id.split("-");
+		var id = raw_id[raw_id.length-1];
+		jQuery('#mdocs-social-index-'+id).show();
+		} else {
+			jQuery(this).removeClass('icon-minus-sign-alt');
+			jQuery(this).addClass('icon-plus-sign-alt');
+			var raw_id = jQuery(this).prop('id');
+		raw_id = raw_id.split("-");
+		var id = raw_id[raw_id.length-1];
+		jQuery('#mdocs-social-index-'+id).hide();
+		}
+		
+	});
 	
 	var cat_index = parseInt(jQuery('input[name$="[order]"]').last().prop('value'))+1;
 	if (isNaN(cat_index)) cat_index = 1;
@@ -63,4 +115,15 @@ function mdocs_share(mdocs_link,the_id) {
 		toggle_share = false;
 	}
 	
+}
+
+function mdocs_toogle_disable_setting(main, disable) {
+	var checked = jQuery(main).prop('checked');
+	if (checked) jQuery(disable).prop('disabled', true);
+	else jQuery(disable).prop('disabled', false);
+	jQuery(main).click(function() {
+		var checked = jQuery(this).prop('checked');
+		if (checked) jQuery(disable).prop('disabled', true);
+		else jQuery(disable).prop('disabled', false);
+	});
 }

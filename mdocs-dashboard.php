@@ -40,22 +40,16 @@ function mdocs_dashboard_view() {
 	if(isset($_GET['cat'])) $current_cat = $_GET['cat'];
 	elseif(!is_string($cats)) $current_cat = key($cats);
 	?>
-	<script type="application/x-javascript">
-		jQuery( document ).ready(function() {
-			mdocs_admin('<?php echo MDOC_URL; ?>');
-		});	
-	</script>
 	<div class="wrap">
 		<?php if($message != "" && $type != 'update') { ?> <div id="message" class="error" ><p><?php _e($message); ?></p></div> <?php }?>
 		<div id="icon-mdocs" class="icon32"><br></div><h2><?php _e("Documents Library"); ?>
 		
 		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=<?php echo $current_cat; ?>&action=add-doc" class="mdocs-grey-btn"><?php _e('Add New Document'); ?></a><?php } ?>
 		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=cats" class="mdocs-grey-btn"><?php _e('Edit Categories'); ?></a><?php } ?>
-		<!--
+		
 		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=settings" class="mdocs-grey-btn"><?php _e('Settings'); ?></a>
-		-->
+		
 		</h2><?php } ?>
-	
 		<div id="icon-edit-pages" class="icon32"><br></div>
 		<h2 class="nav-tab-wrapper">
 		<?php
@@ -80,47 +74,63 @@ function mdocs_dashboard_view() {
 }
 
 function mdoc_doc_list($current_cat) {
-	$mdocs = get_option('mdocs-list');
-	$upload_dir = wp_upload_dir();	
-	$bgcolor = "active";
-	$count = 0;
-	echo 	'<br>';
-	foreach($mdocs as $index => $value) {
-		if($mdocs[$index]['cat'] == $current_cat) {
-			$count++;
-			$mdocs_post = get_post($mdocs[$index]['parent']);
-			$mdocs_desc = apply_filters('the_content', $mdocs_post->post_excerpt);
-			?>
-				<div class="mdocs-post">
-					<?php mdocs_file_info($value); ?>
-					<div class="mdocs-clear-both"></div>
-					<?php mdocs_social($value); ?>
-				</div>
-				<div class="mdocs-clear-both"></div>
-				<h3>Description</h3>
-				<div class="mdoc-desc">
-					<?php echo $mdocs_desc; ?>
-				</div>
-				<div class="mdocs-clear-both"></div>
-				<?php mdocs_edit_file($value, $index, $current_cat); ?>
+	$is_read_write = mdocs_check_read_write();
+	if($is_read_write) {
+		$mdocs = get_option('mdocs-list');
+		$mdocs = mdocs_sort_by($mdocs, 5, 'dashboard');
+		$upload_dir = wp_upload_dir();	
+		$bgcolor = "active";
+		$count = 0;
+		echo 	'<br><br><br>';
+		$list_type = get_option('mdocs-list-type-dashboard');
+		if($list_type == 'small') echo '<table class="mdocs-list-table">';
+		foreach($mdocs as $index => $value) {
+			if($mdocs[$index]['cat'] == $current_cat) {
+				$count++;
+				$mdocs_post = get_post($mdocs[$index]['parent']);
+				$mdocs_desc = apply_filters('the_content', $mdocs_post->post_excerpt);
 				
-			</div>
-			<?php
+				if($list_type == 'small') {
+					?>
+						<?php mdocs_file_info_small($value, 'dashboard',$index, $current_cat); ?>
+					<?php
+				} else {			
+					?>
+						<div class="mdocs-post">
+							<?php mdocs_file_info_large($value, 'dashboard',$current_cat); ?>
+							<div class="mdocs-clear-both"></div>
+							<?php mdocs_social($value); ?>
+						</div>
+						<div class="mdocs-clear-both"></div>
+						<h3>Description</h3>
+						<div class="mdoc-desc">
+							<?php echo $mdocs_desc; ?>
+						</div>
+						<div class="mdocs-clear-both"></div>
+						<?php mdocs_edit_file($value, $index, $current_cat); ?>
+						
+					</div>
+					<?php
+				}
+				
+			}
 		}
+		if($count == 0) { ?>
+			<p class="mdocs-nofiles" ><?php _e('No files found in this category.'); ?></p> <?php
+		}
+		if(get_option('mdocs-list-type') == 'small') echo '</table>';
 	}
-	if($count == 0) { ?>
-		<p class="mdocs-nofiles" ><?php _e('No files found in this category.'); ?></p> <?php
-	} 
 }
 
 function mdocs_delete() {
 	if ( $_REQUEST['mdocs-nonce'] == MDOCS_NONCE ) {
 		$mdocs = get_option('mdocs-list');
+		$mdocs = mdocs_sort_by($mdocs, 0, 'dashboard', false);
 		$index = $_GET['mdocs-index'];
 		$upload_dir = wp_upload_dir();
 		$mdocs_file = $mdocs[$index];
 		$mdocs_post_cat = get_category_by_slug( 'mdocs-media' );
-		foreach($mdocs[$index]['archived'] as $key => $value) @unlink($upload_dir['basedir'].'/mdocs/'.$value);
+		if(is_array($mdocs[$index]['archived'])) foreach($mdocs[$index]['archived'] as $key => $value) @unlink($upload_dir['basedir'].'/mdocs/'.$value);
 		wp_delete_attachment( intval($mdocs_file['id']), true );
 		wp_delete_post( intval($mdocs_file['parent']), true );
 		if(file_exists($upload_dir['basedir'].'/mdocs/'.$mdocs_file['filename'])) @unlink($upload_dir['basedir'].'/mdocs/'.$mdocs_file['filename']);
@@ -133,6 +143,7 @@ function mdocs_delete() {
 function mdocs_uploader($edit_type='Add Document') {
 	$cats = get_option('mdocs-cats');
 	$mdocs = get_option('mdocs-list');
+	$mdocs = mdocs_sort_by($mdocs, 0, 'dashboard', false);
 	$mdoc_index = $_GET['mdocs-index'];
 	if(isset($_GET['cat'])) $current_cat = $_GET['cat'];
 	else $current_cat = $current_cat = key($cats);
@@ -198,13 +209,13 @@ function mdocs_uploader($edit_type='Add Document') {
 						?> />
 				</label>
 				<label>File Status:
-					<select name="mdocs-file-status" id="mdocs-file-status">
+					<select name="mdocs-file-status" id="mdocs-file-status" >
 						<option value="public" <?php if($mdocs[$mdoc_index]['file_status'] == 'public') echo 'selected'; ?> ><?php _e('Public'); ?></option>
 						<option value="hidden" <?php if($mdocs[$mdoc_index]['file_status'] == 'hidden') echo 'selected'; ?>><?php _e('Hidden'); ?></option>
 					</select>
 				</label>
 				<label>Post Status:
-					<select name="mdocs-post-status" id="mdocs-post-status" <?php if($mdocs[$mdoc_index]['file_status'] == 'hidden') echo 'disabled'; ?> >
+					<select name="mdocs-post-status" id="mdocs-post-status" <?php if($mdocs[$mdoc_index]['file_status'] == 'hidden' || get_option( 'mdocs-hide-all-files' ) || get_option( 'mdocs-hide-all-posts' )) echo 'disabled'; ?> >
 						<option value="publish" <?php if($mdocs[$mdoc_index]['post_status'] == 'publish') echo 'selected'; ?> >Published</option>
 						<option value="private" <?php if($mdocs[$mdoc_index]['post_status'] == 'private') echo 'selected'; ?> ><?php _e('Private'); ?></option>
 						<option value="pending" <?php if($mdocs[$mdoc_index]['post_status'] == 'pending') echo 'selected'; ?> >Pending Review</option>

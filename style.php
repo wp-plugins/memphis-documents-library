@@ -1,5 +1,10 @@
 <?php
 header("Content-type: text/css; charset: UTF-8");
+$raw_path = $_SERVER['SCRIPT_FILENAME'];
+$explode_path = explode('/wp-content/', $raw_path);
+$doc_root = $explode_path[0];
+//echo $doc_root;
+require( $doc_root.'/wp-load.php' );
 ?>
 /* PAGE STYLE */
 .mdocs-post { font-family: 'Bitter', Verdana, Arial, sans-serif !important; background: #fcfcfc; padding: 0 !important; border: solid 1px #e2e2e2; width: 100% !important; margin: 0px auto 40px 0; text-shadow: none !important; }
@@ -8,13 +13,20 @@ header("Content-type: text/css; charset: UTF-8");
 .mdocs-post h3 { font-family: 'Bitter', Verdana, Arial, sans-serif !important; padding: 0px !important; margin: 5px !important; background: none !important; box-shadow: none !important; color: #444 !important; font-size: 20px !important; font-weight: bold !important; border-bottom: solid 1px #E2E2E2; line-height: 26px !important;}
 .mdocs-post p { padding: 0px !important; margin: 10px !important; font-size: 12px;  color: #444 !important; }
 .mdocs-post ul, .mdocs-post ol { padding: 0 0 0 25px !important; margin: 5px !important; font-size: 12px;  color: #444 !important; }
-.mdocs-post a { text-decoration: none; color: #21759B !important; }
-.mdocs-post a:hover { color: #BC360A !important; }
+.mdocs-post a, .mdocs-list-table a { text-decoration: none; color: #21759B !important; }
+.mdocs-post a:hover, .mdocs-list-table a:hover { color: #BC360A !important; }
 .mdocs-post span { font-weight: normal; float: right; position: relative; right: 10px; color: #444 !important;}
 .mdocs-post-file-info { margin: 5px 0; }
 .mdocs-post-file-info p { margin: 0 5px !important; padding: 0 !important; border: none !important; }
+.mdocs-post-button-box { line-height: 24px; }
 /*.mdocs-post-button-box input[type='button'] { font-size: 14px !important; float: right; margin: 5px 0; }*/
-.mdocs-post-button-box a { font-family: 'Bitter', "HelveticaNeue-Light",sans-serif !important; font-weight: normal !important; font-size: 20px !important; }
+.mdocs-post-button-box a { margin-left: 5px; font-family: 'Bitter', "HelveticaNeue-Light",sans-serif !important; font-weight: normal !important; font-size: 20px !important; }
+.mdocs-new, .mdocs-updated { width: 100%; text-align: center;  margin: 0 auto 5px auto !important; padding: 8px 0px; font-family: 'Bitter', Verdana, Arial, sans-serif !important; font-size: 18px; }
+.mdocs-new-small, .mdocs-updated-small { float: right; width: 55px; text-align: center;  margin: 0 auto !important; padding: 0px 0px; border: solid 1px #E2E2E2; border-bottom: none; font-size: 11px; font-family: Arial, sans-serif; color: #f4f4f4 !important;}
+.mdocs-new, .mdocs-new-small { background: #91B52D; color: #fff; }
+.mdocs-updated, .mdocs-updated-small { background: #3C9DD0; color: #fff; }
+.nav-single .mdocs-new, .nav-single .mdocs-updated, .widget-area .mdocs-new, .widget-area .mdocs-updated { float: left; padding: 0 5px; margin: 0 10px 0 0; width: 60px; text-align: center;}
+.mdocs-post .mdocs-download-btn { margin-right: 5px !important; }
 
 .mdocs-download-btn, .mdocs-download-btn:active {
 	float: right !important;
@@ -23,24 +35,16 @@ header("Content-type: text/css; charset: UTF-8");
 	cursor: pointer !important;
 	color: #fff !important;
 	border: none !important;
-	border-radius: 2px !important;
-	margin: 5px 0 !important;
+	margin-right: 5px !important; 
 	padding: 10px !important;
 	font-weight: normal !important;
 	text-shadow: none !important;
 	height: 38px !important;
 	box-shadow: none !important;
-	border-bottom: solid 3px #B93207 !important;
-	background: #e05d22; 
-	background: -moz-linear-gradient(top,  #e05d22 0%, #d94412 100%) !important; 
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e05d22), color-stop(100%,#d94412)) !importatnt; 
-	background: -webkit-linear-gradient(top,  #e05d22 0%,#d94412 100%) !important; 
-	background: -o-linear-gradient(top,  #e05d22 0%,#d94412 100%) !important; 
-	background: -ms-linear-gradient(top,  #e05d22 0%,#d94412 100%) !important; 
-	background: linear-gradient(to bottom,  #e05d22 0%,#d94412 100%) !important; 
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e05d22', endColorstr='#d94412',GradientType=0 ) !important;
+	background: #D14836 !important;
 }
-.mdocs-download-btn:hover { background: #ed6021 !important; }
+.mdocs-download-btn:hover { background: #c34131 !important; }
+
 
 .small { font-size: 12px !important; padding: 5px 5px 1px 5px !important; margin: 0 !important; position: relative !important; top: 0px !important; right: 12px !important;}
 /*
@@ -50,8 +54,8 @@ header("Content-type: text/css; charset: UTF-8");
 .mdocs-tweet { float: left; height: 20px; width: 90px; }
 .mdocs-like { float: left; height: 20px;  width: 90px;}
 .mdocs-plusone { float: left; width: 70px !important; height: 22px; }
-.mdocs-share { float: left; margin: 0 10px 0 0; height: 20px !important; cursor: pointer; }
-.mdocs-share p { height: 20px; width: 70px !important; border: solid 1px #CCC; background: #F8F8F8; border-radius: 5px; margin: 0 0 0 5px !important; padding: 1px 3px !important; font-size: 11px !important; font-weight: bold; background: rgb(252,252,252); /* Old browsers */
+.mdocs-share { float: left; margin: 0 10px 0 0; cursor: pointer; }
+.mdocs-share p { width: 60px !important; border: solid 1px #CCC; background: #F8F8F8; border-radius: 5px; margin: 0 0 0 5px !important; padding: 1px 3px !important; font-size: 11px !important; font-weight: bold; background: rgb(252,252,252); /* Old browsers */
 	background: #fcfcfc; /* Old browsers */
 	background: -moz-linear-gradient(top,  #fcfcfc 0%, #dbdbdb 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fcfcfc), color-stop(100%,#dbdbdb)); /* Chrome,Safari4+ */
@@ -60,6 +64,16 @@ header("Content-type: text/css; charset: UTF-8");
 	background: -ms-linear-gradient(top,  #fcfcfc 0%,#dbdbdb 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  #fcfcfc 0%,#dbdbdb 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#dbdbdb',GradientType=0 ); /* IE6-9 */
+
+ }
+ .mdocs-share p:hover { background: rgb(238,238,238); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(238,238,238,1) 0%, rgba(224,224,224,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(238,238,238,1)), color-stop(100%,rgba(224,224,224,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(224,224,224,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(224,224,224,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(224,224,224,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(238,238,238,1) 0%,rgba(224,224,224,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#e0e0e0',GradientType=0 ); /* IE6-9 */
 
  }
 .mdocs-share-link { clear: both; 
@@ -75,8 +89,8 @@ header("Content-type: text/css; charset: UTF-8");
 .mdoc-desc img { margin: 5px !important; padding: 0 !important; border: solid 1px #E2E2E2 !important;}
 .mdocs-container { font-family: 'Bitter', "HelveticaNeue-Light",sans-serif !important; }
 .mdocs-container h2 { margin: 5px 10px; padding:0; font-weight: normal; }
-.mdocs-nav-wrapper { padding: 0 15px 4px 0; line-height: 29px; display: block; overflow: hidden; margin: 0 !important; }
-.mdocs-nav-tab { font-family: 'Bitter', "HelveticaNeue-Light",sans-serif !important; font-weight: normal !important; font-size: 20px !important; background: #e7e7e7; font-size: 20px; border-top:  solid 1px #DCDCDC !important; border-left:  solid 1px #DCDCDC; border-right:  solid 1px #DCDCDC; line-height: 24px; display: inline-block; padding: 4px 10px 6px; margin: 4px 2px -1px 2px !important; border-radius: 3px 3px 0 0; text-decoration: none; color: #AAA !important; text-shadow: none !important; white-space:nowrap !important; }
+.mdocs-nav-wrapper { padding: 0 15px 0px 0 !important; line-height: 29px; display: block; overflow: hidden; margin: 0 !important; }
+.mdocs-nav-tab { font-family: 'Bitter', "HelveticaNeue-Light",sans-serif !important; font-weight: normal !important; font-size: 20px !important; background: #e7e7e7; font-size: 20px; border-top:  solid 1px #DCDCDC !important; border-left:  solid 1px #DCDCDC; border-right:  solid 1px #DCDCDC; line-height: 24px; display: inline-block; padding: 4px 10px 6px; margin: 4px 2px 0px 2px !important; border-radius: 3px 3px 0 0; text-decoration: none; color: #AAA !important; text-shadow: none !important; white-space:nowrap !important; }
 .mdocs-nav-tab:link, .mdocs-nav-tab:visited { color: #CCC; } 
 .mdocs-nav-tab:hover { color: #FFBF40 !important; border-top:  solid 1px #DCDCDC !important; border-left:  solid 1px #DCDCDC !important; border-right:  solid 1px #DCDCDC !important;}
 .mdocs-nav-tab-active { color: #086FA1 !important; background: #fff !important;  }
@@ -117,6 +131,24 @@ header("Content-type: text/css; charset: UTF-8");
 .mdocs-line { border-bottom: solid 1px #E2E2E2; height: 1px; width: 99%; margin: auto; }
 .mdocs-login-msg { border: solid 1px #ccc; float: right; font-size: 13px !important; padding: 10px; margin: 5px; font-weight: normal; background:  #f0f0f0; text-align: center; }
 
+
+.mdocs-list-table, .mdocs-list-table tr, .mdocs-list-table td { width: 100% !important; border: solid 1px #ccc !important; vertical-align: middle; border-collapse: collapse !important; padding: 3px 0 !important; margin: 0 !important;}
+.mdocs-list-table td { border: none !important; }
+.mdocs-list-table { margin-top: 10px !important; }
+.mdocs-list-table #title { padding: 0 0 0 5px !important; margin: 0; width: 35% !important; }
+.mdocs-list-table #downloads { padding: 0; width: auto !important; text-align: center;}
+.mdocs-list-table #version { padding: 0; width: auto !important; text-align: center;}
+.mdocs-list-table #owner { padding: 0; width: auto !important; text-align: center;}
+.mdocs-list-table #update { padding: 0; width: auto !important; text-align: center;}
+.mdocs-list-table #download { padding: 0; width: auto !important;  text-align: right; padding: 0 5px 0 0 !important; }
+
+.mdocs-sort { position: relative; float: right; border: solid 1px #e2e2e2 !important; padding: 5px !important; background: #fcfcfc; clear: none !important;}
+.mdocs-sort label { font-size: 12px !important; }
+.mdocs-sort input[type="submit"] { padding: 2px !important; color: #5e5e5e !important; background: #ebebeb !important; border: solid 1px #d2d2d2 !important; cursor: pointer !important; border-radius: 3px; box-shadow: 0 1px 2px #c0c0c0 !important;}
+.mdocs-sort input[type="submit"]:hover { box-shadow: 0 1px 2px #9d9d9d !important;}
+
+.mdocs-show-social { cursor: pointer; }
+
 /* DASHBOARD STYLE */
 #icon-mdocs { background: url('assets/imgs/kon32.png') no-repeat;  } 
 .mdocs-uploader-bg { position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: #000; z-index: 25; opacity: 0.7;}
@@ -154,20 +186,55 @@ header("Content-type: text/css; charset: UTF-8");
 .mdocs-edit-file span { float: left !important; padding: 0 !important; margin: 0 0 0 5px !important; }
 .mdocs-edit-file .submitdelete { color: #BC0B0B !important; }
 .mdocs-edit-file .submitdelete:hover { color: #f00000; }
+.mdocs-settings-table td { vertical-align: top !important; text-align: left !important;}
+.mdocs-setting-form .width-30 { width: 30px; }
+.mdocs-filesystem-cleanup { border: solid 1px #E6DB55; background: #FFFFE0; overflow: auto; padding: 10px;}
+.mdocs-filesystem-cleanup .cleanup-files { float: left; padding-right: 20px; }
+.mdocs-filesystem-cleanup .cleanup-data { float: left; }
 #the-list { text-shadow: none !important; }
+
+
+.wp-picker-holder { position: absolute !important; z-index: 2000;}
+.mdocs-download-btn-config {
+	text-align: left !important;
+	width: 70px !important;
+	font-size: 14px !important;
+	font-family: 'Bitter', Verdana, Arial, sans-serif !important;
+	cursor: pointer !important;
+	color: #fff !important;
+	border: none !important;
+	margin: 5px 0 !important;
+	padding: 10px !important;
+	font-weight: normal !important;
+	text-shadow: none !important;
+	height: 20px !important;
+	box-shadow: none !important;
+	background: <?php echo get_option('mdocs-download-color-normal'); ?> ;
+}
+.mdocs-download-btn-config:hover { background: <?php echo get_option('mdocs-download-color-hover'); ?> !important; }
+
+.ui-tooltip {
+	font-family: 'Bitter', Verdana, Arial, sans-serif !important;
+	font-size: 15px !important;
+	line-height: 18px;
+    background: #FCFCFC;
+    color: #333;
+    border: solid 1px #E2E2E2;
+    padding: 10px;
+}
 
 /* FONTS */
 @font-face {
   font-family: 'Bitter';
   font-style: normal;
   font-weight: 400;
-  src: local('Bitter-Regular'), url(http://themes.googleusercontent.com/static/fonts/bitter/v4/B2Nuzzqgk0xdMJ132boli-vvDin1pK8aKteLpeZ5c0A.woff) format('woff');
+  src: local('Bitter-Regular'), url(https://themes.googleusercontent.com/static/fonts/bitter/v4/B2Nuzzqgk0xdMJ132boli-vvDin1pK8aKteLpeZ5c0A.woff) format('woff');
 }
 @font-face {
   font-family: 'Bitter';
   font-style: normal;
   font-weight: 700;
-  src: local('Bitter-Bold'), url(http://themes.googleusercontent.com/static/fonts/bitter/v4/JGVZEP92dXgoQBG1CnQcfLO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
+  src: local('Bitter-Bold'), url(https://themes.googleusercontent.com/static/fonts/bitter/v4/JGVZEP92dXgoQBG1CnQcfLO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
 }
 
 

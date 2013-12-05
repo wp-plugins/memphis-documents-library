@@ -8,8 +8,11 @@ function mdocs_download_file($export_file='') {
 	mdocs_send_bot_alert();
 	$upload_dir = wp_upload_dir();
 	$mdocs = get_option('mdocs-list');
+	//$mdocs = mdocs_sort_by($mdocs,0,'dashboard',false);
+	$mdocs_hide_all_files = get_option( 'mdocs-hide-all-files' );
 	$is_logged_in = is_user_logged_in();
 	$login_denied = false;
+	
 	if(!empty($export_file) ) { $filename = $export_file; }
 	else {
 		foreach($mdocs as $index => $value) {
@@ -17,16 +20,18 @@ function mdocs_download_file($export_file='') {
 				$filename = $mdocs[$index]['filename'];
 				$non_member = $mdocs[$index]['non_members'];
 				$file_status = $mdocs[$index]['file_status'];
-				if(mdocs_is_bot() == false) {
-					$mdocs[$index]['downloads'] = (string)(intval($mdocs[$index]['downloads'])+1);
-					update_option('mdocs-list', $mdocs);
-				}
+				
 				break;
 			} //else $filename = 'mdocs-empty';
 		}
 	}
-	if($non_member == '' && $is_logged_in == false || $file_status == 'hidden' && !is_admin() ) $login_denied = true;
+	if($non_member == '' && $is_logged_in == false || $file_status == 'hidden' && !is_admin() || $mdocs_hide_all_files  ) $login_denied = true;
 	else $login_denied = false;
+	if(mdocs_is_bot() == false && $login_denied == false && !isset($_GET['mdocs-export-file'])) {
+		$mdocs[$index]['downloads'] = (string)(intval($mdocs[$index]['downloads'])+1);
+		update_option('mdocs-list', $mdocs);
+	}
+	
 	if(isset($_GET['mdocs-export-file'])) mdocs_export_zip();
 	$file = $upload_dir['basedir']."/mdocs/".$filename;
 	if(isset($_GET['mdocs-version'])) $filename = substr($filename, 0, strrpos($filename, '-'));

@@ -2,6 +2,7 @@
 function mdocs_file_upload() {
 	global $current_user;
 	$mdocs = get_option('mdocs-list');
+	$mdocs = mdocs_sort_by($mdocs);
 	$mdocs_cats = get_option('mdocs-cats');
 	$mdocs_index = $_POST['mdocs-index'];
 	$mdocs_filename = $_FILES['mdocs']['name'];
@@ -19,7 +20,7 @@ function mdocs_file_upload() {
 	else $mdocs_post_status = $_POST['mdocs-post-status-sys'];
 	$upload_dir = wp_upload_dir();	
 	$mdocs_user = $current_user->display_name;
-	if($mdocs_file_status == 'hidden') $mdocs_post_status_sys = 'private';
+	if($mdocs_file_status == 'hidden') $mdocs_post_status_sys = 'draft';
 	else $mdocs_post_status_sys = $mdocs_post_status;
 	$the_post_status = $mdocs_post_status_sys;
 	$_FILES['mdocs']['name'] = preg_replace('/[^A-Za-z0-9\-._]/', '', $_FILES['mdocs']['name']);
@@ -38,6 +39,7 @@ function mdocs_file_upload() {
 		if(!empty($mdocs_cats)) {
 			if($mdocs_type == 'mdocs-add') {
 				if($valid_mime_type) {
+					$_FILES['mdocs']['post-status'] = $mdocs_post_status;
 					$upload = mdocs_process_file($_FILES['mdocs']);
 					if($mdocs_version == '') $mdocs_version = '1.0';
 					//elseif(!is_numeric($mdocs_version)) $mdocs_version = '1.0'; 
@@ -62,7 +64,7 @@ function mdocs_file_upload() {
 							downloads=>(string)0,
 							archived=>array()
 						));
-						$mdocs = mdocs_array_sort($mdocs, 'name', 'SORT_ASC, SORT_STRING');
+						$mdocs = mdocs_array_sort($mdocs, 'name', SORT_ASC);
 						update_option('mdocs-list', $mdocs);
 					} else mdocs_errors(MDOCS_ERROR_5,'error');
 				} else mdocs_errors(MDOCS_ERROR_2 , 'error');
@@ -77,6 +79,7 @@ function mdocs_file_upload() {
 						$_FILES['mdocs']['name'] = $filename;
 						$_FILES['mdocs']['parent'] = $old_doc['parent'];
 						$_FILES['mdocs']['id'] = $old_doc['id'];
+						$_FILES['mdocs']['post-status'] = $mdocs_post_status;
 						$upload = mdocs_process_file($_FILES['mdocs']);
 						if($upload['error'] == '') {
 							//$new_version = floatval($mdocs_version)+floatval($mdocs[$mdocs_index]['version']);
@@ -98,7 +101,7 @@ function mdocs_file_upload() {
 							$mdocs[$mdocs_index]['post_status'] =(string)$mdocs_post_status;
 							$mdocs[$mdocs_index]['post_status_sys'] =(string)$mdocs_post_status_sys;
 							array_push($mdocs[$mdocs_index]['archived'], $old_doc_name);
-							$mdocs = mdocs_array_sort($mdocs, 'name', 'SORT_ASC, SORT_STRING');
+							$mdocs = mdocs_array_sort($mdocs, 'name', SORT_ASC);
 							update_option('mdocs-list', $mdocs);
 						} else mdocs_errors(MDOCS_ERROR_5,'error');
 					} else mdocs_errors(MDOCS_ERROR_2 , 'error');
@@ -120,18 +123,20 @@ function mdocs_file_upload() {
 					$mdocs[$mdocs_index]['post_status_sys'] =(string)$mdocs_post_status_sys;
 					$mdocs_post = array(
 						'ID' => $mdocs[$mdocs_index]['parent'],
-						'post_title' => $mdocs_name,
+						'post_title' => $mdocs[$mdocs_index]['name'],
 						'post_content' => '[mdocs_post_page]',
 						'post_status' => $the_post_status,
 						'post_excerpt' => $desc,
+						'post_date' => MDOCS_CURRENT_TIME
 					);
-					wp_update_post( $mdocs_post );
+					$mdocs_post_id = wp_update_post( $mdocs_post );
+					wp_set_post_tags( $mdocs_post_id, $mdocs[$mdocs_index]['name'].', memphis documents library,memphis,documents,library,media,'.$wp_filetype['type'] );
 					$mdocs_attachment = array(
 						'ID' => $mdocs[$mdocs_index]['id'],
 						'post_title' => $mdocs_name
 					);
 					wp_update_post( $mdocs_attachment );
-					$mdocs = mdocs_array_sort($mdocs, 'name', 'SORT_ASC, SORT_STRING');
+					$mdocs = mdocs_array_sort($mdocs, 'name', SORT_ASC);
 					update_option('mdocs-list', $mdocs);
 				}
 			}
