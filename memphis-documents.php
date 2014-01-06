@@ -1,12 +1,12 @@
 <?php
 /*
 Plugin Name: Memphis Documents Library
-Plugin URI: http://www.kingofnothing.net/?page_id=918
+Plugin URI: http://www.kingofnothing.net/memphis-documents-library/
 Description: A documents repository for WordPress. 
 Author: Ian Howatson
-Version: 2.0
+Version: 2.0.1
 Author URI: http://www.kingofnothing.net/
-Date: 12/05/2013
+Date: 01/06/2014
 
 Copyright 2013 Ian Howatson  (email : ian.howatson@kingofnothing.net)
 

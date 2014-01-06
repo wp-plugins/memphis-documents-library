@@ -112,13 +112,13 @@ function mdocs_file_info_large($the_mdoc, $page_type='site', $current_cat) {
 			}
 		}
 	?>
-	<div class="mdocs-post-button-box"
+	<div class="mdocs-post-button-box">
 		<h2><a href="<?php echo $the_mdoc_permalink; ?>" title="<?php echo $the_mdoc['name']; ?> "><?php echo $the_mdoc['name']; ?></a>
 		<?php
 		if($mdocs_show_non_members  == 'off' && $user_logged_in == false ) { ?>
 			<div class="mdocs-login-msg"><?php _e('Please login<br>to download this file'); ?></div>
 		<?php } elseif($the_mdoc['non_members'] == 'on' || $user_logged_in) { ?>
-			<input type="button" onclick="mdocs_download_file('<?php echo $the_mdoc['id']; ?>');" class="mdocs-download-btn" value="<?php echo __('Download'); ?>"
+			<input type="button" onclick="mdocs_download_file('<?php echo $the_mdoc['id']; ?>');" class="mdocs-download-btn" value="<?php echo __('Download'); ?>">
 		</h2>
 		<?php } else { ?>
 			<div class="mdocs-login-msg"><?php _e('Please login<br>to download this file'); ?></div>
@@ -409,8 +409,7 @@ function mdocs_social($the_mdoc) {
 		<?php if($the_mdoc['show_social'] ==='on' && get_option('mdocs-show-social') ) { ?>
 			<div class="mdocs-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo $the_permalink;?>" data-counturl="<?php echo $the_permalink;?>" data-text="<?php echo __('Download').' #'.strtolower(preg_replace('/-| /','_',$the_mdoc['name'])).' #MemphisDocumentsLibrary'; ?>" width="50">Tweet</a></div>
 			<div class="mdocs-like"><iframe src="//www.facebook.com/plugins/like.php?href=<?php echo $the_permalink;?>&amp;width=450&amp;height=21&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe></div>
-			<div class="mdocs-plusone" ><div class="g-plusone" data-size="medium" data-href="<?php echo $the_permalink;?>"</div></div>
-		</div>
+			<div class="mdocs-plusone" ><div class="g-plusone" data-size="medium" data-href="<?php echo $the_permalink;?>"></div></div>
 		<?php
 		}
 	} else {
