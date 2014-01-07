@@ -77,6 +77,7 @@ function mdocs_update_cats() {
 			if($value['remove'] == 0) $mdocs_cats[$value['slug']] = $value['name'];
 			else {
 				$mdocs = get_option('mdocs-list');
+				//$mdocs = mdocs_sort_by($mdocs);
 				foreach($mdocs as $k => $v) {
 					if($v['cat'] == $value['slug']) {
 						wp_delete_attachment( intval($v['id']), true );

@@ -5,8 +5,8 @@ Tags: plugin,documents,memphis,bhaldie,wordpress,library,repository,files,versio
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
-Tested up to: 3.6
-Stable tag: 1.2.6
+Tested up to: 3.7.1
+Stable tag: 2.0.2
 
 A documents library for WordPress.  
 
@@ -75,7 +75,41 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 5. screenshot-5.png
 
 == Changelog ==
-
+= 2.0.2 =
+* ie compatibility mode fix.
+= 2.0.1 =
+* Minor html fixes.  Thanks for the reports thibodeaux and ghalusa.
+= 2.0 =
+* Added a new or updated banner.
+* Can now run a filesystem check to clean up and unwanted files or data.
+* Can now sort files by any of the categories this sort option is saved for the session of the user.
+* Restricted access to the file directory, now only Memphis Documents has access to the files.  Directory link to the files is denied.
+* Added a setting menu with the following options
+ * Change size of file list on both the site and dashboard
+ * Hide our show certain fields of the file.
+ * Hide/Show all files from everybody or just non-members
+ * Hide/Show all post from everybody or just non-members
+ * Hide/Show new and updated banner
+ * Determine the lenght in days to display the new or update banner
+* Updated the translation file.
+= 1.4 =
+* Changed the why sharing works.  Now you share the page that the file is on not the file itself.
+* minor bug fixes.
+= 1.3.2 =
+* fixed permalink bug where the default setting would cause errors when trying to move from one category to another.
+= 1.3.1 =
+* small bug fixs
+= 1.3 =
+* Added the ability to disable social apps
+* Added the ability to only allow members to download file
+* Now have the ability to change the status of a file post
+* Have the ability to hide/show your file.
+* Changed add update dashboard control panel.
+* Update po file.
+= 1.2.8 =
+*  Fixed broken category issue.
+= 1.2.7 =
+* fixed download error where the ability to download a file was broken.  This error occurring with the latest WordPress update 3.6.1. The fix was to include a WordPress file ' wp-includes/pluggable.php' that was removed from the WordPress master include list.
 = 1.2.6 =
 * Stylesheet changes.
 =1.2.5 =
