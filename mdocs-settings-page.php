@@ -29,6 +29,8 @@ function mdocs_settings($cat) {
 <form enctype="multipart/form-data" method="post" action="options.php" class="mdocs-setting-form">
 <table class="form-table mdocs-settings-table">
 	<?php settings_fields( 'mdocs-global-settings' ); ?>
+	<input type="hidden" name="mdocs-download-color-normal" value="<?php echo get_option( 'mdocs-download-color-normal' ); ?>" />
+	<input type="hidden" name="mdocs-download-color-hover" value="<?php echo get_option( 'mdocs-download-color-hover' ); ?>" />
 	<input type="hidden" name="mdocs-hide-all-posts-default" value="<?php echo get_option( 'mdocs-hide-all-posts-default' ); ?>" />
 	<input type="hidden" name="mdocs-hide-all-posts-non-members-default" value="<?php echo get_option( 'mdocs-hide-all-posts-non-members-default' ); ?>" />
 	<tr>
@@ -42,6 +44,8 @@ function mdocs_settings($cat) {
 			<input type="radio" name="mdocs-list-type-dashboard" value="small"  <?php checked( $mdocs_list_type_dashboard, 'small') ?>/> <?php _e('small'); ?><br>
 			<input type="radio" name="mdocs-list-type-dashboard" value="large" <?php checked( $mdocs_list_type_dashboard, 'large') ?>/> <?php _e('large'); ?>
 		</td>
+	</tr>
+	<tr>
 		<th><?php _e('Displayed File Information'); ?></th>
 		<td>
 			<input type="checkbox" name="mdocs-show-downloads" value="1"  <?php checked(1,$mdocs_show_downloads) ?>/> <?php _e('Downloads'); ?><br>
@@ -50,8 +54,7 @@ function mdocs_settings($cat) {
 			<input type="checkbox" name="mdocs-show-update" value="1"  <?php checked( $mdocs_show_update, 1) ?>/> <?php _e('Updated'); ?><br>
 			<input type="checkbox" name="mdocs-show-social" value="1"  <?php checked( $mdocs_show_social, 1) ?>/> <?php _e('Social'); ?>
 		</td>
-	</tr>
-	<tr>
+	
 		<th><?php _e('Hide Things'); ?></th>
 		<td>
 			<input type="checkbox" id="mdocs-hide-all-files" name="mdocs-hide-all-files" value="1"  <?php checked(1,$mdocs_hide_all_files) ?>/> <?php _e('All Files'); ?><br>
@@ -59,6 +62,8 @@ function mdocs_settings($cat) {
 			<input type="checkbox" id="mdocs-hide-all-files-non-members" name="mdocs-hide-all-files-non-members" value="1"  <?php checked(1,$mdocs_hide_all_files_non_members) ?>/> <?php _e('All Files: (Non Members)'); ?><br>
 			<input type="checkbox" id="mdocs-hide-all-posts-non-members" name="mdocs-hide-all-posts-non-members" value="1"  <?php checked(1,$mdocs_hide_all_posts_non_members) ?>/> <?php _e('All Posts: (Non Members)'); ?>
 		</td>
+	</tr>
+	<tr>
 		<th><?php _e('New & Updated Banner'); ?></th>
 		<td>
 			<input type="checkbox" id="mdocs-show-new-banners" name="mdocs-show-new-banners" value="1"  <?php checked(1,$mdocs_show_new_banners) ?>/> <?php _e('Show New & Updated Banner'); ?><br>
@@ -113,7 +118,7 @@ function mdocs_settings($cat) {
 <?php
 	if(!isset($_POST['mdocs-filesystem-cleanup'])) {
 		?>
-		<div class="mdocs-filesystem-cleanup">
+		<div class="updated">
 		<form enctype="multipart/form-data" method="post" action="" class="mdocs-setting-form">
 			<h3><?php _e('Filesystem Cleanup'); ?></h3>
 			<p><?php _e('Use this functionality to run a system check to locate and remove any broken files/data links inside Memphis Documents Library.<br>Be sure to make a backup copy before running this check.'); ?></p>
@@ -132,7 +137,7 @@ function mdocs_settings($cat) {
 function mdocs_cleanup_submit_html() {
 	mdocs_filesystem_cleanup_submit();
 	?>
-	<div class="mdocs-filesystem-cleanup">
+	<div class="updated">
 		<h3><?php _e('Filesystem Cleanup Complete'); ?></h3>
 		<p><?php _e('Your file system has been cleaned.  Remember if you encounter any issues revert back to your previous version using the import tool.'); ?></p>
 		<div class="cleanup-files">
@@ -161,7 +166,7 @@ function mdocs_cleanup_submit_html() {
 function mdocs_cleanup_init_html() {
 	$cleanup = mdocs_filesystem_cleanup_init();
 	?>
-	<div class="mdocs-filesystem-cleanup">
+	<div class="updated">
 		<h3><?php _e('Filesystem Analyzed'); ?></h3>
 		<p><?php _e('Below is a list of files and data that look to be broken and or unused by Memphis Documents Library.  The next phase of the process will try and remove all this unlinked information.<br>Please make sure you have made an export of the files before continuing.  If anything goes wrong just import your export file to revert all changes.'); ?></p>
 		<div class="cleanup-files">

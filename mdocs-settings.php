@@ -87,7 +87,7 @@ function mdocs_register_settings() {
 		register_setting('mdocs-global-settings', 'mdocs-download-color-normal');
 		add_option('mdocs-download-color-normal', '#d14836');
 		register_setting('mdocs-global-settings', 'mdocs-download-color-hover');
-		add_option('mdocs-download-color-hover', '#c34131');
+		update_option('mdocs-download-color-hover', '#c34131');
 		register_setting('mdocs-global-settings', 'mdocs-show-new-banners');
 		add_option('mdocs-show-new-banners', true);
 		register_setting('mdocs-global-settings', 'mdocs-time-to-display-banners');

@@ -24,7 +24,7 @@ function mdocs_page() {
 			if(!empty($cats)) {
 				foreach( $cats as $cat => $name ){
 					$class = ( $cat == $current_cat ) ? ' mdocs-nav-tab-active' : '';
-					echo '<a class="mdocs-nav-tab'.$class.'" href="'.$mdocs_get.$cat.'">'.$name.'<hr /></a>';
+					echo '<a class="mdocs-nav-tab'.$class.'" href="'.$mdocs_get.$cat.'"><span>'.$name.'</span></a>';
 				}
 			}
 			?>

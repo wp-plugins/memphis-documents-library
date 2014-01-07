@@ -89,12 +89,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdoc-desc img { margin: 5px !important; padding: 0 !important; border: solid 1px #E2E2E2 !important;}
 .mdocs-container { font-family: 'Bitter', "HelveticaNeue-Light",sans-serif !important; }
 .mdocs-container h2 { margin: 5px 10px; padding:0; font-weight: normal; }
-.mdocs-nav-wrapper { padding: 0 15px 0px 0 !important; line-height: 29px; display: block; overflow: hidden; margin: 0 !important; }
+.mdocs-nav-wrapper { padding: 0 15px 0px 0 !important; line-height: 29px; display: block; overflow: hidden; margin: 0 !important; width: 100% !important; }
 .mdocs-nav-tab { font-family: 'Bitter', "HelveticaNeue-Light",sans-serif !important; font-weight: normal !important; font-size: 20px !important; background: #e7e7e7; font-size: 20px; border-top:  solid 1px #DCDCDC !important; border-left:  solid 1px #DCDCDC; border-right:  solid 1px #DCDCDC; line-height: 24px; display: inline-block; padding: 4px 10px 6px; margin: 4px 2px 0px 2px !important; border-radius: 3px 3px 0 0; text-decoration: none; color: #AAA !important; text-shadow: none !important; white-space:nowrap !important; }
+.mdocs-nav-tab span { display: inline-block; }
 .mdocs-nav-tab:link, .mdocs-nav-tab:visited { color: #CCC; } 
 .mdocs-nav-tab:hover { color: #FFBF40 !important; border-top:  solid 1px #DCDCDC !important; border-left:  solid 1px #DCDCDC !important; border-right:  solid 1px #DCDCDC !important;}
 .mdocs-nav-tab-active { color: #086FA1 !important; background: #fff !important;  }
-.mdocs-nav-wrapper hr { padding: 0; margin: 0;  position: relative; left: -20px; bottom: -7px; width: 130%; background:  none; width: 300%; overflow: hidden; border: none; border-bottom:  solid 1px #DCDCDC !important; }
+.mdocs-nav-wrapper hr { padding: 0; margin: 0;  position: relative; left: -20px; bottom: -7px;  background:  none; overflow: hidden; border: none; border-bottom:  solid 1px #DCDCDC !important; }
 .mdocs-bg-even { background: #FFF; }
 .mdocs-bg-odd { background: #f9f9f9; }
 .mdocs-container table { border: none !important; border-top: solid 1px #dcdcdc !important; border-left: solid 1px #dcdcdc !important;  border-right: solid 1px #dcdcdc !important; width: 100%; margin: 0px auto !important; background: #fff !important;}
