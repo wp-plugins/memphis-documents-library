@@ -4,7 +4,43 @@ function mdocs_wp(plugin_url) {
 	jQuery(function () {
 		jQuery('.mdocs-tooltip' ).tooltip({ content: function () { return jQuery(this).prop('title'); }});
 	});
+	mdocs_ratings();
 }
+
+
+the_rating = 0;
+init_rating = false;
+function mdocs_ratings() {
+	jQuery('.mdocs-my-rating').click(function() {
+		window.location.href = '?mdocs-rating='+this.id;
+	});
+	jQuery('.mdocs-my-rating').mouseover(function() {
+		for (index = 1; index < 6; ++index) {
+			if (this.id >= index) jQuery('#'+index).prop('class', 'icon-star gold mdocs-my-rating');
+			else  jQuery('#'+index).prop('class', 'icon-star-empty mdocs-my-rating');
+			
+		}
+	});
+	
+	jQuery('.mdocs-rating-container-small').mouseover(function() {
+		if (init_rating == false) {
+			for (index = 1; index < 6; ++index) {
+				if (jQuery('#'+index).hasClass("icon-star")) {
+					the_rating = index;
+				}  
+			}
+		}
+		init_rating = true;
+	});
+	
+	jQuery('.mdocs-rating-container-small').mouseout(function() {
+		for (index = 1; index < 6; ++index) {
+			if (the_rating >= index) jQuery('#'+index).prop('class', 'icon-star gold mdocs-my-rating');
+			else  jQuery('#'+index).prop('class', 'icon-star-empty mdocs-my-rating');
+		}
+	});
+}
+
 function mdocs_admin(plugin_url) {
 	//JQUERY UI TOOLTIP INIT
 	jQuery(function () {
@@ -104,7 +140,7 @@ function mdocs_delete_version(version_file, index, category, nonce) {
 		window.location.href = 'admin.php?page=memphis-documents.php&cat='+category+'&action=delete-version&version-file='+version_file+'&mdocs-index='+index+'&mdocs-nonce='+nonce;
 	}
 }
-function mdocs_download_file(mdocs_file) { window.location.href = '?mdocs-file='+mdocs_file; }
+function mdocs_download_file(mdocs_file, mdocs_url) { window.location.href = '?mdocs-file='+mdocs_file+'&mdocs-url='+mdocs_url; }
 function mdocs_share(mdocs_link,the_id) {
 	if (toggle_share == false) {
 		jQuery('#'+the_id+' .mdocs-share-link').remove();

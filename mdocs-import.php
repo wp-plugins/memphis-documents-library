@@ -45,7 +45,7 @@ function mdocs_import_zip() {
 		  if(is_file($file))
 			$explode = explode('/',$file);
 			$filename = $explode[count($explode)-1];
-			rename($file, $upload_dir['basedir'].'/mdocs-backup/'.$filename);
+			@rename($file, $upload_dir['basedir'].'/mdocs-backup/'.$filename);
 		}
 		if(file_exists($mdocs_zip_file)) unlink($mdocs_zip_file);
 		move_uploaded_file($_FILES['mdocs-import-file']['tmp_name'], $mdocs_zip_file);
@@ -172,7 +172,9 @@ function mdocs_import_zip() {
 						non_members=>$mdocs_list_file[$key]['non_members'],
 						file_status=>$mdocs_list_file[$key]['file_status'],
 						post_status=>$the_post_stauts,
-						post_status_sys=>$the_post_stauts_sys
+						post_status_sys=>$the_post_stauts_sys,
+						ratings=>$mdocs_list_file[$key]['ratings'],
+						rating=>$mdocs_list_file[$key]['rating']
 					));
 					//$mdocs = mdocs_array_sort($mdocs, 'name', SORT_ASC);
 					update_option('mdocs-list', $mdocs);

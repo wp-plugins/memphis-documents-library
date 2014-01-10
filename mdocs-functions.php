@@ -1,148 +1,6 @@
 <?php
-function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_cat) {
-	$upload_dir = wp_upload_dir();
-	$the_mdoc_permalink = get_permalink($the_mdoc['parent']);
-	$the_post = get_post($the_mdoc['parent']);
-	$is_new = preg_match('/new=true/',$the_post->post_content);
-	$post_date = strtotime($the_post->post_date);
-	$last_modified = gmdate('d-m-y H:i',$the_mdoc['modified']+MDOCS_TIME_OFFSET);
-	$user_logged_in = is_user_logged_in();
-	$mdocs_show_non_members = $the_mdoc['non_members'];
-	$mdocs_hide_all_files = get_option( 'mdocs-hide-all-files' );
-	$mdocs_hide_all_posts = get_option( 'mdocs-hide-all-posts' );
-	$mdocs_hide_all_files_non_members = get_option( 'mdocs-hide-all-files-non-members' );
-	$mdocs_show_downloads = get_option( 'mdocs-show-downloads' );
-	$mdocs_show_author = get_option( 'mdocs-show-author' );
-	$mdocs_show_version = get_option( 'mdocs-show-version' );
-	$mdocs_show_update = get_option( 'mdocs-show-update' );
-	$mdocs_show_new_banners = get_option('mdocs-show-new-banners');
-	$mdocs_time_to_display_banners = get_option('mdocs-time-to-display-banners');
-	$permalink = get_permalink($post->ID);
-	if(preg_match('/\?page_id=/',$permalink) || preg_match('/\?p=/',$permalink)) {
-		$mdocs_get = $permalink.'&cat=';
-	} else $mdocs_get = $permalink.'?cat=';
-	$tooltip = '<b class="mdocs-blue">'.__('Description').'</b><br>';
-	$tooltip .= $the_mdoc['desc'].'';
-	if($page_type == 'dashboard') {
-		$tooltip .= '<br><br>'.__('File Status').':<b class="mdocs-olive"> '.$the_mdoc['file_status'].'</b><br>';
-		$tooltip .= __('Post Status').':<b class="mdocs-salmon"> '.$the_post->post_status.'</b><br>';
-		if($mdocs_hide_all_files) $tooltip .= '<br><i class="icon-lock mdocs-orange"></i> '.__('All Files Are Hidden');
-		if($mdocs_hide_all_posts) $tooltip .= '<br><i class="icon-lock mdocs-red"></i> '.__('All Posts Are Hidden'); 
-	}
-	
-	$tooltip = htmlspecialchars($tooltip);
-	
-	if($mdocs_hide_all_files_non_members && $user_logged_in == false) $show_files = false;
-	elseif($mdocs_hide_all_files == false || $page_type == 'dashboard') $show_files = true;
-	else $show_files = false;
-	if( $show_files) {
-		if($mdocs_show_new_banners) {
-			$modified = floor($the_mdoc['modified']/86400)*86400;
-			$today = floor(time()/86400)*86400;
-			$days = (($today-$modified)/86400);
-			if($mdocs_time_to_display_banners > $days) {
-				if($is_new == true) $status_tag = MDOCS_NEW_SMALL;
-				else $status_tag = MDOCS_UPDATE_SMALL;
-			}
-		}
-	?>
-		<tr>
-			<td id="title" class="mdocs-tooltip"><?php if($page_type == 'dashboard') { ?><i class="mdocs-show-social icon-plus-sign-alt mdocs-green" id="mdocs-show-social-<?php echo $index; ?> "></i> <a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat.'&action=update-doc&mdocs-index='.$index; ?>" title="<?php echo $tooltip; ?> "><?php echo $the_mdoc['name'].$status_tag; ?></a><?php } else { ?><a href="<?php echo $the_mdoc_permalink; ?>" title="<?php echo $tooltip; ?> "><?php echo $the_mdoc['name'].$status_tag; ?></a><?php } ?></td>
-			<?php if($mdocs_show_downloads) { ?><td id="downloads"><i class="icon-cloud-download"></i> <b class="mdocs-orange"><?php echo $the_mdoc['downloads'].' '.__('Downloads'); ?></b></td><?php } ?>
-			<?php if($mdocs_show_version) { ?><td id="version"><i class="icon-off"></i><b class="mdocs-blue"> <?php echo $the_mdoc['version']; ?></b></td><?php } ?>
-			<?php if($mdocs_show_author) { ?><td id="owner"><i class="icon-pencil"></i> <i class="mdocs-green"><?php echo $the_mdoc['owner']; ?></i></td><?php } ?>
-			<?php if($mdocs_show_update) { ?><td id="update"><i class="icon-calendar"></i> <b class="mdocs-red"><?php echo $last_modified; ?></b></td><?php } ?>
-			<td id="download">
-				<?php
-				if($mdocs_show_non_members  == 'off' && $user_logged_in == false ) { ?>
-					<a href="<?php echo wp_login_url($the_mdoc_permalink); ?>" title="Login">Login</a>
-				<?php } elseif($the_mdoc['non_members'] == 'on' || $user_logged_in) { ?>
-					<a href="<?php echo site_url().'/?mdocs-file='.$the_mdoc['id']; ?>">Download</a>
-				<?php } else { ?>
-					<a href="<?php echo wp_login_url($the_mdoc_permalink); ?>" title="Login">Login</a>
-				<?php }
-				if($page_type == 'dashboard') {
-					?>
-					| <a href="<?php echo $the_mdoc_permalink; ?>" title="Visit the files post page" class="edit" target="_blank"><?php _e('Visit'); ?></a> |
-					<a class='submitdelete' onclick="return showNotice.warn();" href="<?php echo 'admin.php?mdocs-nonce='.$_SESSION['mdocs-nonce'].'&page=memphis-documents.php&cat='.$current_cat.'&action=delete-doc&mdocs-index='.$index; ?>"><?php _e('Delete'); ?></a> |
-					<a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat.'&mdocs-index='.$index; ?>&action=mdocs-versions" title="<?php _e('Versions'); ?>" class="edit"><?php _e('Versions'); ?></a>
-					<?php
-				} ?>
-			</td>
-		</tr>
-		<tr><td colspan="6" style="display: none" id="mdocs-social-index-<?php echo $index; ?>"><?php mdocs_social($the_mdoc); ?></td></tr>
-<?php
-	}
-}
-function mdocs_file_info_large($the_mdoc, $page_type='site', $current_cat) {
-	$upload_dir = wp_upload_dir();
-	$the_mdoc_permalink = get_permalink($the_mdoc['parent']);
-	$the_post = get_post($the_mdoc['parent']);
-	$is_new = preg_match('/new=true/',$the_post->post_content);
-	$post_date = strtotime($the_post->post_date);
-	$last_modified = gmdate('F jS Y \a\t g:i A',$the_mdoc['modified']+MDOCS_TIME_OFFSET);
-	$user_logged_in = is_user_logged_in();
-	$mdocs_show_non_members = $the_mdoc['non_members'];
-	$mdocs_hide_all_files = get_option( 'mdocs-hide-all-files' );
-	$mdocs_hide_all_posts = get_option( 'mdocs-hide-all-posts' );
-	$mdocs_hide_all_files_non_members = get_option( 'mdocs-hide-all-files-non-members' );
-	$mdocs_show_downloads = get_option( 'mdocs-show-downloads' );
-	$mdocs_show_author = get_option( 'mdocs-show-author' );
-	$mdocs_show_version = get_option( 'mdocs-show-version' );
-	$mdocs_show_update = get_option( 'mdocs-show-update' );
-	$mdocs_show_new_banners = get_option('mdocs-show-new-banners');
-	$mdocs_time_to_display_banners = get_option('mdocs-time-to-display-banners');
-	$post_status = $the_post->post_status;
-	$permalink = get_permalink($post->ID);
-	if(preg_match('/\?page_id=/',$permalink) || preg_match('/\?p=/',$permalink)) {
-		$mdocs_get = $permalink.'&cat=';
-	} else $mdocs_get = $permalink.'?cat=';
-	//if($mdocs_hide_all_files_non_members && $user_logged_in == false) $show_files = false;
-	//elseif($mdocs_hide_all_files == false || $page_type == 'dashboard') $show_files = true;
-	//else $show_files = false;
-	$show_files = true;
-	if( $show_files) {
-		if($mdocs_show_new_banners) {
-			$modified = floor($the_mdoc['modified']/86400)*86400;
-			$today = floor(time()/86400)*86400;
-			$days = (($today-$modified)/86400);
-			if($mdocs_time_to_display_banners > $days) {
-				if($is_new == true) echo MDOCS_NEW;
-				else echo MDOCS_UPDATE;
-			}
-		}
-	?>
-	<div class="mdocs-post-button-box">
-		<h2><a href="<?php echo $the_mdoc_permalink; ?>" title="<?php echo $the_mdoc['name']; ?> "><?php echo $the_mdoc['name']; ?></a>
-		<?php
-		if($mdocs_show_non_members  == 'off' && $user_logged_in == false ) { ?>
-			<div class="mdocs-login-msg"><?php _e('Please login<br>to download this file'); ?></div>
-		<?php } elseif($the_mdoc['non_members'] == 'on' || $user_logged_in) { ?>
-			<input type="button" onclick="mdocs_download_file('<?php echo $the_mdoc['id']; ?>');" class="mdocs-download-btn" value="<?php echo __('Download'); ?>">
-		</h2>
-		<?php } else { ?>
-			<div class="mdocs-login-msg"><?php _e('Please login<br>to download this file'); ?></div>
-		<?php } ?>
-	</div>
-	<div class="mdocs-post-file-info">
-		<!--<p><i class="icon-star"></i> 4.4 Stars (102)</p>-->
-		<?php if($mdocs_show_downloads) { ?><p class="mdocs-file-info"><i class="icon-cloud-download"></i> <b class="mdocs-orange"><?php echo $the_mdoc['downloads'].' '.__('Downloads'); ?></b></p> <?php } ?>
-		<?php if($mdocs_show_author) { ?><p><i class="icon-pencil"></i> <?php _e('Author'); ?>: <i class="mdocs-green"><?php echo $the_mdoc['owner']; ?></i></p> <?php } ?>
-		<?php if($mdocs_show_version) { ?><p><i class="icon-off"></i> <?php _e('Version') ?>:  <b class="mdocs-blue"><?php echo $the_mdoc['version']; ?></b>
-			<?php if($page_type == 'site' ) { ?>
-				<!--<a href="<?php echo $the_mdoc_permalink.'&cat='.$current_cat.'&mdocs-index='.$index; ?>&action=mdocs-versions">[ View More Versions ]</a>-->
-			<?php } ?>
-		</p><?php } ?>
-		<?php if($mdocs_show_update) { ?><p><i class="icon-calendar"></i> <?php _e('Last Updated'); ?>: <b class="mdocs-red"><?php echo $last_modified; ?></b></p><?php } ?>
-		<?php if(is_admin()) { ?>
-		<p><i class="icon-file "></i> <?php echo __('File Status').': <b class="mdocs-olive">'.strtoupper($the_mdoc['file_status']).'</b>'; ?></p>
-		<p><i class="icon-file-text"></i> <?php echo __('Post Status').': <b class="mdocs-salmon">'.strtoupper($post_status).'</b>'; ?></p>
-		<?php } ?>
-	</div>
-<?php
-	}
-}
-
+$the_rating = array();
+function mdocs_ie_compat() { ?><meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" /><?php }
 function mdocs_edit_file($the_mdocs, $index, $current_cat) {
 	?>
 	<div class="mdocs-edit-file">
@@ -164,7 +22,7 @@ function mdocs_post_page($att=null) {
 	if($post_category[0]->slug == 'mdocs-media') {
 		$mdocs = get_option('mdocs-list');
 		//$mdocs = mdocs_sort_by($mdocs);
-		foreach($mdocs as $files => $value) {
+		foreach($mdocs as $index => $value) {
 			if($value['parent'] == $post->ID) { $the_mdoc = $value; break; }
 		}
 		$query = new WP_Query('post_type=attachment&post_status=inherit&post_parent='.$post->ID);
@@ -180,7 +38,7 @@ function mdocs_post_page($att=null) {
 		$mdocs_desc = apply_filters('the_content', $post->post_excerpt);
 		?>
 		<div class="mdocs-post">
-			<?php mdocs_file_info_large($the_mdoc, 'site', null); ?>
+			<?php $the_mdoc = mdocs_file_info_large($the_mdoc, 'site', $index, null); ?>
 			<div class="mdocs-clear-both"></div>
 			<?php mdocs_social($the_mdoc); ?>
 		</div>
@@ -329,7 +187,7 @@ function mdocs_sort_by($mdocs, $ypos=0, $page_type='site', $echo=true) {
 	if($echo) {
 ?>
 <div class="mdocs-sort" style="top:<?php echo $ypos; ?>px">
-	<form enctype="multipart/form-data" method="post" action="">
+	<form enctype="multipart/form-data" method="post" action="<?php echo $_SERVER['REQUEST_URI']; if($page_type=='dashboard') echo '&mdocs-sort=true'; ?>">
 		<?php if($page_type == 'dashboard') { ?>
 		<i class="icon-cogs mdocs-orange"></i>
 		<label><?php _e('List Size'); ?>:</label>
@@ -338,8 +196,9 @@ function mdocs_sort_by($mdocs, $ypos=0, $page_type='site', $echo=true) {
 		<?php } ?>
 		
 		<i class="icon-cogs mdocs-green"></i><label>
-		<input type="radio" name="mdocs-sort-range" value="asc" <?php if($sort_range == 'asc') echo 'checked'; ?> /> <label><?php _e('Ascending'); ?></label>
 		<input type="radio" name="mdocs-sort-range" value="desc" <?php if($sort_range == 'desc') echo 'checked'; ?>/> <label><?php _e('Descending'); ?></label>
+		<input type="radio" name="mdocs-sort-range" value="asc" <?php if($sort_range == 'asc') echo 'checked'; ?> /> <label><?php _e('Ascending'); ?></label>
+		
 		
 		<i class="icon-cogs mdocs-blue"></i><label> <?php _e('Sort By'); ?>:</label>
 		<select name="mdocs-sort-type">
@@ -348,6 +207,7 @@ function mdocs_sort_by($mdocs, $ypos=0, $page_type='site', $echo=true) {
 			<option value="version" <?php if($sort_type == 'version') echo 'selected'; ?>><?php _e('Version'); ?></option>
 			<option value="owner" <?php if($sort_type == 'owner') echo 'selected'; ?>><?php _e('Author'); ?></option>
 			<option value="modified" <?php if($sort_type == 'modified') echo 'selected'; ?>><?php _e('Last Updated'); ?></option>
+			<option value="rating" <?php if($sort_type == 'rating') echo 'selected'; ?>><?php _e('Rating'); ?></option>
 		</select>
 		<input type="submit" value="go" />
 	</form>
@@ -361,6 +221,7 @@ function mdocs_sort_by($mdocs, $ypos=0, $page_type='site', $echo=true) {
 }
 
 function mdocs_array_sort($the_array, $orderby, $sort_types=SORT_ASC) {
+	
     if($the_array != null) {
 		foreach($the_array as $a){ 
 			foreach($a as $key=>$value){ 
@@ -399,49 +260,36 @@ function mdocs_errors($error, $type='updated') {
     <?php
 }
 
-function mdocs_social($the_mdoc) {
-	$user_logged_in = is_user_logged_in();
-	if(get_option('mdocs-hide-all-posts') == false && get_option('mdocs-hide-all-files') == false || $user_logged_in &&  get_option('mdocs-hide-all-posts-non-members') ) {
-		$the_permalink = get_permalink($the_mdoc['parent']);
-		?>
-		<div class="mdocs-social"  id="mdocs-social-<?php echo $the_mdoc['id']; ?>">
-			<div class="mdocs-share" onclick="mdocs_share('<?php echo $the_permalink; ?>', 'mdocs-social-<?php echo $the_mdoc['id']; ?>');"><p><i class="icon-share-sign mdocs-green"></i> Share</p></div> 
-		<?php if($the_mdoc['show_social'] ==='on' && get_option('mdocs-show-social') ) { ?>
-			<div class="mdocs-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo $the_permalink;?>" data-counturl="<?php echo $the_permalink;?>" data-text="<?php echo __('Download').' #'.strtolower(preg_replace('/-| /','_',$the_mdoc['name'])).' #MemphisDocumentsLibrary'; ?>" width="50">Tweet</a></div>
-			<div class="mdocs-like"><iframe src="//www.facebook.com/plugins/like.php?href=<?php echo $the_permalink;?>&amp;width=450&amp;height=21&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe></div>
-			<div class="mdocs-plusone" ><div class="g-plusone" data-size="medium" data-href="<?php echo $the_permalink;?>"></div></div>
-		<?php
-		}
-	} else {
-		?>
-		<div class="mdocs-social"  ><?php _e('You must disable hide all post and/or hide all files in order to use social functionality.'); ?>   
-		<?php
-	}
+function mdocs_set_rating($the_index) {
+	global $current_user;
+	$the_rating = $_GET['mdocs-rating'];
+	$the_list = get_option('mdocs-list');
+	$the_list[$the_index]['ratings'][$current_user->user_email] = $the_rating;
+	foreach($the_list[$the_index]['ratings'] as $index => $rating) $avg += $rating;
+	$the_list[$the_index]['rating'] = floatval(number_format($avg/count($the_list[$the_index]['ratings']),1));
+	update_option('mdocs-list', $the_list);
+	return $the_list[$the_index];
 }
 
-function mdocs_social_scripts() {
-	?>
-<div id="fb-root"></div>
-<script type="text/javascript">
-//FACEBOOK LIKE
-(function(d, s, id) {
-	var js, fjs = d.getElementsByTagName(s)[0];
-	if (d.getElementById(id)) return;
-	js = d.createElement(s); js.id = id;
-	js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&status=0&appId=12345";
-	fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-//TWITTER TWEET
-!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-//GOOGLE +1
-(function() {
-  var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-  po.src = 'https://apis.google.com/js/plusone.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-})();
-</script>
-	<?php
+function mdocs_get_rating($the_mdoc) {
+	global $current_user;
+	if(is_array($the_mdoc['ratings']) && count($the_mdoc['ratings']) > 0 ) {
+		foreach($the_mdoc['ratings'] as $index => $average) {
+			$avg += $average;
+			$the_rating['total']++;
+			if($current_user->user_email == $index) $the_rating['your_rating'] = floatval($average);
+		}
+		$the_rating['average'] =  floatval(number_format($avg/$the_rating['total'],1));
+		return $the_rating;
+	} else {
+		$the_rating['total'] = 0;
+		$the_rating['average'] = '-';
+		return $the_rating;
+	}
+	
 }
+
+
 function mdocs_is_bot() {
 	$upload_dir = wp_upload_dir();
 	$bots = strip_tags(file_get_contents(MDOCS_ROBOTS));
@@ -485,13 +333,23 @@ function mdocs_add_bots($bots) {
 function string_length_less_than_one($var) { if(strlen($var) > 1) return str_replace(array('.', ' ', "\n", "\t", "\r"), '', $var); }
 */
 
-function mdocs_send_bot_alert() {
+function mdocs_send_bot_alert($url='') {
+	include_once 'wp-admin/includes/plugin.php';
+	$plugin_data = get_plugin_data( dirname(__FILE__).'/memphis-documents.php');
+	if(mdocs_is_bot()) $bot = "<span style='color: red;'>This is a know bot</span>";
+	else $bot = "<span style='color: green;'>This is either a legitimate download or a unknown bot.</span>";
 	$to      = 'ian@howatson.net';
 	$subject = 'Bot Alert';
-	$message = 'User Agent Info: '.$_SERVER['HTTP_USER_AGENT']."\r\nIs this a bot: ".mdocs_is_bot()."\r\nSite URL: ".site_url();
-	$headers = 'From: '.get_bloginfo('admin_email') . "\r\n" .
-		'Reply-To: '.get_bloginfo('admin_email') . "\r\n" .
-		'X-Mailer: PHP/' . phpversion();
+	$message = "<h4>This is a debug message for Memphis Documents Library it is used to track bots.  Only user agent information and site url are being tracked.</h4>";
+	$message .= '<h3>User Agent Info</h3><b>'.preg_replace('/\)/',')<br>',$_SERVER['HTTP_USER_AGENT'])."</b>";
+	$message .= "<h4>Site URL: ". get_permalink( $url ) ."</h4>";
+	$message .= "<h4>Memphis Version: ".$plugin_data['Version']."</h4>";
+	$message .= "<h3>Bot analyst: ".$bot."</h3>";
+	$headers = 'From: '.get_bloginfo('admin_email') . "\r\n";
+	$headers .= 'Reply-To: '.get_bloginfo('admin_email') . "\r\n";
+	$headers .= 'X-Mailer: PHP/' . phpversion()."\r\n";
+	$headers .= "MIME-Version: 1.0" . "\r\n";
+	$headers .= "Content-type: text/html; charset=iso-8859-1";
 	mail($to, $subject, $message, $headers);
 }
 

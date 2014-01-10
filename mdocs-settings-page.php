@@ -14,6 +14,7 @@ function mdocs_settings($cat) {
 	$mdocs_show_author = get_option( 'mdocs-show-author' );
 	$mdocs_show_version = get_option( 'mdocs-show-version' );
 	$mdocs_show_update = get_option( 'mdocs-show-update' );
+	$mdocs_show_ratings = get_option( 'mdocs-show-ratings' );
 	$mdocs_show_social = get_option( 'mdocs-show-social' );
 	$mdocs_show_new_banners = get_option('mdocs-show-new-banners');
 	$mdocs_time_to_display_banners = strval(get_option('mdocs-time-to-display-banners'));
@@ -52,6 +53,7 @@ function mdocs_settings($cat) {
 			<input type="checkbox" name="mdocs-show-author" value="1"  <?php checked( $mdocs_show_author, 1) ?>/> <?php _e('Author'); ?><br>
 			<input type="checkbox" name="mdocs-show-version" value="1"  <?php checked( $mdocs_show_version, 1) ?>/> <?php _e('Version'); ?><br>
 			<input type="checkbox" name="mdocs-show-update" value="1"  <?php checked( $mdocs_show_update, 1) ?>/> <?php _e('Updated'); ?><br>
+			<input type="checkbox" name="mdocs-show-ratings" value="1"  <?php checked( $mdocs_show_ratings, 1) ?>/> <?php _e('Ratings'); ?><br>
 			<input type="checkbox" name="mdocs-show-social" value="1"  <?php checked( $mdocs_show_social, 1) ?>/> <?php _e('Social'); ?>
 		</td>
 	
@@ -223,12 +225,17 @@ function mdocs_filesystem_cleanup_init() {
 		foreach($mdocs as $key => $the_doc) {
 			$the_file = explode('/',$the_file);
 			$the_file = $the_file[count($the_file)-1];
+			$d = explode('.',$the_doc['filename']);
+			$d = $d[0];
+			if(preg_match('/'.$d.'/', $the_file)) {
+				$valid_file = true;
+				break;
+			}
 			if($the_file == $mdocs_zip_file) {
 				$valid_file = true;
 				break;
 			}
-			if($the_file == $the_doc['filename']) {
-				
+			if($the_file == $the_doc['filename']) {	
 				$valid_file = true;
 				break;
 			} 
@@ -240,7 +247,7 @@ function mdocs_filesystem_cleanup_init() {
 						break;
 					}
 				}
-			} 
+			}
 		}
 		if($valid_file == false) array_push($clean_up_files, $the_file);
 		$valid_file = false;

@@ -2,7 +2,7 @@
 function mdocs_file_upload() {
 	global $current_user;
 	$mdocs = get_option('mdocs-list');
-	$mdocs = mdocs_sort_by($mdocs);
+	$mdocs = mdocs_sort_by($mdocs, 0, 'dashboard', false);
 	$mdocs_cats = get_option('mdocs-cats');
 	$mdocs_index = $_POST['mdocs-index'];
 	$mdocs_filename = $_FILES['mdocs']['name'];
@@ -62,7 +62,9 @@ function mdocs_file_upload() {
 							post_status=> (string)$mdocs_post_status,
 							post_status_sys=> (string)$mdocs_post_status_sys,
 							downloads=>(string)0,
-							archived=>array()
+							archived=>array(),
+							ratings=>array(),
+							rating=>0
 						));
 						$mdocs = mdocs_array_sort($mdocs, 'name', SORT_ASC);
 						update_option('mdocs-list', $mdocs);

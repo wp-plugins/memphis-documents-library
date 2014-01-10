@@ -1,6 +1,6 @@
 <?php
-function mdocs_page() {
-		$is_read_write = mdocs_check_read_write();
+function mdocs_the_list() {
+	$is_read_write = mdocs_check_read_write();
 	if($is_read_write) {
 		global $post;
 		$site_url = site_url();
@@ -33,7 +33,7 @@ function mdocs_page() {
 		$count = 0;
 		
 		if(get_option('mdocs-list-type') == 'small') echo '<table class="mdocs-list-table">';
-		foreach($mdocs as $the_mdoc) {
+		foreach($mdocs as $index => $the_mdoc) {
 			if($the_mdoc['cat'] == $current_cat) {
 				if($the_mdoc['file_status'] == 'public' ) {
 					$count ++;
@@ -53,7 +53,7 @@ function mdocs_page() {
 						if( $show_files) {
 							?>
 							<div class="mdocs-post">
-								<?php mdocs_file_info_large($the_mdoc, 'site', $current_cat); ?>
+								<?php mdocs_file_info_large($the_mdoc, 'site', $index, $current_cat); ?>
 								<div class="mdocs-clear-both"></div>
 								<?php mdocs_social($the_mdoc); ?>
 							</div>

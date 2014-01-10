@@ -5,7 +5,6 @@ if(isset($_GET['mdocs-export-file'])) mdocs_download_file($_GET['mdocs-export-fi
 
 function mdocs_download_file($export_file='') {
 	require_once(ABSPATH . 'wp-includes/pluggable.php');
-	mdocs_send_bot_alert();
 	$upload_dir = wp_upload_dir();
 	$mdocs = get_option('mdocs-list');
 	//$mdocs = mdocs_sort_by($mdocs,0,'dashboard',false);
@@ -15,6 +14,7 @@ function mdocs_download_file($export_file='') {
 	
 	if(!empty($export_file) ) { $filename = $export_file; }
 	else {
+		mdocs_send_bot_alert($_GET['mdocs-url']);
 		foreach($mdocs as $index => $value) {
 			if($value['id'] == $_GET["mdocs-file"] ) {
 				$filename = $mdocs[$index]['filename'];

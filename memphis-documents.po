@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Memphis Documents Library v1.0\n"
-"POT-Creation-Date: 2013-12-05 11:18-0500\n"
-"PO-Revision-Date: 2013-12-05 11:19-0500\n"
+"Project-Id-Version: Memphis Documents Library\n"
+"POT-Creation-Date: 2014-01-09 14:51-0500\n"
+"PO-Revision-Date: 2014-01-09 14:51-0500\n"
 "Last-Translator: Ian Howatson <ian@howatson.net>\n"
 "Language-Team: \n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6\n"
+"X-Generator: Poedit 1.6.3\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -84,7 +84,7 @@ msgid "Export"
 msgstr ""
 
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-dashboard.php:119
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-page.php:74
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-the-list.php:74
 msgid "No files found in this category."
 msgstr ""
 
@@ -101,14 +101,14 @@ msgid "Current File"
 msgstr ""
 
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-dashboard.php:178
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:346
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:204
 msgid "File Name"
 msgstr ""
 
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-dashboard.php:192
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:131
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:348
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:49
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-file-info-large.php:73
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:206
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:54
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-versions.php:28
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-versions.php:38
 msgid "Version"
@@ -135,7 +135,7 @@ msgid "Private"
 msgstr ""
 
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-dashboard.php:227
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:24
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-file-info-small.php:25
 msgid "Description"
 msgstr ""
 
@@ -162,56 +162,14 @@ msgstr ""
 msgid "Export Memphis Documents Library"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:27
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:138
-msgid "File Status"
-msgstr ""
-
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:28
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:139
-msgid "Post Status"
-msgstr ""
-
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:29
-msgid "All Files Are Hidden"
-msgstr ""
-
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:30
-msgid "All Posts Are Hidden"
-msgstr ""
-
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:51
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:129
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:47
-msgid "Downloads"
-msgstr ""
-
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:66
-msgid "Visit"
-msgstr ""
-
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:67
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:153
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-versions.php:31
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-versions.php:41
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-versions.php:66
-msgid "Delete"
-msgstr ""
-
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:68
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:156
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-versions.php:16
-msgid "Versions"
-msgstr ""
-
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:119
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:124
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-file-info-large.php:47
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-file-info-large.php:52
 msgid "Please login<br>to download this file"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:121
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:410
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:105
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-file-info-large.php:49
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:112
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-social.php:11
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-versions.php:30
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-versions.php:40
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-versions.php:50
@@ -219,61 +177,109 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:130
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:349
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:48
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-file-info-large.php:58
+msgid "Rate Me!"
+msgstr ""
+
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-file-info-large.php:59
+msgid "Your Rating"
+msgstr ""
+
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-file-info-large.php:71
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-file-info-small.php:54
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:52
+msgid "Downloads"
+msgstr ""
+
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-file-info-large.php:72
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:207
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:53
 msgid "Author"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:136
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:350
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-file-info-large.php:78
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:208
 msgid "Last Updated"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:150
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-file-info-large.php:80
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-file-info-small.php:28
+msgid "File Status"
+msgstr ""
+
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-file-info-large.php:81
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-file-info-small.php:29
+msgid "Post Status"
+msgstr ""
+
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-file-info-small.php:30
+msgid "All Files Are Hidden"
+msgstr ""
+
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-file-info-small.php:31
+msgid "All Posts Are Hidden"
+msgstr ""
+
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-file-info-small.php:79
+msgid "Visit"
+msgstr ""
+
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-file-info-small.php:80
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:11
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-versions.php:31
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-versions.php:41
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-versions.php:66
+msgid "Delete"
+msgstr ""
+
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-file-info-small.php:81
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:14
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-versions.php:16
+msgid "Versions"
+msgstr ""
+
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:8
 msgid "Update"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:335
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:193
 msgid "List Size"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:336
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:194
 msgid "Large"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:337
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:195
 msgid "Small"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:341
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:199
 msgid "Ascending"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:342
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:200
 msgid "Descending"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:344
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:202
 msgid "Sort By"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:347
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:205
 msgid "Number of Downloads"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:391
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:209
+msgid "Rating"
+msgstr ""
+
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:251
 msgid "Memphis Error"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:392
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:252
 msgid "Memphis Info"
-msgstr ""
-
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-functions.php:418
-msgid ""
-"You must disable hide all post and/or hide all files in order to use social "
-"functionality."
 msgstr ""
 
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-import.php:5
@@ -405,155 +411,153 @@ msgstr ""
 msgid "You are already at the most recent version of this document."
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-page.php:77
-msgid ""
-"Unable to create the directory \"mdocs\" which is needed by Memphis "
-"Documents Library. Its parent directory is not writable by the server?"
-msgstr ""
-
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:28
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:29
 msgid "Global Documents Library Settings"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:35
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:38
 msgid "Document List Size: (Site)"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:37
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:42
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:40
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:45
 msgid "small"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:38
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:43
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:41
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:46
 msgid "large"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:40
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:43
 msgid "Document List Size: (Dashboard)"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:45
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:50
 msgid "Displayed File Information"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:50
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:55
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings.php:9
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings.php:11
 msgid "Updated"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:51
-msgid "Social"
-msgstr ""
-
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:55
-msgid "Hide Things"
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:56
+msgid "Ratings"
 msgstr ""
 
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:57
-msgid "All Files"
-msgstr ""
-
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:58
-msgid "All Posts (May take awhile)"
-msgstr ""
-
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:59
-msgid "All Files: (Non Members)"
+msgid "Social"
 msgstr ""
 
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:60
-msgid "All Posts: (Non Members)"
+msgid "Hide Things"
 msgstr ""
 
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:62
-msgid "New & Updated Banner"
+msgid "All Files"
+msgstr ""
+
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:63
+msgid "All Posts (May take awhile)"
 msgstr ""
 
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:64
-msgid "Show New & Updated Banner"
+msgid "All Files: (Non Members)"
 msgstr ""
 
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:65
-msgid "days - Time to Displayed"
+msgid "All Posts: (Non Members)"
+msgstr ""
+
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:69
+msgid "New & Updated Banner"
 msgstr ""
 
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:71
+msgid "Show New & Updated Banner"
+msgstr ""
+
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:72
+msgid "days - Time to Displayed"
+msgstr ""
+
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:78
 msgid "Roles & Permissions"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:96
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:103
 msgid "Style Settings"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:103
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:110
 msgid "Download Button"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:111
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:118
 msgid "Save Changes"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:118
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:125
 msgid "Filesystem Cleanup"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:119
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:126
 msgid ""
 "Use this functionality to run a system check to locate and remove any broken "
 "files/data links inside Memphis Documents Library.<br>Be sure to make a "
 "backup copy before running this check."
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:121
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:128
 msgid "Run Filesystem Cleanup"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:136
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:143
 msgid "Filesystem Cleanup Complete"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:137
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:144
 msgid ""
 "Your file system has been cleaned.  Remember if you encounter any issues "
 "revert back to your previous version using the import tool."
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:139
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:168
-msgid "Unlinked Files"
-msgstr ""
-
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:143
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:171
-msgid "There are no unlinked files."
-msgstr ""
-
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:147
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:146
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:175
-msgid "Unlinked Data"
-msgstr ""
-
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:149
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:177
-msgid "Element ID"
+msgid "Unlinked Files"
 msgstr ""
 
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:150
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:178
-msgid "There is no unlinked data."
+msgid "There are no unlinked files."
+msgstr ""
+
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:154
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:182
+msgid "Unlinked Data"
 msgstr ""
 
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:156
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:184
+msgid "Element ID"
+msgstr ""
+
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:157
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:185
+msgid "There is no unlinked data."
+msgstr ""
+
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:163
 msgid "Run File System Cleanup Again"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:165
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:172
 msgid "Filesystem Analyzed"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:166
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:173
 msgid ""
 "Below is a list of files and data that look to be broken and or unused by "
 "Memphis Documents Library.  The next phase of the process will try and "
@@ -562,7 +566,7 @@ msgid ""
 "your export file to revert all changes."
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:184
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings-page.php:191
 msgid "Cleanup The File System"
 msgstr ""
 
@@ -571,21 +575,33 @@ msgstr ""
 msgid "New"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings.php:34
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings.php:35
 msgid ""
 "Unable to create the directory \"mdocs\" which is needed by Memphis "
 "Documents Library. Is its parent directory writable by the server?"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings.php:41
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings.php:42
 msgid "Documents"
 msgstr ""
 
-#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings.php:99
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-settings.php:121
 msgid ""
 "Unable to create the directory \"mdocs\" which is needed by Memphis "
 "Documents Library. Its parent directory is not readable/writable by the "
 "server?"
+msgstr ""
+
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-social.php:26
+msgid ""
+"You must disable hide all post and/or hide all files in order to use social "
+"functionality."
+msgstr ""
+
+#: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-the-list.php:77
+msgid ""
+"Unable to create the directory \"mdocs\" which is needed by Memphis "
+"Documents Library. Its parent directory is not writable by the server?"
 msgstr ""
 
 #: /Users/howatsoi/Documents/projects/memphis-documents-library/trunk/mdocs-versions.php:27

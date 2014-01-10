@@ -23,7 +23,7 @@ function mdocs_dashboard() {
 	//var_dump($cats);
 	if(isset($_FILES['mdocs']) && $_FILES['mdocs']['name'] != '' && $_POST['mdocs-type'] == 'mdocs-add') mdocs_file_upload();
 	if(isset($_FILES['mdocs']) && $_POST['mdocs-type'] == 'mdocs-update') mdocs_file_upload();
-	elseif(isset($_GET['action']) && $_GET['action'] == 'add-doc' && MDOCS_NONCE == $_SESSION['mdocs-nonce']) mdocs_uploader(__('Add Document'));
+	elseif(isset($_GET['action']) && $_GET['action'] == 'add-doc' && MDOCS_NONCE == $_SESSION['mdocs-nonce'] && !isset($_GET['mdocs-sort'])) mdocs_uploader(__('Add Document'));
 	elseif(isset($_GET['action']) && $_GET['action'] == 'update-doc') mdocs_uploader(__('Update Document'));
 	elseif(isset($_GET['action']) && $_GET['action'] == 'delete-doc') mdocs_delete();
 	elseif(isset($_GET['action']) && $_GET['action'] == 'delete-version') mdocs_delete_version();
@@ -97,7 +97,7 @@ function mdoc_doc_list($current_cat) {
 				} else {			
 					?>
 						<div class="mdocs-post">
-							<?php mdocs_file_info_large($value, 'dashboard',$current_cat); ?>
+							<?php mdocs_file_info_large($value, 'dashboard', $index, $current_cat); ?>
 							<div class="mdocs-clear-both"></div>
 							<?php mdocs_social($value); ?>
 						</div>
