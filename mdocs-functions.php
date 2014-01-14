@@ -1,6 +1,5 @@
 <?php
 $the_rating = array();
-function mdocs_ie_compat() { ?><meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" /><?php }
 function mdocs_edit_file($the_mdocs, $index, $current_cat) {
 	?>
 	<div class="mdocs-edit-file">

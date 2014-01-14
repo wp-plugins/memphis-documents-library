@@ -150,9 +150,6 @@ function mdocs_admin_script() {
 	wp_enqueue_style( 'wp-color-picker' );
     wp_enqueue_script( 'mdocs-color-picker', plugins_url('mdocs-script.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
 	mdocs_js_handle();
-	//SET SORT VALUES DASHBOARD
-	if(isset($_POST['mdocs-sort-type'])) setcookie('mdocs-sort-type-dashboard', $_POST['mdocs-sort-type']); 
-	if(isset($_POST['mdocs-sort-range'])) setcookie('mdocs-sort-range-dashboard', $_POST['mdocs-sort-range']);
 }
 
 function mdocs_script() {
@@ -169,10 +166,6 @@ function mdocs_script() {
 	//FONT-AWESOME STYLE
 	wp_register_style( 'mdocs-font-awesome2-style', '//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css');
 	wp_enqueue_style( 'mdocs-font-awesome2-style' );
-	//SET SORT VALUES SITE
-	if(isset($_POST['mdocs-sort-type'])) setcookie('mdocs-sort-type-site', $_POST['mdocs-sort-type']); 
-	if(isset($_POST['mdocs-sort-range'])) setcookie('mdocs-sort-range-site', $_POST['mdocs-sort-range']);
-	
 }
 
 function mdocs_document_ready_wp() {
@@ -192,6 +185,19 @@ function mdocs_document_ready_admin() {
 		});	
 	</script>
 <?php
+}
+function mdocs_ie_compat() { ?><meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" /><?php }
+function mdocs_send_headers() {
+	//SET SORT VALUES SITE
+	if(isset($_POST['mdocs-sort-type'])) setcookie('mdocs-sort-type-site', $_POST['mdocs-sort-type']); 
+	if(isset($_POST['mdocs-sort-range'])) setcookie('mdocs-sort-range-site', $_POST['mdocs-sort-range']);
+	mdocs_ie_compat();
+}
+function mdocs_send_headers_dashboard() {
+	//SET SORT VALUES DASHBOARD
+	if(isset($_POST['mdocs-sort-type'])) setcookie('mdocs-sort-type-dashboard', $_POST['mdocs-sort-type']); 
+	if(isset($_POST['mdocs-sort-range'])) setcookie('mdocs-sort-range-dashboard', $_POST['mdocs-sort-range']);
+	//mdocs_ie_compat();
 }
 
 ?>
