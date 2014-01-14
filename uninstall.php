@@ -1,12 +1,15 @@
 <?php
 $mdocs = get_option('mdocs-list');
+$mdocs = mdocs_sort_by($mdocs);
 $upload_dir = wp_upload_dir();
 unregister_setting('mdocs-settings', 'mdocs-list');
 unregister_setting('mdocs-settings', 'mdocs-cats');
 unregister_setting('mdocs-settings', 'mdocs-zip');
+unregister_setting('mdocs-global-settings', 'mdocs-list-type');
 delete_option('mdocs-list');
 delete_option('mdocs-cats');
 delete_option('mdocs-zip');
+delete_option('mdocs-list-type');
 foreach($mdocs as $key => $value) {
 	wp_delete_attachment( intval($mdocs[$key]['id']), true );
 	wp_delete_post( intval($mdocs[$key]['parent']), true );
