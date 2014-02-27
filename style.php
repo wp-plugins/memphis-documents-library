@@ -5,6 +5,18 @@ $explode_path = explode('/wp-content/', $raw_path);
 $doc_root = $explode_path[0];
 //echo $doc_root;
 require( $doc_root.'/wp-load.php' );
+
+$num_show = 0;
+if(get_option('mdocs-show-downloads')==1) $num_show++;
+if(get_option('mdocs-show-author')==1) $num_show++;
+if(get_option('mdocs-show-version')==1) $num_show++;
+if(get_option('mdocs-show-update')==1) $num_show++;
+if(get_option('mdocs-show-ratings')==1) $num_show++;
+if($num_show==5) $title_width = '35%';
+if($num_show==4) $title_width = '45%';
+if($num_show==3) $title_width = '55%';
+if($num_show==2) $title_width = '65%';
+if($num_show==1) $title_width = '75%';
 ?>
 /* COLOURS */
 .gold { color: #ffc002;}
@@ -94,7 +106,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-container { font-family: 'Bitter', "HelveticaNeue-Light",sans-serif !important; width: 100% !important; }
 .mdocs-container h2 { margin: 5px 10px; padding:0; font-weight: normal; }
 .mdocs-nav-wrapper { padding: 0 15px 0px 0 !important; line-height: 29px; display: block; overflow: hidden; margin: 0 !important; width: 100% !important; clear: both !important;}
-.mdocs-nav-tab { font-family: 'Bitter', "HelveticaNeue-Light",sans-serif !important; font-weight: normal !important; font-size: 20px !important; background: #e7e7e7; font-size: 20px; border-top:  solid 1px #DCDCDC !important; border-left:  solid 1px #DCDCDC; border-right:  solid 1px #DCDCDC; line-height: 24px; display: inline-block; padding: 4px 10px 6px; margin: 4px 2px 0px 2px !important; border-radius: 3px 3px 0 0; text-decoration: none; color: #AAA !important; text-shadow: none !important; white-space:nowrap !important; }
+.mdocs-nav-tab { font-family: 'Bitter', "HelveticaNeue-Light",sans-serif !important; font-weight: normal !important; font-size: 20px !important; background: #e7e7e7; font-size: 17px !important; border-top:  solid 1px #DCDCDC !important; border-left:  solid 1px #DCDCDC; border-right:  solid 1px #DCDCDC; line-height: 24px; display: inline-block; padding: 4px 10px 6px; margin: 4px 2px 0px 2px !important; border-radius: 3px 3px 0 0; text-decoration: none; color: #AAA !important; text-shadow: none !important; white-space:nowrap !important; }
 .mdocs-nav-tab span { display: inline-block; }
 .mdocs-nav-tab:link, .mdocs-nav-tab:visited { color: #CCC; } 
 .mdocs-nav-tab:hover { color: #FFBF40 !important; border-top:  solid 1px #DCDCDC !important; border-left:  solid 1px #DCDCDC !important; border-right:  solid 1px #DCDCDC !important;}
@@ -137,10 +149,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-login-msg { border: solid 1px #ccc; float: right; font-size: 13px !important; padding: 10px; margin: 5px; font-weight: normal; background:  #f0f0f0; text-align: center; }
 
 
-.mdocs-list-table, .mdocs-list-table tr, .mdocs-list-table td { width: 100% !important; border: solid 1px #ccc !important; vertical-align: middle; border-collapse: collapse !important; padding: 3px 0 !important; margin: 0 !important;}
+.mdocs-list-table, .mdocs-list-table tr, .mdocs-list-table td { width: 100% !important; border: solid 1px #ccc !important; vertical-align: middle; border-collapse: collapse !important; padding: 3px 0 !important; margin: 0 !important; font-size: 13px !important;}
 .mdocs-list-table td { border: none !important; }
 .mdocs-list-table { margin-top: 10px !important; }
-.mdocs-list-table #title { padding: 0 0 0 5px !important; margin: 0; width: 35% !important; }
+.mdocs-list-table #title { padding: 0 0 0 5px !important; margin: 0; width: <?php echo $title_width; ?> !important; }
 .mdocs-list-table #downloads { padding: 0; width: auto !important; text-align: center;}
 .mdocs-list-table #version { padding: 0; width: auto !important; text-align: center;}
 .mdocs-list-table #owner { padding: 0; width: auto !important; text-align: center;}
@@ -206,11 +218,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-rating-container-small span { font-size: 11px; }
 .mdocs-big-star { text-shadow: 1px 2px 1px #474747; padding: 0 1px;}
 
-/* JQUERY UI TOOLTIP CONFIGURATION */
-div.ui-tooltip {
-    max-width: 660px;
-}
-
 .wp-picker-holder { position: absolute !important; z-index: 2000;}
 .mdocs-download-btn-config {
 	text-align: left !important;
@@ -229,16 +236,7 @@ div.ui-tooltip {
 	background: <?php echo get_option('mdocs-download-color-normal'); ?> ;
 }
 .mdocs-download-btn-config:hover { background: <?php echo get_option('mdocs-download-color-hover'); ?> !important; }
-
-.ui-tooltip {
-	font-family: 'Bitter', Verdana, Arial, sans-serif !important;
-	font-size: 15px !important;
-	line-height: 18px;
-    background: #FCFCFC;
-    color: #333;
-    border: solid 1px #E2E2E2;
-    padding: 10px;
-}
+.mdocs-google-doc { width: 100% !important; height: 550px !important; }
 
 /* FONTS */
 @font-face {
@@ -253,6 +251,19 @@ div.ui-tooltip {
   font-weight: 700;
   src: local('Bitter-Bold'), url(https://themes.googleusercontent.com/static/fonts/bitter/v4/JGVZEP92dXgoQBG1CnQcfLO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
 }
+
+
+/* JQUERY UI TOOLTIP SYTEL */
+.ui-tooltip, .arrow:after { background: black !important; border: 2px solid white; }
+.ui-tooltip { padding: 10px 20px; color: white; border-radius: 20px; font: bold 14px "Helvetica Neue", Sans-Serif; text-transform: uppercase; box-shadow: 0 0 7px black; }
+.ui-tooltip p { padding: 0 0 10px 0 !important; margin: 0 !important;}
+.ui-tooltip a { color: #cc0000; }
+.arrow { width: 70px; height: 16px; overflow: hidden; position: absolute; left: 50%; margin-left: -35px; bottom: -16px; }
+.arrow.top { top: -16px; bottom: auto; }
+.arrow.left { left: 20%; }
+.arrow:after { content: ""; position: absolute; left: 20px; top: -20px; width: 25px; height: 25px; box-shadow: 6px 5px 9px -9px black; -webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -ms-transform: rotate(45deg); -o-transform: rotate(45deg); tranform: rotate(45deg); }
+.arrow.top:after { bottom: -20px; top: auto; }
+
 
 
 /* THEME FIXES */

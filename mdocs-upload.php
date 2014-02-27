@@ -16,6 +16,7 @@ function mdocs_file_upload() {
 	$mdocs_social = $_POST['mdocs-social'];
 	$mdocs_non_members = $_POST['mdocs-non-members'];
 	$mdocs_file_status = $_POST['mdocs-file-status'];
+	$mdocs_doc_preview = $_POST['mdocs-doc-preview'];
 	if(isset($_POST['mdocs-post-status'])) $mdocs_post_status = $_POST['mdocs-post-status'];
 	else $mdocs_post_status = $_POST['mdocs-post-status-sys'];
 	$upload_dir = wp_upload_dir();	
@@ -61,6 +62,7 @@ function mdocs_file_upload() {
 							file_status=>(string)$mdocs_file_status,
 							post_status=> (string)$mdocs_post_status,
 							post_status_sys=> (string)$mdocs_post_status_sys,
+							doc_preview=>(string)$mdocs_doc_preview,
 							downloads=>(string)0,
 							archived=>array(),
 							ratings=>array(),
@@ -102,6 +104,7 @@ function mdocs_file_upload() {
 							$mdocs[$mdocs_index]['file_status'] =(string)$mdocs_file_status;
 							$mdocs[$mdocs_index]['post_status'] =(string)$mdocs_post_status;
 							$mdocs[$mdocs_index]['post_status_sys'] =(string)$mdocs_post_status_sys;
+							$mdocs[$mdocs_index]['doc_preview'] =(string)$mdocs_doc_preview;
 							array_push($mdocs[$mdocs_index]['archived'], $old_doc_name);
 							$mdocs = mdocs_array_sort($mdocs, 'name', SORT_ASC);
 							update_option('mdocs-list', $mdocs);
@@ -123,6 +126,7 @@ function mdocs_file_upload() {
 					$mdocs[$mdocs_index]['file_status'] =(string)$mdocs_file_status;
 					$mdocs[$mdocs_index]['post_status'] =(string)$mdocs_post_status;
 					$mdocs[$mdocs_index]['post_status_sys'] =(string)$mdocs_post_status_sys;
+					$mdocs[$mdocs_index]['doc_preview'] =(string)$mdocs_doc_preview;
 					$mdocs_post = array(
 						'ID' => $mdocs[$mdocs_index]['parent'],
 						'post_title' => $mdocs[$mdocs_index]['name'],

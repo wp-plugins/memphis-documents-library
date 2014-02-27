@@ -7,9 +7,11 @@ function mdocs_dashboard_menu() {
 	$memphis_version = intval($memphis_custom_login['Version']);
 	If (!is_plugin_active('memphis-wordpress-custom-login/memphis-wp-login.php') || $memphis_version < 3) {
 		add_menu_page( __('Memphis Documents Library'), __('Memphis Docs'), 'administrator', 'memphis-documents.php', 'mdocs_dashboard', MDOC_URL.'/assets/imgs/kon.ico'  );
-	} 
-	add_action('admin_init','mdocs_register_settings');
-	add_action('admin_enqueue_scripts', 'mdocs_admin_script');
+	}
+	if ( is_admin() ){
+		add_action('admin_init','mdocs_register_settings');
+		add_action('admin_enqueue_scripts', 'mdocs_admin_script');
+	}
 	// ERRORS AND UPDATES
 	if(isset($_FILES['mdocs']) && $_FILES['mdocs']['name'] == '' && $_POST['mdocs-type'] == 'mdocs-add')  { mdocs_errors(MDOCS_ERROR_1,'error'); $add_error = true; }	
 }
@@ -223,9 +225,20 @@ function mdocs_uploader($edit_type='Add Document') {
 					</select>
 				</label>
 			</div>
+			<div class="mdocs-form-box">
+				<label><?php _e('Use Document Preview <i>(This will show a preview of the file rather than a description.)</i>'); ?>:
+					<input type="checkbox" id="mdocs-doc-preview" name="mdocs-doc-preview"
+					<?php
+						if($edit_type=='Update Document' && $mdocs[$mdoc_index]['doc_preview'] != '' || $mdocs[$mdoc_index]['doc_preview'] != null) echo 'checked';
+						elseif($edit_type=='Add Document') echo '';
+						?> />
+				</label>
+			</div>
 			<br>
-			<h2><?php _e('Description'); ?></h2>
-			<?php wp_editor($mdocs_desc, "mdocs-desc"); ?><br>
+			<div id="mdocs-desc-container" <?php if($mdocs[$mdoc_index]['doc_preview']) echo 'style="display:none;"'; ?> >
+				<h2><?php _e('Description'); ?></h2>
+				<?php wp_editor($mdocs_desc, "mdocs-desc"); ?><br>
+			</div>
 			<?php if($edit_type=='Update Document') { ?>
 				<input type="submit" class="button button-primary" value="<?php _e('Update Document') ?>" /><br/>
 			<?php } else { ?> <input type="submit" class="button button-primary" value="<?php _e('Add Document') ?>" /><br/> <?php } ?>

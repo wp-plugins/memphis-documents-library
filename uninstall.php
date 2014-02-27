@@ -1,6 +1,6 @@
 <?php
 $mdocs = get_option('mdocs-list');
-$mdocs = mdocs_sort_by($mdocs);
+//$mdocs = mdocs_sort_by($mdocs);
 $upload_dir = wp_upload_dir();
 unregister_setting('mdocs-settings', 'mdocs-list');
 unregister_setting('mdocs-settings', 'mdocs-cats');

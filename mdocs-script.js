@@ -1,8 +1,21 @@
 var toggle_share = false;
 function mdocs_wp(plugin_url) {
 	//JQUERY UI TOOLTIP INIT
-	jQuery(function () {
-		jQuery('.mdocs-tooltip' ).tooltip({ content: function () { return jQuery(this).prop('title'); }});
+	jQuery('.mdocs-tooltip' ).tooltip({
+		content: function () { return jQuery(this).prop('title'); },
+		position: {
+			my: "center top+20",
+			at: "center bottom",
+			using: function( position, feedback ) {
+			  jQuery( this ).css( position );
+			  jQuery( "<div>" )
+				.addClass( "arrow" )
+				.addClass( feedback.vertical )
+				.addClass( feedback.horizontal )
+				.appendTo( this );
+			}
+		},
+		 
 	});
 	mdocs_ratings();
 }
@@ -43,9 +56,22 @@ function mdocs_ratings() {
 
 function mdocs_admin(plugin_url) {
 	//JQUERY UI TOOLTIP INIT
-	jQuery(function () {
-		jQuery('.mdocs-tooltip' ).tooltip({ content: function () { return jQuery(this).prop('title'); }});
+	jQuery('.mdocs-tooltip' ).tooltip({
+		content: function () { return jQuery(this).prop('title'); },
+		position: {
+			my: "center top+20",
+			at: "center bottom",
+			using: function( position, feedback ) {
+				jQuery( this ).css( position );
+				jQuery( "<div>" )
+				.addClass( "arrow" )
+				.addClass( feedback.vertical )
+				.addClass( feedback.horizontal )
+				.appendTo( this );
+			}
+		}
 	});
+	
 	//INITIALIZE IRIS COLOR PICKER
 	var color_options = {
 		change: function(event, ui) {
@@ -128,6 +154,11 @@ function mdocs_admin(plugin_url) {
 	jQuery('#mdocs-file-status').change(function() {
 		if (jQuery(this).val() == 'hidden') jQuery('#mdocs-post-status').prop('disabled','true');
 		else if (jQuery(this).val() == 'public') jQuery('#mdocs-post-status').removeAttr('disabled');
+	});
+	//HIDE DESCRIPTION
+	jQuery('#mdocs-doc-preview').change(function() {
+		if(this.checked) jQuery('#mdocs-desc-container').slideUp();
+		else jQuery('#mdocs-desc-container').slideDown();
 	});
 }
 function mdocs_set_onleave() { window.onbeforeunload = function() { return mdocs_js.leave_page;}; }

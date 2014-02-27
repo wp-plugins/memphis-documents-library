@@ -174,7 +174,8 @@ function mdocs_import_zip() {
 						post_status=>$the_post_stauts,
 						post_status_sys=>$the_post_stauts_sys,
 						ratings=>$mdocs_list_file[$key]['ratings'],
-						rating=>$mdocs_list_file[$key]['rating']
+						rating=>$mdocs_list_file[$key]['rating'],
+						doc_preview=>$mdocs_list_file[$key]['doc_preview'],
 					));
 					//$mdocs = mdocs_array_sort($mdocs, 'name', SORT_ASC);
 					update_option('mdocs-list', $mdocs);

@@ -58,10 +58,18 @@ function mdocs_the_list() {
 								<?php mdocs_social($the_mdoc); ?>
 							</div>
 							<div class="mdocs-clear-both"></div>
+							<?php
+							$upload_dir = wp_upload_dir();
+							if($the_mdoc['doc_preview'] != '') {
+								$file_url = $upload_dir['url'].MDOCS_DIR.$the_mdoc['filename'];
+								if($the_mdoc['type'] == 'png' ||  $the_mdoc['type'] == 'jpg') echo '<p>Sorry, this type of document is not supported for viewing.</p>';
+								else mdocs_doc_preview($file_url);
+							} else { ?>
 							<h3>Description</h3>
 							<div class="mdoc-desc">
 								<?php echo $mdocs_desc; ?>
 							</div>
+							<?php } ?>
 							<div class="mdocs-clear-both"></div>
 							</div>
 							<?php

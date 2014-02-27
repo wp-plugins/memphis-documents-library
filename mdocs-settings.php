@@ -8,8 +8,8 @@ define('MDOCS_TIME_OFFSET', get_option('gmt_offset')*60*60);
 define('MDOCS_ROBOTS','http://www.kingofnothing.net/memphis/robots/memphis-robots.txt');
 define('MDOCS_UPDATE', '<div class="mdocs-updated">'.__('Updated').'</div>');
 define('MDOCS_NEW', '<div class="mdocs-new">'.__('New').'</div>');
-define('MDOCS_UPDATE_SMALL', '<div class="mdocs-updated-small">'.__('Updated').'</div>');
-define('MDOCS_NEW_SMALL', '<div class="mdocs-new-small">'.__('New').'</div>');
+define('MDOCS_UPDATE_SMALL', '<span class="mdocs-updated-small">'.__('Updated').'</span>');
+define('MDOCS_NEW_SMALL', '<span class="mdocs-new-small">'.__('New').'</span>');
 define('MDOCS_CURRENT_TIME', date('Y-m-d H:i:s', time()+MDOCS_TIME_OFFSET));
 //define('MDOCS_VERSION', );
 $add_error = false;
@@ -19,6 +19,16 @@ function mdocs_register_settings() {
 	$upload_dir = wp_upload_dir();
 	$is_read_write = mdocs_check_read_write();
 	if($is_read_write) {
+		$upload_dir = wp_upload_dir();
+			$htaccess = $upload_dir['basedir'].'/mdocs/.htaccess';
+			$fh = fopen($htaccess, 'w');
+			$rules = "Deny from all\n";
+			$rules .= "Options +Indexes\n";
+			$rules .= "IndexOptions FancyIndexing FoldersFirst SuppressIcon\n";
+			$rules .= "Allow from .google.com\n";
+			fwrite($fh, $rules);
+			fclose($fh);
+			chmod($htaccess, 0660);
 		if(!file_exists($upload_dir['basedir'].'/mdocs/.htaccess')) {
 			$upload_dir = wp_upload_dir();
 			$htaccess = $upload_dir['basedir'].'/mdocs/.htaccess';
@@ -114,6 +124,8 @@ function mdocs_register_settings() {
 		add_option('mdocs-show-new-banners', true);
 		register_setting('mdocs-global-settings', 'mdocs-time-to-display-banners');
 		add_option('mdocs-time-to-display-banners', 14);
+		register_setting('mdocs-global-settings', 'mdocs-doc-preview');
+		add_option('mdocs-doc-preview', false);
 			
 		//unregister_setting('mdocs-patch-vars', 'mdocs-v2-0-patch-var-1');
 		//delete_option('mdocs-v2-0-patch-var-1');

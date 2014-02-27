@@ -19,13 +19,20 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 	$mdocs_show_new_banners = get_option('mdocs-show-new-banners');
 	$mdocs_time_to_display_banners = get_option('mdocs-time-to-display-banners');
 	$permalink = get_permalink($post->ID);
+
 	if(preg_match('/\?page_id=/',$permalink) || preg_match('/\?p=/',$permalink)) {
 		$mdocs_get = $permalink.'&cat=';
 	} else $mdocs_get = $permalink.'?cat=';
-	$tooltip = '<b class="mdocs-blue">'.__('Description').'</b><br>';
-	$tooltip .= $the_mdoc['desc'].'';
+	if($the_mdoc['doc_preview'] != '') {
+		$tooltip = '<p><b class="mdocs-blue">'.__('Document Preview').'</b></p>';
+		$tooltip .= '<p>Click the "Visit" link to the right side of the page to preview this file, remember image files cannot be preview with this application.</p>';
+	} else {
+		$tooltip = '<p><b class="mdocs-blue">'.__('Description').'</b></p>';
+		$tooltip .= '<p>'.$the_mdoc['desc'].'</p>';
+		
+	}
 	if($page_type == 'dashboard') {
-		$tooltip .= '<br><br>'.__('File Status').':<b class="mdocs-olive"> '.$the_mdoc['file_status'].'</b><br>';
+		$tooltip .= __('File Status').':<b class="mdocs-olive"> '.$the_mdoc['file_status'].'</b><br>';
 		$tooltip .= __('Post Status').':<b class="mdocs-salmon"> '.$the_post->post_status.'</b><br>';
 		if($mdocs_hide_all_files) $tooltip .= '<br><i class="icon-lock mdocs-orange"></i> '.__('All Files Are Hidden');
 		if($mdocs_hide_all_posts) $tooltip .= '<br><i class="icon-lock mdocs-red"></i> '.__('All Posts Are Hidden'); 
