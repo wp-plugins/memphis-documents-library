@@ -18,9 +18,8 @@ function mdocs_settings($cat) {
 	$mdocs_show_social = get_option( 'mdocs-show-social' );
 	$mdocs_show_new_banners = get_option('mdocs-show-new-banners');
 	$mdocs_time_to_display_banners = strval(get_option('mdocs-time-to-display-banners'));
-	
+	$mdocs_sort_type = get_option('mdocs-sort-type');
 	mdocs_hide_show_toogle();	
-	
 ?>
 <!-- COLOR PICKER 
 <input type="text" value="#bada55" class="mdocs-color-picker" />
@@ -70,6 +69,19 @@ function mdocs_settings($cat) {
 		<td>
 			<input type="checkbox" id="mdocs-show-new-banners" name="mdocs-show-new-banners" value="1"  <?php checked(1,$mdocs_show_new_banners) ?>/> <?php _e('Show New & Updated Banner'); ?><br>
 			<input class="width-30" type="text" id="mdocs-time-to-display-banners" name="mdocs-time-to-display-banners" value="<?php echo $mdocs_time_to_display_banners; ?>"/> <?php _e('days - Time to Displayed'); ?><br>
+		</td>
+		<th><?php _e('Default Sort Order'); ?></th>
+		<td>
+			<label>Order Types:
+					<select name="mdocs-sort-type" id="mdocs-sort-type" >
+						<option value="name" <?php if($mdocs_sort_type == 'name') echo 'selected'; ?>><?php _e('File Name'); ?></option>
+						<option value="downloads" <?php if($mdocs_sort_type == 'downloads') echo 'selected'; ?>><?php _e('Number of Downloads'); ?></option>
+						<option value="version" <?php if($mdocs_sort_type == 'version') echo 'selected'; ?>><?php _e('Version'); ?></option>
+						<option value="owner" <?php if($mdocs_sort_type == 'owner') echo 'selected'; ?>><?php _e('Author'); ?></option>
+						<option value="modified" <?php if($mdocs_sort_type == 'modified') echo 'selected'; ?>><?php _e('Last Updated'); ?></option>
+						<option value="rating" <?php if($mdocs_sort_type == 'rating') echo 'selected'; ?>><?php _e('Rating'); ?></option>
+					</select>
+				</label>
 		</td>
 	</tr>
 	<!--

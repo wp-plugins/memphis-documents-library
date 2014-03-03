@@ -1,5 +1,6 @@
 <?php
 function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_cat) {
+	global $doc_file_types;
 	$upload_dir = wp_upload_dir();
 	$the_mdoc_permalink = get_permalink($the_mdoc['parent']);
 	$the_post = get_post($the_mdoc['parent']);
@@ -23,14 +24,16 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 	if(preg_match('/\?page_id=/',$permalink) || preg_match('/\?p=/',$permalink)) {
 		$mdocs_get = $permalink.'&cat=';
 	} else $mdocs_get = $permalink.'?cat=';
+	/*
 	if($the_mdoc['doc_preview'] != '') {
 		$tooltip = '<p><b class="mdocs-blue">'.__('Document Preview').'</b></p>';
-		$tooltip .= '<p>Click the "Visit" link to the right side of the page to preview this file, remember image files cannot be preview with this application.</p>';
-	} else {
+		if(is_admin()) $tooltip .= '<p>'.__('Click the "Visit" link to the right side of the page to preview this file, remember image files cannot be preview with this application.').'</p>';
+		else $tooltip .=  '<p>'.__('Click this link to preview this file, remember image files cannot be previewed with this application.').'</p>';
+	} else {*/
 		$tooltip = '<p><b class="mdocs-blue">'.__('Description').'</b></p>';
 		$tooltip .= '<p>'.$the_mdoc['desc'].'</p>';
 		
-	}
+	//}
 	if($page_type == 'dashboard') {
 		$tooltip .= __('File Status').':<b class="mdocs-olive"> '.$the_mdoc['file_status'].'</b><br>';
 		$tooltip .= __('Post Status').':<b class="mdocs-salmon"> '.$the_post->post_status.'</b><br>';
@@ -57,7 +60,25 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 		}
 	?>
 		<tr>
-			<td id="title" class="mdocs-tooltip"><?php if($page_type == 'dashboard') { ?><i class="mdocs-show-social icon-plus-sign-alt mdocs-green" id="mdocs-show-social-<?php echo $index; ?> "></i> <a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat.'&action=update-doc&mdocs-index='.$index; ?>" title="<?php echo $tooltip; ?> "><?php echo $the_mdoc['name'].$status_tag; ?></a><?php } else { ?><a href="<?php echo $the_mdoc_permalink; ?>" title="<?php echo $tooltip; ?> "><?php echo $the_mdoc['name'].$status_tag; ?></a><?php } ?></td>
+			<td id="title" class="mdocs-tooltip">
+				<?php
+				if(in_array($the_mdoc['type'], $doc_file_types) ) {
+					if($mdocs_show_non_members  == 'on'  ) { ?>
+						<i class="icon-search mdocs-docs-preview" id="file-preview-<?php echo $the_mdoc['id']; ?>"> </i>
+					<?php } elseif($the_mdoc['non_members'] == 'on' || $user_logged_in) { ?>
+						<i class="icon-search mdocs-docs-preview" id="file-preview-<?php echo $the_mdoc['id']; ?>"> </i>
+					<?php }
+				}
+				if($page_type == 'dashboard') {
+				?>
+					<i class="mdocs-show-social icon-plus-sign-alt mdocs-green" id="mdocs-show-social-<?php echo $index; ?> "></i>
+					<a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat.'&action=update-doc&mdocs-index='.$index; ?>" title="<?php echo $tooltip; ?> "><?php echo $the_mdoc['name'].$status_tag; ?></a>
+				<?php }
+				else {
+				?>
+					<a href="<?php echo $the_mdoc_permalink; ?>" title="<?php echo $tooltip; ?> "><?php echo $the_mdoc['name'].$status_tag; ?></a>
+				<?php } ?>
+			</td>
 			<?php if($mdocs_show_downloads) { ?><td id="downloads"><i class="icon-cloud-download"></i> <b class="mdocs-orange"><?php echo $the_mdoc['downloads'].' '.__('Downloads'); ?></b></td><?php } ?>
 			<?php if($mdocs_show_version) { ?><td id="version"><i class="icon-off"></i><b class="mdocs-blue"> <?php echo $the_mdoc['version']; ?></b></td><?php } ?>
 			<?php if($mdocs_show_author) { ?><td id="owner"><i class="icon-pencil"></i> <i class="mdocs-green"><?php echo $the_mdoc['owner']; ?></i></td><?php } ?>

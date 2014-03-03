@@ -13,6 +13,7 @@ define('MDOCS_NEW_SMALL', '<span class="mdocs-new-small">'.__('New').'</span>');
 define('MDOCS_CURRENT_TIME', date('Y-m-d H:i:s', time()+MDOCS_TIME_OFFSET));
 //define('MDOCS_VERSION', );
 $add_error = false;
+$doc_file_types = array('pdf','docx','doc','txt', 'zip');
 
 function mdocs_register_settings() {
 	//CREATE REPOSITORY DIRECTORY
@@ -126,6 +127,8 @@ function mdocs_register_settings() {
 		add_option('mdocs-time-to-display-banners', 14);
 		register_setting('mdocs-global-settings', 'mdocs-doc-preview');
 		add_option('mdocs-doc-preview', false);
+		register_setting('mdocs-global-settings', 'mdocs-sort-type');
+		add_option('mdocs-sort-type','modified');
 			
 		//unregister_setting('mdocs-patch-vars', 'mdocs-v2-0-patch-var-1');
 		//delete_option('mdocs-v2-0-patch-var-1');
@@ -184,7 +187,7 @@ function mdocs_document_ready_wp() {
 ?>
 <script type="application/x-javascript">
 		jQuery( document ).ready(function() {
-			mdocs_wp('<?php echo MDOC_URL; ?>');
+			mdocs_wp('<?php echo MDOC_URL; ?>', '<?php echo ABSPATH; ?>');
 		});	
 	</script>
 <?php

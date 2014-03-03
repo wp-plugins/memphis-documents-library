@@ -44,7 +44,7 @@ function mdocs_post_page($att=null) {
 		<div class="mdocs-clear-both"></div>
 		<?php
 		if($the_mdoc['doc_preview'] != '') {
-			$file_url = $upload_dir['url'].MDOCS_DIR.$the_mdoc['filename'];
+			$file_url = $upload_dir['baseurl'].MDOCS_DIR.$the_mdoc['filename'];
 			if($the_mdoc['type'] == 'png' ||  $the_mdoc['type'] == 'jpg') echo '<p class="mdocs-p">Sorry, this type of document is not supported for viewing</p>';
 			else mdocs_doc_preview($file_url);
 		} else { ?>
@@ -181,9 +181,10 @@ function mdocs_nonce() {
 }
 
 function mdocs_sort_by($mdocs, $ypos=0, $page_type='site', $echo=true) {
+	$mdocs_sort_type = get_option('mdocs-sort-type');
 	if(isset($_POST['mdocs-sort-type'])) $sort_type = $_POST['mdocs-sort-type']; 
 	elseif(isset($_COOKIE['mdocs-sort-type-'.$page_type])) $sort_type = $_COOKIE['mdocs-sort-type-'.$page_type];
-	else $sort_type = 'modified';
+	else $sort_type = $mdocs_sort_type;
 	if(isset($_POST['mdocs-sort-range'])) $sort_range = $_POST['mdocs-sort-range'];
 	elseif(isset($_COOKIE['mdocs-sort-range-'.$page_type])) $sort_range = $_COOKIE['mdocs-sort-range-'.$page_type];
 	else $sort_range = 'desc';

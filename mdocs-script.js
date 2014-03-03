@@ -1,21 +1,31 @@
 var toggle_share = false;
-function mdocs_wp(plugin_url) {
+function mdocs_wp(plugin_url, wp_root) {
 	//JQUERY UI TOOLTIP INIT
 	jQuery('.mdocs-tooltip' ).tooltip({
 		content: function () { return jQuery(this).prop('title'); },
 		position: {
-			my: "center top+20",
+			my: "left-20 top+20",
 			at: "center bottom",
 			using: function( position, feedback ) {
-			  jQuery( this ).css( position );
-			  jQuery( "<div>" )
+				jQuery( this ).css( position );
+				jQuery( "<div>" )
 				.addClass( "arrow" )
 				.addClass( feedback.vertical )
 				.addClass( feedback.horizontal )
 				.appendTo( this );
 			}
-		},
-		 
+		}
+	});
+	jQuery('.mdocs-docs-preview' ).click(function() {
+		var mdocs_file_id = jQuery(this).prop('id').split('-');
+		mdocs_file_id = mdocs_file_id[mdocs_file_id.length-1];
+		jQuery('.mdocs-preview').empty();
+		jQuery('.mdocs-preview').fadeIn();
+		jQuery.post(plugin_url+'mdocs-doc-preview.php',{mdocs_file_id: mdocs_file_id, wp_root: wp_root},function(data) {
+			jQuery('html, body').css('overflow-y','hidden');
+			jQuery('.mdocs-preview').empty();
+			jQuery('.mdocs-preview').html(data);
+		});
 	});
 	mdocs_ratings();
 }
@@ -59,7 +69,7 @@ function mdocs_admin(plugin_url) {
 	jQuery('.mdocs-tooltip' ).tooltip({
 		content: function () { return jQuery(this).prop('title'); },
 		position: {
-			my: "center top+20",
+			my: "left-20 top+20",
 			at: "center bottom",
 			using: function( position, feedback ) {
 				jQuery( this ).css( position );
@@ -181,7 +191,11 @@ function mdocs_share(mdocs_link,the_id) {
 		jQuery('#'+the_id+' .mdocs-share-link').remove();
 		toggle_share = false;
 	}
+}
+
+function mdocs_close_preview() {
 	
+	jQuery('.mdocs-preview').fadeOut().empty();
 }
 
 function mdocs_toogle_disable_setting(main, disable) {

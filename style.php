@@ -65,8 +65,8 @@ if($num_show==1) $title_width = '75%';
 /*
 .right { float: right; position: relative !important; top: 0px !important; right: 12px !important;}
 */
-.mdocs-social { padding: 10px 5px 10px 5px; margin: 0 !important;  overflow: hidden; border-bottom: solid 1px #e2e2e2; border-top: solid 1px #e2e2e2; background: #f0f0f0;}
-.mdocs-socail-dashboard { background: #ababab; }
+.mdocs-social { padding: 10px 5px 10px 5px; margin: 0 !important;  overflow: hidden; border: none !important; background: #f0f0f0;}
+
 .mdocs-tweet { float: left; height: 20px; width: 90px; }
 .mdocs-like { float: left; height: 20px;  width: 90px;}
 .mdocs-plusone { float: left; width: 70px !important; height: 22px; }
@@ -150,7 +150,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 
 
 .mdocs-list-table, .mdocs-list-table tr, .mdocs-list-table td { width: 100% !important; border: solid 1px #ccc !important; vertical-align: middle; border-collapse: collapse !important; padding: 3px 0 !important; margin: 0 !important; font-size: 13px !important;}
-.mdocs-list-table td { border: none !important; }
+.mdocs-list-table td { border: none !important;  padding: 0 !important; height: 28px !important;}
 .mdocs-list-table { margin-top: 10px !important; }
 .mdocs-list-table #title { padding: 0 0 0 5px !important; margin: 0; width: <?php echo $title_width; ?> !important; }
 .mdocs-list-table #downloads { padding: 0; width: auto !important; text-align: center;}
@@ -217,7 +217,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-rating-container-small div:last-child { font-size: 20px; margin: auto; text-align: center; color: #9d9d9d;}
 .mdocs-rating-container-small span { font-size: 11px; }
 .mdocs-big-star { text-shadow: 1px 2px 1px #474747; padding: 0 1px;}
-
+/* BUTTON STYLES */
+.mdocs-docs-preview { cursor:  pointer !important; }
+.mdocs-download-btn-config:hover { background: <?php echo get_option('mdocs-download-color-hover'); ?> !important; }
+.mdocs-close-btn { position: absolute; float: right; right: 20px; top: 30px; border: solid 1px #0074a2; box-shadow: inset 0 1px 0 #005c81; background: #2ea2cc; padding: 3px 5px; color: #fff; border-radius: 3px; margin: 15px !important; font-size: 13px !important; font-family: 'Open Sans', sans-serif; padding: 1px 10px 0px 10px; cursor: pointer; }
+.mdocs-close-btn:hover { background: #1E8CBE; }
 .wp-picker-holder { position: absolute !important; z-index: 2000;}
 .mdocs-download-btn-config {
 	text-align: left !important;
@@ -235,8 +239,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 	box-shadow: none !important;
 	background: <?php echo get_option('mdocs-download-color-normal'); ?> ;
 }
-.mdocs-download-btn-config:hover { background: <?php echo get_option('mdocs-download-color-hover'); ?> !important; }
-.mdocs-google-doc { width: 100% !important; height: 550px !important; }
+
 
 /* FONTS */
 @font-face {
@@ -252,21 +255,21 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
   src: local('Bitter-Bold'), url(https://themes.googleusercontent.com/static/fonts/bitter/v4/JGVZEP92dXgoQBG1CnQcfLO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
 }
 
+/* PREVIEW WINDOWS */
+.mdocs-preview { display: none; background: #e6e6e6; opacity: 1; width: 99%; height: 200%; position: absolute; top: 0; left: 10px; text-align: center;}
+.mdocs-preview h1 { text-align: left; padding: 0;  margin: 0; padding-top: 20px; }
+.mdocs-google-doc { width: 100% !important; height: 100% !important; margin: 0px; padding: 0; }
 
 /* JQUERY UI TOOLTIP SYTEL */
 .ui-tooltip, .arrow:after { background: black !important; border: 2px solid white; }
-.ui-tooltip { padding: 10px 20px; color: white; border-radius: 20px; font: bold 14px "Helvetica Neue", Sans-Serif; text-transform: uppercase; box-shadow: 0 0 7px black; }
-.ui-tooltip p { padding: 0 0 10px 0 !important; margin: 0 !important;}
+.ui-tooltip { padding: 10px 20px; color: white; border-radius: 20px; font: bold 14px "Helvetica Neue", Sans-Serif; text-transform: uppercase; box-shadow: 0 0 7px black; min-width: 800px !important; }
+.ui-tooltip p { padding: 0 0 10px 0 !important; margin: 0 !important; font-size: 12px !important;}
 .ui-tooltip a { color: #cc0000; }
 .arrow { width: 70px; height: 16px; overflow: hidden; position: absolute; left: 50%; margin-left: -35px; bottom: -16px; }
 .arrow.top { top: -16px; bottom: auto; }
-.arrow.left { left: 20%; }
+.arrow.left { left: 5%; }
 .arrow:after { content: ""; position: absolute; left: 20px; top: -20px; width: 25px; height: 25px; box-shadow: 6px 5px 9px -9px black; -webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -ms-transform: rotate(45deg); -o-transform: rotate(45deg); tranform: rotate(45deg); }
 .arrow.top:after { bottom: -20px; top: auto; }
 
-
-
 /* THEME FIXES */
 .art-content { width: 100% !important; }
-
-
