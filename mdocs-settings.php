@@ -13,7 +13,7 @@ define('MDOCS_NEW_SMALL', '<span class="mdocs-new-small">'.__('New').'</span>');
 define('MDOCS_CURRENT_TIME', date('Y-m-d H:i:s', time()+MDOCS_TIME_OFFSET));
 //define('MDOCS_VERSION', );
 $add_error = false;
-$doc_file_types = array('pdf','docx','doc','txt', 'zip');
+$mdocs_img_types = array('jpeg','jpg','png','gif');
 
 function mdocs_register_settings() {
 	//CREATE REPOSITORY DIRECTORY
@@ -21,6 +21,10 @@ function mdocs_register_settings() {
 	$is_read_write = mdocs_check_read_write();
 	if($is_read_write) {
 		$upload_dir = wp_upload_dir();
+		//v2.2.1 Patch Updating the .htaccess file
+		register_setting('mdocs-patch-vars', 'mdocs-v2-2-1-patch-var-1');
+		add_option('mdocs-v2-2-1-patch-var-1',false);
+		if(get_option('mdocs-v2-2-1-patch-var-1') == false) {
 			$htaccess = $upload_dir['basedir'].'/mdocs/.htaccess';
 			$fh = fopen($htaccess, 'w');
 			$rules = "Deny from all\n";
@@ -30,6 +34,9 @@ function mdocs_register_settings() {
 			fwrite($fh, $rules);
 			fclose($fh);
 			chmod($htaccess, 0660);
+			update_option('mdocs-v2-2-1-patch-var-1', true);
+			add_action( 'admin_notices', 'mdocs_v2_2_1_admin_notice_v1' );
+		}
 		if(!file_exists($upload_dir['basedir'].'/mdocs/.htaccess')) {
 			$upload_dir = wp_upload_dir();
 			$htaccess = $upload_dir['basedir'].'/mdocs/.htaccess';
@@ -129,7 +136,9 @@ function mdocs_register_settings() {
 		add_option('mdocs-doc-preview', false);
 		register_setting('mdocs-global-settings', 'mdocs-sort-type');
 		add_option('mdocs-sort-type','modified');
-			
+		register_setting('mdocs-global-settings', 'mdocs-sort-style');
+		add_option('mdocs-sort-style','desc');
+		// PATCHES
 		//unregister_setting('mdocs-patch-vars', 'mdocs-v2-0-patch-var-1');
 		//delete_option('mdocs-v2-0-patch-var-1');
 		
@@ -196,7 +205,7 @@ function mdocs_document_ready_admin() {
 ?>
 <script type="application/x-javascript">
 		jQuery( document ).ready(function() {
-			mdocs_admin('<?php echo MDOC_URL; ?>');
+			mdocs_admin('<?php echo MDOC_URL; ?>', '<?php echo ABSPATH; ?>');
 		});	
 	</script>
 <?php
@@ -213,6 +222,13 @@ function mdocs_send_headers_dashboard() {
 	if(isset($_POST['mdocs-sort-type'])) setcookie('mdocs-sort-type-dashboard', $_POST['mdocs-sort-type']); 
 	if(isset($_POST['mdocs-sort-range'])) setcookie('mdocs-sort-range-dashboard', $_POST['mdocs-sort-range']);
 	//mdocs_ie_compat();
+}
+function mdocs_v2_2_1_admin_notice_v1() {
+    ?>
+    <div class="updated">
+        <p><?php _e('Your Memphis <b>.htaccess</b> file has been updated to allow google.com access to the system.   This step is necessary to allow documents to be previewed.'); ?></p>
+    </div>
+    <?php
 }
 
 ?>

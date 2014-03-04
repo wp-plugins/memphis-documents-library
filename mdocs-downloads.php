@@ -2,6 +2,7 @@
 if(isset($_GET['mdocs-file'])) mdocs_download_file();
 if(isset($_GET['mdocs-version'])) mdocs_download_file($_GET['mdocs-version']);
 if(isset($_GET['mdocs-export-file'])) mdocs_download_file($_GET['mdocs-export-file']);
+if(isset($_GET['mdocs-img-preview'])) mdocs_img_preview();
 
 function mdocs_download_file($export_file='') {
 	require_once(ABSPATH . 'wp-includes/pluggable.php');
@@ -55,5 +56,14 @@ function mdocs_download_file($export_file='') {
 			exit;
 		} else die(__('Check this file out').' <b>'.$filename. '</b>.  '.  __('Download it from').' <b>'.get_bloginfo('name').'</b>.<br><sup>'.__('powered by Memphis Documents Library').'</sup>');
 	} else die(__('Sorry you are unauthorized to download this file.'));
+}
+
+function mdocs_img_preview() {
+	require_once(ABSPATH . 'wp-includes/pluggable.php');
+	$upload_dir = wp_upload_dir();
+	$image = $upload_dir['basedir'].MDOCS_DIR.$_GET['mdocs-img-preview']; 
+	$content = file_get_contents($image); 
+	header('Content-Type: image/jpeg');
+	echo $content; exit();
 }
 ?>

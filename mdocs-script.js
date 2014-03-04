@@ -1,4 +1,7 @@
 var toggle_share = false;
+the_rating = 0;
+init_rating = false;
+// INITIALIZE THE ADMIN JAVASCRIPT
 function mdocs_wp(plugin_url, wp_root) {
 	//JQUERY UI TOOLTIP INIT
 	jQuery('.mdocs-tooltip' ).tooltip({
@@ -16,55 +19,45 @@ function mdocs_wp(plugin_url, wp_root) {
 			}
 		}
 	});
-	jQuery('.mdocs-docs-preview' ).click(function() {
+	// TOOGLE DESCRIPTION/PREVIEW
+	jQuery('[id^="mdoc-show-desc-"], [id^="mdoc-show-preview-"]' ).click(function(e) {
+		e.preventDefault();
+		var exploded = jQuery(this).prop('id').split('-');
+		var mdocs_file_id = exploded[exploded.length-1];
+		var show_type = exploded[exploded.length-2];
+		jQuery.post(plugin_url+'mdocs-doc-preview.php',{type:'show', show_type:show_type,mdocs_file_id: mdocs_file_id, wp_root: wp_root},function(data) {
+			jQuery('#mdocs-show-container-'+mdocs_file_id).empty();
+			jQuery('#mdocs-show-container-'+mdocs_file_id).html(data);
+		});
+	});
+	// FILE PREVIEW
+	jQuery('[id^="file-preview-"]' ).click(function() {
 		var mdocs_file_id = jQuery(this).prop('id').split('-');
 		mdocs_file_id = mdocs_file_id[mdocs_file_id.length-1];
-		jQuery('.mdocs-preview').empty();
-		jQuery('.mdocs-preview').fadeIn();
-		jQuery.post(plugin_url+'mdocs-doc-preview.php',{mdocs_file_id: mdocs_file_id, wp_root: wp_root},function(data) {
+		jQuery('.mdocs-wp-preview').empty();
+		jQuery('.mdocs-wp-preview').fadeIn();
+		jQuery.post(plugin_url+'mdocs-doc-preview.php',{type: 'file',mdocs_file_id: mdocs_file_id, wp_root: wp_root},function(data) {
 			jQuery('html, body').css('overflow-y','hidden');
-			jQuery('.mdocs-preview').empty();
-			jQuery('.mdocs-preview').html(data);
+			jQuery('.mdocs-wp-preview').empty();
+			jQuery('.mdocs-wp-preview').html(data);
+		});
+	});
+	// IMAGE PREVIEW
+	jQuery('[id^="img-preview-"]' ).click(function() {
+		var mdocs_file_id = jQuery(this).prop('id').split('-');
+		mdocs_file_id = mdocs_file_id[mdocs_file_id.length-1];
+		jQuery('.mdocs-wp-preview').empty();
+		jQuery('.mdocs-wp-preview').fadeIn();
+		jQuery.post(plugin_url+'mdocs-doc-preview.php',{type: 'img',mdocs_file_id: mdocs_file_id, wp_root: wp_root, is_admin: true},function(data) {
+			jQuery('html, body').css('overflow-y','hidden');
+			jQuery('.mdocs-wp-preview').empty();
+			jQuery('.mdocs-wp-preview').html(data);
 		});
 	});
 	mdocs_ratings();
 }
-
-
-the_rating = 0;
-init_rating = false;
-function mdocs_ratings() {
-	jQuery('.mdocs-my-rating').click(function() {
-		window.location.href = '?mdocs-rating='+this.id;
-	});
-	jQuery('.mdocs-my-rating').mouseover(function() {
-		for (index = 1; index < 6; ++index) {
-			if (this.id >= index) jQuery('#'+index).prop('class', 'icon-star gold mdocs-my-rating');
-			else  jQuery('#'+index).prop('class', 'icon-star-empty mdocs-my-rating');
-			
-		}
-	});
-	
-	jQuery('.mdocs-rating-container-small').mouseover(function() {
-		if (init_rating == false) {
-			for (index = 1; index < 6; ++index) {
-				if (jQuery('#'+index).hasClass("icon-star")) {
-					the_rating = index;
-				}  
-			}
-		}
-		init_rating = true;
-	});
-	
-	jQuery('.mdocs-rating-container-small').mouseout(function() {
-		for (index = 1; index < 6; ++index) {
-			if (the_rating >= index) jQuery('#'+index).prop('class', 'icon-star gold mdocs-my-rating');
-			else  jQuery('#'+index).prop('class', 'icon-star-empty mdocs-my-rating');
-		}
-	});
-}
-
-function mdocs_admin(plugin_url) {
+// INITIALIZE THE ADMIN JAVASCRIPT
+function mdocs_admin(plugin_url, wp_root) {
 	//JQUERY UI TOOLTIP INIT
 	jQuery('.mdocs-tooltip' ).tooltip({
 		content: function () { return jQuery(this).prop('title'); },
@@ -94,6 +87,42 @@ function mdocs_admin(plugin_url) {
 	mdocs_toogle_disable_setting('#mdocs-hide-all-files-non-members','#mdocs-hide-all-files');
 	mdocs_toogle_disable_setting('#mdocs-hide-all-posts','#mdocs-hide-all-posts-non-members');
 	mdocs_toogle_disable_setting('#mdocs-hide-all-posts-non-members','#mdocs-hide-all-posts');
+	
+	// TOOGLE DESCRIPTION/PREVIEW
+	jQuery('[id^="mdoc-show-desc-"], [id^="mdoc-show-preview-"]' ).click(function(e) {
+		e.preventDefault();
+		var exploded = jQuery(this).prop('id').split('-');
+		var mdocs_file_id = exploded[exploded.length-1];
+		var show_type = exploded[exploded.length-2];
+		jQuery.post(plugin_url+'mdocs-doc-preview.php',{type:'show', show_type:show_type,mdocs_file_id: mdocs_file_id, wp_root: wp_root},function(data) {
+			jQuery('#mdocs-show-container-'+mdocs_file_id).empty();
+			jQuery('#mdocs-show-container-'+mdocs_file_id).html(data);
+		});
+	});
+	// FILE PREVIEW
+	jQuery('[id^="file-preview-"]' ).click(function() {
+		var mdocs_file_id = jQuery(this).prop('id').split('-');
+		mdocs_file_id = mdocs_file_id[mdocs_file_id.length-1];
+		jQuery('.mdocs-admin-preview').empty();
+		jQuery('.mdocs-admin-preview').fadeIn();
+		jQuery.post(plugin_url+'mdocs-doc-preview.php',{type: 'file', mdocs_file_id: mdocs_file_id, wp_root: wp_root, is_admin: true},function(data) {
+			jQuery('html, body').css('overflow-y','hidden');
+			jQuery('.mdocs-admin-preview').empty();
+			jQuery('.mdocs-admin-preview').html(data);
+		});
+	});
+	// IMAGE PREVIEW
+	jQuery('[id^="img-preview-"]' ).click(function() {
+		var mdocs_file_id = jQuery(this).prop('id').split('-');
+		mdocs_file_id = mdocs_file_id[mdocs_file_id.length-1];
+		jQuery('.mdocs-admin-preview').empty();
+		jQuery('.mdocs-admin-preview').fadeIn();
+		jQuery.post(plugin_url+'mdocs-doc-preview.php',{type: 'img',mdocs_file_id: mdocs_file_id, wp_root: wp_root, is_admin: true},function(data) {
+			jQuery('html, body').css('overflow-y','hidden');
+			jQuery('.mdocs-admin-preview').empty();
+			jQuery('.mdocs-admin-preview').html(data);
+		});
+	});
 	
 	/*
 	jQuery('#download-normal').iris({
@@ -165,11 +194,6 @@ function mdocs_admin(plugin_url) {
 		if (jQuery(this).val() == 'hidden') jQuery('#mdocs-post-status').prop('disabled','true');
 		else if (jQuery(this).val() == 'public') jQuery('#mdocs-post-status').removeAttr('disabled');
 	});
-	//HIDE DESCRIPTION
-	jQuery('#mdocs-doc-preview').change(function() {
-		if(this.checked) jQuery('#mdocs-desc-container').slideUp();
-		else jQuery('#mdocs-desc-container').slideDown();
-	});
 }
 function mdocs_set_onleave() { window.onbeforeunload = function() { return mdocs_js.leave_page;}; }
 function mdocs_reset_onleave() { window.onbeforeunload = null; }
@@ -193,10 +217,7 @@ function mdocs_share(mdocs_link,the_id) {
 	}
 }
 
-function mdocs_close_preview() {
-	
-	jQuery('.mdocs-preview').fadeOut().empty();
-}
+function mdocs_close_preview(type) { window.location.href = '';}
 
 function mdocs_toogle_disable_setting(main, disable) {
 	var checked = jQuery(main).prop('checked');
@@ -206,5 +227,36 @@ function mdocs_toogle_disable_setting(main, disable) {
 		var checked = jQuery(this).prop('checked');
 		if (checked) jQuery(disable).prop('disabled', true);
 		else jQuery(disable).prop('disabled', false);
+	});
+}
+// RATINGS
+function mdocs_ratings() {
+	jQuery('.mdocs-my-rating').click(function() {
+		window.location.href = '?mdocs-rating='+this.id;
+	});
+	jQuery('.mdocs-my-rating').mouseover(function() {
+		for (index = 1; index < 6; ++index) {
+			if (this.id >= index) jQuery('#'+index).prop('class', 'icon-star gold mdocs-my-rating');
+			else  jQuery('#'+index).prop('class', 'icon-star-empty mdocs-my-rating');
+			
+		}
+	});
+	
+	jQuery('.mdocs-rating-container-small').mouseover(function() {
+		if (init_rating == false) {
+			for (index = 1; index < 6; ++index) {
+				if (jQuery('#'+index).hasClass("icon-star")) {
+					the_rating = index;
+				}  
+			}
+		}
+		init_rating = true;
+	});
+	
+	jQuery('.mdocs-rating-container-small').mouseout(function() {
+		for (index = 1; index < 6; ++index) {
+			if (the_rating >= index) jQuery('#'+index).prop('class', 'icon-star gold mdocs-my-rating');
+			else  jQuery('#'+index).prop('class', 'icon-star-empty mdocs-my-rating');
+		}
 	});
 }

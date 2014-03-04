@@ -65,7 +65,7 @@ if($num_show==1) $title_width = '75%';
 /*
 .right { float: right; position: relative !important; top: 0px !important; right: 12px !important;}
 */
-.mdocs-social { padding: 10px 5px 10px 5px; margin: 0 !important;  overflow: hidden; border: none !important; background: #f0f0f0;}
+.mdocs-social { padding: 10px 5px 30px 5px !important; margin: 0 !important;  overflow: hidden; border: none !important; background: #f0f0f0;}
 
 .mdocs-tweet { float: left; height: 20px; width: 90px; }
 .mdocs-like { float: left; height: 20px;  width: 90px;}
@@ -106,7 +106,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-container { font-family: 'Bitter', "HelveticaNeue-Light",sans-serif !important; width: 100% !important; }
 .mdocs-container h2 { margin: 5px 10px; padding:0; font-weight: normal; }
 .mdocs-nav-wrapper { padding: 0 15px 0px 0 !important; line-height: 29px; display: block; overflow: hidden; margin: 0 !important; width: 100% !important; clear: both !important;}
-.mdocs-nav-tab { font-family: 'Bitter', "HelveticaNeue-Light",sans-serif !important; font-weight: normal !important; font-size: 20px !important; background: #e7e7e7; font-size: 17px !important; border-top:  solid 1px #DCDCDC !important; border-left:  solid 1px #DCDCDC; border-right:  solid 1px #DCDCDC; line-height: 24px; display: inline-block; padding: 4px 10px 6px; margin: 4px 2px 0px 2px !important; border-radius: 3px 3px 0 0; text-decoration: none; color: #AAA !important; text-shadow: none !important; white-space:nowrap !important; }
+.mdocs-nav-tab { font-family: 'Bitter', "HelveticaNeue-Light",sans-serif !important; font-weight: normal !important; font-size: 20px !important; background: #e7e7e7; font-size: 17px !important; border-top:  solid 1px #DCDCDC !important; border-left:  solid 1px #DCDCDC; border-right:  solid 1px #DCDCDC; line-height: 24px; display: inline-block; padding: 4px 10px 6px; margin: 4px 2px 0px 2px !important; border-radius: 3px 3px 0 0; text-decoration: none; color: #AAA !important; text-shadow: none !important; white-space:nowrap !important; cursor: pointer !important; }
 .mdocs-nav-tab span { display: inline-block; }
 .mdocs-nav-tab:link, .mdocs-nav-tab:visited { color: #CCC; } 
 .mdocs-nav-tab:hover { color: #FFBF40 !important; border-top:  solid 1px #DCDCDC !important; border-left:  solid 1px #DCDCDC !important; border-right:  solid 1px #DCDCDC !important;}
@@ -218,7 +218,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-rating-container-small span { font-size: 11px; }
 .mdocs-big-star { text-shadow: 1px 2px 1px #474747; padding: 0 1px;}
 /* BUTTON STYLES */
-.mdocs-docs-preview { cursor:  pointer !important; }
 .mdocs-download-btn-config:hover { background: <?php echo get_option('mdocs-download-color-hover'); ?> !important; }
 .mdocs-close-btn { position: absolute; float: right; right: 20px; top: 30px; border: solid 1px #0074a2; box-shadow: inset 0 1px 0 #005c81; background: #2ea2cc; padding: 3px 5px; color: #fff; border-radius: 3px; margin: 15px !important; font-size: 13px !important; font-family: 'Open Sans', sans-serif; padding: 1px 10px 0px 10px; cursor: pointer; }
 .mdocs-close-btn:hover { background: #1E8CBE; }
@@ -256,9 +255,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 }
 
 /* PREVIEW WINDOWS */
-.mdocs-preview { display: none; background: #e6e6e6; opacity: 1; width: 99%; height: 200%; position: absolute; top: 0; left: 10px; text-align: center;}
-.mdocs-preview h1 { text-align: left; padding: 0;  margin: 0; padding-top: 20px; }
+.mdocs-wp-preview { display: none; background: #e6e6e6; opacity: 1; width: 99%; height: 200%; position: absolute; top: 0; left: 10px; text-align: center;}
+.mdocs-wp-preview h1 { text-align: left; padding: 0;  margin: 0; padding-top: 20px; }
 .mdocs-google-doc { width: 100% !important; height: 100% !important; margin: 0px; padding: 0; }
+.mdocs-admin-preview { position: absolute !important; top: 0; left: 0;  background: #e6e6e6; width: 99%; height: 200%; z-index: 99999; display: none;}
+.mdocs-admin-preview h1 { text-align: left; padding: 0;  margin: 0 10px 24px 10px; padding-top: 20px; font-size: 21px !important;}
+.mdocs-admin-preview .mdocs-google-doc { width: 100% !important; height: 140% !important; margin: 0px; padding: 0; }
+.mdocs-admin-preview .mdocs-close-btn { top: -10px; }
+.mdocs-preview-icon { cursor:  pointer !important; }
+.mdocs-img-preview { text-align: center;  width: 100%; height: 100%; }
+.mdocs-show-container { border-top: solid 1px #e2e2e2; }
 
 /* JQUERY UI TOOLTIP SYTEL */
 .ui-tooltip, .arrow:after { background: black !important; border: 2px solid white; }

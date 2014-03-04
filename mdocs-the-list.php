@@ -19,7 +19,7 @@ function mdocs_the_list() {
 	<div class="mdocs-container">
 		<?php $mdocs = mdocs_sort_by($mdocs); ?>
 		<h2 class="mdocs-nav-wrapper">
-			<div class="mdocs-preview"></div>
+			<div class="mdocs-wp-preview"></div>
 			<div id="icon-edit-pages" class="icon32"><br></div>
 			<?php
 			if(!empty($cats)) {
@@ -59,18 +59,7 @@ function mdocs_the_list() {
 								<?php mdocs_social($the_mdoc); ?>
 							</div>
 							<div class="mdocs-clear-both"></div>
-							<?php
-							$upload_dir = wp_upload_dir();
-							if($the_mdoc['doc_preview'] != '') {
-								$file_url = $upload_dir['baseurl'].MDOCS_DIR.$the_mdoc['filename'];
-								if($the_mdoc['type'] == 'png' ||  $the_mdoc['type'] == 'jpg') echo '<p>Sorry, this type of document is not supported for viewing.</p>';
-								else mdocs_doc_preview($file_url);
-							} else { ?>
-							<h3>Description</h3>
-							<div class="mdoc-desc">
-								<?php echo $mdocs_desc; ?>
-							</div>
-							<?php } ?>
+							<?php mdocs_des_preview_tabs($the_mdoc); ?>
 							<div class="mdocs-clear-both"></div>
 							</div>
 							<?php

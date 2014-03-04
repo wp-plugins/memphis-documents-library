@@ -43,6 +43,7 @@ function mdocs_dashboard_view() {
 	elseif(!is_string($cats)) $current_cat = key($cats);
 	?>
 	<div class="wrap">
+		<div class="mdocs-admin-preview"></div>
 		<?php if($message != "" && $type != 'update') { ?> <div id="message" class="error" ><p><?php _e($message); ?></p></div> <?php }?>
 		<div id="icon-mdocs" class="icon32"><br></div><h2><?php _e("Documents Library"); ?>
 		
@@ -104,10 +105,7 @@ function mdoc_doc_list($current_cat) {
 							<?php mdocs_social($value); ?>
 						</div>
 						<div class="mdocs-clear-both"></div>
-						<h3>Description</h3>
-						<div class="mdoc-desc">
-							<?php echo $mdocs_desc; ?>
-						</div>
+						<?php mdocs_des_preview_tabs($mdocs[$index]); ?>
 						<div class="mdocs-clear-both"></div>
 						<?php mdocs_edit_file($value, $index, $current_cat); ?>
 						
@@ -225,17 +223,8 @@ function mdocs_uploader($edit_type='Add Document') {
 					</select>
 				</label>
 			</div>
-			<div class="mdocs-form-box">
-				<label><?php _e('Use Document Preview <i>(This will show a preview of the file rather than a description.)</i>'); ?>:
-					<input type="checkbox" id="mdocs-doc-preview" name="mdocs-doc-preview"
-					<?php
-						if($edit_type=='Update Document' && $mdocs[$mdoc_index]['doc_preview'] != '' || $mdocs[$mdoc_index]['doc_preview'] != null) echo 'checked';
-						elseif($edit_type=='Add Document') echo '';
-						?> />
-				</label>
-			</div>
 			<br>
-			<div id="mdocs-desc-container" <?php if($mdocs[$mdoc_index]['doc_preview']) echo 'style="display:none;"'; ?> >
+			<div id="mdocs-desc-container" >
 				<h2><?php _e('Description'); ?></h2>
 				<?php wp_editor($mdocs_desc, "mdocs-desc"); ?><br>
 			</div>

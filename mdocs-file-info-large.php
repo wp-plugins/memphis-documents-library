@@ -28,6 +28,7 @@ function mdocs_file_info_large($the_mdoc, $page_type='site', $index=0, $current_
 	//else $show_files = false;
 	$show_files = true;
 	if( $show_files) {
+		mdocs_social_scripts();
 		if(isset($_GET['mdocs-rating'])) $the_mdoc = mdocs_set_rating($index);
 		$the_rating = mdocs_get_rating($the_mdoc);
 		if($mdocs_show_new_banners) {

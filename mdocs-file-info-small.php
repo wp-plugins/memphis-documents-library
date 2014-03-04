@@ -1,6 +1,6 @@
 <?php
 function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_cat) {
-	global $doc_file_types;
+	global $mdocs_img_types;
 	$upload_dir = wp_upload_dir();
 	$the_mdoc_permalink = get_permalink($the_mdoc['parent']);
 	$the_post = get_post($the_mdoc['parent']);
@@ -62,16 +62,17 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 		<tr>
 			<td id="title" class="mdocs-tooltip">
 				<?php
-				if(in_array($the_mdoc['type'], $doc_file_types) ) {
+				if(!in_array($the_mdoc['type'], $mdocs_img_types) ) {
 					if($mdocs_show_non_members  == 'on'  ) { ?>
-						<i class="icon-search mdocs-docs-preview" id="file-preview-<?php echo $the_mdoc['id']; ?>"> </i>
+						<i class="icon-search mdocs-preview-icon" id="file-preview-<?php echo $the_mdoc['id']; ?>"> </i>
 					<?php } elseif($the_mdoc['non_members'] == 'on' || $user_logged_in) { ?>
-						<i class="icon-search mdocs-docs-preview" id="file-preview-<?php echo $the_mdoc['id']; ?>"> </i>
+						<i class="icon-search mdocs-preview-icon" id="file-preview-<?php echo $the_mdoc['id']; ?>"> </i>
 					<?php }
-				}
+				} else { ?>
+						<i class="icon-search mdocs-preview-icon" id="img-preview-<?php echo $the_mdoc['id']; ?>"> </i>
+					<?php }  
 				if($page_type == 'dashboard') {
 				?>
-					<i class="mdocs-show-social icon-plus-sign-alt mdocs-green" id="mdocs-show-social-<?php echo $index; ?> "></i>
 					<a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat.'&action=update-doc&mdocs-index='.$index; ?>" title="<?php echo $tooltip; ?> "><?php echo $the_mdoc['name'].$status_tag; ?></a>
 				<?php }
 				else {
@@ -112,7 +113,7 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 				} ?>
 			</td>
 		</tr>
-		<tr><td colspan="7" style="display: none" id="mdocs-social-index-<?php echo $index; ?>"><?php mdocs_social($the_mdoc, $page_type); ?></td></tr>
+		<tr>
 <?php
 	}
 }

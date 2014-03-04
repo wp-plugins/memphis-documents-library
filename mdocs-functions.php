@@ -15,6 +15,25 @@ function mdocs_edit_file($the_mdocs, $index, $current_cat) {
 	<?php
 }
 
+function  mdocs_des_preview_tabs($the_mdoc) {
+	?>
+	<a class="mdocs-nav-tab" id="mdoc-show-desc-<?php echo $the_mdoc['id']; ?>">Description</a>
+	<a class="mdocs-nav-tab" id="mdoc-show-preview-<?php echo $the_mdoc['id']; ?>">Preview</a>
+	<div class="mdocs-show-container" id="mdocs-show-container-<?php echo $the_mdoc['id']; ?>">
+		<?php
+		if(!isset($_POST['show_type'])) {
+			?>
+			<h3>Description</h3>
+			<div class="mdoc-desc">
+			<p><?php echo $the_mdoc['desc']; ?></p>
+			</div>
+			<?php
+		} ?>
+	</div>
+	<?php
+}
+
+
 function mdocs_post_page($att=null) {
 	global $post;
 	$post_category = get_the_category( $post->ID );
@@ -42,17 +61,7 @@ function mdocs_post_page($att=null) {
 			<?php mdocs_social($the_mdoc); ?>
 		</div>
 		<div class="mdocs-clear-both"></div>
-		<?php
-		if($the_mdoc['doc_preview'] != '') {
-			$file_url = $upload_dir['baseurl'].MDOCS_DIR.$the_mdoc['filename'];
-			if($the_mdoc['type'] == 'png' ||  $the_mdoc['type'] == 'jpg') echo '<p class="mdocs-p">Sorry, this type of document is not supported for viewing</p>';
-			else mdocs_doc_preview($file_url);
-		} else { ?>
-		<h3>Description</h3>
-		<div class="mdoc-desc">
-			<?php echo $mdocs_desc; ?>
-		</div>
-		<?php } ?>
+		<?php mdocs_des_preview_tabs($the_mdoc) ?>
 		<div class="mdocs-clear-both"></div>
 		</div>
 		<?php
@@ -182,12 +191,13 @@ function mdocs_nonce() {
 
 function mdocs_sort_by($mdocs, $ypos=0, $page_type='site', $echo=true) {
 	$mdocs_sort_type = get_option('mdocs-sort-type');
+	$mdocs_sort_style = get_option('mdocs-sort-style');
 	if(isset($_POST['mdocs-sort-type'])) $sort_type = $_POST['mdocs-sort-type']; 
 	elseif(isset($_COOKIE['mdocs-sort-type-'.$page_type])) $sort_type = $_COOKIE['mdocs-sort-type-'.$page_type];
 	else $sort_type = $mdocs_sort_type;
 	if(isset($_POST['mdocs-sort-range'])) $sort_range = $_POST['mdocs-sort-range'];
 	elseif(isset($_COOKIE['mdocs-sort-range-'.$page_type])) $sort_range = $_COOKIE['mdocs-sort-range-'.$page_type];
-	else $sort_range = 'desc';
+	else $sort_range = $mdocs_sort_style;
 	if(isset($_POST['mdocs-list-type'])) update_option('mdocs-list-type-dashboard',$_POST['mdocs-list-type']);
 	$list_type = get_option('mdocs-list-type-dashboard');
 	if($echo) {
@@ -239,7 +249,9 @@ function mdocs_array_sort($the_array, $orderby, $sort_types=SORT_ASC) {
 		}
 		
 		$array_lowercase = array_map('strtolower', $sortArray[$orderby]);
-		array_multisort($array_lowercase, $sort_types, SORT_STRING,$the_array);
+		if(is_numeric($array_lowercase[0])) $sort_var_type = SORT_NUMERIC;
+		else $sort_var_type = SORT_STRING;
+		array_multisort($array_lowercase, $sort_types, $sort_var_type,$the_array);
 		$the_array = array_values($the_array);
 		return $the_array;
 	} else return null;
@@ -295,7 +307,6 @@ function mdocs_get_rating($the_mdoc) {
 	
 }
 
-
 function mdocs_is_bot() {
 	$upload_dir = wp_upload_dir();
 	$bots = strip_tags(file_get_contents(MDOCS_ROBOTS));
@@ -305,39 +316,6 @@ function mdocs_is_bot() {
     }
 	return false;
 }
-
-/* RETIRED FUNCTIONS 
-function mdocs_update_bot_list() {
-	$upload_dir = wp_upload_dir();
-	$bots = strip_tags(file_get_contents('http://www.robotstxt.org/db.html'));
-	$bots = nl2br($bots);
-	$bot_text_start = 'If you need this data in raw format, see Robots Database Export page.';
-	$bot_text_end = 'Print format';
-	$bots_start = strpos($bots, $bot_text_start)+strlen($bot_text_start);
-	$bots_end = strpos($bots, $bot_text_end);
-	$bots = substr($bots, $bots_start, $bots_end-$bots_start);
-	$bots = explode('<br />',$bots);
-	$bots = str_replace(array('.', ' ', "\n", "\t", "\r"), '', $bots);
-	$bots = array_filter($bots);
-	$bots = array_filter($bots, 'string_length_less_than_one');
-	$bots = mdocs_add_bots($bots);
-	file_put_contents($upload_dir['basedir'].'/mdocs/mdocs-robots.txt', implode('|:::|',$bots));
-	//print_r($bots);
-}
-function mdocs_add_bots($bots) {
-	array_push($bots, 'NING');
-	array_push($bots, 'TweetmemeBot');
-	array_push($bots, 'Twitterbot');
-	array_push($bots, 'Butterfly');
-	array_push($bots, 'rogerbot');
-	array_push($bots, 'JS-Kit');
-	array_push($bots, 'UnwindFetchor');
-	array_push($bots, '+https://developers.google.com/+/web/snippet/');
-	array_push($bots, 'YandexBot');
-	return $bots;
-}
-function string_length_less_than_one($var) { if(strlen($var) > 1) return str_replace(array('.', ' ', "\n", "\t", "\r"), '', $var); }
-*/
 
 function mdocs_send_bot_alert($url='') {
 	include_once 'wp-admin/includes/plugin.php';

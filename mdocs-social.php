@@ -20,7 +20,8 @@ function mdocs_social($the_mdoc, $page_type='site') {
 				else echo '<i class="icon-star-empty icon-2x gold mdocs-big-star" id="'.$i.'"></i>';
 			}
 			echo '</div>';
-		} 
+		}
+		
 	} else {
 		?>
 		<div class="mdocs-social"  ><?php _e('You must disable hide all post and/or hide all files in order to use social functionality.'); ?>   
