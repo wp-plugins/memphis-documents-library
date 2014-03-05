@@ -79,10 +79,12 @@ if(isset($_POST['type'])  && $_POST['type'] == 'file') {
 				if(in_array($the_mdoc['type'], $mdocs_img_types)) { ?><iframe class="mdocs-img-preview" src="?mdocs-img-preview=<?php echo $the_mdoc['filename']; ?>"></iframe><?php }
 				else mdocs_doc_preview($file_url);
 			} else {
+				$mdocs_desc = apply_filters('the_content', $the_mdoc['desc']);
+				$mdocs_desc = str_replace('\\','',$mdocs_desc);
 				?>
 				<h3>Description</h3>
 				<div class="mdoc-desc">
-				<p><?php echo $the_mdoc['desc']; ?></p>
+				<p><?php echo $mdocs_desc; ?></p>
 				</div>
 				<?php
 			}

@@ -6,7 +6,7 @@ function mdocs_social($the_mdoc, $page_type='site') {
 		$the_permalink = get_permalink($the_mdoc['parent']);
 		?>
 		<div class="mdocs-social <?php if($page_type == 'dashboard') echo 'mdocs-socail-dashboard'; ?>"  id="mdocs-social-<?php echo $the_mdoc['id']; ?>" >
-			<div class="mdocs-share" onclick="mdocs_share('<?php echo $the_permalink; ?>', 'mdocs-social-<?php echo $the_mdoc['id']; ?>');"><p><i class="icon-share-sign mdocs-green"></i> Share</p></div> 
+			<div class="mdocs-share" onclick="mdocs_share('<?php echo $the_permalink; ?>', 'mdocs-social-<?php echo $the_mdoc['id']; ?>');"><p><i class="fa fa-share mdocs-green"></i> Share</p></div> 
 		<?php if($the_mdoc['show_social'] ==='on' && get_option('mdocs-show-social') ) { ?>
 			<div class="mdocs-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo $the_permalink;?>" data-counturl="<?php echo $the_permalink;?>" data-text="<?php echo __('Download').' #'.strtolower(preg_replace('/-| /','_',$the_mdoc['name'])).' #MemphisDocumentsLibrary'; ?>" width="50">Tweet</a></div>
 			<div class="mdocs-like"><iframe src="//www.facebook.com/plugins/like.php?href=<?php echo $the_permalink;?>&amp;width=450&amp;height=21&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe></div>
@@ -15,9 +15,9 @@ function mdocs_social($the_mdoc, $page_type='site') {
 		if($mdocs_show_ratings && $page_type != 'dashboard') {
 			echo '<div class="mdocs-rating-container ">';
 			for($i=1;$i<=5;$i++) {
-				if($the_rating['average'] >= $i) echo '<i class="icon-star icon-2x gold mdocs-big-star" id="'.$i.'"></i>';
-				elseif(ceil($the_rating['average']) == $i ) echo '<i class="icon-star-half-full icon-2x gold mdocs-big-star" id="'.$i.'"></i>';
-				else echo '<i class="icon-star-empty icon-2x gold mdocs-big-star" id="'.$i.'"></i>';
+				if($the_rating['average'] >= $i) echo '<i class="fa fa-star fa-2x mdocs-gold mdocs-big-star" id="'.$i.'"></i>';
+				elseif(ceil($the_rating['average']) == $i ) echo '<i class="fa fa-star-half-full fa-2x mdocs-gold mdocs-big-star" id="'.$i.'"></i>';
+				else echo '<i class="fa fa-star-o fa-2x mdocs-gold mdocs-big-star" id="'.$i.'"></i>';
 			}
 			echo '</div>';
 		}

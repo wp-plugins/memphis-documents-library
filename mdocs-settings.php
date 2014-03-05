@@ -168,7 +168,7 @@ function mdocs_admin_script() {
 	wp_register_script( 'mdocs-admin-script', MDOC_URL.'/mdocs-script.js');
 	wp_enqueue_script('mdocs-admin-script');
 	//FONT-AWESOME STYLE
-	wp_register_style( 'mdocs-font-awesome2-style', '//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css');
+	wp_register_style( 'mdocs-font-awesome2-style', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
 	wp_enqueue_style( 'mdocs-font-awesome2-style' );
 	//WORDPRESS IRIS COLOR PICKER
 	wp_enqueue_style( 'wp-color-picker' );
@@ -188,7 +188,7 @@ function mdocs_script() {
 	wp_register_style( 'mdocs-style', MDOC_URL.'style.php');
 	wp_enqueue_style( 'mdocs-style' );
 	//FONT-AWESOME STYLE
-	wp_register_style( 'mdocs-font-awesome2-style', '//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css');
+	wp_register_style( 'mdocs-font-awesome2-style', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
 	wp_enqueue_style( 'mdocs-font-awesome2-style' );
 }
 

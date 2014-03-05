@@ -4,20 +4,13 @@ init_rating = false;
 // INITIALIZE THE ADMIN JAVASCRIPT
 function mdocs_wp(plugin_url, wp_root) {
 	//JQUERY UI TOOLTIP INIT
-	jQuery('.mdocs-tooltip' ).tooltip({
-		content: function () { return jQuery(this).prop('title'); },
-		position: {
-			my: "left-20 top+20",
-			at: "center bottom",
-			using: function( position, feedback ) {
-				jQuery( this ).css( position );
-				jQuery( "<div>" )
-				.addClass( "arrow" )
-				.addClass( feedback.vertical )
-				.addClass( feedback.horizontal )
-				.appendTo( this );
-			}
-		}
+	jQuery('[id^="file-desc-"]').click(function() {
+		jQuery(this).tooltip({
+			items: this,
+			content: function () { return jQuery(this).prop('title'); },
+		});
+		jQuery(this).tooltip("open");
+		jQuery( this ).unbind( "mouseleave" );
 	});
 	// TOOGLE DESCRIPTION/PREVIEW
 	jQuery('[id^="mdoc-show-desc-"], [id^="mdoc-show-preview-"]' ).click(function(e) {
@@ -59,22 +52,14 @@ function mdocs_wp(plugin_url, wp_root) {
 // INITIALIZE THE ADMIN JAVASCRIPT
 function mdocs_admin(plugin_url, wp_root) {
 	//JQUERY UI TOOLTIP INIT
-	jQuery('.mdocs-tooltip' ).tooltip({
-		content: function () { return jQuery(this).prop('title'); },
-		position: {
-			my: "left-20 top+20",
-			at: "center bottom",
-			using: function( position, feedback ) {
-				jQuery( this ).css( position );
-				jQuery( "<div>" )
-				.addClass( "arrow" )
-				.addClass( feedback.vertical )
-				.addClass( feedback.horizontal )
-				.appendTo( this );
-			}
-		}
+	jQuery('[id^="file-desc-"]').click(function() {
+		jQuery(this).tooltip({
+			items: this,
+			content: function () { return jQuery(this).prop('title'); },
+		});
+		jQuery(this).tooltip("open");
+		jQuery( this ).unbind( "mouseleave" );
 	});
-	
 	//INITIALIZE IRIS COLOR PICKER
 	var color_options = {
 		change: function(event, ui) {
@@ -138,15 +123,15 @@ function mdocs_admin(plugin_url, wp_root) {
 	});
 	*/
 	jQuery('.mdocs-show-social').click(function() {
-		if (jQuery(this).hasClass('icon-plus-sign-alt')) {
-			jQuery(this).removeClass('icon-plus-sign-alt');
-			jQuery(this).addClass('icon-minus-sign-alt');
+		if (jQuery(this).hasClass('fa fa-plus-sign-alt')) {
+			jQuery(this).removeClass('fa fa-plus-sign-alt');
+			jQuery(this).addClass('fa fa-minus-sign-alt');
 			var raw_id = jQuery(this).prop('id');
 		raw_id = raw_id.split("-");
 		var id = raw_id[raw_id.length-1];
 		jQuery('#mdocs-social-index-'+id).show();
 		} else {
-			jQuery(this).removeClass('icon-minus-sign-alt');
+			jQuery(this).removeClass('fa fa-minus-sign-alt');
 			jQuery(this).addClass('icon-plus-sign-alt');
 			var raw_id = jQuery(this).prop('id');
 		raw_id = raw_id.split("-");
@@ -236,8 +221,8 @@ function mdocs_ratings() {
 	});
 	jQuery('.mdocs-my-rating').mouseover(function() {
 		for (index = 1; index < 6; ++index) {
-			if (this.id >= index) jQuery('#'+index).prop('class', 'icon-star gold mdocs-my-rating');
-			else  jQuery('#'+index).prop('class', 'icon-star-empty mdocs-my-rating');
+			if (this.id >= index) jQuery('#'+index).prop('class', 'fa fa-star mdocs-gold mdocs-my-rating');
+			else  jQuery('#'+index).prop('class', 'fa fa-star-o mdocs-my-rating');
 			
 		}
 	});
@@ -245,7 +230,7 @@ function mdocs_ratings() {
 	jQuery('.mdocs-rating-container-small').mouseover(function() {
 		if (init_rating == false) {
 			for (index = 1; index < 6; ++index) {
-				if (jQuery('#'+index).hasClass("icon-star")) {
+				if (jQuery('#'+index).hasClass("fa fa-star")) {
 					the_rating = index;
 				}  
 			}
@@ -255,8 +240,8 @@ function mdocs_ratings() {
 	
 	jQuery('.mdocs-rating-container-small').mouseout(function() {
 		for (index = 1; index < 6; ++index) {
-			if (the_rating >= index) jQuery('#'+index).prop('class', 'icon-star gold mdocs-my-rating');
-			else  jQuery('#'+index).prop('class', 'icon-star-empty mdocs-my-rating');
+			if (the_rating >= index) jQuery('#'+index).prop('class', 'fa fa-star mdocs-gold mdocs-my-rating');
+			else  jQuery('#'+index).prop('class', 'fa fa-star-o mdocs-my-rating');
 		}
 	});
 }
