@@ -70,6 +70,8 @@ if($num_show==1) $title_width = '75%';
 	background: #D14836 !important;
 }
 .mdocs-download-btn:hover { background: #c34131 !important; }
+.mdocs-download-page, .mdocs-direct-download { font-size: 16px !important; border: dashed 1px #b6bcbc !important; background: #f1f1f1; }
+
 
 
 .small { font-size: 12px !important; padding: 5px 5px 1px 5px !important; margin: 0 !important; position: relative !important; top: 0px !important; right: 12px !important;}
@@ -270,6 +272,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-admin-preview .mdocs-close-btn { top: -10px; }
 .mdocs-preview-icon { cursor:  pointer !important; }
 .mdocs-img-preview { text-align: center;  width: 100%; height: 100%; }
+.mdocs-img-preview img { width: 100%; }
 .mdocs-show-container { border-top: solid 1px #e2e2e2; }
 
 /* JQUERY UI TOOLTIP */

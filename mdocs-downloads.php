@@ -62,7 +62,7 @@ function mdocs_img_preview() {
 	require_once(ABSPATH . 'wp-includes/pluggable.php');
 	$upload_dir = wp_upload_dir();
 	$image = $upload_dir['basedir'].MDOCS_DIR.$_GET['mdocs-img-preview']; 
-	$content = file_get_contents($image); 
+	$content = file_get_contents($image);
 	header('Content-Type: image/jpeg');
 	echo $content; exit();
 }

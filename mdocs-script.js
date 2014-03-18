@@ -191,10 +191,13 @@ function mdocs_delete_version(version_file, index, category, nonce) {
 	}
 }
 function mdocs_download_file(mdocs_file, mdocs_url) { window.location.href = '?mdocs-file='+mdocs_file+'&mdocs-url='+mdocs_url; }
-function mdocs_share(mdocs_link,the_id) {
+function mdocs_share(mdocs_link,mdocs_direct,the_id) {
 	if (toggle_share == false) {
 		jQuery('#'+the_id+' .mdocs-share-link').remove();
-		jQuery('#'+the_id).append('<div class="mdocs-share-link">'+mdocs_link+"</div>");
+		jQuery('#'+the_id).append('<div class="mdocs-share-link">');
+		jQuery('.mdocs-share-link').append('<p class="mdocs-download-page">Download Page: '+mdocs_link+'</p>');
+		jQuery('.mdocs-share-link').append('<p class="mdocs-direct-download">Direct Download: '+mdocs_direct+'</p>');
+		jQuery('.mdocs-share-link').append('</div>');
 		toggle_share = true;
 	} else {
 		jQuery('#'+the_id+' .mdocs-share-link').remove();

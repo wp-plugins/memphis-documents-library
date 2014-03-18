@@ -62,16 +62,16 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 				if(!in_array($the_mdoc['type'], $mdocs_img_types) ) {
 					if($mdocs_show_non_members  == 'on'  ) { ?>
 					<span>
-						<i class="fa fa-search mdocs-preview-icon mdocs-green" id="file-preview-<?php echo $the_mdoc['id']; ?>"></i>
-						<i class="fa fa-file-text mdocs-preview-icon mdocs-green" id="file-desc-<?php echo $the_mdoc['id']; ?>" title="<?php echo $tooltip; ?> "> </i>
+						<i class="fa fa-search mdocs-preview-icon" id="file-preview-<?php echo $the_mdoc['id']; ?>"></i>
+						<i class="fa fa-file-text mdocs-preview-icon" id="file-desc-<?php echo $the_mdoc['id']; ?>" title="<?php echo $tooltip; ?> "> </i>
 					</span>
 					<?php } elseif($the_mdoc['non_members'] == 'on' || $user_logged_in) { ?>
-						<i class="fa fa-search mdocs-preview-icon mdocs-green" id="file-preview-<?php echo $the_mdoc['id']; ?>"> </i>
-						<i class="fa fa-file-text mdocs-preview-icon mdocs-green" id="file-desc-<?php echo $the_mdoc['id']; ?>" title="<?php echo $tooltip; ?> "> </i>
+						<i class="fa fa-search mdocs-preview-icon" id="file-preview-<?php echo $the_mdoc['id']; ?>"> </i>
+						<i class="fa fa-file-text mdocs-preview-icon" id="file-desc-<?php echo $the_mdoc['id']; ?>" title="<?php echo $tooltip; ?> "> </i>
 					<?php }
 				} else { ?>
-						<i class="fa fa-search mdocs-preview-icon mdocs-green" id="img-preview-<?php echo $the_mdoc['id']; ?>"> </i>
-						<i class="fa fa-file-text mdocs-preview-icon mdocs-green" id="file-desc-<?php echo $the_mdoc['id']; ?>" title="<?php echo $tooltip; ?> "> </i>
+						<i class="fa fa-search mdocs-preview-icon" id="img-preview-<?php echo $the_mdoc['id']; ?>"> </i>
+						<i class="fa fa-file-text mdocs-preview-icon" id="file-desc-<?php echo $the_mdoc['id']; ?>" title="<?php echo $tooltip; ?> "> </i>
 					<?php }  
 				if($page_type == 'dashboard') {
 				?>
