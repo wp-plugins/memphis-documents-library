@@ -35,7 +35,7 @@ if($num_show==1) $title_width = '75%';
 .mdocs-post { font-family: 'Bitter', Verdana, Arial, sans-serif !important; background: #fcfcfc; padding: 0 !important; border: solid 1px #e2e2e2; width: 100% !important; margin: 0px auto 40px 0; text-shadow: none !important; }
 /*.mdocs-post h1 { border-top: solid 1px #e2e2e2; border-bottom: solid 1px #e2e2e2; padding: 5px 0; margin: 5px !important; font-size: 21px; color: #444 !important;}*/
 .mdocs-post h2 { font-family: 'Bitter', Verdana, Arial, sans-serif !important; padding: 0px; margin: 5px !important; background: none !important; box-shadow: none !important; color: #444 !important; font-size: 22px !important; font-weight: bold !important;}
-.mdocs-post h3 { font-family: 'Bitter', Verdana, Arial, sans-serif !important; padding: 0px !important; margin: 5px !important; background: none !important; box-shadow: none !important; color: #444 !important; font-size: 20px !important; font-weight: bold !important; border-bottom: solid 1px #E2E2E2; line-height: 26px !important;}
+.mdocs-post h3 { font-family: 'Bitter', Verdana, Arial, sans-serif !important; padding: 0px !important; margin: 5px !important; background: none !important; box-shadow: none !important; color: #444 !important; font-size: 20px !important; font-weight: bold !important; border: none !important; border-bottom: solid 1px #E2E2E2 !important; line-height: 26px !important;}
 .mdocs-post p { padding: 0px !important; margin: 10px !important; font-size: 12px;  color: #444 !important; }
 .mdocs-post ul, .mdocs-post ol { padding: 0 0 0 25px !important; margin: 5px !important; font-size: 12px;  color: #444 !important; }
 .mdocs-post a, .mdocs-list-table a { text-decoration: none; color: #21759B !important; }
@@ -227,7 +227,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-big-star { text-shadow: 1px 2px 1px #474747; padding: 0 1px;}
 /* BUTTON STYLES */
 .mdocs-download-btn-config:hover { background: <?php echo get_option('mdocs-download-color-hover'); ?> !important; }
-.mdocs-close-btn { position: absolute; float: right; right: 20px; top: 30px; border: solid 1px #0074a2; box-shadow: inset 0 1px 0 #005c81; background: #2ea2cc; padding: 3px 5px; color: #fff; border-radius: 3px; margin: 15px !important; font-size: 13px !important; font-family: 'Open Sans', sans-serif; padding: 2px 10px 2px 10px; cursor: pointer; }
+.mdocs-close-btn { position: absolute; float: right; right: 20px; top: 30px !important; border: solid 1px #0074a2; box-shadow: inset 0 1px 0 #005c81; background: #2ea2cc; padding: 3px 5px; color: #fff; border-radius: 3px; margin: 15px !important; font-size: 13px !important; font-family: 'Open Sans', sans-serif; padding: 2px 10px 2px 10px; cursor: pointer; }
 .mdocs-close-btn:hover { background: #1E8CBE; }
 .wp-picker-holder { position: absolute !important; z-index: 2000;}
 .mdocs-download-btn-config {
@@ -263,13 +263,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 }
 
 /* PREVIEW WINDOWS */
-.mdocs-wp-preview { display: none; background: #e6e6e6; opacity: 1; width: 99%; height: 200%; position: absolute; top: 0; left: 10px; text-align: center;}
-.mdocs-wp-preview h1 { text-align: left; padding: 0;  margin: 0; padding-top: 20px; }
-.mdocs-google-doc { width: 100% !important; height: 100% !important; margin: 0px; padding: 0; }
-.mdocs-admin-preview { position: absolute !important; top: 0; left: 0;  background: #e6e6e6; width: 99%; height: 200%; z-index: 99999; display: none;}
+.mdocs-wp-preview, .mdocs-admin-preview  { display: none; background: #e6e6e6; opacity: 1; width: 100% !important; height: 100%; position: fixed !important; top: 20px !important; left: 0px !important; text-align: center; z-index: 99999; }
+.mdocs-wp-preview h1 { text-align: left; padding: 0;  margin: 0; padding: 10px; font-size: 19px !important;}
+.mdocs-wp-preview .mdocs-close-btn { top: 0px !important; }
+.mdocs-google-doc { width: 100% !important; height: 85% !important; margin: 0px; padding: 0; overflow: scroll !important;}
+/*.mdocs-admin-preview { position: absolute !important; top: 0px !important; left: 0px !important;  background: #e6e6e6; width: 100%; height: 200%; z-index: 99999; display: none;}*/
 .mdocs-admin-preview h1 { text-align: left; padding: 0;  margin: 0 10px 24px 10px; padding-top: 20px; font-size: 21px !important;}
-.mdocs-admin-preview .mdocs-google-doc { width: 100% !important; height: 140% !important; margin: 0px; padding: 0; }
-.mdocs-admin-preview .mdocs-close-btn { top: -10px; }
+/*.mdocs-admin-preview .mdocs-google-doc { width: 100% !important; height: 140% !important; margin: 0px; padding: 0; }*/
+.mdocs-admin-preview .mdocs-close-btn { top: 0px !important; }
 .mdocs-preview-icon { cursor:  pointer !important; }
 .mdocs-img-preview { text-align: center;  width: 100%; height: 100%; }
 .mdocs-img-preview img { width: 100%; }
@@ -277,7 +278,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 
 /* JQUERY UI TOOLTIP */
 .ui-tooltip { background: url('assets/imgs/paper-bg.jpg') repeat  !important; border: 2px solid #cdcdcd; }
-.ui-tooltip { padding: 10px 20px; color: #555; font-family: 'Bitter', Verdana, Arial, sans-serif !important; font-size: 15px; min-width: 96% !important; position: absolute; top: 30px !important; left: 0  !important;  min-height: 94% !important; border-radius: 0 !important; box-shadow: none !important; border: none !important; font-weight: normal !important;}
+.ui-tooltip { padding: 10px 20px; color: #555; font-family: 'Bitter', Verdana, Arial, sans-serif !important; font-size: 15px; min-width: 98% !important; position: fixed; top: 0px !important; left: 0  !important;  min-height: 100% !important; border-radius: 0 !important; box-shadow: none !important; border: none !important; font-weight: normal !important;}
 .ui-tooltip p { padding: 0 0 10px 0 !important; margin: 0 !important; font-size: 13px !important; line-height: 1.5; border: none !important; }
 .ui-tooltip a { color: #cc0000; }
 .ui-tooltip h1 { font-size: 21px !important; margin: 24px 0 !important; padding: 5px 0 !important; }

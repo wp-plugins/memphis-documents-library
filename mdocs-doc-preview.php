@@ -5,7 +5,7 @@ function mdocs_load_preview_head() {
 <html>
 <head>
     <title>Page Title</title>
-	<?php wp_head(); ?>
+	<?php //wp_head(); ?>
 	<?php  ?>
 </head>
 <body>

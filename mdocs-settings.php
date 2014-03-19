@@ -21,10 +21,10 @@ function mdocs_register_settings() {
 	$is_read_write = mdocs_check_read_write();
 	if($is_read_write) {
 		$upload_dir = wp_upload_dir();
-		//v2.2.1 Patch Updating the .htaccess file
-		register_setting('mdocs-patch-vars', 'mdocs-v2-2-1-patch-var-1');
-		add_option('mdocs-v2-2-1-patch-var-1',false);
-		if(get_option('mdocs-v2-2-1-patch-var-1') == false) {
+		//v2.2.2 Patch Updating the .htaccess file
+		register_setting('mdocs-patch-vars', 'mdocs-v2-2-2-patch-var-1');
+		add_option('mdocs-v2-2-2-patch-var-1',false);
+		if(get_option('mdocs-v2-2-2-patch-var-1') == false) {
 			$htaccess = $upload_dir['basedir'].'/mdocs/.htaccess';
 			$fh = fopen($htaccess, 'w');
 			$rules = "Deny from all\n";
@@ -34,7 +34,7 @@ function mdocs_register_settings() {
 			fwrite($fh, $rules);
 			fclose($fh);
 			chmod($htaccess, 0660);
-			update_option('mdocs-v2-2-1-patch-var-1', true);
+			update_option('mdocs-v2-2-2-patch-var-1', true);
 			add_action( 'admin_notices', 'mdocs_v2_2_1_admin_notice_v1' );
 		}
 		if(!file_exists($upload_dir['basedir'].'/mdocs/.htaccess')) {
@@ -44,7 +44,7 @@ function mdocs_register_settings() {
 			$rules = "Deny from all\n";
 			$rules .= "Options +Indexes\n";
 			$rules .= "IndexOptions FancyIndexing FoldersFirst SuppressIcon\n";
-			$rules .= "Allow from none\n";
+			$rules .= "Allow from .google.com\n";
 			fwrite($fh, $rules);
 			fclose($fh);
 			chmod($htaccess, 0660);

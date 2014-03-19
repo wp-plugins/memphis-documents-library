@@ -75,11 +75,11 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 					<?php }  
 				if($page_type == 'dashboard') {
 				?>
-					<a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat.'&action=update-doc&mdocs-index='.$index; ?>" ><?php echo $the_mdoc['name'].$status_tag; ?></a>
+					<a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat.'&action=update-doc&mdocs-index='.$index; ?>" ><?php echo str_replace('\\','',$the_mdoc['name']).$status_tag; ?></a>
 				<?php }
 				else {
 				?>
-					<a href="<?php echo $the_mdoc_permalink; ?>" ><?php echo $the_mdoc['name'].$status_tag; ?></a>
+					<a href="<?php echo $the_mdoc_permalink; ?>" ><?php echo str_replace('\\','',$the_mdoc['name']).$status_tag; ?></a>
 				<?php } ?>
 			</td>
 			<?php if($mdocs_show_downloads) { ?><td id="downloads"><i class="fa fa-cloud-download"></i> <b class="mdocs-orange"><?php echo $the_mdoc['downloads'].' '.__('Downloads'); ?></b></td><?php } ?>
