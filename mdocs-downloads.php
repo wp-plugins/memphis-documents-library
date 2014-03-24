@@ -21,11 +21,11 @@ function mdocs_download_file($export_file='') {
 				$filename = $mdocs[$index]['filename'];
 				$non_member = $mdocs[$index]['non_members'];
 				$file_status = $mdocs[$index]['file_status'];
-				
 				break;
 			} //else $filename = 'mdocs-empty';
 		}
 	}
+	
 	if($non_member == '' && $is_logged_in == false || $file_status == 'hidden' && !is_admin() || $mdocs_hide_all_files  ) $login_denied = true;
 	else $login_denied = false;
 	if(mdocs_is_bot() == false && $login_denied == false && !isset($_GET['mdocs-export-file'])) {

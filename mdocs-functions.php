@@ -18,19 +18,40 @@ function mdocs_edit_file($the_mdocs, $index, $current_cat) {
 function  mdocs_des_preview_tabs($the_mdoc) {
 	$mdocs_desc = apply_filters('the_content', $the_mdoc['desc']);
 	$mdocs_desc = str_replace('\\','',$mdocs_desc);
+	$mdocs_default_content = get_option('mdocs-default-content');
+	$mdocs_show_description = get_option('mdocs-show-description');
+	$mdocs_show_preview = get_option('mdocs-show-preview');
+	$mdocs_hide_all_files = get_option( 'mdocs-hide-all-files' );
+	$mdocs_hide_all_files_non_members = get_option( 'mdocs-hide-all-files-non-members' );
+	$upload_dir = wp_upload_dir();
+	$file_url = $upload_dir['baseurl'].MDOCS_DIR.$the_mdoc['filename'];
 	?>
-	<a class="mdocs-nav-tab" id="mdoc-show-desc-<?php echo $the_mdoc['id']; ?>">Description</a>
-	<a class="mdocs-nav-tab" id="mdoc-show-preview-<?php echo $the_mdoc['id']; ?>">Preview</a>
+	<?php if($mdocs_show_description && $mdocs_show_preview) { ?><a class="mdocs-nav-tab" id="mdoc-show-desc-<?php echo $the_mdoc['id']; ?>">Description</a><?php } ?>
+	<?php if($mdocs_show_preview && $mdocs_show_description) { ?><a class="mdocs-nav-tab" id="mdoc-show-preview-<?php echo $the_mdoc['id']; ?>">Preview</a><?php } ?>
 	<div class="mdocs-show-container" id="mdocs-show-container-<?php echo $the_mdoc['id']; ?>">
 		<?php
-		if(!isset($_POST['show_type'])) {
+		if(!isset($_POST['show_type']) && $mdocs_show_description && $mdocs_default_content == 'description') {
 			?>
 			<h3>Description</h3>
 			<div class="mdoc-desc">
 			<p><?php echo $mdocs_desc; ?></p>
 			</div>
 			<?php
-		} ?>
+		} elseif(!isset($_POST['show_type']) && $mdocs_show_preview && $mdocs_default_content == 'preview') {
+			$user_logged_in = is_user_logged_in();
+			$mdocs_hide_all_files = get_option( 'mdocs-hide-all-files' );
+			$mdocs_hide_all_files_non_members = get_option( 'mdocs-hide-all-files-non-members' );
+			if($mdocs_hide_all_files_non_members && $user_logged_in == false) $show_files = false;
+			elseif($mdocs_hide_all_files == false ) $show_files = true;
+			else $show_files = false;
+			if( $show_files) {
+			?>
+			<div class="mdoc-desc">
+			<p><?php mdocs_doc_preview($file_url); ?></p>
+			</div>
+			<?php
+			}
+		}  ?>
 	</div>
 	<?php
 }
@@ -113,7 +134,8 @@ function mdocs_process_file($file, $import=false) {
 			if($_POST['mdocs-name'] == '') $upload['name'] = $name;
 			else $upload['name'] = $_POST['mdocs-name'];
 		}
-		move_uploaded_file($file['tmp_name'], $upload['file']);
+		$result = move_uploaded_file($file['tmp_name'], $upload['file']);
+		if($result == false) rename($file['tmp_name'], $upload['file']);
 		//chmod($upload['file'], 0600);
 	} else {
 		$upload['url'] = $upload_dir['baseurl'].'/mdocs/'.$file['filename'];

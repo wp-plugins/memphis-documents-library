@@ -1,5 +1,6 @@
 <?php
-function mdocs_the_list() {
+function mdocs_the_list($att=null) {
+	//var_dump($att);
 	$is_read_write = mdocs_check_read_write();
 	if($is_read_write) {
 		global $post;
@@ -9,6 +10,9 @@ function mdocs_the_list() {
 		$cats =  get_option('mdocs-cats');
 		if(isset($_GET['cat'])) $current_cat = $_GET['cat'];
 		elseif(!is_string($cats)) $current_cat = key($cats);
+		if(isset($att['cat']) && $att['cat'] != 'All Files') $current_cat = array_search($att['cat'],$cats);
+		elseif(isset($att['cat']) && $att['cat'] == 'All Files') $current_cat = 'all';
+		
 		
 		$permalink = get_permalink($post->ID);
 		if(preg_match('/\?page_id=/',$permalink) || preg_match('/\?p=/',$permalink)) {
@@ -22,12 +26,12 @@ function mdocs_the_list() {
 			<div class="mdocs-wp-preview"></div>
 			<div id="icon-edit-pages" class="icon32"><br></div>
 			<?php
-			if(!empty($cats)) {
+			if(!empty($cats) && !isset($att['cat'])) {
 				foreach( $cats as $cat => $name ){
 					$class = ( $cat == $current_cat ) ? ' mdocs-nav-tab-active' : '';
 					echo '<a class="mdocs-nav-tab'.$class.'" href="'.$mdocs_get.$cat.'"><span>'.$name.'</span></a>';
 				}
-			}
+			} else echo '<p>'.__($att['cat']).'</p>';
 			?>
 		</h2>
 		<?php
@@ -35,7 +39,7 @@ function mdocs_the_list() {
 		
 		if(get_option('mdocs-list-type') == 'small') echo '<table class="mdocs-list-table">';
 		foreach($mdocs as $index => $the_mdoc) {
-			if($the_mdoc['cat'] == $current_cat) {
+			if($the_mdoc['cat'] == $current_cat || $current_cat == 'all') {
 				if($the_mdoc['file_status'] == 'public' ) {
 					$count ++;
 					$mdocs_post = get_post($the_mdoc['parent']);

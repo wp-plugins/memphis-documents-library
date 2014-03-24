@@ -71,8 +71,8 @@ if($num_show==1) $title_width = '75%';
 }
 .mdocs-download-btn:hover { background: #c34131 !important; }
 .mdocs-download-page, .mdocs-direct-download { font-size: 16px !important; border: dashed 1px #b6bcbc !important; background: #f1f1f1; }
-
-
+.mdocs-shortcode-table { border: solid 1px #888; width: 100%; text-align: left; border-collapse: collapse; margin-bottom: 20px;}
+.mdocs-shortcode-table th, .mdocs-shortcode-table td { border: solid 1px #888; padding: 5px;}
 
 .small { font-size: 12px !important; padding: 5px 5px 1px 5px !important; margin: 0 !important; position: relative !important; top: 0px !important; right: 12px !important;}
 /*
@@ -183,7 +183,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-uploader-header .close { float: right; padding:0; margin: 0; cursor: pointer;}
 .mdocs-uploader-form h2 { font-size: 20px; color: #086FA1;padding: 0; margin: 0 0 5px 0; }
 .mdocs-uploader-form h3 { padding: 2px 0; margin: 5px 0 5px 0; color: #086FA1; font-size: 24px;}
-.mdocs-uploader-form .mdocs-form-box { border-bottom: dashed 1px #E2E2E2; margin: 0px 0 0px 0; padding: 8px; background: #F0F0F0; box-shadow: 0 2px 5px #888;  }
+.mdocs-uploader-form .mdocs-form-box, .mdocs-batch-container { border-bottom: dashed 1px #E2E2E2; margin: 0px 0 0px 0; padding: 8px; background: #F0F0F0; box-shadow: 0 2px 5px #888;  }
+.mdocs-batch-container label { margin-right: 50px !important; }
 .mdocs-uploader-form .current-name { display: inline; color: #900; }
 /*.mdocs-uploader-form p { font-size: 16px; font-weight: bold; font-style: italic; padding: 0; margin: 5px 0px;}*/
 .mdocs-uploader-form input[type="text"] { font-weight: normal; }
@@ -192,7 +193,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-uploader-form label { font-size: 12px; margin: 0 5px; font-weight: bold; color: #013F71; }
 .mdocs-uploader-content { background: #FFF; padding: 0; margin: 15px; }
 .mdocs-grey-btn { font-family: sans-serif; font-size: 12px; padding: 5px 10px; text-decoration: none; position: relative; top: -3px; text-shadow: #fff 0 1px 0; }
-.mdocs-grey-btn:link, .mdocs-add-new:visited { background: #F1F1F1; border-radius: 5px; color: #21759B;}
+.mdocs-grey-btn:link, .mdocs-add-new:visited { background: #E9E3E3; border-radius: 5px; color: #21759B;}
 .mdocs-grey-btn:hover { color: #D54E21; }
 #mdocs-export .updated { width: 150px !important; }
 #mdocs-cats input[type="text"] { font-size: 22px !important; width: 100%; }
@@ -263,7 +264,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 }
 
 /* PREVIEW WINDOWS */
-.mdocs-wp-preview, .mdocs-admin-preview  { display: none; background: #e6e6e6; opacity: 1; width: 100% !important; height: 100%; position: fixed !important; top: 20px !important; left: 0px !important; text-align: center; z-index: 99999; }
+.mdocs-wp-preview, .mdocs-admin-preview  { display: none; background: #e6e6e6; opacity: 1; width: 100% !important; height: 100%; position: fixed !important; top: 0px !important; left: 0px !important; text-align: center; z-index: 99999; }
 .mdocs-wp-preview h1 { text-align: left; padding: 0;  margin: 0; padding: 10px; font-size: 19px !important;}
 .mdocs-wp-preview .mdocs-close-btn { top: 0px !important; }
 .mdocs-google-doc { width: 100% !important; height: 85% !important; margin: 0px; padding: 0; overflow: scroll !important;}
@@ -285,3 +286,5 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 
 /* THEME FIXES */
 .art-content { width: 100% !important; }
+
+#controlbarControls { display: none !important; }

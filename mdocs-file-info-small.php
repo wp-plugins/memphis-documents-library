@@ -19,6 +19,9 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 	$mdocs_show_ratings = get_option( 'mdocs-show-ratings' );
 	$mdocs_show_new_banners = get_option('mdocs-show-new-banners');
 	$mdocs_time_to_display_banners = get_option('mdocs-time-to-display-banners');
+	$mdocs_default_content = get_option('mdocs-default-content');
+	$mdocs_show_description = get_option('mdocs-show-description');
+	$mdocs_show_preview = get_option('mdocs-show-preview');
 	$permalink = get_permalink($post->ID);
 	$mdocs_desc = apply_filters('the_content', $the_mdoc['desc']);
 	$mdocs_desc = str_replace('\\','',$mdocs_desc);
@@ -62,16 +65,16 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 				if(!in_array($the_mdoc['type'], $mdocs_img_types) ) {
 					if($mdocs_show_non_members  == 'on'  ) { ?>
 					<span>
-						<i class="fa fa-search mdocs-preview-icon" id="file-preview-<?php echo $the_mdoc['id']; ?>"></i>
-						<i class="fa fa-file-text mdocs-preview-icon" id="file-desc-<?php echo $the_mdoc['id']; ?>" title="<?php echo $tooltip; ?> "> </i>
+						<?php if($mdocs_show_preview) { ?><i class="fa fa-search mdocs-preview-icon" id="file-preview-<?php echo $the_mdoc['id']; ?>"></i><?php } ?>
+						<?php if($mdocs_show_description) { ?><i class="fa fa-file-text mdocs-preview-icon" id="file-desc-<?php echo $the_mdoc['id']; ?>" title="<?php echo $tooltip; ?> "> </i><?php } ?>
 					</span>
 					<?php } elseif($the_mdoc['non_members'] == 'on' || $user_logged_in) { ?>
-						<i class="fa fa-search mdocs-preview-icon" id="file-preview-<?php echo $the_mdoc['id']; ?>"> </i>
-						<i class="fa fa-file-text mdocs-preview-icon" id="file-desc-<?php echo $the_mdoc['id']; ?>" title="<?php echo $tooltip; ?> "> </i>
+						<?php if($mdocs_show_preview) { ?><i class="fa fa-search mdocs-preview-icon" id="file-preview-<?php echo $the_mdoc['id']; ?>"> </i><?php } ?>
+						<?php if($mdocs_show_description) { ?><i class="fa fa-file-text mdocs-preview-icon" id="file-desc-<?php echo $the_mdoc['id']; ?>" title="<?php echo $tooltip; ?> "> </i><?php } ?>
 					<?php }
 				} else { ?>
-						<i class="fa fa-search mdocs-preview-icon" id="img-preview-<?php echo $the_mdoc['id']; ?>"> </i>
-						<i class="fa fa-file-text mdocs-preview-icon" id="file-desc-<?php echo $the_mdoc['id']; ?>" title="<?php echo $tooltip; ?> "> </i>
+						<?php if($mdocs_show_preview) { ?><i class="fa fa-search mdocs-preview-icon" id="img-preview-<?php echo $the_mdoc['id']; ?>"> </i><?php } ?>
+						<?php if($mdocs_show_description) { ?><i class="fa fa-file-text mdocs-preview-icon" id="file-desc-<?php echo $the_mdoc['id']; ?>" title="<?php echo $tooltip; ?> "> </i><?php } ?>
 					<?php }  
 				if($page_type == 'dashboard') {
 				?>

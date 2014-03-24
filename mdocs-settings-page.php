@@ -20,6 +20,9 @@ function mdocs_settings($cat) {
 	$mdocs_time_to_display_banners = strval(get_option('mdocs-time-to-display-banners'));
 	$mdocs_sort_type = get_option('mdocs-sort-type');
 	$mdocs_sort_style = get_option('mdocs-sort-style');
+	$mdocs_default_content = get_option('mdocs-default-content');
+	$mdocs_show_description = get_option('mdocs-show-description');
+	$mdocs_show_preview = get_option('mdocs-show-preview');
 	mdocs_hide_show_toogle();	
 ?>
 <!-- COLOR PICKER 
@@ -74,21 +77,34 @@ function mdocs_settings($cat) {
 		<th><?php _e('Default Sort Options'); ?></th>
 		<td>
 			<label><?php _e('Order Types:'); ?>
-					<select name="mdocs-sort-type" id="mdocs-sort-type" >
-						<option value="name" <?php if($mdocs_sort_type == 'name') echo 'selected'; ?>><?php _e('File Name'); ?></option>
-						<option value="downloads" <?php if($mdocs_sort_type == 'downloads') echo 'selected'; ?>><?php _e('Number of Downloads'); ?></option>
-						<option value="version" <?php if($mdocs_sort_type == 'version') echo 'selected'; ?>><?php _e('Version'); ?></option>
-						<option value="owner" <?php if($mdocs_sort_type == 'owner') echo 'selected'; ?>><?php _e('Author'); ?></option>
-						<option value="modified" <?php if($mdocs_sort_type == 'modified') echo 'selected'; ?>><?php _e('Last Updated'); ?></option>
-						<option value="rating" <?php if($mdocs_sort_type == 'rating') echo 'selected'; ?>><?php _e('Rating'); ?></option>
-					</select>
-				</label><br><br>
-				<label><?php _e('Order Style:'); ?>
-					<select name="mdocs-sort-style" id="mdocs-sort-style" >
-						<option value="desc" <?php if($mdocs_sort_style == 'desc') echo 'selected'; ?>><?php _e('Sort Descending'); ?></option>
-						<option value="asc" <?php if($mdocs_sort_style == 'asc') echo 'selected'; ?>><?php _e('Sort Ascending'); ?></option>
-					</select>
-				</label>
+				<select name="mdocs-sort-type" id="mdocs-sort-type" >
+					<option value="name" <?php if($mdocs_sort_type == 'name') echo 'selected'; ?>><?php _e('File Name'); ?></option>
+					<option value="downloads" <?php if($mdocs_sort_type == 'downloads') echo 'selected'; ?>><?php _e('Number of Downloads'); ?></option>
+					<option value="version" <?php if($mdocs_sort_type == 'version') echo 'selected'; ?>><?php _e('Version'); ?></option>
+					<option value="owner" <?php if($mdocs_sort_type == 'owner') echo 'selected'; ?>><?php _e('Author'); ?></option>
+					<option value="modified" <?php if($mdocs_sort_type == 'modified') echo 'selected'; ?>><?php _e('Last Updated'); ?></option>
+					<option value="rating" <?php if($mdocs_sort_type == 'rating') echo 'selected'; ?>><?php _e('Rating'); ?></option>
+				</select>
+			</label><br><br>
+			<label><?php _e('Order Style:'); ?>
+				<select name="mdocs-sort-style" id="mdocs-sort-style" >
+					<option value="desc" <?php if($mdocs_sort_style == 'desc') echo 'selected'; ?>><?php _e('Sort Descending'); ?></option>
+					<option value="asc" <?php if($mdocs_sort_style == 'asc') echo 'selected'; ?>><?php _e('Sort Ascending'); ?></option>
+				</select>
+			</label>
+		</td>
+	</tr>
+	<tr>
+		<th><?php _e('Document Page Settings'); ?></th>
+		<td>
+			<label><?php _e('Default Content:'); ?>
+				<select name="mdocs-default-content" id="mdocs-default-content" >
+					<option value="description" <?php if($mdocs_default_content == 'description') echo 'selected'; ?>><?php _e('Description'); ?></option>
+					<option value="preview" <?php if($mdocs_default_content == 'preview') echo 'selected'; ?>><?php _e('Preview'); ?></option>
+				</select>
+			</label><br><br>
+			<input type="checkbox" id="mdocs-show-description" name="mdocs-show-description" value="1"  <?php checked(1,$mdocs_show_description) ?>/> <?php _e('Show Description'); ?><br>
+			<input type="checkbox" id="mdocs-show-preview" name="mdocs-show-preview" value="1"  <?php checked(1,$mdocs_show_preview) ?>/> <?php _e('Show Preview'); ?><br>
 		</td>
 	</tr>
 	<!--
@@ -152,7 +168,7 @@ function mdocs_settings($cat) {
 		mdocs_cleanup_init_html();
 	} elseif(isset($_POST['mdocs-filesystem-cleanup']) && $_POST['mdocs-filesystem-cleanup'] == 'submit-cleanup') {
 		mdocs_cleanup_submit_html();
-	} 
+	}
 }
 
 function mdocs_cleanup_submit_html() {

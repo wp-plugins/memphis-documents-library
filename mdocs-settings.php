@@ -138,6 +138,12 @@ function mdocs_register_settings() {
 		add_option('mdocs-sort-type','modified');
 		register_setting('mdocs-global-settings', 'mdocs-sort-style');
 		add_option('mdocs-sort-style','desc');
+		register_setting('mdocs-global-settings', 'mdocs-default-content');
+		add_option('mdocs-default-content','description');
+		register_setting('mdocs-global-settings', 'mdocs-show-description');
+		add_option('mdocs-show-description',true);
+		register_setting('mdocs-global-settings', 'mdocs-show-preview');
+		add_option('mdocs-show-preview', true);
 		// PATCHES
 		//unregister_setting('mdocs-patch-vars', 'mdocs-v2-0-patch-var-1');
 		//delete_option('mdocs-v2-0-patch-var-1');
@@ -148,7 +154,7 @@ function mdocs_register_settings() {
 
 //ADD CONTENT TO DOCUMENTS PAGE
 //[mdocs]
-function mdocs_shortcode($att, $content=null) { mdocs_the_list(); }
+function mdocs_shortcode($att, $content=null) { mdocs_the_list($att); }
 add_shortcode( 'mdocs', 'mdocs_shortcode' );
 //[mdocs_post_page]
 function mdocs_post_page_shortcode($att, $content=null) {
