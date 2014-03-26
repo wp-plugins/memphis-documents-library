@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 3.8.1
-Stable tag: 2.2.2
+Stable tag: 2.3
 
 A documents library for WordPress.  
 
@@ -14,6 +14,7 @@ A documents library for WordPress.
 
 A documents library for WordPress.  This documents library features:
 
+* Batch Upload of files into the system (Beta)
 * Upload media files that match WordPress's whitelist. This whitelist is configurable from the WordPress menus.
 * Download tracking of media
 * Posts created for each new media upload, showing information of the specific file.
@@ -75,6 +76,12 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 5. screenshot-5.png
 
 == Changelog ==
+= 2.3 =
+* Batch file upload beta
+* List of avaible short codes
+* Document page options added
+** Default Content (Preview or Description)
+** Show/Hide (Preview and Description)
 = 2.2.2 =
 * Minor bug fixes
 * Small look and feel changes.

@@ -25,7 +25,7 @@ function mdocs_social($the_mdoc, $page_type='site') {
 		
 	} else {
 		?>
-		<div class="mdocs-social"  ><?php _e('You must disable hide all post and/or hide all files in order to use social functionality.'); ?>   
+		<div class="mdocs-social"  >  
 		<?php
 	}
 }

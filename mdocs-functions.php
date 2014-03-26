@@ -21,8 +21,6 @@ function  mdocs_des_preview_tabs($the_mdoc) {
 	$mdocs_default_content = get_option('mdocs-default-content');
 	$mdocs_show_description = get_option('mdocs-show-description');
 	$mdocs_show_preview = get_option('mdocs-show-preview');
-	$mdocs_hide_all_files = get_option( 'mdocs-hide-all-files' );
-	$mdocs_hide_all_files_non_members = get_option( 'mdocs-hide-all-files-non-members' );
 	$upload_dir = wp_upload_dir();
 	$file_url = $upload_dir['baseurl'].MDOCS_DIR.$the_mdoc['filename'];
 	?>
@@ -38,13 +36,8 @@ function  mdocs_des_preview_tabs($the_mdoc) {
 			</div>
 			<?php
 		} elseif(!isset($_POST['show_type']) && $mdocs_show_preview && $mdocs_default_content == 'preview') {
-			$user_logged_in = is_user_logged_in();
-			$mdocs_hide_all_files = get_option( 'mdocs-hide-all-files' );
-			$mdocs_hide_all_files_non_members = get_option( 'mdocs-hide-all-files-non-members' );
-			if($mdocs_hide_all_files_non_members && $user_logged_in == false) $show_files = false;
-			elseif($mdocs_hide_all_files == false ) $show_files = true;
-			else $show_files = false;
-			if( $show_files) {
+			$show_preview = mdocs_file_access($the_mdoc);
+			if( $show_preview) {
 			?>
 			<div class="mdoc-desc">
 			<p><?php mdocs_doc_preview($file_url); ?></p>
@@ -457,4 +450,18 @@ function mdocs_doc_preview($file,$echo=true) {
 	<iframe class="mdocs-google-doc" src="https://docs.google.com/viewer?url=<?php echo $file; ?>&embedded=true" style="border: none;"></iframe>
 	<?php
 	} else  return '<iframe class="mdocs-google-doc" src="https://docs.google.com/viewer?url='.$file.'&embedded=true" style="border: none;"></iframe>';
+}
+
+function mdocs_file_access($the_mdoc) {
+	$access = false;
+	$mdocs_hide_all_files_non_members = get_option( 'mdocs-hide-all-files-non-members' );
+	$mdocs_hide_all_files = get_option( 'mdocs-hide-all-files' );
+	$mdocs_hide_all_files_non_members = get_option( 'mdocs-hide-all-files-non-members' );
+	$mdocs_show_non_members = $the_mdoc['non_members'];
+	$user_logged_in = is_user_logged_in();
+	if($mdocs_hide_all_files_non_members && $user_logged_in == false) $access = false;
+	elseif($mdocs_show_non_members == false) $access = false;
+	elseif($mdocs_hide_all_files == false ) $access = true;
+	else $access = false;
+	return $access;
 }
