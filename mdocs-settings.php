@@ -22,30 +22,25 @@ function mdocs_register_settings() {
 	if($is_read_write) {
 		$upload_dir = wp_upload_dir();
 		//v2.2.2 Patch Updating the .htaccess file
-		register_setting('mdocs-patch-vars', 'mdocs-v2-2-2-patch-var-1');
-		add_option('mdocs-v2-2-2-patch-var-1',false);
-		if(get_option('mdocs-v2-2-2-patch-var-1') == false) {
+		register_setting('mdocs-patch-vars', 'mdocs-v2-3-1-patch-var-1');
+		add_option('mdocs-v2-3-1-patch-var-1',false);
+		if(get_option('mdocs-v2-3-1-patch-var-1') == false) {
 			$htaccess = $upload_dir['basedir'].'/mdocs/.htaccess';
 			$fh = fopen($htaccess, 'w');
-			$rules = "Deny from all\n";
-			$rules .= "Options +Indexes\n";
-			$rules .= "IndexOptions FancyIndexing FoldersFirst SuppressIcon\n";
-			$rules .= "Allow from .google.com\n";
-			fwrite($fh, $rules);
+			update_option('mdocs-htaccess', "Deny from all\nOptions +Indexes\nAllow from .google.com");
+			$mdocs_htaccess = get_option('mdocs-htaccess');
+			fwrite($fh, $mdocs_htaccess);
 			fclose($fh);
 			chmod($htaccess, 0660);
-			update_option('mdocs-v2-2-2-patch-var-1', true);
+			update_option('mdocs-v2-3-1-patch-var-1', true);
 			add_action( 'admin_notices', 'mdocs_v2_2_1_admin_notice_v1' );
 		}
 		if(!file_exists($upload_dir['basedir'].'/mdocs/.htaccess')) {
-			$upload_dir = wp_upload_dir();
+			if(!file_exists($upload_dir['basedir'].'/mdocs/')) mkdir($upload_dir['basedir'].'/mdocs/');
 			$htaccess = $upload_dir['basedir'].'/mdocs/.htaccess';
 			$fh = fopen($htaccess, 'w');
-			$rules = "Deny from all\n";
-			$rules .= "Options +Indexes\n";
-			$rules .= "IndexOptions FancyIndexing FoldersFirst SuppressIcon\n";
-			$rules .= "Allow from .google.com\n";
-			fwrite($fh, $rules);
+			$mdocs_htaccess = get_option('mdocs-htaccess');
+			fwrite($fh, $mdocs_htaccess);
 			fclose($fh);
 			chmod($htaccess, 0660);
 		}
@@ -144,6 +139,10 @@ function mdocs_register_settings() {
 		add_option('mdocs-show-description',true);
 		register_setting('mdocs-global-settings', 'mdocs-show-preview');
 		add_option('mdocs-show-preview', true);
+		register_setting('mdocs-global-settings', 'mdocs-htaccess');
+		add_option('mdocs-htaccess', "Deny from all\nOptions +Indexes\nAllow from .google.com");
+		//Old htaccess file
+		//add_option('mdocs-htaccess', "Deny from all\nOptions +Indexes\nIndexOptions FancyIndexing\nFoldersFirst SuppressIcon\nAllow from .google.com");
 		// PATCHES
 		//unregister_setting('mdocs-patch-vars', 'mdocs-v2-0-patch-var-1');
 		//delete_option('mdocs-v2-0-patch-var-1');

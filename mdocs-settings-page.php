@@ -23,6 +23,7 @@ function mdocs_settings($cat) {
 	$mdocs_default_content = get_option('mdocs-default-content');
 	$mdocs_show_description = get_option('mdocs-show-description');
 	$mdocs_show_preview = get_option('mdocs-show-preview');
+	$mdocs_htaccess = get_option('mdocs-htaccess');
 	mdocs_hide_show_toogle();	
 ?>
 <!-- COLOR PICKER 
@@ -105,6 +106,17 @@ function mdocs_settings($cat) {
 			</label><br><br>
 			<input type="checkbox" id="mdocs-show-description" name="mdocs-show-description" value="1"  <?php checked(1,$mdocs_show_description) ?>/> <?php _e('Show Description'); ?><br>
 			<input type="checkbox" id="mdocs-show-preview" name="mdocs-show-preview" value="1"  <?php checked(1,$mdocs_show_preview) ?>/> <?php _e('Show Preview'); ?><br>
+		</td>
+		<th><?php _e('.htaccess File Editor'); ?></th>
+		<?php
+		
+		if($_GET['settings-updated'] && $_GET['page'] == 'memphis-documents.php') {
+			$upload_dir = wp_upload_dir();
+			$htaccess = file_put_contents($upload_dir['basedir'].MDOCS_DIR.'.htaccess', $mdocs_htaccess);
+		}
+		?>
+		<td>
+				<textarea cols="30" rows="10" name="mdocs-htaccess"><?php echo $mdocs_htaccess; ?></textarea>
 		</td>
 	</tr>
 	<!--

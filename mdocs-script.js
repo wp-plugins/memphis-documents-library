@@ -140,7 +140,9 @@ function mdocs_admin(plugin_url, wp_root) {
 		}
 		
 	});
-	
+	// ADD SUB CATEGORY
+	mdocs_add_sub_cat();
+	// ADD ROOT CATEGORY
 	var cat_index = parseInt(jQuery('input[name$="[order]"]').last().prop('value'))+1;
 	if (isNaN(cat_index)) cat_index = 1;
 	jQuery('#mdocs-add-cat').click(function(event) {
@@ -179,6 +181,41 @@ function mdocs_admin(plugin_url, wp_root) {
 		if (jQuery(this).val() == 'hidden') jQuery('#mdocs-post-status').prop('disabled','true');
 		else if (jQuery(this).val() == 'public') jQuery('#mdocs-post-status').removeAttr('disabled');
 	});
+}
+// ADD SUB CATEGORY
+var sub_cat_index = 0;
+function mdocs_add_sub_cat() {
+    jQuery('.mdocs-add-sub-cat').click(function(event) {
+	//mdocs_set_onleave();
+	event.preventDefault();
+	var the_parent = jQuery(jQuery(this).parent().parent()).find('input').val();
+	var html = '\
+		<tr id="mdocs-cats-new-'+sub_cat_index+'" >\
+			<td id="name" style="padding-left: 40px">\
+			    <input type="hidden" name="mdocs-cats[new-cat-'+sub_cat_index+'][slug]" value="new-cat-'+sub_cat_index+'"/>\
+			    <input type="text" name="mdocs-cats[new-cat-'+sub_cat_index+'][name]"  value="'+mdocs_js.new_category+' '+sub_cat_index+'"  />\
+			</td>\
+			<td id="order">\
+			    <input type="text" name="mdocs-cats[new-cat-'+sub_cat_index+'][order]"  value="'+sub_cat_index+'"  />\
+			</td>\
+			<td id="remove">\
+			    <input type="hidden" name="mdocs-cats[new-cat-'+sub_cat_index+'][remove]" value="0"/>\
+			    <input type="button"  id="mdocs-cat-remove-new" name="new-cat-'+sub_cat_index+'" class="button button-primary" value="'+mdocs_js.remove+'"  />\
+			</td>\
+			<td id="add-cat">\
+			    <input  type="button" name="'+sparent+'" class="mdocs-add-sub-cat button button-primary" value="Add Category"  />\
+			</td>\
+		</tr>\
+	'
+	var sparent = jQuery('input[name="mdocs-cats['+the_parent+'][name]"]').parent().parent();
+	jQuery(html).insertAfter(sparent).parent().parent();
+	sub_cat_index++;
+	jQuery('input[id="mdocs-cat-remove-new"]').click(function() {
+		jQuery(this).parent().parent().remove();
+	});
+	jQuery('.mdocs-add-sub-cat').unbind('click');
+	mdocs_add_sub_cat();
+    });
 }
 function mdocs_set_onleave() { window.onbeforeunload = function() { return mdocs_js.leave_page;}; }
 function mdocs_reset_onleave() { window.onbeforeunload = null; }

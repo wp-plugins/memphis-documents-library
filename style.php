@@ -205,6 +205,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-ds-container table #date { width: 40%; padding-left: 10px; font-weight: bold;}
 .mdocs-ds-container table #download { padding-bottom:  5px; text-align: center; }
 .mdocs-ds-container table #current { text-align: center;}
+.mdocs-ds-container table #add-cat { vertical-align: middle; }
 .mdocs-admin-desc ul { padding: 0 0 0 25px !important; margin: 5px !important; font-size: 12px;  color: #444 !important; list-style: disc !important;}
 .mdocs-admin-desc ol { padding: 0 0 0 25px !important; margin: 5px !important; font-size: 12px;  color: #444 !important; }
 .mdocs-admin-desc p { padding: 0 !important; margin: 10px 0 !important; }

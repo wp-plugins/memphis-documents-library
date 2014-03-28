@@ -76,6 +76,10 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 5. screenshot-5.png
 
 == Changelog ==
+= 2.3.1 =
+* htaccess update
+* htaccess file editor in settings menu
+* fixed a file not fould error
 = 2.3 =
 * Batch file upload beta
 * List of avaible short codes
