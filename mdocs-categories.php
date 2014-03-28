@@ -13,6 +13,7 @@ function mdocs_edit_cats() {
 						<th scope="col" class="manage-column column-name" ><?php _e('Category'); ?></th>
 						<th scope="col"  class="manage-column column-name" ><?php _e('Order'); ?></th>
 						<th scope="col"  class="manage-column column-name" ><?php _e('Remove'); ?></th>
+						<!--<th scope="col" class="manage-column column-name" ><?php _e('Add Category'); ?></th>-->
 					</tr>
 				</thead>
 				<tfoot>
@@ -20,12 +21,14 @@ function mdocs_edit_cats() {
 						<th scope="col" class="manage-column column-name" ><?php _e('Category'); ?></th>
 						<th scope="col" class="manage-column column-name" ><?php _e('Order'); ?></th>
 						<th scope="col" class="manage-column column-name" ><?php _e('Remove'); ?></th>
+						<!--<th scope="col" class="manage-column column-name" ><?php _e('Add Category'); ?></th>-->
 					</tr>
 				</tfoot>
 				<tbody id="the-list">
 			<?php
 			$index = 0;
 			if(!empty($mdocs_cats)) {
+				//var_dump($mdocs_cats);
 				foreach($mdocs_cats as $key => $value) {
 					$index++;
 					?>
@@ -36,11 +39,17 @@ function mdocs_edit_cats() {
 							</td>
 							<td id="order">
 								<input type="text" name="mdocs-cats[<?php echo $key; ?>][order]"  value="<?php echo $index; ?>"  />
+								
 							</td>
 							<td id="remove">
 								<input type="hidden" name="mdocs-cats[<?php echo $key; ?>][remove]" value="0"/>
 								<input type="button" id="mdocs-cat-remove" name="<?php echo $key; ?>" class="button button-primary" value="Remove"  />
 							</td>
+							<!--
+							<td id="add-cat">
+								<input  type="button" name="<?php echo $key; ?>" class="mdocs-add-sub-cat button button-primary" value="Add Category"  />
+							</td>
+							-->
 						</tr>
 					<?php
 				}
@@ -72,18 +81,19 @@ function mdocs_update_cats() {
 		foreach($mdocs_cats_post as $key => $value) {
 			if(preg_match('/new-cat-/',$value['slug'])) {
 				$value['slug'] = preg_replace('/ /','-',strtolower($value['name']));
-				$value['slug'] = preg_replace('/[^A-Za-z0-9\-]/', '', $value['slug']);
+				$value['slug'] = preg_replace('/[^A-Za-z0-9\-:]/', '', $value['slug']);
 			}
 			if($value['remove'] == 0) $mdocs_cats[$value['slug']] = $value['name'];
 			else {
 				$mdocs = get_option('mdocs-list');
+				//$mdocs = mdocs_sort_by($mdocs);
 				foreach($mdocs as $k => $v) {
 					if($v['cat'] == $value['slug']) {
 						wp_delete_attachment( intval($v['id']), true );
 						wp_delete_post( intval($v['parent']), true );
 						$name = substr($v['filename'], 0, strrpos($v['filename'], '.') );
 						if(file_exists($upload_dir['basedir'].'/mdocs/'.$v['filename'])) @unlink($upload_dir['basedir'].'/mdocs/'.$v['filename']);
-						foreach($v['archived'] as $a) unlink($upload_dir['basedir'].'/mdocs/'.$a);
+						foreach($v['archived'] as $a) @unlink($upload_dir['basedir'].'/mdocs/'.$a);
 						$thumbnails = glob($upload_dir['basedir'].'/mdocs/'.$name.'-150x55*');
 						foreach($thumbnails as $t) unlink($t);
 						unset($mdocs[$k]);
