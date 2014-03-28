@@ -56,6 +56,14 @@ function mdocs_import_zip() {
 			} else $error = true;
 			if(file_exists($upload_dir['basedir'].'/mdocs/mdocs-cats.txt')) {
 				$mdocs_cats_file = unserialize(file_get_contents($upload_dir['basedir'].'/mdocs/mdocs-cats.txt'));
+				if(!is_array($mdocs_cats_file[0])) {
+					$new_mdocs_cats = array();
+					foreach($mdocs_cats_file as $index => $cat) {
+						array_push($new_mdocs_cats, array('slug' => $index,'name' => $cat, 'parent' => '', 'children' => array(), 'depth' => 0));
+					}
+					$mdocs_cats_file = $new_mdocs_cats;
+					mdocs_errors(__('Old category structure found, updated to the new category structure.  It is recommened that you re-export you files again.  The process did finish.'), 'error');
+				}
 			} else $error = true;
 			//var_dump($mdocs_list_file);
 			if($mdocs_cats_file === false || $mdocs_list_file === false || $error ) {

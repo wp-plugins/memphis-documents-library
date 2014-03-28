@@ -21,7 +21,16 @@ function mdocs_register_settings() {
 	$is_read_write = mdocs_check_read_write();
 	if($is_read_write) {
 		$upload_dir = wp_upload_dir();
-		//v2.2.2 Patch Updating the .htaccess file
+		register_setting('mdocs-patch-vars', 'mdocs-v2-4-patch-var-1');
+		add_option('mdocs-v2-4-patch-var-1',false);
+		if(get_option('mdocs-v2-4-patch-var-1') == false) {
+			$mdocs_cats = get_option('mdocs-cats');
+			$new_mdocs_cats = array();
+			foreach($mdocs_cats as $index => $cat) array_push($new_mdocs_cats, array('slug' => $index,'name' => $cat, 'parent' => '', 'children' => array(), 'depth' => 0));
+			update_option('mdocs-cats', $new_mdocs_cats);
+			update_option('mdocs-v2-4-patch-var-1', true);
+			add_action( 'admin_notices', 'mdocs_v2_4_admin_notice_v1' );
+		}
 		register_setting('mdocs-patch-vars', 'mdocs-v2-3-1-patch-var-1');
 		add_option('mdocs-v2-3-1-patch-var-1',false);
 		if(get_option('mdocs-v2-3-1-patch-var-1') == false) {
@@ -84,7 +93,7 @@ function mdocs_register_settings() {
 		}
 		//REGISTER SAVED VARIABLES
 		register_setting('mdocs-settings', 'mdocs-cats');
-		add_option('mdocs-cats',array('mdocuments' => 'Documents'));
+		add_option('mdocs-cats',array('slug' => 'mdocuments','name' => 'Documents', 'parent' => '', 'children' => array(), 'depth' => 0));
 		if(is_string(get_option('mdocs-cats'))) update_option('mdocs-cats',array());
 		register_setting('mdocs-settings', 'mdocs-list');
 		add_option('mdocs-list',array());
@@ -233,6 +242,13 @@ function mdocs_v2_2_1_admin_notice_v1() {
     <div class="updated">
         <p><?php _e('Your Memphis <b>.htaccess</b> file has been updated to allow google.com access to the system.   This step is necessary to allow documents to be previewed.'); ?></p>
     </div>
+    <?php
+}
+function mdocs_v2_4_admin_notice_v1() {
+    ?>
+    <div class="updated">
+        <p><?php _e('Your Memphis <b>Categories</b> have been updated to handle subcategories this should not effect your current file system in anyway.  If there is any issues please post a comment in the support forum of this plugin.  It is recommended to re-export your files again due to the new way categories are structured.'); ?></p>
+    </div
     <?php
 }
 

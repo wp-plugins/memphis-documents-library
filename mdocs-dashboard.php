@@ -40,7 +40,7 @@ function mdocs_dashboard_view() {
 	$cats = get_option('mdocs-cats');
 	$upload_dir = wp_upload_dir();
 	if(isset($_GET['cat'])) $current_cat = $_GET['cat'];
-	elseif(!is_string($cats)) $current_cat = key($cats);
+	elseif(!is_string($cats)) $current_cat = $cats[0]['slug'];
 	?>
 	<div class="wrap">
 		<div class="mdocs-admin-preview"></div>
@@ -57,9 +57,9 @@ function mdocs_dashboard_view() {
 		<h2 class="nav-tab-wrapper">
 		<?php
 		if(!empty($cats)) {
-			foreach( $cats as $cat => $name ){
-				$class = ( $cat == $current_cat ) ? ' nav-tab-active' : '';
-				if(is_dir($upload_dir['basedir'].'/mdocs/')) echo "<a class='nav-tab$class' href='?page=memphis-documents.php&cat=$cat'>".__($name)."</a>";
+			foreach( $cats as $index => $cat ){
+				$class = ( $cat['slug'] == $current_cat ) ? ' nav-tab-active' : '';
+				if(is_dir($upload_dir['basedir'].'/mdocs/')) echo '<a class="nav-tab '.$class.'" href="?page=memphis-documents.php&cat='.$cat['slug'].' ">'.__($cat['name']).'</a>';
 			}
 		}
 		if($current_cat == 'import' ) $import_active = ' nav-tab-active';

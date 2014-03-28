@@ -267,7 +267,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 /* PREVIEW WINDOWS */
 .mdocs-wp-preview, .mdocs-admin-preview  { display: none; background: #e6e6e6; opacity: 1; width: 100% !important; height: 100%; position: fixed !important; top: 0px !important; left: 0px !important; text-align: center; z-index: 99999; }
 .mdocs-wp-preview h1 { text-align: left; padding: 0;  margin: 0; padding: 10px; font-size: 19px !important;}
-.mdocs-wp-preview .mdocs-close-btn { top: 0px !important; }
+.mdocs-wp-preview .mdocs-close-btn { top: 30px !important; }
 .mdocs-google-doc { width: 100% !important; height: 85% !important; margin: 0px; padding: 0; overflow: scroll !important;}
 /*.mdocs-admin-preview { position: absolute !important; top: 0px !important; left: 0px !important;  background: #e6e6e6; width: 100%; height: 200%; z-index: 99999; display: none;}*/
 .mdocs-admin-preview h1 { text-align: left; padding: 0;  margin: 0 10px 24px 10px; padding-top: 20px; font-size: 21px !important;}

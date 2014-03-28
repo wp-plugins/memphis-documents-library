@@ -162,6 +162,9 @@ function mdocs_admin(plugin_url, wp_root) {
 					<input type="hidden" name="mdocs-cats[new-cat-'+cat_index+'][remove]" value="0"/>\
 					<input type="button"  id="mdocs-cat-remove-new" name="new-cat-'+cat_index+'" class="button button-primary" value="'+mdocs_js.remove+'"  />\
 				</td>\
+				<td id="add-cat">\
+				    <input  type="button" name="'+cat_index+'" class="mdocs-add-sub-cat button button-primary" value="Add Category"  />\
+				</td>\
 			</tr>\
 		');
 		cat_index++;
@@ -188,10 +191,12 @@ function mdocs_add_sub_cat() {
     jQuery('.mdocs-add-sub-cat').click(function(event) {
 	//mdocs_set_onleave();
 	event.preventDefault();
-	var the_parent = jQuery(jQuery(this).parent().parent()).find('input').val();
+	var parent_id = jQuery(this).prop('name');
+	alert(parent_id);
 	var html = '\
 		<tr id="mdocs-cats-new-'+sub_cat_index+'" >\
 			<td id="name" style="padding-left: 40px">\
+			    <input type="hidden" name="mdocs-cats[new-cat-'+sub_cat_index+'][parent_id]" value="'+parent_id+'"/>\
 			    <input type="hidden" name="mdocs-cats[new-cat-'+sub_cat_index+'][slug]" value="new-cat-'+sub_cat_index+'"/>\
 			    <input type="text" name="mdocs-cats[new-cat-'+sub_cat_index+'][name]"  value="'+mdocs_js.new_category+' '+sub_cat_index+'"  />\
 			</td>\
@@ -206,8 +211,8 @@ function mdocs_add_sub_cat() {
 			    <input  type="button" name="'+sparent+'" class="mdocs-add-sub-cat button button-primary" value="Add Category"  />\
 			</td>\
 		</tr>\
-	'
-	var sparent = jQuery('input[name="mdocs-cats['+the_parent+'][name]"]').parent().parent();
+		'
+	var sparent = jQuery('input[name="mdocs-cats['+parent_id+'][name]"]').parent().parent();
 	jQuery(html).insertAfter(sparent).parent().parent();
 	sub_cat_index++;
 	jQuery('input[id="mdocs-cat-remove-new"]').click(function() {

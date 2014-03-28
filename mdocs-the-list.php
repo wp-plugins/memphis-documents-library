@@ -9,7 +9,7 @@ function mdocs_the_list($att=null) {
 		$mdocs = get_option('mdocs-list');
 		$cats =  get_option('mdocs-cats');
 		if(isset($_GET['cat'])) $current_cat = $_GET['cat'];
-		elseif(!is_string($cats)) $current_cat = key($cats);
+		elseif(!is_string($cats)) $current_cat = $cats[0]['slug'];
 		if(isset($att['cat']) && $att['cat'] != 'All Files') $current_cat = array_search($att['cat'],$cats);
 		elseif(isset($att['cat']) && $att['cat'] == 'All Files') $current_cat = 'all';
 		
@@ -27,9 +27,9 @@ function mdocs_the_list($att=null) {
 			<div id="icon-edit-pages" class="icon32"><br></div>
 			<?php
 			if(!empty($cats) && !isset($att['cat'])) {
-				foreach( $cats as $cat => $name ){
-					$class = ( $cat == $current_cat ) ? ' mdocs-nav-tab-active' : '';
-					echo '<a class="mdocs-nav-tab'.$class.'" href="'.$mdocs_get.$cat.'"><span>'.$name.'</span></a>';
+				foreach( $cats as $index => $cat ){
+					$class = ( $cat['slug'] == $current_cat ) ? ' mdocs-nav-tab-active' : '';
+					echo '<a class="mdocs-nav-tab'.$class.'" href="'.$mdocs_get.$cat['slug'].'"><span>'.$cat['name'].'</span></a>';
 				}
 			} else echo '<p>'.__($att['cat']).'</p>';
 			?>
