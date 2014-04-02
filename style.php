@@ -197,8 +197,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-grey-btn:hover { color: #D54E21; }
 #mdocs-export .updated { width: 150px !important; }
 #mdocs-cats input[type="text"] { font-size: 22px !important; width: 100%; }
-.mdocs-ds-container table #name { width: 97%; }
-.mdocs-ds-container table #order { width: 3%; }
+.mdocs-ds-container table #name { width: 92%; }
+.mdocs-ds-container table #order { width: 8%; }
 .mdocs-ds-container table #remove { vertical-align: middle; }
 .mdocs-ds-container table #file { width: 40%; padding-left: 10px; font-weight: bold;}
 .mdocs-ds-container table #version { text-align: center; font-weight: bold;}
