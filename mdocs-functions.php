@@ -38,9 +38,14 @@ function  mdocs_des_preview_tabs($the_mdoc) {
 		} elseif(!isset($_POST['show_type']) && $mdocs_show_preview && $mdocs_default_content == 'preview') {
 			$show_preview = mdocs_file_access($the_mdoc);
 			if( $show_preview) {
+				$is_image = getimagesize($upload_dir['basedir'].MDOCS_DIR.$the_mdoc['filename']);
 			?>
 			<div class="mdoc-desc">
+			<?php if($is_image == false) { ?>
 			<p><?php mdocs_doc_preview($file_url); ?></p>
+			<?php } else { ?>
+			<iframe class="mdocs-img-preview" src="?mdocs-img-preview=<?php echo $the_mdoc['filename']; ?>"></iframe>
+			<?php } ?>
 			</div>
 			<?php
 			}
@@ -362,6 +367,7 @@ function mdocs_hide_show_toogle() {
 	$mdocs_hide_all_posts_default = get_option( 'mdocs-hide-all-posts-default' );
 	$mdocs_hide_all_posts_non_members = get_option( 'mdocs-hide-all-posts-non-members' );
 	$mdocs_hide_all_posts_non_members_default = get_option( 'mdocs-hide-all-posts-non-members-default' );
+	
 	if($mdocs_hide_all_posts_non_members != $mdocs_hide_all_posts_non_members_default) {
 		if($mdocs_hide_all_posts_non_members) {
 			$query = new WP_Query('category_name=mdocs-media');
@@ -381,22 +387,25 @@ function mdocs_hide_show_toogle() {
 					$q = new WP_Query('post_type=attachment&post_status=inherit&post_parent='.$the_post->ID);
 					if(intval($the_doc['id']) == $q->posts[0]->ID) { $file_status = $the_doc['file_status']; break; }
 				}
-				if($file_status == 'public') {
+				if($file_status == 'public' ) {
 					$update_post = array(
 						'ID' => $the_post->ID,
 						'post_status' =>'publish',
 					);
-					} else {
+					$post_status = 'publish';
+				} else {
 					$update_post = array(
 						'ID' => $the_post->ID,
 						'post_status' =>'draft',
-					);	
+					);
+					$post_status = 'draft';
 				}
 				wp_update_post( $update_post );
+				$mdocs[$mdoc]['post_status'] = $post_status;
 			}
+			update_option('mdocs-list', $mdocs);
 			update_option( 'mdocs-hide-all-posts-non-members-default', false );
 		}
-		
 	}
 		
 	if($mdocs_hide_all_posts != $mdocs_hide_all_posts_default) {

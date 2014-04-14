@@ -183,9 +183,10 @@ function mdocs_uploader($edit_type='Add Document') {
 				<label><?php _e('Category'); ?>:
 				<select name="mdocs-cat">
 				<?php
-					foreach( $cats as $select => $name ){ 
-						$is_selected = ( $select == $current_cat ) ? 'selected="selected"' : '';
-						echo '<option  value="'.$select.'" '.$is_selected.'>'.$name.'</option>';
+					foreach( $cats as $index => $cat ){
+					//foreach( $cats as $select => $name ){ 
+						$is_selected = ( $cat['slug'] == $current_cat ) ? 'selected="selected"' : '';
+						echo '<option  value="'.$cat['slug'].'" '.$is_selected.'>'.$cat['name'].'</option>';
 					}
 				?>
 				</select>
@@ -218,10 +219,10 @@ function mdocs_uploader($edit_type='Add Document') {
 				</label>
 				<label>Post Status:
 					<select name="mdocs-post-status" id="mdocs-post-status" <?php if($mdocs[$mdoc_index]['file_status'] == 'hidden' || get_option( 'mdocs-hide-all-files' ) || get_option( 'mdocs-hide-all-posts' )) echo 'disabled'; ?> >
-						<option value="publish" <?php if($mdocs[$mdoc_index]['post_status'] == 'publish') echo 'selected'; ?> >Published</option>
+						<option value="publish" <?php if($mdocs[$mdoc_index]['post_status'] == 'publish') echo 'selected'; ?> ><?php _e('Published'); ?></option>
 						<option value="private" <?php if($mdocs[$mdoc_index]['post_status'] == 'private') echo 'selected'; ?> ><?php _e('Private'); ?></option>
-						<option value="pending" <?php if($mdocs[$mdoc_index]['post_status'] == 'pending') echo 'selected'; ?> >Pending Review</option>
-						<option value="draft" <?php if($mdocs[$mdoc_index]['post_status'] == 'draft') echo 'selected'; ?> >Draft</option>
+						<option value="pending" <?php if($mdocs[$mdoc_index]['post_status'] == 'pending') echo 'selected'; ?> ><?php _e('Pending Review'); ?></option>
+						<option value="draft" <?php if($mdocs[$mdoc_index]['post_status'] == 'draft') echo 'selected'; ?> ><?php _e('Draft'); ?></option>
 					</select>
 				</label>
 			</div>

@@ -14,6 +14,7 @@ define('MDOCS_CURRENT_TIME', date('Y-m-d H:i:s', time()+MDOCS_TIME_OFFSET));
 //define('MDOCS_VERSION', );
 $add_error = false;
 $mdocs_img_types = array('jpeg','jpg','png','gif');
+$mdocs_input_text_bg_colors = array('#f1f1f1','#5FC0CE','#FFB673','#FFFF73','#AD66D5','#ff5000','#00ff20');
 
 function mdocs_register_settings() {
 	//CREATE REPOSITORY DIRECTORY

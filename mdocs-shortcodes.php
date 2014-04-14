@@ -21,6 +21,10 @@ function mdocs_shortcodes($current_cat) {
 				<td>[mdocs cat="All Files"]</td>
 				<td><?php _e('Adds a list of all files of the Memphis Documents Library on any page, post or widget.');?></td>
 			</tr>
+			<tr>
+				<td>[mdocs header="<?php _e('This text will show up above the documents list.'); ?>"]</td>
+				<td><?php _e('Adds a header to the Memphis Documents LIbrary on ay page, post or widget.');?></td>
+			</tr>
 		</table>
 	</div>
 	<?php

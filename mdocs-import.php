@@ -147,6 +147,15 @@ function mdocs_import_zip() {
 					update_option('mdocs-cats',$mdocs_cats);
 				}
 				foreach($mdocs_list_file as $key => $value) {
+					$hide_all_posts = get_option('mdocs-hide-all-posts');
+					$hide_all_posts_non_members = get_option('mdocs-hide-all-posts-non-members');
+					if($mdocs_list_file[$key]['post_status'] == '' && $hide_all_posts == '' && $hide_all_posts_non_members == '') $the_post_stauts = 'publish';
+					elseif($hide_all_posts == '1') $the_post_stauts = 'draft';
+					elseif($hide_all_posts_non_members == '1') $the_post_stauts = 'private';
+					else $the_post_stauts = $mdocs_list_file[$key]['post_status'];
+					if($mdocs_list_file[$key]['post_status_sys'] == '' && $hide_all_posts == '') $the_post_stauts_sys = 'publish';
+					elseif($hide_all_posts == '1') $the_post_stauts_sys = 'draft';
+					else $the_post_stauts_sys = $mdocs_list_file[$key]['post_status_sys'];
 					$file = array(
 						'type'=>'null',
 						'tmp_name'=>'null',
@@ -155,13 +164,9 @@ function mdocs_import_zip() {
 						'filename'=>$mdocs_list_file[$key]['filename'],
 						'name'=>$mdocs_list_file[$key]['name'],
 						'desc'=>$mdocs_list_file[$key]['desc'],
-						'post-status'=>$mdocs_list_file[$key]['post_status'],
+						'post-status'=>$the_post_stauts,
 						'modifed'=>$mdocs_list_file[$key]['modified']);
 					$upload = mdocs_process_file($file, true);
-					if($mdocs_list_file[$key]['post_status'] == '') $the_post_stauts = 'publish';
-					else $the_post_stauts = $mdocs_list_file[$key]['post_status'];
-					if($mdocs_list_file[$key]['post_status_sys'] == '') $the_post_stauts_sys = 'publish';
-					else $the_post_stauts_sys = $mdocs_list_file[$key]['post_status_sys'];
 					array_push($mdocs, array(
 						id=>(string)$upload['attachment_id'],
 						parent=>(string)$upload['parent_id'],

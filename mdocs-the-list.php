@@ -21,6 +21,7 @@ function mdocs_the_list($att=null) {
 		
 	?>
 	<div class="mdocs-container">
+		<?php if(isset($att['header'])) echo '<p>'.__($att['header']).'</p>'; ?>
 		<?php $mdocs = mdocs_sort_by($mdocs); ?>
 		<h2 class="mdocs-nav-wrapper">
 			<div class="mdocs-wp-preview"></div>
