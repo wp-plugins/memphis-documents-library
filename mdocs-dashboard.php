@@ -81,6 +81,14 @@ function mdocs_dashboard_view() {
 function mdoc_doc_list($current_cat) {
 	$is_read_write = mdocs_check_read_write();
 	if($is_read_write) {
+		$cats = get_option('mdocs-cats');
+		foreach( $cats as $index => $cat ){
+			if($cat['slug'] == $current_cat) {
+				if(count($cat['children']) > 0 ) $the_children = $cat['children'];
+			} 
+		}
+		
+		
 		$mdocs = get_option('mdocs-list');
 		$mdocs = mdocs_sort_by($mdocs, 5, 'dashboard');
 		$upload_dir = wp_upload_dir();	
@@ -88,7 +96,16 @@ function mdoc_doc_list($current_cat) {
 		$count = 0;
 		echo 	'<br><br><br>';
 		$list_type = get_option('mdocs-list-type-dashboard');
-		if($list_type == 'small') echo '<table class="mdocs-list-table">';
+		if($list_type == 'small') {
+			echo '<table class="mdocs-list-table">';
+			foreach($the_children as $index => $child) {
+			?>
+			<tr>
+				<td colspan="10" id="subfolder" ><i class="fa fa-folder"></i> <?php echo $child['name']; ?></td>
+			</tr>
+			<?php
+		}
+		}
 		foreach($mdocs as $index => $value) {
 			if($mdocs[$index]['cat'] == $current_cat) {
 				$count++;
@@ -96,9 +113,8 @@ function mdoc_doc_list($current_cat) {
 				$mdocs_desc = apply_filters('the_content', $mdocs_post->post_excerpt);
 				
 				if($list_type == 'small') {
-					?>
-						<?php mdocs_file_info_small($value, 'dashboard',$index, $current_cat); ?>
-					<?php
+					
+					mdocs_file_info_small($value, 'dashboard',$index, $current_cat); 
 				} else {			
 					?>
 						<div class="mdocs-post">

@@ -29,7 +29,10 @@ function mdocs_the_list($att=null) {
 			<?php
 			if(!empty($cats) && !isset($att['cat'])) {
 				foreach( $cats as $index => $cat ){
-					$class = ( $cat['slug'] == $current_cat ) ? ' mdocs-nav-tab-active' : '';
+					if($cat['slug'] == $current_cat) {
+						$class = ' mdocs-nav-tab-active';
+						if(count($cat['children']) > 0 ) $the_children = $cat['children'];
+					} else $class = '';
 					echo '<a class="mdocs-nav-tab'.$class.'" href="'.$mdocs_get.$cat['slug'].'"><span>'.$cat['name'].'</span></a>';
 				}
 			} else echo '<p>'.__($att['cat']).'</p>';
@@ -39,16 +42,24 @@ function mdocs_the_list($att=null) {
 		$count = 0;
 		
 		if(get_option('mdocs-list-type') == 'small') echo '<table class="mdocs-list-table">';
+		
+		foreach($the_children as $index => $child) {
+			?>
+			<tr>
+				<td colspan="10" id="title" class="mdocs-tooltip"><i class="fa fa-folder"></i> <?php echo $child['name']; ?></td>
+			</tr>
+			<?php
+		}
+		
 		foreach($mdocs as $index => $the_mdoc) {
 			if($the_mdoc['cat'] == $current_cat || $current_cat == 'all') {
 				if($the_mdoc['file_status'] == 'public' ) {
 					$count ++;
 					$mdocs_post = get_post($the_mdoc['parent']);
 					$mdocs_desc = apply_filters('the_content', $mdocs_post->post_excerpt);
+					
 					if(get_option('mdocs-list-type') == 'small') {
-					?>
-						<?php mdocs_file_info_small($the_mdoc, 'site', 0, $current_cat); ?>
-					<?php
+						mdocs_file_info_small($the_mdoc, 'site', 0, $current_cat); 
 					} else {
 						$user_logged_in = is_user_logged_in();
 						$mdocs_hide_all_files = get_option( 'mdocs-hide-all-files' );

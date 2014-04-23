@@ -160,6 +160,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-list-table, .mdocs-list-table tr, .mdocs-list-table td { width: 100% !important; border: solid 1px #ccc !important; vertical-align: middle; border-collapse: collapse !important; padding: 3px 0 !important; margin: 0 !important; font-size: 13px !important;}
 .mdocs-list-table td { border: none !important;  padding: 0 !important; height: 28px !important;}
 .mdocs-list-table { margin-top: 10px !important; }
+.mdocs-list-table #subfolder { padding: 0; padding-left: 5px !important; width: auto !important; text-align: left;}
 .mdocs-list-table #title { padding: 0 0 0 5px !important; margin: 0; width: <?php echo $title_width; ?> !important; }
 .mdocs-list-table #downloads { padding: 0; width: auto !important; text-align: center;}
 .mdocs-list-table #version { padding: 0; width: auto !important; text-align: center;}
