@@ -13,7 +13,7 @@ function mdocs_edit_cats() {
 						<th scope="col" class="manage-column column-name" ><?php _e('Category'); ?></th>
 						<th scope="col"  class="manage-column column-name" ><?php _e('Order'); ?></th>
 						<th scope="col"  class="manage-column column-name" ><?php _e('Remove'); ?></th>
-						<th scope="col" class="manage-column column-name" ><?php _e('Add Category'); ?></th>
+						<!--<th scope="col" class="manage-column column-name" ><?php _e('Add Category'); ?></th>-->
 					</tr>
 				</thead>
 				<tfoot>
@@ -21,7 +21,7 @@ function mdocs_edit_cats() {
 						<th scope="col" class="manage-column column-name" ><?php _e('Category'); ?></th>
 						<th scope="col" class="manage-column column-name" ><?php _e('Order'); ?></th>
 						<th scope="col" class="manage-column column-name" ><?php _e('Remove'); ?></th>
-						<th scope="col" class="manage-column column-name" ><?php _e('Add Category'); ?></th>
+						<!--<th scope="col" class="manage-column column-name" ><?php _e('Add Category'); ?></th>-->
 					</tr>
 				</tfoot>
 				<tbody id="the-list">
@@ -89,9 +89,11 @@ function mdocs_build_cat_td($mdocs_cat) {
 				<input type="button" id="mdocs-cat-remove" name="<?php echo $cat['slug']; ?>" class="button button-primary" value="Remove"  />
 				<?php } ?>
 			</td>
+			<!--
 			<td id="add-cat">
 				<input  type="button" name="mdocs-cats[<?php echo $cat['slug']; ?>][<?php echo $cat['depth']; ?>][<?php echo $cat['slug']; ?>]" class="mdocs-add-sub-cat button button-primary" value="Add Category"  />
 			</td>
+			-->
 		</tr>
 		<?php
 		$child = array_values($cat['children']);

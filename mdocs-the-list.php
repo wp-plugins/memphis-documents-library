@@ -42,7 +42,8 @@ function mdocs_the_list($att=null) {
 		$count = 0;
 		
 		if(get_option('mdocs-list-type') == 'small') echo '<table class="mdocs-list-table">';
-		
+		/* SUB CATEGORIES
+		if(isset($the_children)) {
 		foreach($the_children as $index => $child) {
 			?>
 			<tr>
@@ -50,7 +51,8 @@ function mdocs_the_list($att=null) {
 			</tr>
 			<?php
 		}
-		
+		}
+		*/
 		foreach($mdocs as $index => $the_mdoc) {
 			if($the_mdoc['cat'] == $current_cat || $current_cat == 'all') {
 				if($the_mdoc['file_status'] == 'public' ) {

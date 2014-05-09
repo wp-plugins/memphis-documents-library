@@ -98,13 +98,17 @@ function mdoc_doc_list($current_cat) {
 		$list_type = get_option('mdocs-list-type-dashboard');
 		if($list_type == 'small') {
 			echo '<table class="mdocs-list-table">';
+			/* SUB CATS
+			if(isset($the_children)) {
 			foreach($the_children as $index => $child) {
 			?>
 			<tr>
 				<td colspan="10" id="subfolder" ><i class="fa fa-folder"></i> <?php echo $child['name']; ?></td>
 			</tr>
 			<?php
-		}
+			}
+			}
+			*/
 		}
 		foreach($mdocs as $index => $value) {
 			if($mdocs[$index]['cat'] == $current_cat) {
