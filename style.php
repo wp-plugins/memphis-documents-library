@@ -59,7 +59,7 @@ if($num_show==1) $title_width = '75%';
 	font-size: 14px !important;
 	font-family: 'Bitter', Verdana, Arial, sans-serif !important;
 	cursor: pointer !important;
-	color: #fff !important;
+	color: <?php echo get_option('mdocs-download-text-color-normal'); ?> !important;
 	border: none !important;
 	margin-right: 5px !important; 
 	padding: 10px !important;
@@ -67,9 +67,9 @@ if($num_show==1) $title_width = '75%';
 	text-shadow: none !important;
 	height: 38px !important;
 	box-shadow: none !important;
-	background: #D14836 !important;
+	background: <?php echo get_option('mdocs-download-color-normal'); ?> !important;
 }
-.mdocs-download-btn:hover { background: #c34131 !important; }
+.mdocs-download-btn:hover { background: <?php echo get_option('mdocs-download-color-hover'); ?> !important; color: <?php echo get_option('mdocs-download-text-color-hover'); ?> !important;}
 .mdocs-download-page, .mdocs-direct-download { font-size: 16px !important; border: dashed 1px #b6bcbc !important; background: #f1f1f1; }
 .mdocs-shortcode-table { border: solid 1px #888; width: 100%; text-align: left; border-collapse: collapse; margin-bottom: 20px;}
 .mdocs-shortcode-table th, .mdocs-shortcode-table td { border: solid 1px #888; padding: 5px;}
@@ -173,6 +173,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-sort label { font-size: 12px !important; }
 .mdocs-sort input[type="submit"] { padding: 2px !important; color: #5e5e5e !important; background: #ebebeb !important; border: solid 1px #d2d2d2 !important; cursor: pointer !important; border-radius: 3px; box-shadow: 0 1px 2px #c0c0c0 !important;}
 .mdocs-sort input[type="submit"]:hover { box-shadow: 0 1px 2px #9d9d9d !important;}
+.mdocs-sort label { display: inline !important; }
+.mdocs-sort form { margin: 0 !important; padding: 0 !important; }
+.mdocs-sort  select { height: inherit !important; width: inherit !important; margin: 0 !important;}
+.mdocs-sort  input[type="radio"] { margin: 0 0 0 5px !important; }
 
 .mdocs-show-social { cursor: pointer; }
 
@@ -229,7 +233,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-rating-container-small span { font-size: 11px; }
 .mdocs-big-star { text-shadow: 1px 2px 1px #474747; padding: 0 1px;}
 /* BUTTON STYLES */
-.mdocs-download-btn-config:hover { background: <?php echo get_option('mdocs-download-color-hover'); ?> !important; }
+.mdocs-download-btn-config:hover { background: <?php echo get_option('mdocs-download-color-hover'); ?>; color: <?php echo get_option('mdocs-download-text-color-hover'); ?>}
 .mdocs-close-btn { position: absolute; float: right; right: 20px; top: 30px !important; border: solid 1px #0074a2; box-shadow: inset 0 1px 0 #005c81; background: #2ea2cc; padding: 3px 5px; color: #fff; border-radius: 3px; margin: 15px !important; font-size: 13px !important; font-family: 'Open Sans', sans-serif; padding: 2px 10px 2px 10px; cursor: pointer; }
 .mdocs-close-btn:hover { background: #1E8CBE; }
 .wp-picker-holder { position: absolute !important; z-index: 2000;}
@@ -239,7 +243,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 	font-size: 14px !important;
 	font-family: 'Bitter', Verdana, Arial, sans-serif !important;
 	cursor: pointer !important;
-	color: #fff !important;
+	color: <?php echo get_option('mdocs-download-text-color-normal'); ?>;
 	border: none !important;
 	margin: 5px 0 !important;
 	padding: 10px !important;
@@ -269,14 +273,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-wp-preview, .mdocs-admin-preview  { display: none; background: #e6e6e6; opacity: 1; width: 100% !important; height: 100%; position: fixed !important; top: 0px !important; left: 0px !important; text-align: center; z-index: 99999; }
 .mdocs-wp-preview h1 { text-align: left; padding: 0;  margin: 0; padding: 10px; font-size: 19px !important;}
 .mdocs-wp-preview .mdocs-close-btn { top: 30px !important; }
-.mdocs-google-doc { width: 100% !important; height: 85% !important; margin: 0px; padding: 0; overflow: scroll !important;}
+.mdocs-google-doc { width: 100% !important; height: 85% !important; min-height: 850px; margin: 0px; padding: 0; overflow: scroll !important;}
 /*.mdocs-admin-preview { position: absolute !important; top: 0px !important; left: 0px !important;  background: #e6e6e6; width: 100%; height: 200%; z-index: 99999; display: none;}*/
 .mdocs-admin-preview h1 { text-align: left; padding: 0;  margin: 0 10px 24px 10px; padding-top: 20px; font-size: 21px !important;}
 /*.mdocs-admin-preview .mdocs-google-doc { width: 100% !important; height: 140% !important; margin: 0px; padding: 0; }*/
 .mdocs-admin-preview .mdocs-close-btn { top: 0px !important; }
 .mdocs-preview-icon { cursor:  pointer !important; }
-.mdocs-img-preview { text-align: center;  width: 100%; height: 100%; }
-.mdocs-img-preview img { width: 100%; }
+.mdocs-img-preview { text-align: center;  width: 100%; height: 100%; min-height: 700px;}
+.mdocs-img-preview body { margin: 100px auto; text-align: center; }
 .mdocs-show-container { border-top: solid 1px #e2e2e2; }
 
 /* JQUERY UI TOOLTIP */
@@ -285,6 +289,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .ui-tooltip p { padding: 0 0 10px 0 !important; margin: 0 !important; font-size: 13px !important; line-height: 1.5; border: none !important; }
 .ui-tooltip a { color: #cc0000; }
 .ui-tooltip h1 { font-size: 21px !important; margin: 24px 0 !important; padding: 5px 0 !important; }
+
+/* ADMIN MENU STYLES */
+.mdocs-setting-form label { vertical-align: top; font-size: 0.8em; }
+.mdocs-setting-form h4 { color: #0074a2; padding: 0; margin: 8px 0; border-bottom: dashed 1px #dbdbdb;}
 
 /* THEME FIXES */
 .art-content { width: 100% !important; }

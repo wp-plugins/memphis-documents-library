@@ -132,7 +132,11 @@ function mdocs_register_settings() {
 		register_setting('mdocs-global-settings', 'mdocs-download-color-normal');
 		add_option('mdocs-download-color-normal', '#d14836');
 		register_setting('mdocs-global-settings', 'mdocs-download-color-hover');
-		update_option('mdocs-download-color-hover', '#c34131');
+		add_option('mdocs-download-color-hover', '#c34131');
+		register_setting('mdocs-global-settings', 'mdocs-download-text-color-normal');
+		add_option('mdocs-download-text-color-normal', '#ffffff');
+		register_setting('mdocs-global-settings', 'mdocs-download-text-color-hover');
+		add_option('mdocs-download-text-color-hover', '#ffffff');
 		register_setting('mdocs-global-settings', 'mdocs-show-new-banners');
 		add_option('mdocs-show-new-banners', true);
 		register_setting('mdocs-global-settings', 'mdocs-time-to-display-banners');
@@ -230,7 +234,9 @@ function mdocs_send_headers() {
 	//SET SORT VALUES SITE
 	if(isset($_POST['mdocs-sort-type'])) setcookie('mdocs-sort-type-site', $_POST['mdocs-sort-type']); 
 	if(isset($_POST['mdocs-sort-range'])) setcookie('mdocs-sort-range-site', $_POST['mdocs-sort-range']);
-	mdocs_ie_compat();
+	$get_browser = new mdocs_browser_compatibility();
+	$browser = $get_browser->get_browser();
+	if($browser['name'] == 'Internet Explorer') mdocs_ie_compat();
 }
 function mdocs_send_headers_dashboard() {
 	//SET SORT VALUES DASHBOARD

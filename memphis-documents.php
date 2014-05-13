@@ -40,14 +40,19 @@ include 'mdocs-batch-upload.php';
 include 'mdocs-settings-page.php';
 include 'mdocs-shortcodes.php';
 include 'mdocs-localization.php';
+include 'mdocs-browser-compatibility.php';
 mdocs_nonce();
-if(!headers_sent()) add_action('send_headers', 'mdocs_send_headers');
+if(!headers_sent() && stripos($_SERVER['REQUEST_URI'], '/feed') === false) add_action('send_headers', 'mdocs_send_headers');
+elseif (!is_numeric(stripos($_SERVER['REQUEST_URI'], '/feed'))) {
+	$message = sprintf('Premature output is preventing Memphis Documents Library from working properly. Outpust has started in %s on line %d.', $file, $line);
+	echo '<div style="border: 1em solid red; background: #fff; color: #f00; margin:2em; padding: 1em;">', htmlspecialchars($message), '</div>';
+	trigger_error($message);
+	die();	
+}
 if ( is_admin()) add_action('admin_init', 'mdocs_send_headers_dashboard');
+add_action('init', 'mdocs_localize');
 add_action('admin_menu', 'mdocs_dashboard_menu');
 add_action( 'wp_enqueue_scripts', 'mdocs_script' );
-//add_action('wp_footer', 'mdocs_social_scripts');
-//add_action('admin_footer', 'mdocs_social_scripts');
-//add_action('send_headers', 'mdocs_ie_compat');
-add_action('wp_head', 'mdocs_document_ready_wp');
-add_action('admin_head', 'mdocs_document_ready_admin');
+add_action('wp_footer', 'mdocs_document_ready_wp');
+add_action('admin_footer', 'mdocs_document_ready_admin');
 ?>

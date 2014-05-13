@@ -146,21 +146,28 @@ function mdocs_settings($cat) {
 			</select>
 		</td>		
 	</tr>
+	-->
 	<tr>
 		<th><?php _e('Style Settings'); ?></th>
 		<td>
-			Normal<br>
-			<input type="text" value="<?php echo get_option('mdocs-download-color-normal'); ?>" class="mdocs-color-picker"/><br><br>
-			Hover<br>
-			<input type="text" value="<?php echo get_option('mdocs-download-color-hover'); ?>" class="mdocs-color-picker" /> 
+			<h2><?php _e('Down Button Options'); ?></h2>
+			<h4><?php _e('Background Options'); ?></h4>
+			<label><?php _e('Background Color'); ?></label>
+			<input type="text" value="<?php echo get_option('mdocs-download-color-normal'); ?>" name="mdocs-download-color-normal" id="bg-color-mdocs-picker" data-default-color="#d14836" /><br>
+			<label><?php _e('Background Hover Color'); ?></label>
+			<input type="text" value="<?php echo get_option('mdocs-download-color-hover'); ?>" name="mdocs-download-color-hover" id="bg-hover-color-mdocs-picker" data-default-color="#c34131" /><br>
+			<label><?php _e('Text Color'); ?></label>
+			<input type="text" value="<?php echo get_option('mdocs-download-text-color-normal'); ?>" name="mdocs-download-text-color-normal" id="bg-text-color-mdocs-picker" data-default-color="#ffffff" /><br>
+			<label><?php _e('Text Hover Color'); ?></label>
+			<input type="text" value="<?php echo get_option('mdocs-download-text-color-hover'); ?>" name="mdocs-download-text-color-hover" id="bg-text-hover-color-mdocs-picker" data-default-color="#ffffff" /><br>
+			<h4><?php _e('Download Button Preview'); ?></h4>
+			<div class="mdocs-download-btn-config"><?php echo __('Download');?></div>
 		</td>
-		<th><?php _e('Download Button'); ?></th>
-		<td>
-			<div class="mdocs-download-btn-config" ><?php echo __('Download');?></div>
+		<td colspan="2">
+			
 		</td>
 		
 	</tr>
-	-->
 </table>
 <input style="margin:15px;" type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
 </form>

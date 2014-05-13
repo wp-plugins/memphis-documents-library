@@ -1,5 +1,4 @@
 <?php
-add_action('init', 'mdocs_localize');
 $upload_dir = wp_upload_dir();
 $mdocs_zip = get_option('mdocs-zip');
 //PASS VARIABLES TO JAVASCRIPT

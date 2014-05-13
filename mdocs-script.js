@@ -61,12 +61,34 @@ function mdocs_admin(plugin_url, wp_root) {
 		jQuery( this ).unbind( "mouseleave" );
 	});
 	//INITIALIZE IRIS COLOR PICKER
+	var button_bg_color_normal = jQuery('#bg-color-mdocs-picker').prop('value');
+	var button_bg_color_hover = jQuery('#bg-hover-color-mdocs-picker').prop('value');
+	var button_text_color_normal = jQuery('#bg-text-color-mdocs-picker').prop('value');
+	var button_text_color_hover =  jQuery('#bg-text-hover-color-mdocs-picker').prop('value');
 	var color_options = {
-		change: function(event, ui) {
-			jQuery('.mdocs-download-btn-config').css("background-color", ui.color.toString());
-		}
+	    change: function(event, ui) {
+		var element = jQuery(this).prop('id');
+		if (element == 'bg-color-mdocs-picker') {
+		    button_bg_color_normal = ui.color.toString();
+		    jQuery('.mdocs-download-btn-config').css('background', button_bg_color_normal);
+		} else if (element == 'bg-hover-color-mdocs-picker') button_bg_color_hover = ui.color.toString();
+		if (element == 'bg-text-color-mdocs-picker') {
+		    button_text_color_normal = ui.color.toString();
+		    jQuery('.mdocs-download-btn-config').css('color', button_text_color_normal);
+		} else if (element == 'bg-text-hover-color-mdocs-picker') button_text_color_hover = ui.color.toString();
+	    }
 	}
-	jQuery('.mdocs-color-picker').wpColorPicker(color_options);
+	jQuery('[id$="mdocs-picker"]').wpColorPicker(color_options);
+	// HOVER ADMIN DOWNLOAD BUTTON PREVIEW
+	 jQuery('.mdocs-download-btn-config').hover(
+	    function() {
+		jQuery(this).css('background', button_bg_color_hover);
+		jQuery(this).css('color', button_text_color_hover);
+	    }, function() {
+		jQuery(this).css('background', button_bg_color_normal);
+		jQuery(this).css('color', button_text_color_normal);
+	    }
+	);
 	
 	mdocs_toogle_disable_setting('#mdocs-hide-all-files','#mdocs-hide-all-files-non-members');
 	mdocs_toogle_disable_setting('#mdocs-hide-all-files-non-members','#mdocs-hide-all-files');
