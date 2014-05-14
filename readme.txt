@@ -12,9 +12,9 @@ A documents library for WordPress.
 
 == Description ==
 
-= File preview - Bandwidth limit =
+= Document Preview Not Displaying Content =
 
-Error while viewing files in Memphis Documents Library – “You’ve reached the bandwidth limit for viewing or downloading files that aren’t in Google Docs format. Please try again later”.
+Error while viewing files in Memphis Documents Library – "You've reached the bandwidth limit for viewing or downloading files that aren't in Google Docs format. Please try again later".
 
 Memphis Documents Library uses Google Docs to display the files including PDF, DOC and XLS within the browser. If you are having trouble viewing files and you are logged into your Google account, it could be bandwidth limit on that account. There is no bandwidth limit in Memphis Documents Library and in most cases refreshing the page will display the file.
 
@@ -24,7 +24,7 @@ To sign out of Google, You can use the link below:
 
 <https://accounts.google.com/Logout>
 
-The error is based upon these limits set by Google for each account and here’s the link to Google’s bandwidth limit page:
+The error is based upon these limits set by Google for each account and here's the link to Google's bandwidth limit page:
 
 <https://support.google.com/a/answer/1071518?hl=en>
 
@@ -58,9 +58,8 @@ Add the following code to the header file of your template this will turn off co
 '<meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" />'
 
 = Document Preview not displaying content =
-File preview - Bandwidth limit 
 
-Error while viewing files in Memphis Documents Library – “You’ve reached the bandwidth limit for viewing or downloading files that aren’t in Google Docs format. Please try again later”.
+Error while viewing files in Memphis Documents Library – "You've reached the bandwidth limit for viewing or downloading files that aren't in Google Docs format. Please try again later".
 
 Memphis Documents Library uses Google Docs to display the files including PDF, DOC and XLS within the browser. If you are having trouble viewing files and you are logged into your Google account, it could be bandwidth limit on that account. There is no bandwidth limit in Memphis Documents Library and in most cases refreshing the page will display the file.
 
@@ -70,7 +69,7 @@ To sign out of Google, You can use the link below:
 
 <https://accounts.google.com/Logout>
 
-The error is based upon these limits set by Google for each account and here’s the link to Google’s bandwidth limit page:
+The error is based upon these limits set by Google for each account and here's the link to Google's bandwidth limit page:
 
 <https://support.google.com/a/answer/1071518?hl=en>
 
@@ -216,27 +215,6 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 * Initial Release of Memphis Documents Library
 
 == Upgrade Notice ==
-= 2.4 =
-= Mempihs Documents Library look wrong in IE =
-Add the following code to the header file of your template this will turn off compatiablity mode for IE.
-'<meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" />'
-
-= Document Preview not displaying content =
-File preview - Bandwidth limit 
-
-Error while viewing files in Memphis Documents Library – “You’ve reached the bandwidth limit for viewing or downloading files that aren’t in Google Docs format. Please try again later”.
-
-Memphis Documents Library uses Google Docs to display the files including PDF, DOC and XLS within the browser. If you are having trouble viewing files and you are logged into your Google account, it could be bandwidth limit on that account. There is no bandwidth limit in Memphis Documents Library and in most cases refreshing the page will display the file.
-
-If the message persists, please try signing out of Google, and then try viewing the file again in Memphis Documents Library. This should make you anonymous to Google and avoid the bandwidth limitation.
-
-To sign out of Google, You can use the link below:
-
-<https://accounts.google.com/Logout>
-
-The error is based upon these limits set by Google for each account and here’s the link to Google’s bandwidth limit page:
-
-<https://support.google.com/a/answer/1071518?hl=en>
 = 1.0 =
 * Initial Release of Memphis Documents Library
 
