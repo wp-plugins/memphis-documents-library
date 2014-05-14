@@ -362,7 +362,7 @@ function mdocs_send_bot_alert($url='') {
 	$headers .= 'X-Mailer: PHP/' . phpversion()."\r\n";
 	$headers .= "MIME-Version: 1.0" . "\r\n";
 	$headers .= "Content-type: text/html; charset=iso-8859-1";
-	mail($to, $subject, $message, $headers);
+	return mail($to, $subject, $message, $headers);
 }
 
 function mdocs_hide_show_toogle() {

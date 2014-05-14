@@ -5,12 +5,30 @@ Tags: plugin,documents,memphis,bhaldie,wordpress,library,repository,files,versio
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
-Tested up to: 3.8.1
-Stable tag: 2.3.2
+Tested up to: 3.9.1
+Stable tag: 2.4
 
 A documents library for WordPress.  
 
 == Description ==
+
+= File preview - Bandwidth limit =
+
+Error while viewing files in Memphis Documents Library – “You’ve reached the bandwidth limit for viewing or downloading files that aren’t in Google Docs format. Please try again later”.
+
+Memphis Documents Library uses Google Docs to display the files including PDF, DOC and XLS within the browser. If you are having trouble viewing files and you are logged into your Google account, it could be bandwidth limit on that account. There is no bandwidth limit in Memphis Documents Library and in most cases refreshing the page will display the file.
+
+If the message persists, please try signing out of Google, and then try viewing the file again in Memphis Documents Library. This should make you anonymous to Google and avoid the bandwidth limitation.
+
+To sign out of Google, You can use the link below:
+
+<https://accounts.google.com/Logout>
+
+The error is based upon these limits set by Google for each account and here’s the link to Google’s bandwidth limit page:
+
+<https://support.google.com/a/answer/1071518?hl=en>
+
+= Memphis Documents Library Features =
 
 A documents library for WordPress.  This documents library features:
 
@@ -33,8 +51,28 @@ When you uninstall the documents library make sure you export all your important
 == Frequently Asked Questions ==
 
 = Uninstalling Mempihs Documents Library =
+When you uninstall the documents library make sure you export all your important files. **All data will be removed on completion of uninstall, this includes files, directories, posts, and media.**
 
-When you uninstall the documents library make sure you export all your important files. **All data will be removed on completion of uninstall, this includes files, directories, posts, and media.**  
+= Mempihs Documents Library look wrong in IE =
+Add the following code to the header file of your template this will turn off compatiablity mode for IE.
+'<meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" />'
+
+= Document Preview not displaying content =
+File preview - Bandwidth limit 
+
+Error while viewing files in Memphis Documents Library – “You’ve reached the bandwidth limit for viewing or downloading files that aren’t in Google Docs format. Please try again later”.
+
+Memphis Documents Library uses Google Docs to display the files including PDF, DOC and XLS within the browser. If you are having trouble viewing files and you are logged into your Google account, it could be bandwidth limit on that account. There is no bandwidth limit in Memphis Documents Library and in most cases refreshing the page will display the file.
+
+If the message persists, please try signing out of Google, and then try viewing the file again in Memphis Documents Library. This should make you anonymous to Google and avoid the bandwidth limitation.
+
+To sign out of Google, You can use the link below:
+
+<https://accounts.google.com/Logout>
+
+The error is based upon these limits set by Google for each account and here’s the link to Google’s bandwidth limit page:
+
+<https://support.google.com/a/answer/1071518?hl=en>
 
 = Importing Into Memphis Documents Library =
 There are two type of imports you can choose from.
@@ -76,6 +114,12 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 5. screenshot-5.png
 
 == Changelog ==
+= 2.4 =
+* Removed IE Compatiablity mode fix, this was causing too many header error.  If you want to this functionality add this line to your theme header file, right under the <head> tag. <meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" />
+* Add the ability to change the color of the download button.
+* Fixed the rss feed bug
+* Fixed a look an feel issue with the sort box
+* More small fixes and updates
 = 2.3.2 =
 * possible hotfix to header issues
 * fix of google docs issues
@@ -172,7 +216,27 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 * Initial Release of Memphis Documents Library
 
 == Upgrade Notice ==
+= 2.4 =
+= Mempihs Documents Library look wrong in IE =
+Add the following code to the header file of your template this will turn off compatiablity mode for IE.
+'<meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" />'
 
+= Document Preview not displaying content =
+File preview - Bandwidth limit 
+
+Error while viewing files in Memphis Documents Library – “You’ve reached the bandwidth limit for viewing or downloading files that aren’t in Google Docs format. Please try again later”.
+
+Memphis Documents Library uses Google Docs to display the files including PDF, DOC and XLS within the browser. If you are having trouble viewing files and you are logged into your Google account, it could be bandwidth limit on that account. There is no bandwidth limit in Memphis Documents Library and in most cases refreshing the page will display the file.
+
+If the message persists, please try signing out of Google, and then try viewing the file again in Memphis Documents Library. This should make you anonymous to Google and avoid the bandwidth limitation.
+
+To sign out of Google, You can use the link below:
+
+<https://accounts.google.com/Logout>
+
+The error is based upon these limits set by Google for each account and here’s the link to Google’s bandwidth limit page:
+
+<https://support.google.com/a/answer/1071518?hl=en>
 = 1.0 =
 * Initial Release of Memphis Documents Library
 

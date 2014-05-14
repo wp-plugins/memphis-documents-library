@@ -229,14 +229,14 @@ function mdocs_document_ready_admin() {
 	</script>
 <?php
 }
-function mdocs_ie_compat() { ?><meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" /><?php }
+function mdocs_ie_compat() { ?><meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" /><?php }
 function mdocs_send_headers() {
 	//SET SORT VALUES SITE
 	if(isset($_POST['mdocs-sort-type'])) setcookie('mdocs-sort-type-site', $_POST['mdocs-sort-type']); 
 	if(isset($_POST['mdocs-sort-range'])) setcookie('mdocs-sort-range-site', $_POST['mdocs-sort-range']);
-	$get_browser = new mdocs_browser_compatibility();
-	$browser = $get_browser->get_browser();
-	if($browser['name'] == 'Internet Explorer') mdocs_ie_compat();
+	//$get_browser = new mdocs_browser_compatibility();
+	//$browser = $get_browser->get_browser();
+	//if($browser['name'] == 'Internet Explorer') mdocs_ie_compat();
 }
 function mdocs_send_headers_dashboard() {
 	//SET SORT VALUES DASHBOARD
