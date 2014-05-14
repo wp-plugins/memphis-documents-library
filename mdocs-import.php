@@ -36,6 +36,7 @@ function mdocs_import_zip() {
 		$error = false;
 		$upload_dir = wp_upload_dir();
 		$mdocs = get_option('mdocs-list');
+		//$mdocs = mdocs_sort_by($mdocs, 0, 'dashboard', false);
 		$mdocs_zip_file = $upload_dir['basedir'].'/mdocs/'.$_FILES['mdocs-import-file']['name'];
 		//Backup Current Memphis Documents
 		if(!file_exists($upload_dir['basedir'].'/mdocs-backup/')) mkdir($upload_dir['basedir'].'/mdocs-backup/');
@@ -44,18 +45,27 @@ function mdocs_import_zip() {
 		  if(is_file($file))
 			$explode = explode('/',$file);
 			$filename = $explode[count($explode)-1];
-			rename($file, $upload_dir['basedir'].'/mdocs-backup/'.$filename);
+			@rename($file, $upload_dir['basedir'].'/mdocs-backup/'.$filename);
 		}
 		if(file_exists($mdocs_zip_file)) unlink($mdocs_zip_file);
 		move_uploaded_file($_FILES['mdocs-import-file']['tmp_name'], $mdocs_zip_file);
 		$zip_result = mdocs_unzip($mdocs_zip_file, $upload_dir['basedir']);
-		if(is_array($zip_result)) {
+		if(is_array($zip_result)) {			
 			if(file_exists($upload_dir['basedir'].'/mdocs/mdocs-list.txt')) {
 				$mdocs_list_file = unserialize(file_get_contents($upload_dir['basedir'].'/mdocs/mdocs-list.txt'));
 			} else $error = true;
 			if(file_exists($upload_dir['basedir'].'/mdocs/mdocs-cats.txt')) {
 				$mdocs_cats_file = unserialize(file_get_contents($upload_dir['basedir'].'/mdocs/mdocs-cats.txt'));
+				if(!is_array($mdocs_cats_file[0])) {
+					$new_mdocs_cats = array();
+					foreach($mdocs_cats_file as $index => $cat) {
+						array_push($new_mdocs_cats, array('slug' => $index,'name' => $cat, 'parent' => '', 'children' => array(), 'depth' => 0));
+					}
+					$mdocs_cats_file = $new_mdocs_cats;
+					mdocs_errors(__('Old category structure found, updated to the new category structure.  It is recommened that you re-export you files again.  The process did finish.'), 'error');
+				}
 			} else $error = true;
+			//var_dump($mdocs_list_file);
 			if($mdocs_cats_file === false || $mdocs_list_file === false || $error ) {
 				if(file_exists($upload_dir['basedir'].'/mdocs/mdocs-list.txt')) unlink($upload_dir['basedir'].'/mdocs/mdocs-cats.txt');
 				if(file_exists($upload_dir['basedir'].'/mdocs/mdocs-cats.txt')) unlink($upload_dir['basedir'].'/mdocs/mdocs-list.txt');
@@ -90,7 +100,8 @@ function mdocs_import_zip() {
 					$cats = get_option('mdocs-cats');
 					$mdocs = array();
 				} else {
-					$mdocs = get_option('mdocs-list');
+					//$mdocs = get_option('mdocs-list');
+					//$mdocs = mdocs_sort_by($mdocs, 0,  'dashboard', false);
 					$mdocs_cats = get_option('mdocs-cats');
 					$modocs_list_return = array();
 					foreach($mdocs as $key => $value) {
@@ -104,7 +115,7 @@ function mdocs_import_zip() {
 								$versions = glob($upload_dir['basedir'].'/mdocs-backup/'.$value['filename'].'-v*');
 								foreach($thumbnails as $t) copy($t, str_replace('mdocs-backup','mdocs',$t));
 								foreach($versions as $v) copy($v, str_replace('mdocs-backup','mdocs',$v));
-								copy($upload_dir['basedir'].'/mdocs-backup/'.$value['filename'], $upload_dir['basedir'].'/mdocs/'.$value['filename']);
+								@copy($upload_dir['basedir'].'/mdocs-backup/'.$value['filename'], $upload_dir['basedir'].'/mdocs/'.$value['filename']);
 								break;
 							}
 						}
@@ -136,6 +147,15 @@ function mdocs_import_zip() {
 					update_option('mdocs-cats',$mdocs_cats);
 				}
 				foreach($mdocs_list_file as $key => $value) {
+					$hide_all_posts = get_option('mdocs-hide-all-posts');
+					$hide_all_posts_non_members = get_option('mdocs-hide-all-posts-non-members');
+					if($mdocs_list_file[$key]['post_status'] == '' && $hide_all_posts == '' && $hide_all_posts_non_members == '') $the_post_stauts = 'publish';
+					elseif($hide_all_posts == '1') $the_post_stauts = 'draft';
+					elseif($hide_all_posts_non_members == '1') $the_post_stauts = 'private';
+					else $the_post_stauts = $mdocs_list_file[$key]['post_status'];
+					if($mdocs_list_file[$key]['post_status_sys'] == '' && $hide_all_posts == '') $the_post_stauts_sys = 'publish';
+					elseif($hide_all_posts == '1') $the_post_stauts_sys = 'draft';
+					else $the_post_stauts_sys = $mdocs_list_file[$key]['post_status_sys'];
 					$file = array(
 						'type'=>'null',
 						'tmp_name'=>'null',
@@ -143,7 +163,9 @@ function mdocs_import_zip() {
 						'size' => 0,
 						'filename'=>$mdocs_list_file[$key]['filename'],
 						'name'=>$mdocs_list_file[$key]['name'],
-						'desc'=>$mdocs_list_file[$key]['desc']);
+						'desc'=>$mdocs_list_file[$key]['desc'],
+						'post-status'=>$the_post_stauts,
+						'modifed'=>$mdocs_list_file[$key]['modified']);
 					$upload = mdocs_process_file($file, true);
 					array_push($mdocs, array(
 						id=>(string)$upload['attachment_id'],
@@ -155,12 +177,20 @@ function mdocs_import_zip() {
 						cat=>$mdocs_list_file[$key]['cat'],
 						owner=>$mdocs_list_file[$key]['owner'],
 						size=>(string)$mdocs_list_file[$key]['size'],
-						modified=>(string)(string)$mdocs_list_file[$key]['modified'],
-						version=>(string)(string)$mdocs_list_file[$key]['version'],
+						modified=>(string)$mdocs_list_file[$key]['modified'],
+						version=>(string)$mdocs_list_file[$key]['version'],
 						downloads=>(string)$mdocs_list_file[$key]['downloads'],
-						archived=>$mdocs_list_file[$key]['archived']
+						archived=>$mdocs_list_file[$key]['archived'],
+						show_social=>$mdocs_list_file[$key]['show_social'],
+						non_members=>$mdocs_list_file[$key]['non_members'],
+						file_status=>$mdocs_list_file[$key]['file_status'],
+						post_status=>$the_post_stauts,
+						post_status_sys=>$the_post_stauts_sys,
+						ratings=>$mdocs_list_file[$key]['ratings'],
+						rating=>$mdocs_list_file[$key]['rating'],
+						doc_preview=>$mdocs_list_file[$key]['doc_preview'],
 					));
-					$mdocs = mdocs_array_sort($mdocs, 'name', 'SORT_ASC, SORT_STRING');
+					//$mdocs = mdocs_array_sort($mdocs, 'name', SORT_ASC);
 					update_option('mdocs-list', $mdocs);
 				}
 				$files = glob($upload_dir['basedir'].'/mdocs-backup/*'); 
@@ -172,7 +202,7 @@ function mdocs_import_zip() {
 				unlink($upload_dir['basedir'].'/mdocs/mdocs-list.txt');
 				if(count($mdocs_list_conflicts) > 0) mdocs_errors('The following files where not added to the Documents Library. You will have to upload these files manually:<ul><li><b>' .implode('</li><li>',$mdocs_list_conflicts).'</b></li></ul>', 'error');
 				if(count($mdocs_cats_conflicts) > 0) mdocs_errors('The following categories where not added to the Documents Library. You will have to add these categories manually:<ul><li><b>' .implode('</li><li>',$mdocs_cats_conflicts).'</b></li></ul>', 'error');
-			} 
+			}
 		} else {
 			unlink($upload_dir['basedir'].'/mdocs/'.$_FILES['mdocs-import-file']['name']);
 			$files = glob($upload_dir['basedir'].'/mdocs-backup/*'); 
@@ -186,6 +216,7 @@ function mdocs_import_zip() {
 			if(file_exists($upload_dir['basedir'].'/mdocs/mdocs-list.txt')) unlink($upload_dir['basedir'].'/mdocs/mdocs-cats.txt');
 			if(file_exists($upload_dir['basedir'].'/mdocs/mdocs-cats.txt')) unlink($upload_dir['basedir'].'/mdocs/mdocs-list.txt');
 		}
+		mdocs_hide_show_toogle();
 	} else mdocs_errors('The file you are trying to upload is not the correct file.  Please try again.','error');
 }
 
