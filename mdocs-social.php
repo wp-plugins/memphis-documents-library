@@ -39,7 +39,7 @@ function mdocs_social_scripts() {
 	var js, fjs = d.getElementsByTagName(s)[0];
 	if (d.getElementById(id)) return;
 	js = d.createElement(s); js.id = id;
-	js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&status=0&appId=12345";
+	js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&amp;status=0&amp;appId=12345";
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 //TWITTER TWEET
