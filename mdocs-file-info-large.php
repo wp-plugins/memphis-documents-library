@@ -1,7 +1,7 @@
 <?php
 function mdocs_file_info_large($the_mdoc, $page_type='site', $index=0, $current_cat) {
 	$upload_dir = wp_upload_dir();
-	$the_mdoc_permalink = get_permalink($the_mdoc['parent']);
+	$the_mdoc_permalink = htmlspecialchars(get_permalink($the_mdoc['parent']));
 	$the_post = get_post($the_mdoc['parent']);
 	$is_new = preg_match('/new=true/',$the_post->post_content);
 	$post_date = strtotime($the_post->post_date);
