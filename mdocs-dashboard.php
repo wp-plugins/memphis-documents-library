@@ -3,8 +3,9 @@ function mdocs_dashboard_menu() {
 	global $add_error;
 	//MEMPHIS CUSTOM LOGIN INTEGRATION 3.0 AND HIGHER
 	$plugin_path = preg_replace('/memphis-documents-library/','',dirname(__FILE__));
-	If (is_plugin_active('memphis-wordpress-custom-login/memphis-wp-login.php')) $memphis_custom_login = (get_plugin_data($plugin_path.'memphis-wordpress-custom-login/memphis-wp-login.php'));
-	$memphis_version = intval($memphis_custom_login['Version']);
+	if (is_plugin_active('memphis-wordpress-custom-login/memphis-wp-login.php')) $memphis_custom_login = (get_plugin_data($plugin_path.'memphis-wordpress-custom-login/memphis-wp-login.php'));
+	if(isset($memphis_custom_login['Version'])) $memphis_version = intval($memphis_custom_login['Version']);
+	else $memphis_version = 0;
 	If (!is_plugin_active('memphis-wordpress-custom-login/memphis-wp-login.php') || $memphis_version < 3) {
 		add_menu_page( __('Memphis Documents Library'), __('Memphis Docs'), 'administrator', 'memphis-documents.php', 'mdocs_dashboard', MDOC_URL.'/assets/imgs/kon.ico'  );
 	}
@@ -39,6 +40,9 @@ function mdocs_dashboard() {
 function mdocs_dashboard_view() {
 	$cats = get_option('mdocs-cats');
 	$upload_dir = wp_upload_dir();
+	$message = '';
+	$import_active = '';
+	$export_active = '';
 	if(isset($_GET['cat'])) $current_cat = $_GET['cat'];
 	elseif(!is_string($cats)) $current_cat = $cats[0]['slug'];
 	?>
@@ -166,17 +170,19 @@ function mdocs_uploader($edit_type='Add Document') {
 	$cats = get_option('mdocs-cats');
 	$mdocs = get_option('mdocs-list');
 	$mdocs = mdocs_sort_by($mdocs, 0, 'dashboard', false);
-	$mdoc_index = $_GET['mdocs-index'];
+	if(isset($_GET['mdocs-index'])) {
+		$mdoc_index = $_GET['mdocs-index'];
+		$mdocs_post = get_post($mdocs[$mdoc_index]['parent']);
+		$mdocs_desc = $mdocs_post->post_excerpt;
+	} else $mdoc_index = '';
 	if(isset($_GET['cat'])) $current_cat = $_GET['cat'];
 	else $current_cat = $current_cat = key($cats);
 	if($edit_type == 'Update Document') $mdoc_type = 'mdocs-update';
 	else $mdoc_type = 'mdocs-add';
-	$mdocs_post = get_post($mdocs[$mdoc_index]['parent']);
-	$mdocs_desc = apply_filters('the_content', $content);
-	$mdocs_desc = $mdocs_post->post_excerpt;
+	
 ?>
 <div class="mdocs-uploader-bg"></div>
-<div class="mdocs-uploader">
+<div class="mdocs-uploader" >
 	<h2 class="mdocs-uploader-header">
 		<div class="close"><a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat; ?>"><img src='<?php echo MDOC_URL; ?>/assets/imgs/close.png'/></a></div>
 		<?php _e($edit_type); ?>
@@ -184,11 +190,11 @@ function mdocs_uploader($edit_type='Add Document') {
 	<div class="mdocs-uploader-content">
 		<form class="mdocs-uploader-form" enctype="multipart/form-data" action="<?php echo get_site_url().'/wp-admin/admin.php?page='.$_REQUEST['page'].'&cat='.$_REQUEST['cat']; ?>" method="POST">
 			<input type="hidden" name="mdocs-type" value="<?php echo $mdoc_type; ?>" />
-			<input type="hidden" name="mdocs-index" value="<?php echo $mdoc_index; ?>" />
+			<input type="hidden" name="mdocs-index" value="<?php if($edit_type == 'Update Document') echo $mdoc_index; ?>" />
 			<input type="hidden" name="mdocs-cat" value="<?php echo $current_cat; ?>" />
-			<input type="hidden" name="mdocs-pname" value="<?php echo $mdocs[$mdoc_index]['name']; ?>" />
+			<input type="hidden" name="mdocs-pname" value="<?php if($edit_type == 'Update Document') echo $mdocs[$mdoc_index]['name']; ?>" />
 			<input type="hidden" name="mdocs-nonce" value="<?php echo MDOCS_NONCE; ?>" />
-			<input type="hidden" name="mdocs-post-status-sys" value="<?php echo $mdocs[$mdoc_index]['post_status']; ?>" />
+			<input type="hidden" name="mdocs-post-status-sys" value="<?php if($edit_type == 'Update Document') echo $mdocs[$mdoc_index]['post_status']; ?>" />
 			<h3><?php _e('File Configuration'); ?></h3>
 			<div class="mdocs-form-box">
 				<label><?php _e('File Uploader'); ?>:
@@ -198,7 +204,7 @@ function mdocs_uploader($edit_type='Add Document') {
 			</div>
 			<div class="mdocs-form-box">
 				<label><?php _e('File Name'); ?>:
-				<input type="text" name="mdocs-name" <?php if($edit_type=='Update Document') echo 'value="'.$mdocs[$mdoc_index]['name'].'"'; ?> />
+				<input type="text" name="mdocs-name" <?php if($edit_type=='Update Document') echo 'value="'. $mdocs[$mdoc_index]['name'].'"'; ?> />
 				</label>
 				<label><?php _e('Category'); ?>:
 				<select name="mdocs-cat">
@@ -233,23 +239,25 @@ function mdocs_uploader($edit_type='Add Document') {
 				</label>
 				<label>File Status:
 					<select name="mdocs-file-status" id="mdocs-file-status" >
-						<option value="public" <?php if($mdocs[$mdoc_index]['file_status'] == 'public') echo 'selected'; ?> ><?php _e('Public'); ?></option>
-						<option value="hidden" <?php if($mdocs[$mdoc_index]['file_status'] == 'hidden') echo 'selected'; ?>><?php _e('Hidden'); ?></option>
+						<option value="public" <?php if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['file_status'] == 'public') echo 'selected'; }?> ><?php _e('Public'); ?></option>
+						<option value="hidden" <?php if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['file_status'] == 'hidden') echo 'selected'; }?>><?php _e('Hidden'); ?></option>
 					</select>
 				</label>
 				<label>Post Status:
-					<select name="mdocs-post-status" id="mdocs-post-status" <?php if($mdocs[$mdoc_index]['file_status'] == 'hidden' || get_option( 'mdocs-hide-all-files' ) || get_option( 'mdocs-hide-all-posts' )) echo 'disabled'; ?> >
-						<option value="publish" <?php if($mdocs[$mdoc_index]['post_status'] == 'publish') echo 'selected'; ?> ><?php _e('Published'); ?></option>
-						<option value="private" <?php if($mdocs[$mdoc_index]['post_status'] == 'private') echo 'selected'; ?> ><?php _e('Private'); ?></option>
-						<option value="pending" <?php if($mdocs[$mdoc_index]['post_status'] == 'pending') echo 'selected'; ?> ><?php _e('Pending Review'); ?></option>
-						<option value="draft" <?php if($mdocs[$mdoc_index]['post_status'] == 'draft') echo 'selected'; ?> ><?php _e('Draft'); ?></option>
+					<select name="mdocs-post-status" id="mdocs-post-status" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['file_status'] == 'hidden' || get_option( 'mdocs-hide-all-files' ) || get_option( 'mdocs-hide-all-posts' )) echo 'disabled'; }?> >
+						<option value="publish" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['post_status'] == 'publish') echo 'selected'; ?> ><?php _e('Published'); } ?></option>
+						<option value="private" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['post_status'] == 'private') echo 'selected'; ?> ><?php _e('Private'); } ?></option>
+						<option value="pending" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['post_status'] == 'pending') echo 'selected'; ?> ><?php _e('Pending Review'); } ?></option>
+						<option value="draft" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['post_status'] == 'draft') echo 'selected'; ?> ><?php _e('Draft'); } ?></option>
 					</select>
 				</label>
 			</div>
 			<br>
 			<div id="mdocs-desc-container" >
 				<h2><?php _e('Description'); ?></h2>
-				<?php wp_editor($mdocs_desc, "mdocs-desc"); ?><br>
+				<?php
+					if($edit_type=='Update Document') wp_editor($mdocs_desc, "mdocs-desc");
+					else wp_editor('', "mdocs-desc"); ?><br>
 			</div>
 			<?php if($edit_type=='Update Document') { ?>
 				<input type="submit" class="button button-primary" value="<?php _e('Update Document') ?>" /><br/>

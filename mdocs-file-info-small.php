@@ -1,6 +1,6 @@
 <?php
 function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_cat) {
-	global $mdocs_img_types;
+	global $post, $mdocs_img_types;
 	$upload_dir = wp_upload_dir();
 	$the_mdoc_permalink = htmlspecialchars(get_permalink($the_mdoc['parent']));
 	$the_post = get_post($the_mdoc['parent']);
@@ -22,7 +22,8 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 	$mdocs_default_content = get_option('mdocs-default-content');
 	$mdocs_show_description = get_option('mdocs-show-description');
 	$mdocs_show_preview = get_option('mdocs-show-preview');
-	$permalink = get_permalink($post->ID);
+	if(isset($post)) $permalink = get_permalink($post->ID);
+	else $permalink = '';
 	$mdocs_desc = apply_filters('the_content', $the_mdoc['desc']);
 	$mdocs_desc = str_replace('\\','',$mdocs_desc);
 	if(preg_match('/\?page_id=/',$permalink) || preg_match('/\?p=/',$permalink)) {
@@ -56,7 +57,7 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 			if($mdocs_time_to_display_banners > $days) {
 				if($is_new == true) $status_tag = MDOCS_NEW_SMALL;
 				else $status_tag = MDOCS_UPDATE_SMALL;
-			}
+			} else $status_tag = '';
 		}
 	?>
 		<tr>

@@ -2,7 +2,9 @@
 function mdocs_batch_upload($current_cat) {
 	$do_zip = false;
 	//$mdocs = get_option('mdocs-list');
-	///var_dump($mdocs);
+	//$cats = get_option('mdocs-cats');
+	//var_dump($cats);
+	$do_complte = false;
 	if(isset($_FILES['mdocs-batch']) && $_FILES['mdocs-batch']['type'] != 'application/zip') {
 		?>
 		<div class="error">
@@ -57,9 +59,9 @@ function mdocs_batch_upload($current_cat) {
 				<label><?php _e('Category'); ?>:
 					<select name="mdocs[cat][<?php echo $index; ?>]">
 						<?php
-							foreach( $cats as $select => $name ){ 
-								$is_selected = ( $select == $current_cat ) ? 'selected="selected"' : '';
-								echo '<option  value="'.$select.'" '.$is_selected.'>'.$name.'</option>';
+							foreach( $cats as $select => $cat ){ 
+								
+								echo '<option  value="'.$cat['slug'].'" >'.$cat['name'].'</option>';
 							}
 						?>
 					</select>
@@ -102,27 +104,27 @@ function mdocs_batch_upload($current_cat) {
 			$upload = mdocs_process_file($file);
 			$mdocs = get_option('mdocs-list');
 			array_push($mdocs, array(
-				id=>(string)$upload['attachment_id'],
-				parent=>(string)$upload['parent_id'],
-				filename=>$upload['filename'],
-				name=>$upload['name'],
-				desc=>$upload['desc'],
-				type=>$result['type'],
-				cat=>$_POST['mdocs']['cat'][$index],
-				owner=>$current_user->user_login,
-				size=>(string)$file['size'],
-				modified=>(string)time(),
-				version=>(string)$_POST['mdocs']['version'][$index],
-				show_social=>(string)'on',
-				non_members=> (string)'on',
-				file_status=>(string)'public',
-				post_status=> (string)'publish',
-				post_status_sys=> (string)'publish',
-				doc_preview=>(string)'',
-				downloads=>(string)0,
-				archived=>array(),
-				ratings=>array(),
-				rating=>0
+				'id'=>(string)$upload['attachment_id'],
+				'parent'=>(string)$upload['parent_id'],
+				'filename'=>$upload['filename'],
+				'name'=>$upload['name'],
+				'desc'=>$upload['desc'],
+				'type'=>$result['type'],
+				'cat'=>$_POST['mdocs']['cat'][$index],
+				'owner'=>$current_user->user_login,
+				'size'=>(string)$file['size'],
+				'modified'=>(string)time(),
+				'version'=>(string)$_POST['mdocs']['version'][$index],
+				'show_social'=>(string)'on',
+				'non_members'=> (string)'on',
+				'file_status'=>(string)'public',
+				'post_status'=> (string)'publish',
+				'post_status_sys'=> (string)'publish',
+				'doc_preview'=>(string)'',
+				'downloads'=>(string)0,
+				'archived'=>array(),
+				'ratings'=>array(),
+				'rating'=>0
 			));
 			$mdocs = mdocs_array_sort($mdocs, 'name', SORT_ASC);
 			update_option('mdocs-list', $mdocs);
@@ -137,7 +139,7 @@ function mdocs_batch_upload($current_cat) {
 	$batch_log .= _("Cleaning up tmp folder and files")."<br><br>";
 	$files = glob('/tmp/mdocs/*'); 
 	foreach($files as $file) if(is_file($file)) unlink($file);
-	if(file_exists('/tmp/mdocs')) rmdir('/tmp/mdocs');
+	if(file_exists('/tmp/mdocs')) @rmdir('/tmp/mdocs');
 	$batch_log .= _("Batch Process Complete.");
 	?>
 	<div class="updated">

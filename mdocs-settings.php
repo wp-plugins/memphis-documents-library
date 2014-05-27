@@ -174,7 +174,6 @@ function mdocs_post_page_shortcode($att, $content=null) {
 	mdocs_post_page($att);
 }
 add_shortcode( 'mdocs_post_page', 'mdocs_post_page_shortcode' );
-
 function mdocs_admin_script() {
 	wp_enqueue_script("jquery");
 	//JQUERY UI

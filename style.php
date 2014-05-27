@@ -32,7 +32,7 @@ if($num_show==1) $title_width = '75%';
 .mdocs-salmon { color: #FA8072 !important; }
 
 /* PAGE STYLE */
-.mdocs-post { font-family: 'Bitter', Verdana, Arial, sans-serif !important; background: #fcfcfc; padding: 0 !important; border: solid 1px #e2e2e2; width: 100% !important; margin: 0px auto 40px 0; text-shadow: none !important; }
+.mdocs-post { font-family: 'Bitter', Verdana, Arial, sans-serif !important; background: #fcfcfc; padding: 0 !important; border: solid 1px #e2e2e2; width: 100% !important; height: 100% !important; margin: 0px auto 40px 0; text-shadow: none !important; }
 /*.mdocs-post h1 { border-top: solid 1px #e2e2e2; border-bottom: solid 1px #e2e2e2; padding: 5px 0; margin: 5px !important; font-size: 21px; color: #444 !important;}*/
 .mdocs-post h2 { font-family: 'Bitter', Verdana, Arial, sans-serif !important; padding: 0px; margin: 5px !important; background: none !important; box-shadow: none !important; color: #444 !important; font-size: 22px !important; font-weight: bold !important;}
 .mdocs-post h3 { font-family: 'Bitter', Verdana, Arial, sans-serif !important; padding: 0px !important; margin: 5px !important; background: none !important; box-shadow: none !important; color: #444 !important; font-size: 20px !important; font-weight: bold !important; border: none !important; border-bottom: solid 1px #E2E2E2 !important; line-height: 26px !important;}
@@ -294,7 +294,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-setting-form label { vertical-align: top; font-size: 0.8em; }
 .mdocs-setting-form h4 { color: #0074a2; padding: 0; margin: 8px 0; border-bottom: dashed 1px #dbdbdb;}
 
+/* DONATE BUTTON */
+.mdocs-donate-btn { position: absolute; right: 10px; }
+.mdocs-donate-btn input[type="image"] { float: right; }
 /* THEME FIXES */
 .art-content { width: 100% !important; }
-
 #controlbarControls { display: none !important; }
+
+

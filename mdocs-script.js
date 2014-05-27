@@ -174,6 +174,8 @@ function mdocs_admin(plugin_url, wp_root) {
 		jQuery('#the-list').append('\
 			<tr id="mdocs-cats-new-'+cat_index+'">\
 				<td id="name">\
+					<input type="hidden" name="mdocs-cats[new-cat-'+cat_index+'][parent]" value=""/>\
+					<input type="hidden" name="mdocs-cats[new-cat-'+cat_index+'][depth]" value="0"/>\
 					<input type="hidden" name="mdocs-cats[new-cat-'+cat_index+'][slug]" value="new-cat-'+cat_index+'"/>\
 					<input type="text" name="mdocs-cats[new-cat-'+cat_index+'][name]"  value="'+mdocs_js.new_category+' '+cat_index+'"  />\
 				</td>\
@@ -247,6 +249,8 @@ function mdocs_add_sub_cat() {
 function mdocs_set_onleave() { window.onbeforeunload = function() { return mdocs_js.leave_page;}; }
 function mdocs_reset_onleave() { window.onbeforeunload = null; }
 function mdocs_download_zip(zip_file) { window.location.href = '?mdocs-export-file='+zip_file; }
+function mdocs_download_current_version(version_id) {window.location.href = '?mdocs-file='+version_id; }
+//function mdocs_download_version(version_id) { window.location.href = '?mdocs-file='+version_id; }
 function mdocs_download_version(version_file) { window.location.href = '?mdocs-version='+version_file; }
 function mdocs_delete_version(version_file, index, category, nonce) {
 	var confirm = window.confirm(mdocs_js.version_delete);

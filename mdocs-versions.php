@@ -17,7 +17,7 @@ function mdocs_versions() {
 	</h2>
 	<div class="mdocs-ds-container">
 		<div class="mdocs-uploader-content">
-			<form class="mdocs-uploader-form" enctype="multipart/form-data" action="<?php echo $_REQUEST['REQUEST_URI']; ?>" method="POST">
+			<form class="mdocs-uploader-form" enctype="multipart/form-data" action="" method="POST">
 				<input type="hidden" name="mdocs-nonce" value="<?php echo MDOCS_NONCE; ?>" />
 				<input type="hidden" name="mdocs-index" value="<?php echo $mdoc_index; ?>" />
 				<input type="hidden" name="action" value="mdocs-update-revision" />
@@ -47,7 +47,7 @@ function mdocs_versions() {
 								<td class="mdocs-blue" id="file" ><?php echo $the_mdoc['filename']; ?></td>
 								<td class="mdocs-green" id="version" ><?php echo $the_mdoc['version']; ?></td>
 								<td class="mdocs-red" id="date"><?php  echo gmdate('F jS Y \a\t g:i A',$the_mdoc['modified']+MDOCS_TIME_OFFSET); ?></td>
-								<td id="download"><input type="button" id="mdocs-download" name="<?php echo $key; ?>" class="button button-primary" value=<?php _e("Download"); ?>  /></td>
+								<td id="download"><input type="button" id="mdocs-download" onclick="mdocs_download_current_version('<?php echo $the_mdoc['id']; ?>')" class="button button-primary" value=<?php _e("Download"); ?>  /></td>
 								<td></td>
 								<td id="current"><input type="radio" name="mdocs-version" value="<?php echo 'current'; ?>" checked /></td>
 							</tr>
@@ -105,7 +105,7 @@ function mdocs_update_revision() {
 		if($_POST['mdocs-version'] != 'current') {
 			global $current_user;
 			$mdocs = get_option('mdocs-list');
-			$mdocs = mdocs_sort_by($mdocs);
+			$mdocs = mdocs_sort_by($mdocs, 0 ,'', false);
 			$mdocs_index = $_POST['mdocs-index'];
 			$upload_dir = wp_upload_dir();
 			$the_mdoc = $mdocs[$mdocs_index];

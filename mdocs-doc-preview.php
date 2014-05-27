@@ -16,6 +16,7 @@ if(isset($_POST['type'])  && $_POST['type'] == 'file') {
 	require_once($_POST['wp_root'] . 'wp-load.php');
 	$mdocs = get_option('mdocs-list');
 	mdocs_load_preview_head();
+	$found = false;
 	foreach($mdocs as $index => $the_mdoc) {
 		if(intval($the_mdoc['id']) == intval($_POST['mdocs_file_id']) && $found == false) {
 			$upload_dir = wp_upload_dir();

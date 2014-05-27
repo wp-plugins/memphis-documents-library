@@ -108,6 +108,10 @@ function mdocs_import_zip() {
 						$found = false;
 						foreach($mdocs_list_file as $k => $v) {
 							if($mdocs_list_file[$k]['filename'] == $mdocs[$key]['filename']) {
+								$explode = explode('.',$v['filename']);
+								$ext = $explode[count($explode)-1];
+								$_150x150 = substr_replace($v['filename'],'-150x150',-4);
+								$name = $_150x150.'.'.$ext;
 								array_push($mdocs_list_conflicts, $mdocs_list_file[$k]['filename']);
 								$found = true;
 								unset($mdocs_list_file[$k]);
@@ -168,27 +172,27 @@ function mdocs_import_zip() {
 						'modifed'=>$mdocs_list_file[$key]['modified']);
 					$upload = mdocs_process_file($file, true);
 					array_push($mdocs, array(
-						id=>(string)$upload['attachment_id'],
-						parent=>(string)$upload['parent_id'],
-						filename=>$mdocs_list_file[$key]['filename'],
-						name=>$mdocs_list_file[$key]['name'],
-						desc=>$mdocs_list_file[$key]['desc'],
-						type=>$mdocs_list_file[$key]['type'],
-						cat=>$mdocs_list_file[$key]['cat'],
-						owner=>$mdocs_list_file[$key]['owner'],
-						size=>(string)$mdocs_list_file[$key]['size'],
-						modified=>(string)$mdocs_list_file[$key]['modified'],
-						version=>(string)$mdocs_list_file[$key]['version'],
-						downloads=>(string)$mdocs_list_file[$key]['downloads'],
-						archived=>$mdocs_list_file[$key]['archived'],
-						show_social=>$mdocs_list_file[$key]['show_social'],
-						non_members=>$mdocs_list_file[$key]['non_members'],
-						file_status=>$mdocs_list_file[$key]['file_status'],
-						post_status=>$the_post_stauts,
-						post_status_sys=>$the_post_stauts_sys,
-						ratings=>$mdocs_list_file[$key]['ratings'],
-						rating=>$mdocs_list_file[$key]['rating'],
-						doc_preview=>$mdocs_list_file[$key]['doc_preview'],
+						'id'=>(string)$upload['attachment_id'],
+						'parent'=>(string)$upload['parent_id'],
+						'filename'=>$mdocs_list_file[$key]['filename'],
+						'name'=>$mdocs_list_file[$key]['name'],
+						'desc'=>$mdocs_list_file[$key]['desc'],
+						'type'=>$mdocs_list_file[$key]['type'],
+						'cat'=>$mdocs_list_file[$key]['cat'],
+						'owner'=>$mdocs_list_file[$key]['owner'],
+						'size'=>(string)$mdocs_list_file[$key]['size'],
+						'modified'=>(string)$mdocs_list_file[$key]['modified'],
+						'version'=>(string)$mdocs_list_file[$key]['version'],
+						'downloads'=>(string)$mdocs_list_file[$key]['downloads'],
+						'archived'=>$mdocs_list_file[$key]['archived'],
+						'show_social'=>$mdocs_list_file[$key]['show_social'],
+						'non_members'=>$mdocs_list_file[$key]['non_members'],
+						'file_status'=>$mdocs_list_file[$key]['file_status'],
+						'post_status'=>$the_post_stauts,
+						'post_status_sys'=>$the_post_stauts_sys,
+						'ratings'=>$mdocs_list_file[$key]['ratings'],
+						'rating'=>$mdocs_list_file[$key]['rating'],
+						'doc_preview'=>$mdocs_list_file[$key]['doc_preview'],
 					));
 					//$mdocs = mdocs_array_sort($mdocs, 'name', SORT_ASC);
 					update_option('mdocs-list', $mdocs);

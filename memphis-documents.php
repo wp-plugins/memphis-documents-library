@@ -41,6 +41,7 @@ include 'mdocs-settings-page.php';
 include 'mdocs-shortcodes.php';
 include 'mdocs-localization.php';
 include 'mdocs-browser-compatibility.php';
+include 'mdocs-widgets.php';
 mdocs_nonce();
 if(!headers_sent() && stripos($_SERVER['REQUEST_URI'], '/feed') === false) add_action('send_headers', 'mdocs_send_headers');
 elseif (!is_numeric(stripos($_SERVER['REQUEST_URI'], '/feed'))) {
@@ -55,4 +56,5 @@ add_action('admin_menu', 'mdocs_dashboard_menu');
 add_action( 'wp_enqueue_scripts', 'mdocs_script' );
 add_action('wp_footer', 'mdocs_document_ready_wp');
 add_action('admin_footer', 'mdocs_document_ready_admin');
+add_action( 'widgets_init', 'mdocs_widgets' );
 ?>

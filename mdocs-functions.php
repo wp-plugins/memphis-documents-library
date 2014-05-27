@@ -38,7 +38,7 @@ function  mdocs_des_preview_tabs($the_mdoc) {
 			<?php
 		} elseif(!isset($_POST['show_type']) && $mdocs_show_preview && $mdocs_default_content == 'preview') {
 			$show_preview = mdocs_file_access($the_mdoc);
-			if( $show_preview) {
+			if( $show_preview ) {
 				$is_image = getimagesize($upload_dir['basedir'].MDOCS_DIR.$the_mdoc['filename']);
 			?>
 			<div class="mdoc-desc">
@@ -49,7 +49,7 @@ function  mdocs_des_preview_tabs($the_mdoc) {
 			<?php } ?>
 			</div>
 			<?php
-			}
+			} else { echo '<p>'.__('Please login to access the preview.').'</p>'; }
 		}  ?>
 	</div>
 	<?php
@@ -70,7 +70,7 @@ function mdocs_post_page($att=null) {
 		$mdocs_file = $query->post;
 		$upload_dir = wp_upload_dir();
 		$file = substr(strrchr($mdocs_file->post_excerpt, '/'), 1 );
-		$filesize = filesize($upload_dir['basedir'].'/mdocs/'.$file);
+		//$filesize = filesize($upload_dir['basedir'].'/mdocs/'.$file);
 		$query = new WP_Query('pagename=mdocuments-library');	
 		$permalink = get_permalink($query->post->ID);
 		if( strrchr($permalink, '?page_id=')) $mdocs_link = site_url().'/'.strrchr($permalink, '?page_id=');
@@ -107,7 +107,7 @@ function mdocs_rename_file($upload, $file_name) {
 	$upload['file'] = $upload_dir['basedir'].'/mdocs/'.$file_name;
 	$upload['filename'] = $file_name;
 	$name = substr($file_name, 0, strrpos($file_name, '.') );
-	if($_POST['mdocs-name'] == '') $upload['name'] = $name;
+	if(!isset($_POST['mdocs-name'])) $upload['name'] = $name;
 	else $upload['name'] = $_POST['mdocs-name'];
 	return $upload;
 }
@@ -115,13 +115,14 @@ function mdocs_rename_file($upload, $file_name) {
 function mdocs_process_file($file, $import=false) {
 	global $current_user;
 	require_once(ABSPATH . 'wp-admin/includes/image.php');
-	$mdocs_type = $_POST['mdocs-type'];
-	if($_POST['mdocs-desc'] == '') $desc = MDOCS_DEFAULT_DESC;
+	if(isset($_POST['mdocs-type'])) $mdocs_type = $_POST['mdocs-type'];
+	else $mdocs_type = null;
+	if(!isset($_POST['mdocs-desc'])) $desc = MDOCS_DEFAULT_DESC;
 	else $desc = $_POST['mdocs-desc'];
 	$post_status = $file['post-status'];
 	if($import) $desc = $file['desc'];
 	$upload_dir = wp_upload_dir();
-	if($file['modifed'] != null) $modifed_date = date('Y-m-d H:i:s', $file['modifed']+MDOCS_TIME_OFFSET);
+	if(isset($file['modifed'])) $modifed_date = date('Y-m-d H:i:s', $file['modifed']+MDOCS_TIME_OFFSET);
 	else $modifed_date = MDOCS_CURRENT_TIME;
 	if($import == false) {
 		$upload['url'] = $upload_dir['baseurl'].'/mdocs/'.$file['name'];
@@ -130,7 +131,7 @@ function mdocs_process_file($file, $import=false) {
 		if(file_exists($upload_dir['basedir'].'/mdocs/'.$file['name'])) $upload = mdocs_rename_file($upload, $file['name']);
 		else {
 			$name = substr($file['name'], 0, strrpos($file['name'], '.') );
-			if($_POST['mdocs-name'] == '') $upload['name'] = $name;
+			if(!isset($_POST['mdocs-name'])) $upload['name'] = $name;
 			else $upload['name'] = $_POST['mdocs-name'];
 		}
 		$result = move_uploaded_file($file['tmp_name'], $upload['file']);
@@ -206,8 +207,7 @@ function mdocs_process_file($file, $import=false) {
 
 function mdocs_nonce() {
 	session_start();
-	define('MDOCS_NONCE',$_SESSION['mdocs-nonce']);
-	//var_dump(MDOCS_NONCE);
+	if(isset($_SESSION['mdocs-nonce'])) define('MDOCS_NONCE',$_SESSION['mdocs-nonce']);
 	if(!isset($_SESSION['mdocs-nonce']) || isset($_REQUEST['mdocs-nonce'])) $_SESSION['mdocs-nonce'] = md5(rand(0,1000000));
 	session_write_close();	
 }
@@ -314,6 +314,8 @@ function mdocs_set_rating($the_index) {
 
 function mdocs_get_rating($the_mdoc) {
 	global $current_user;
+	$avg = 0;
+	$the_rating = array('total'=>0,'your_rating'=>0);
 	if(is_array($the_mdoc['ratings']) && count($the_mdoc['ratings']) > 0 ) {
 		foreach($the_mdoc['ratings'] as $index => $average) {
 			$avg += $average;
@@ -477,6 +479,7 @@ function mdocs_file_access($the_mdoc) {
 	$mdocs_show_non_members = $the_mdoc['non_members'];
 	$user_logged_in = is_user_logged_in();
 	if($mdocs_hide_all_files_non_members && $user_logged_in == false) $access = false;
+	elseif($user_logged_in && $the_mdoc['non_members'] == '') $access = true;
 	elseif($mdocs_show_non_members == false) $access = false;
 	elseif($mdocs_hide_all_files == false ) $access = true;
 	else $access = false;

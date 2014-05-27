@@ -2,7 +2,7 @@
 function mdocs_social($the_mdoc, $page_type='site') {
 	$the_rating = mdocs_get_rating($the_mdoc);
 	$mdocs_show_ratings = get_option( 'mdocs-show-ratings' );
-	if(get_option('mdocs-hide-all-posts') == false && get_option('mdocs-hide-all-files') == false || $user_logged_in &&  get_option('mdocs-hide-all-posts-non-members') ) {
+	if(get_option('mdocs-hide-all-posts') == false && get_option('mdocs-hide-all-files') == false || is_user_logged_in() &&  get_option('mdocs-hide-all-posts-non-members') ) {
 		$the_permalink = get_permalink($the_mdoc['parent']);
 		$the_direct_download = get_site_url().'/?mdocs-file='.$the_mdoc['id'].'&mdocs-url='.$the_mdoc['parent'];
 		?>
@@ -25,7 +25,8 @@ function mdocs_social($the_mdoc, $page_type='site') {
 		
 	} else {
 		?>
-		<div class="mdocs-social"  >  
+		<div class="mdocs-social"  >
+			<h2><?php _e('This page is hidden to all users accepts admins.'); ?></h2>
 		<?php
 	}
 }

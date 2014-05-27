@@ -1,5 +1,6 @@
 <?php
 function mdocs_file_info_large($the_mdoc, $page_type='site', $index=0, $current_cat) {
+	global $post;
 	$upload_dir = wp_upload_dir();
 	$the_mdoc_permalink = htmlspecialchars(get_permalink($the_mdoc['parent']));
 	$the_post = get_post($the_mdoc['parent']);
@@ -19,7 +20,8 @@ function mdocs_file_info_large($the_mdoc, $page_type='site', $index=0, $current_
 	$mdocs_show_new_banners = get_option('mdocs-show-new-banners');
 	$mdocs_time_to_display_banners = get_option('mdocs-time-to-display-banners');
 	$post_status = $the_post->post_status;
-	$permalink = get_permalink($post->ID);
+	if(isset($post)) $permalink = get_permalink($post->ID);
+	else $permalink = '';
 	if(preg_match('/\?page_id=/',$permalink) || preg_match('/\?p=/',$permalink)) {
 		$mdocs_get = $permalink.'&cat=';
 	} else $mdocs_get = $permalink.'?cat=';

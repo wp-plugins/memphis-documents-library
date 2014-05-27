@@ -1,9 +1,9 @@
 <?php
 function mdocs_export() {
 	$upload_dir = wp_upload_dir();
-	$zip_url = $upload_dir['baseurl'].'/'.DOCS_ZIP;
+	//$zip_url = $upload_dir['baseurl'].'/'.DOCS_ZIP;
 	$path = $upload_dir['basedir'];
-	$vars_url = $upload_dir['baseurl'].'/'.VARS_FILE;
+	//$vars_url = $upload_dir['baseurl'].'/'.VARS_FILE;
 	$mdocs = get_option('mdocs-list');
 	//$mdocs = mdocs_sort_by($mdocs, 0, 'dashboard', false);
 	$mdocs = htmlspecialchars(serialize($mdocs));

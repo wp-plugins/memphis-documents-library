@@ -19,9 +19,7 @@ function mdocs_localize() {
 	else $mdocs_link = site_url().'/'.$query->post->post_name.'/';
 	define('MDOCS_ZIP_STATUS_OK',__('Memphis Documents Library has an export file on this WordPress instance it was created on '.gmdate('F jS Y \a\t g:i A',@filemtime($upload_dir['basedir'].'/mdocs/'.$mdocs_zip)+MDOCS_TIME_OFFSET).'.<br><br><!--Click <a href="'.$upload_dir['baseurl'].'/mdocs/'.$mdocs_zip.'" tiltle="Old Export File">here</a> to download this version of the export file.-->'));
 	define('MDOCS_ZIP_STATUS_FAIL',__('Memphis Documents Library has no export file on this WordPress instance.  You may want to create an export file now.'));
-	define('MDOCS_DEFAULT_DESC', __('This file is part of the Documents Library.  This is the default description for this file.'));
-	define('MDOCS_DOWNLOAD_MSG',__('Check this file out').' <b>'.$filename. '</b>.  '.  __('Download it from').' <b>'.get_bloginfo('name').'</b>.<br><sup>'.__('powered by Memphis Documents Library').'</sup>');
-	
+	define('MDOCS_DEFAULT_DESC', __('This file is part of the Documents Library.  This is the default description for this file.'));	
 	//ERRORS
 	define('MDOCS_ERROR_1',__('No file was uploaded, please try again.'));
 	define('MDOCS_ERROR_2',__('Sorry, this file type is not permitted for security reasons, contact your administrator for more details.<br>If you are running Multisite you can add this file type from the Settings menu of the Network Admin.'));

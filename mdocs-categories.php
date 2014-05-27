@@ -65,6 +65,7 @@ function mdocs_edit_cats() {
 
 function mdocs_build_cat_td($mdocs_cat) {
 	global $mdocs_input_text_bg_colors;
+	$padding = '';
 	foreach($mdocs_cat as $index => $cat) {
 		if($cat['depth'] > 0) {
 			$padding = 'style="padding-left: '.(40*$cat['depth']).'px; "';
@@ -109,6 +110,7 @@ function mdocs_update_cats() {
 		//var_dump($mdocs_cats_post);	
 		$parent_id = 0;
 		$parent_ids = array();
+		$depth = 0;
 		foreach($mdocs_cats_post as $index => $cat) {
 			$test = '';
 			if(preg_match('/new-cat-/',$cat['slug'])) {
@@ -212,9 +214,11 @@ function mdocs_cleanup_cats($value) {
 			unset($mdocs[$k]);
 		}
 	}
-	if(count($value['children']) > 0) {
-		foreach($value['children'] as $key) {
-			mdocs_cleanup_cats($key);	
+	if(isset($value['children'])) {
+		if(count($value['children']) > 0) {
+			foreach($value['children'] as $key) {
+				mdocs_cleanup_cats($key);	
+			}
 		}
 	}
 

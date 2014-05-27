@@ -1,6 +1,6 @@
 <?php
 function mdocs_file_upload() {
-	global $current_user;
+	global $current_user, $wp_filetype;
 	$mdocs = get_option('mdocs-list');
 	$mdocs = mdocs_sort_by($mdocs, 0, 'dashboard', false);
 	$mdocs_cats = get_option('mdocs-cats');
@@ -14,9 +14,9 @@ function mdocs_file_upload() {
 	$mdocs_desc = $_POST['mdocs-desc'];
 	$mdocs_version = $_POST['mdocs-version'];
 	$mdocs_social = $_POST['mdocs-social'];
-	$mdocs_non_members = $_POST['mdocs-non-members'];
+	$mdocs_non_members = @$_POST['mdocs-non-members'];
 	$mdocs_file_status = $_POST['mdocs-file-status'];
-	$mdocs_doc_preview = $_POST['mdocs-doc-preview'];
+	$mdocs_doc_preview = @$_POST['mdocs-doc-preview'];
 	if(isset($_POST['mdocs-post-status'])) $mdocs_post_status = $_POST['mdocs-post-status'];
 	else $mdocs_post_status = $_POST['mdocs-post-status-sys'];
 	$upload_dir = wp_upload_dir();	
@@ -29,6 +29,7 @@ function mdocs_file_upload() {
 	$_FILES['mdocs']['post_status'] = $the_post_status;
 	//MDOCS FILE TYPE VERIFICATION	
 	$mimes = get_allowed_mime_types();
+	$valid_mime_type = false;
 	foreach ($mimes as $type => $mime) {
 	  if ($mime === $_FILES['mdocs']['type']) {
 		$valid_mime_type = true;
@@ -44,29 +45,29 @@ function mdocs_file_upload() {
 					$upload = mdocs_process_file($_FILES['mdocs']);
 					if($mdocs_version == '') $mdocs_version = '1.0';
 					//elseif(!is_numeric($mdocs_version)) $mdocs_version = '1.0'; 
-					if($upload['error'] == '') {
+					if(!isset($upload['error'])) {
 						array_push($mdocs, array(
-							id=>(string)$upload['attachment_id'],
-							parent=>(string)$upload['parent_id'],
-							filename=>$upload['filename'],
-							name=>$upload['name'],
-							desc=>$upload['desc'],
-							type=>$mdocs_fle_type,
-							cat=>$mdocs_cat,
-							owner=>$mdocs_user,
-							size=>(string)$mdocs_fle_size,
-							modified=>(string)time(),
-							version=>(string)$mdocs_version,
-							show_social=>(string)$mdocs_social,
-							non_members=> (string)$mdocs_non_members,
-							file_status=>(string)$mdocs_file_status,
-							post_status=> (string)$mdocs_post_status,
-							post_status_sys=> (string)$mdocs_post_status_sys,
-							doc_preview=>(string)$mdocs_doc_preview,
-							downloads=>(string)0,
-							archived=>array(),
-							ratings=>array(),
-							rating=>0
+							'id'=>(string)$upload['attachment_id'],
+							'parent'=>(string)$upload['parent_id'],
+							'filename'=>$upload['filename'],
+							'name'=>$upload['name'],
+							'desc'=>$upload['desc'],
+							'type'=>$mdocs_fle_type,
+							'cat'=>$mdocs_cat,
+							'owner'=>$mdocs_user,
+							'size'=>(string)$mdocs_fle_size,
+							'modified'=>(string)time(),
+							'version'=>(string)$mdocs_version,
+							'show_social'=>(string)$mdocs_social,
+							'non_members'=> (string)$mdocs_non_members,
+							'file_status'=>(string)$mdocs_file_status,
+							'post_status'=> (string)$mdocs_post_status,
+							'post_status_sys'=> (string)$mdocs_post_status_sys,
+							'doc_preview'=>(string)$mdocs_doc_preview,
+							'downloads'=>(string)0,
+							'archived'=>array(),
+							'ratings'=>array(),
+							'rating'=>0
 						));
 						$mdocs = mdocs_array_sort($mdocs, 'name', SORT_ASC);
 						update_option('mdocs-list', $mdocs);
@@ -85,7 +86,7 @@ function mdocs_file_upload() {
 						$_FILES['mdocs']['id'] = $old_doc['id'];
 						$_FILES['mdocs']['post-status'] = $mdocs_post_status;
 						$upload = mdocs_process_file($_FILES['mdocs']);
-						if($upload['error'] == '') {
+						if(!isset($upload['error'])) {
 							//$new_version = floatval($mdocs_version)+floatval($mdocs[$mdocs_index]['version']);
 							//if(floatval($mdocs_version) == 1) $new_version = number_format($new_version,0);
 							if($mdocs_version == '' || $mdocs_version == $mdocs[$mdocs_index]['version']) $mdocs_version = $mdocs[$mdocs_index]['version'].'.'.time();

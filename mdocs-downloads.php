@@ -12,10 +12,13 @@ function mdocs_download_file($export_file='') {
 	$mdocs_hide_all_files = get_option( 'mdocs-hide-all-files' );
 	$is_logged_in = is_user_logged_in();
 	$login_denied = false;
-	
+	$non_member = '';
+	$file_status = '';
+	$send_bot_alert = false;
 	if(!empty($export_file) ) { $filename = $export_file; }
+	elseif(isset($_GET['mdocs-version']) ) { $filename = isset($_GET['mdocs-version']); }
 	else {
-		if(is_modcs_google_doc_viewer() === false) mdocs_send_bot_alert($_GET['mdocs-url']);
+		if(is_modcs_google_doc_viewer() === false) $send_bot_alert = true;
 		foreach($mdocs as $index => $value) {
 			if($value['id'] == $_GET["mdocs-file"] ) {
 				$filename = $mdocs[$index]['filename'];
@@ -25,11 +28,10 @@ function mdocs_download_file($export_file='') {
 			} //else $filename = 'mdocs-empty';
 		}
 	}
-	
 	if($non_member == '' && $is_logged_in == false || $file_status == 'hidden' && !is_admin() || $mdocs_hide_all_files  ) $login_denied = true;
 	else $login_denied = false;
 	
-	if(mdocs_is_bot() == false && $login_denied == false && !isset($_GET['mdocs-export-file']) &&  is_modcs_google_doc_viewer() === false) {
+	if(mdocs_is_bot() == false && $login_denied == false && !isset($_GET['mdocs-export-file']) &&  is_modcs_google_doc_viewer() === false && !isset($_GET['mdocs-version'])) {
 		$mdocs[$index]['downloads'] = (string)(intval($mdocs[$index]['downloads'])+1);
 		update_option('mdocs-list', $mdocs);
 	}
@@ -54,9 +56,11 @@ function mdocs_download_file($export_file='') {
 			ob_clean();
 			flush();
 			readfile($file);
+			if($send_bot_alert) mdocs_send_bot_alert($_GET['mdocs-url']);
 			exit;
 		} else die(__('Check this file out').' <b>'.$filename. '</b>.  '.  __('Download it from').' <b>'.get_bloginfo('name').'</b>.<br><sup>'.__('powered by Memphis Documents Library').'</sup>');
 	} else die(__('Sorry you are unauthorized to download this file.'));
+	
 }
 
 function mdocs_img_preview() {
