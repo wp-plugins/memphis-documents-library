@@ -6,11 +6,28 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 2.4
+Stable tag: 2.4.1
 
 A documents library for WordPress.  
 
 == Description ==
+
+= Memphis Documents Library Features =
+
+A documents library for WordPress.  This documents library features:
+
+* Batch Upload of files into the system (Beta)
+* Upload media files that match WordPress's whitelist. This whitelist is configurable from the WordPress menus.
+* Download tracking of media
+* Posts created for each new media upload, showing information of the specific file.
+* Version control, allows you to view and revise to older version of your file.
+* The ability to share you files on other websites.
+* Referential file methodology. This allows for the updating of a file while the link remains the same.
+* Importing of document libraries into your current library, or just migrating to another website.
+* Exporting you documents libraries for safe backup and store, migration to another website or sharing with someone else.
+* The ability to create categories, edit categories and delete categories.
+* Search for files using the WordPress search.
+* Customization of download button
 
 = Document Preview Not Displaying Content =
 
@@ -28,22 +45,6 @@ The error is based upon these limits set by Google for each account and here's t
 
 <https://support.google.com/a/answer/1071518?hl=en>
 
-= Memphis Documents Library Features =
-
-A documents library for WordPress.  This documents library features:
-
-* Batch Upload of files into the system (Beta)
-* Upload media files that match WordPress's whitelist. This whitelist is configurable from the WordPress menus.
-* Download tracking of media
-* Posts created for each new media upload, showing information of the specific file.
-* Version control, allows you to view and revise to older version of your file.
-* The ability to share you files on other websites.
-* Referential file methodology. This allows for the updating of a file while the link remains the same.
-* Importing of document libraries into your current library, or just migrating to another website.
-* Exporting you documents libraries for safe backup and store, migration to another website or sharing with someone else.
-* The ability to create categories, edit categories and delete categories.
-* Search for files using the WordPress search.
-
 = Uninstalling Mempihs Documents Library =
 
 When you uninstall the documents library make sure you export all your important files. **All data will be removed on completion of uninstall, this includes files, directories, posts, and media.**  
@@ -54,8 +55,8 @@ When you uninstall the documents library make sure you export all your important
 When you uninstall the documents library make sure you export all your important files. **All data will be removed on completion of uninstall, this includes files, directories, posts, and media.**
 
 = Mempihs Documents Library look wrong in IE =
-Add the following code to the header file of your template this will turn off compatiablity mode for IE.
-'<meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" />'
+Add the following code to your theme right under the `<head>` tag this will turn off compatiablity mode for IE.
+`<meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" />`
 
 = Document Preview not displaying content =
 
@@ -113,8 +114,14 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 5. screenshot-5.png
 
 == Changelog ==
+= 2.4.1 =
+* fixed short code, not showing categories.
+* special character changes.
+* lots of bug fixes
+* optimization of code
 = 2.4 =
-* Removed IE Compatiablity mode fix, this was causing too many header error.  If you want to this functionality add this line to your theme header file, right under the <head> tag. <meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" />
+* Removed IE Compatiablity mode fix, this was causing too many header errors.  If you want to this functionality add this line to your theme header file, right under the `<head>` tag
+ * `<meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" />`
 * Add the ability to change the color of the download button.
 * Fixed the rss feed bug
 * Fixed a look an feel issue with the sort box

@@ -8,12 +8,13 @@ function mdocs_the_list($att=null) {
 		$upload_dir = wp_upload_dir();	
 		$mdocs = get_option('mdocs-list');
 		$cats =  get_option('mdocs-cats');
+		$current_cat = '';
 		if(isset($_GET['cat'])) $current_cat = $_GET['cat'];
 		elseif(!is_string($cats)) $current_cat = $cats[0]['slug'];
-		if(isset($att['cat']) && $att['cat'] != 'All Files') $current_cat = array_search($att['cat'],$cats);
-		elseif(isset($att['cat']) && $att['cat'] == 'All Files') $current_cat = 'all';
-		
-		
+		if(isset($att['cat']) && $att['cat'] != 'All Files') {
+			//$current_cat = array_search($att['cat'],$cats);
+			foreach($cats as $cat) if($att['cat'] == $cat['name']) $current_cat = $cat['slug'];
+		} elseif(isset($att['cat']) && $att['cat'] == 'All Files') $current_cat = 'all';
 		$permalink = get_permalink($post->ID);
 		if(preg_match('/\?page_id=/',$permalink) || preg_match('/\?p=/',$permalink)) {
 			$mdocs_get = $permalink.'&cat=';
@@ -53,7 +54,7 @@ function mdocs_the_list($att=null) {
 		}
 		}
 		*/
-		foreach($mdocs as $index => $the_mdoc) {
+		foreach($mdocs as $index => $the_mdoc) {			
 			if($the_mdoc['cat'] == $current_cat || $current_cat == 'all') {
 				if($the_mdoc['file_status'] == 'public' ) {
 					$count ++;

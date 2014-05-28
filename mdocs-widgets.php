@@ -1,6 +1,6 @@
 <?php
 function mdocs_widgets() {
-	register_widget( 'mdocs_top_downloads' );
+	//register_widget( 'mdocs_top_downloads' );
 }
 class mdocs_top_downloads extends WP_Widget {
 	function mdocs_top_downloads() {
