@@ -89,7 +89,9 @@ function mdocs_admin(plugin_url, wp_root) {
 		jQuery(this).css('color', button_text_color_normal);
 	    }
 	);
-	
+	// INITALIZE DRAGGABLE
+	//jQuery(".draggable").draggable();
+	// DISABLED SETTINGS
 	mdocs_toogle_disable_setting('#mdocs-hide-all-files','#mdocs-hide-all-files-non-members');
 	mdocs_toogle_disable_setting('#mdocs-hide-all-files-non-members','#mdocs-hide-all-files');
 	mdocs_toogle_disable_setting('#mdocs-hide-all-posts','#mdocs-hide-all-posts-non-members');
@@ -162,39 +164,12 @@ function mdocs_admin(plugin_url, wp_root) {
 		}
 		
 	});
-	// ADD SUB CATEGORY
-	mdocs_add_sub_cat();
 	// ADD ROOT CATEGORY
-	var cat_index = parseInt(jQuery('input[name$="[order]"]').last().prop('value'))+1;
-	if (isNaN(cat_index)) cat_index = 1;
 	jQuery('#mdocs-add-cat').click(function(event) {
-		mdocs_set_onleave();
 		event.preventDefault();
-		jQuery('.mdocs-nofiles').parent().remove();
-		jQuery('#the-list').append('\
-			<tr id="mdocs-cats-new-'+cat_index+'">\
-				<td id="name">\
-					<input type="hidden" name="mdocs-cats[new-cat-'+cat_index+'][parent]" value=""/>\
-					<input type="hidden" name="mdocs-cats[new-cat-'+cat_index+'][depth]" value="0"/>\
-					<input type="hidden" name="mdocs-cats[new-cat-'+cat_index+'][slug]" value="new-cat-'+cat_index+'"/>\
-					<input type="text" name="mdocs-cats[new-cat-'+cat_index+'][name]"  value="'+mdocs_js.new_category+' '+cat_index+'"  />\
-				</td>\
-				<td id="order">\
-					<input type="text" name="mdocs-cats[new-cat-'+cat_index+'][order]"  value="'+cat_index+'"  />\
-				</td>\
-				<td id="remove">\
-					<input type="hidden" name="mdocs-cats[new-cat-'+cat_index+'][remove]" value="0"/>\
-					<input type="button"  id="mdocs-cat-remove-new" name="new-cat-'+cat_index+'" class="button button-primary" value="'+mdocs_js.remove+'"  />\
-				</td>\
-				<td id="add-cat">\
-				    <input  type="button" name="'+cat_index+'" class="mdocs-add-sub-cat button button-primary" value="Add Category"  />\
-				</td>\
-			</tr>\
-		');
-		cat_index++;
-		jQuery('input[id="mdocs-cat-remove-new"]').click(function() {
-			jQuery(this).parent().parent().remove();
-		});
+		var num_main_cats = 0;
+		jQuery('input[name$="[parent]"]').each(function() { if (jQuery(this).val() == '') num_main_cats++; });
+		mdocs_add_sub_cat(num_main_cats, '', 0, jQuery('#the-list'), true); 
 	});
 	jQuery('input[id="mdocs-cat-remove"]').click(function() {
 		var confirm = window.confirm(mdocs_js.category_delete);
@@ -210,41 +185,64 @@ function mdocs_admin(plugin_url, wp_root) {
 	});
 }
 // ADD SUB CATEGORY
-var sub_cat_index = 0;
-function mdocs_add_sub_cat() {
-    jQuery('.mdocs-add-sub-cat').click(function(event) {
-	//mdocs_set_onleave();
-	event.preventDefault();
-	var parent_id = jQuery(this).prop('name');
-	alert(parent_id);
+var subcat_index = 0;
+var add_button_clicks = 1;
+function mdocs_add_sub_cat(total_cats, parent, parent_depth, object, is_parent) {
+    //mdocs_set_onleave();
+    event.preventDefault();
+    var child_depth = parseInt(parent_depth)+1;
+    if (child_depth <= mdocs_js.levels) {
+	jQuery('input[name="mdocs-update-cat-index"]').val(add_button_clicks++);
+	var padding = 'style="padding-left: '+(40*child_depth)+'px; "';
+	if (subcat_index == 0) subcat_index = parseInt(total_cats)+1;
+	else subcat_index++;
+	var order = parseInt(jQuery('input[name="mdocs-cats['+parent+'][num_children]"]').val())+1;
+	var disabled = 'disabled';
+	jQuery('input[name="mdocs-cats['+parent+'][num_children]"]').val(order);
+	if (is_parent) {
+	    padding = 0;
+	    order = subcat_index;
+	    disabled = '';
+	}
 	var html = '\
-		<tr id="mdocs-cats-new-'+sub_cat_index+'" >\
-			<td id="name" style="padding-left: 40px">\
-			    <input type="hidden" name="mdocs-cats[new-cat-'+sub_cat_index+'][parent_id]" value="'+parent_id+'"/>\
-			    <input type="hidden" name="mdocs-cats[new-cat-'+sub_cat_index+'][slug]" value="new-cat-'+sub_cat_index+'"/>\
-			    <input type="text" name="mdocs-cats[new-cat-'+sub_cat_index+'][name]"  value="'+mdocs_js.new_category+' '+sub_cat_index+'"  />\
-			</td>\
-			<td id="order">\
-			    <input type="text" name="mdocs-cats[new-cat-'+sub_cat_index+'][order]"  value="'+sub_cat_index+'"  />\
-			</td>\
-			<td id="remove">\
-			    <input type="hidden" name="mdocs-cats[new-cat-'+sub_cat_index+'][remove]" value="0"/>\
-			    <input type="button"  id="mdocs-cat-remove-new" name="new-cat-'+sub_cat_index+'" class="button button-primary" value="'+mdocs_js.remove+'"  />\
-			</td>\
-			<td id="add-cat">\
-			    <input  type="button" name="'+sparent+'" class="mdocs-add-sub-cat button button-primary" value="Add Category"  />\
-			</td>\
-		</tr>\
-		'
-	var sparent = jQuery('input[name="mdocs-cats['+parent_id+'][name]"]').parent().parent();
-	jQuery(html).insertAfter(sparent).parent().parent();
-	sub_cat_index++;
-	jQuery('input[id="mdocs-cat-remove-new"]').click(function() {
-		jQuery(this).parent().parent().remove();
+	    <tr>\
+		<td  id="name" '+padding+' >\
+		   <input type="hidden" name="mdocs-cats[mdocs-cat-'+subcat_index+'][index]" value="'+(order-1)+'"/>\
+		    <input type="hidden" name="mdocs-cats[mdocs-cat-'+subcat_index+'][parent_index]" value="'+jQuery('input[name="mdocs-cats['+parent+'][index]"]').val()+'"/>\
+		    <input type="hidden" name="mdocs-cats[mdocs-cat-'+subcat_index+'][num_children]" value="0" />\
+		    <input type="hidden" name="mdocs-cats[mdocs-cat-'+subcat_index+'][depth]" value="'+child_depth+'"/>\
+		    <input type="hidden" name="mdocs-cats[mdocs-cat-'+subcat_index+'][parent]" value="'+parent+'"/>\
+		    <input type="hidden" name="mdocs-cats[mdocs-cat-'+subcat_index+'][slug]" value="mdocs-cat-'+subcat_index+'" />\
+		    <input type="text" name="mdocs-cats[mdocs-cat-'+subcat_index+'][name]"  value="'+mdocs_js.new_category+'"  />\
+		</td>\
+		<td id="order">\
+		    <input  type="text" name="mdocs-cats[mdocs-cat-'+subcat_index+'][order]"  value="'+order+'" '+disabled+' />\
+		</td>\
+		<td id="remove">\
+			<input type="hidden" name="mdocs-cats[mdocs-cat-'+subcat_index+'][remove]" value="0"/>\
+			<input type="button" id="mdocs-sub-cats-remove-new-'+subcat_index+'" class="button button-primary" value="Remove"  />\
+		</td>\
+		<td id="add-cat">\
+		    <input type="button" class="mdocs-add-sub-cat button button-primary" id="mdocs-sub-cats-add-new-'+subcat_index+'" value="Add Category"   />\
+		</td>\
+	    </tr>\
+	    ';
+	if (jQuery(object).prop('id') == 'the-list') jQuery(object).append(html);
+	else jQuery(html).insertAfter(jQuery(object).parent().parent());
+	jQuery('input[id="mdocs-sub-cats-remove-new-'+subcat_index+'"]').click(function() { jQuery('input[name="mdocs-cats['+parent+'][num_children]"]').val(order-1); jQuery(this).parent().parent().remove(); });
+	jQuery('input[id="mdocs-sub-cats-add-new-'+subcat_index+'"]').click(function() {
+	    var id = jQuery(this).prop('id').split('-');
+	    id = id[id.length-1];
+	    var parent = jQuery('input[name="mdocs-cats[mdocs-cat-'+id+'][parent]"]').val();
+	    var slug = jQuery('input[name="mdocs-cats[mdocs-cat-'+id+'][slug]"]').val();
+	    var slug = jQuery('input[name="mdocs-cats[mdocs-cat-'+id+'][slug]"]').val();
+	    var depths = jQuery('input[name="mdocs-cats[mdocs-cat-'+id+'][depth]"]').val();
+	    console.debug(id,depths);
+	    mdocs_add_sub_cat(subcat_index,slug, depths, this);
 	});
-	jQuery('.mdocs-add-sub-cat').unbind('click');
-	mdocs_add_sub_cat();
-    });
+    } else alert(mdocs_js.category_support);
+    //jQuery('.mdocs-add-sub-cat').unbind('click');
+   
 }
 function mdocs_set_onleave() { window.onbeforeunload = function() { return mdocs_js.leave_page;}; }
 function mdocs_reset_onleave() { window.onbeforeunload = null; }

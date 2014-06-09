@@ -2,18 +2,18 @@
 function mdocs_batch_upload($current_cat) {
 	$do_zip = false;
 	//$mdocs = get_option('mdocs-list');
-	//$cats = get_option('mdocs-cats');
+	$cats = get_option('mdocs-cats');
 	//var_dump($cats);
 	$do_complte = false;
-	if(isset($_FILES['mdocs-batch']) && $_FILES['mdocs-batch']['type'] != 'application/zip') {
+	if(isset($_FILES['mdocs-batch']) && strpos($_FILES['mdocs-batch']['type'],'zip') == false) {
 		?>
 		<div class="error">
 			<p><?php _e('Please upload a zip file.'); ?></p>
 		</div>
 		<?php
-	} elseif(isset($_FILES['mdocs-batch']) && $_FILES['mdocs-batch']['type'] == 'application/zip') {
+	} elseif(isset($_FILES['mdocs-batch']) && strpos($_FILES['mdocs-batch']['type'],'zip') >= 0) {
 		if(!file_exists('/tmp/')) mkdir('/tmp/');
-		if(!file_exists('/tmp/mdocs/'))mkdir('/tmp/mdocs/');
+		if(!file_exists('/tmp/mdocs/')) mkdir('/tmp/mdocs/');
 		$zip_result = mdocs_unzip($_FILES['mdocs-batch']['tmp_name'], '/tmp');
 		$do_zip = true;
 	} elseif (isset($_POST['mdocs-batch-complete'])) {
@@ -58,12 +58,7 @@ function mdocs_batch_upload($current_cat) {
 				</label>
 				<label><?php _e('Category'); ?>:
 					<select name="mdocs[cat][<?php echo $index; ?>]">
-						<?php
-							foreach( $cats as $select => $cat ){ 
-								
-								echo '<option  value="'.$cat['slug'].'" >'.$cat['name'].'</option>';
-							}
-						?>
+						<?php mdocs_get_cats($cats, $current_cat); ?>
 					</select>
 				</label>
 				<label>
@@ -75,7 +70,8 @@ function mdocs_batch_upload($current_cat) {
 		}
 		?>
 		<br>
-		<input type="submit" class="button button-primary" value="<?php _e('Complete') ?>" /><br/>
+		<input type="submit" class="button button-primary" value="<?php _e('Complete') ?>" />
+		<br/>
 	</form>
 	<?php
 } elseif ($_POST['mdocs-batch-complete'] ) {

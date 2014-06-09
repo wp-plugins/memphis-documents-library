@@ -1,6 +1,6 @@
 <?php
 function mdocs_the_list($att=null) {
-	//var_dump($att);
+	global $post, $current_cat_array, $parent_cat_array;
 	$is_read_write = mdocs_check_read_write();
 	if($is_read_write) {
 		global $post;
@@ -9,7 +9,7 @@ function mdocs_the_list($att=null) {
 		$mdocs = get_option('mdocs-list');
 		$cats =  get_option('mdocs-cats');
 		$current_cat = '';
-		if(isset($_GET['cat'])) $current_cat = $_GET['cat'];
+		if(isset($_GET['mdocs-cat'])) $current_cat = $_GET['mdocs-cat'];
 		elseif(!is_string($cats)) $current_cat = $cats[0]['slug'];
 		if(isset($att['cat']) && $att['cat'] != 'All Files') {
 			//$current_cat = array_search($att['cat'],$cats);
@@ -17,9 +17,9 @@ function mdocs_the_list($att=null) {
 		} elseif(isset($att['cat']) && $att['cat'] == 'All Files') $current_cat = 'all';
 		$permalink = get_permalink($post->ID);
 		if(preg_match('/\?page_id=/',$permalink) || preg_match('/\?p=/',$permalink)) {
-			$mdocs_get = $permalink.'&cat=';
-		} else $mdocs_get = $permalink.'?cat=';
-		
+			$mdocs_get = $permalink.'&mdocs-cat=';
+		} else $mdocs_get = $permalink.'?mdocs-cat=';
+		mdocs_get_children_cats(get_option('mdocs-cats'),$current_cat);
 	?>
 	<div class="mdocs-container">
 		<?php if(isset($att['header'])) echo '<p>'.__($att['header']).'</p>'; ?>
@@ -30,9 +30,10 @@ function mdocs_the_list($att=null) {
 			<?php
 			if(!empty($cats) && !isset($att['cat'])) {
 				foreach( $cats as $index => $cat ){
-					if($cat['slug'] == $current_cat) {
-						$class = ' mdocs-nav-tab-active';
-						if(count($cat['children']) > 0 ) $the_children = $cat['children'];
+					if(isset($cat['slug']) && !empty($current_cat_array)) {
+						if( $cat['slug'] == $current_cat) $class = ' mdocs-nav-tab-active';
+						elseif(isset($cats[$current_cat_array['base_parent']]['slug']) && $cats[$current_cat_array['base_parent']]['slug'] == $cat['slug']) $class = ' mdocs-nav-tab-active';
+						else $class = '';
 					} else $class = '';
 					echo '<a class="mdocs-nav-tab'.$class.'" href="'.$mdocs_get.$cat['slug'].'"><span>'.$cat['name'].'</span></a>';
 				}
@@ -43,17 +44,9 @@ function mdocs_the_list($att=null) {
 		$count = 0;
 		
 		if(get_option('mdocs-list-type') == 'small') echo '<table class="mdocs-list-table">';
-		/* SUB CATEGORIES
-		if(isset($the_children)) {
-		foreach($the_children as $index => $child) {
-			?>
-			<tr>
-				<td colspan="10" id="title" class="mdocs-tooltip"><i class="fa fa-folder"></i> <?php echo $child['name']; ?></td>
-			</tr>
-			<?php
-		}
-		}
-		*/
+		// SUB CATEGORIES
+		if(isset($current_cat_array['children'])) $num_cols = mdocs_get_subcats($current_cat_array, $parent_cat_array);
+		else $num_cols = mdocs_get_subcats($current_cat_array, $parent_cat_array, false);
 		foreach($mdocs as $index => $the_mdoc) {			
 			if($the_mdoc['cat'] == $current_cat || $current_cat == 'all') {
 				if($the_mdoc['file_status'] == 'public' ) {
@@ -88,7 +81,7 @@ function mdocs_the_list($att=null) {
 			} 
 		}
 		if($count == 0) {
-			?> <p class="mdocs-nofiles" ><?php _e('No files found in this category.'); ?></p> <?php
+			?><tr><td colspan="<?php echo $num_cols; ?>"><p class="mdocs-nofiles" ><?php _e('No files found in this category.'); ?></p></td></tr><?php
 		}
 		if(get_option('mdocs-list-type') == 'small') echo '</table>';
 	} else mdocs_errors(__('Unable to create the directory "mdocs" which is needed by Memphis Documents Library. Its parent directory is not writable by the server?'),'error');

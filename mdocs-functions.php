@@ -107,7 +107,7 @@ function mdocs_rename_file($upload, $file_name) {
 	$upload['file'] = $upload_dir['basedir'].'/mdocs/'.$file_name;
 	$upload['filename'] = $file_name;
 	$name = substr($file_name, 0, strrpos($file_name, '.') );
-	if(!isset($_POST['mdocs-name'])) $upload['name'] = $name;
+	if(!isset($_POST['mdocs-name']) || $_POST['mdocs-name'] == '') $upload['name'] = $name;
 	else $upload['name'] = $_POST['mdocs-name'];
 	return $upload;
 }
@@ -131,7 +131,7 @@ function mdocs_process_file($file, $import=false) {
 		if(file_exists($upload_dir['basedir'].'/mdocs/'.$file['name'])) $upload = mdocs_rename_file($upload, $file['name']);
 		else {
 			$name = substr($file['name'], 0, strrpos($file['name'], '.') );
-			if(!isset($_POST['mdocs-name'])) $upload['name'] = $name;
+			if(!isset($_POST['mdocs-name']) || $_POST['mdocs-name'] == '') $upload['name'] = $name;
 			else $upload['name'] = $_POST['mdocs-name'];
 		}
 		$result = move_uploaded_file($file['tmp_name'], $upload['file']);
@@ -303,6 +303,7 @@ function mdocs_errors($error, $type='updated') {
 
 function mdocs_set_rating($the_index) {
 	global $current_user;
+	$avg = 0;
 	$the_rating = $_GET['mdocs-rating'];
 	$the_list = get_option('mdocs-list');
 	$the_list[$the_index]['ratings'][$current_user->user_email] = $the_rating;
@@ -484,4 +485,80 @@ function mdocs_file_access($the_mdoc) {
 	elseif($mdocs_hide_all_files == false ) $access = true;
 	else $access = false;
 	return $access;
+}
+
+function mdocs_get_cats($cats, $current_cat, $depth=0, $echo=true) {
+	$nbsp = '';
+	for($i=0;$i < $depth;$i++) $nbsp .= '&nbsp;&nbsp;';
+	foreach( $cats as $index => $cat ){
+		$is_selected = ( $cat['slug'] == $current_cat ) ? 'selected="selected"' : '';
+		if($echo) echo '<option  value="'.$cat['slug'].'" '.$is_selected.'>'.$nbsp.$cat['name'].'</option>';
+		if(count($cat['children']) > 0) { 
+			mdocs_get_cats($cat['children'], $current_cat ,$cat['depth']+1);
+		}
+	}
+}
+
+$parent_cat_array = array();
+$current_cat_array = array();
+$found_current_cat = false;
+function mdocs_get_children_cats($cats, $current_cat) {
+	global $current_cat_array, $parent_cat_array, $found_current_cat;
+	if($found_current_cat == false) {
+		foreach( $cats as $index => $cat ){
+			if($cat['slug'] == $current_cat) {
+				$current_cat_array = $cat;
+				$found_current_cat = true;
+			}
+			if(count($cat['children']) > 0 && $found_current_cat == false) {
+				$parent_cat_array = $cat;
+				mdocs_get_children_cats($cat['children'], $current_cat);
+			} 
+		}
+	}
+}
+
+function mdocs_update_num_cats($increase) {	update_option('mdocs-num-cats',intval(get_option('mdocs-num-cats')+$increase)); }
+function mdocs_get_subcats($current, $parent, $has_children=true) {
+	global $post;
+	if(!is_admin()) $permalink = get_permalink($post->ID).'?mdocs-cat=';
+	else $permalink = 'admin.php?page=memphis-documents.php&cat=';
+	$num_cols = 2;
+	if(get_option('mdocs-show-downloads') == '1' || get_option('mdocs-show-downloads')) $num_cols++;
+	if(get_option('mdocs-show-author') == '1' || get_option('mdocs-show-author')) $num_cols++;
+	if(get_option('mdocs-show-version') == '1' || get_option('mdocs-show-version')) $num_cols++;
+	if(get_option('mdocs-show-update') == '1' || get_option('mdocs-show-update')) $num_cols++;
+	if(get_option('mdocs-show-ratings') == '1' || get_option('mdocs-show-ratings')) $num_cols++;
+	if(isset($current['parent']) && $current['parent'] != '') {
+	?>
+	<tr class="mdocs-parent-cat" >
+		<td colspan="<?php echo $num_cols; ?>" id="title" class="mdocs-tooltip">
+			<a href="<?php echo $permalink.$parent['slug']; ?>" alt="<?php echo $permalink.$parent['slug']; ?>">
+				<i class="fa fa-reply"></i> <?php echo $parent['name']; ?>
+				<span class="float-right"><i class="fa fa-reply"></i> <?php echo $parent['name']; ?></span>
+			</a>
+		</td>
+	</tr>
+	<?php
+	} 
+	if($has_children == true) {
+		foreach($current['children'] as $index => $child) {
+			?>
+			<tr class="mdocs-sub-cats" >
+				<td colspan="<?php echo $num_cols; ?>" id="title" class="mdocs-tooltip">
+					<a href="<?php echo $permalink.$child['slug']; ?>" alt="<?php echo $child['name']; ?>"><i class="fa fa-folder-o"></i> <?php echo $child['name']; ?><span class="float-right"><i class="fa fa-folder-o"></i> <?php echo $child['name']; ?></span></a>
+				</td>
+			</tr>
+			<?php
+		}
+	}
+	?>
+	<tr class="mdocs-current-cat" >
+		<td colspan="<?php echo $num_cols; ?>" id="title" class="mdocs-tooltip">
+			<p><i class="fa fa fa-folder-open-o"></i> <?php echo $current['name']; ?><span class="float-right"><i class="fa fa fa-folder-open-o"></i> <?php echo $current['name']; ?></span></p>
+			
+		</td>
+	</tr>
+	<?php
+	return $num_cols;
 }

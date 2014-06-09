@@ -31,6 +31,7 @@ if($num_show==1) $title_width = '75%';
 .mdocs-olive { color: #808000 !important; }
 .mdocs-salmon { color: #FA8072 !important; }
 
+
 /* PAGE STYLE */
 .mdocs-post { font-family: 'Bitter', Verdana, Arial, sans-serif !important; background: #fcfcfc; padding: 0 !important; border: solid 1px #e2e2e2; width: 100% !important; height: 100% !important; margin: 0px auto 40px 0; text-shadow: none !important; }
 /*.mdocs-post h1 { border-top: solid 1px #e2e2e2; border-bottom: solid 1px #e2e2e2; padding: 5px 0; margin: 5px !important; font-size: 21px; color: #444 !important;}*/
@@ -51,7 +52,6 @@ if($num_show==1) $title_width = '75%';
 .mdocs-new, .mdocs-new-small { background: #91B52D; color: #fff; }
 .mdocs-updated, .mdocs-updated-small { background: #3C9DD0; color: #fff; }
 .nav-single .mdocs-new, .nav-single .mdocs-updated, .widget-area .mdocs-new, .widget-area .mdocs-updated { float: left; padding: 0 5px; margin: 0 10px 0 0; width: 60px; text-align: center;}
-.mdocs-post .mdocs-download-btn { margin-right: 10px !important; }
 .mdocs-close-desc { top: -5px !important; }
 .mdocs-divider { border-top: solid 1px #e2e2e2 !important; padding-bottom: 20px;}
 .mdocs-download-btn, .mdocs-download-btn:active {
@@ -150,7 +150,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-desc a:hover { color: #BC360A !important; text-decoration: none !important; border: none !important; }
 
 .mdocs-clear-both { clear: both !important; }
-.mdocs-nofiles { font-size: 14px !important; font-weight: bold; text-align: center; padding: 20px !important;}
+.mdocs-nofiles { font-size: 1.1em !important; font-weight: bold; text-align: center;}
 #icon-edit-pages { width: 32px; height: 34px; background-position: -312px -5px; margin: 2px 8px 0 0; float: left; }
 .icon32 {  background: url('assets/imgs/icons32-vs.png?ver=20121105/') no-repeat transparent; }
 .mdocs-line { border-bottom: solid 1px #E2E2E2; height: 1px; width: 99%; margin: auto; }
@@ -158,16 +158,27 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 
 
 .mdocs-list-table, .mdocs-list-table tr, .mdocs-list-table td { width: 100% !important; border: solid 1px #ccc !important; vertical-align: middle; border-collapse: collapse !important; padding: 3px 0 !important; margin: 0 !important; font-size: 13px !important;}
-.mdocs-list-table td { border: none !important;  padding: 0 !important; height: 28px !important;}
+.mdocs-list-table td { border: none !important;  padding: 0 !important; height: 28px !important; padding: 1px 5px !important;}
 .mdocs-list-table { margin-top: 10px !important; }
-.mdocs-list-table #subfolder { padding: 0; padding-left: 5px !important; width: auto !important; text-align: left;}
-.mdocs-list-table #title { padding: 0 0 0 5px !important; margin: 0; width: <?php echo $title_width; ?> !important; }
-.mdocs-list-table #downloads { padding: 0; width: auto !important; text-align: center;}
-.mdocs-list-table #version { padding: 0; width: auto !important; text-align: center;}
-.mdocs-list-table #owner { padding: 0; width: auto !important; text-align: center;}
-.mdocs-list-table #update { padding: 0; width: auto !important; text-align: center;}
-.mdocs-list-table #rating { padding: 0; width: auto !important; text-align: center;}
-.mdocs-list-table #download { padding: 0; width: auto !important;  text-align: right; padding: 0 5px 0 0 !important; }
+/*
+.mdocs-list-table .sub-cats { background: #eef8ff; }
+.mdocs-list-table .parent-cat { background: #f1fff0; }
+*/
+.mdocs-list-table #title { width: <?php echo $title_width; ?> !important; word-break: break-all !important;}
+.mdocs-list-table #downloads { width: auto !important; text-align: center;}
+.mdocs-list-table #version { width: auto !important; text-align: center;}
+.mdocs-list-table #owner { width: auto !important; text-align: center;}
+.mdocs-list-table #update { width: auto !important; text-align: center;}
+.mdocs-list-table #rating { width: auto !important; text-align: center;}
+.mdocs-list-table #download { width: auto !important;  text-align: right; padding: 0 5px 0 0 !important; }
+.mdocs-list-table p { padding: 0 !important; margin: 0 !important; }
+.mdocs-list-table .float-right { float: right; }
+.mdocs-list-table tr { background: #fff; }
+.mdocs-list-table .mdocs-parent-cat, .mdocs-list-table .mdocs-current-cat, .mdocs-list-table .mdocs-sub-cats { background: #f7f7f7; font-weight: bold;}
+.mdocs-list-table .mdocs-current-cat p {  font-size: 1.1em;  }
+.mdocs-list-table .mdocs-parent-cat a { font-size: 1.1em; }
+.mdocs-list-table .mdocs-sub-cats a { font-size: 1.1em; }
+.mdocs-list-table .mdocs-dashboard-header { background: #eaeaea; }
 
 .mdocs-sort { position: relative; float: right; border: solid 1px #e2e2e2 !important; padding: 5px !important; background: #fcfcfc; clear: both !important;}
 .mdocs-sort label { font-size: 12px !important; }
@@ -253,8 +264,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 	box-shadow: none !important;
 	background: <?php echo get_option('mdocs-download-color-normal'); ?> ;
 }
-
-
+/* WIDGET STYLE */
+.mdocs-widget-container { padding: 0 !important; margin: 5px 0 !important; }
+.mdocs-widget-container h1, .mdocs-widget-container table th, .mdocs-widget-container table td { padding: 5px 5px !important; margin: 0 !important; word-break: break-all !important;}
+.mdocs-widget-container h1 { color: #086FA1 !important; font-size: 1.3em !important;  }
+.mdocs-widget-container table { width: 100% !important; max-width: 100% !important; font-size: 0.85em !important; border: solid 1px #ededed !important; }
+.mdocs-widget-container table th { background: #e7e7e7 !important; border-bottom: dotted 1px #bcbcbc !important;}
+.mdocs-widget-container table td:first-child, .mdocs-widget-container table th:first-child { padding: 5px 2px !important; word-break: normal !important; }
+.mdocs-widget-container table td:last-child, .mdocs-widget-container table th:last-child { text-align: center !important; min-width: 60px !important; }
+.mdocs-widget-container .mdocs-even { background: #f4f4f4 !important;  }
+.mdocs-widget-container a { text-decoration: none !important; color: #21759b !important; word-break: break-all !important;}
+.mdocs-widget-container a:hover { color: #BC360A !important; } 
 /* FONTS */
 @font-face {
   font-family: 'Bitter';

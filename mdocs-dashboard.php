@@ -23,7 +23,7 @@ function mdocs_dashboard() {
 	//$list = get_option('mdocs-list');
 	//var_dump($list);
 	//$cats = get_option('mdocs-cats');
-	//var_dump($cats);
+	//var_dump($cats[0]['children']);
 	if(isset($_FILES['mdocs']) && $_FILES['mdocs']['name'] != '' && $_POST['mdocs-type'] == 'mdocs-add') mdocs_file_upload();
 	if(isset($_FILES['mdocs']) && $_POST['mdocs-type'] == 'mdocs-update') mdocs_file_upload();
 	elseif(isset($_GET['action']) && $_GET['action'] == 'add-doc' && MDOCS_NONCE == $_SESSION['mdocs-nonce'] && !isset($_GET['mdocs-sort'])) mdocs_uploader(__('Add Document'));
@@ -38,6 +38,7 @@ function mdocs_dashboard() {
 }
 
 function mdocs_dashboard_view() {
+	global $current_cat_array, $parent_cat_array;
 	$cats = get_option('mdocs-cats');
 	$upload_dir = wp_upload_dir();
 	$message = '';
@@ -45,6 +46,8 @@ function mdocs_dashboard_view() {
 	$export_active = '';
 	if(isset($_GET['cat'])) $current_cat = $_GET['cat'];
 	elseif(!is_string($cats)) $current_cat = $cats[0]['slug'];
+	mdocs_get_children_cats(get_option('mdocs-cats'),$current_cat);
+	//var_dump($cats[$current_cat_array['base_parent']]['slug']);
 	?>
 	<div class="wrap">
 		<div class="mdocs-admin-preview"></div>
@@ -62,7 +65,11 @@ function mdocs_dashboard_view() {
 		<?php
 		if(!empty($cats)) {
 			foreach( $cats as $index => $cat ){
-				$class = ( $cat['slug'] == $current_cat ) ? ' nav-tab-active' : '';
+				if(isset($cat['slug']) && !empty($current_cat_array)) {
+					if( $cat['slug'] == $current_cat) $class = ' nav-tab-active';
+					elseif(isset($cats[$current_cat_array['base_parent']]['slug']) && $cats[$current_cat_array['base_parent']]['slug'] == $cat['slug']) $class = ' nav-tab-active';
+					else $class = '';
+				} else $class = '';
 				if(is_dir($upload_dir['basedir'].'/mdocs/')) echo '<a class="nav-tab '.$class.'" href="?page=memphis-documents.php&cat='.$cat['slug'].' ">'.__($cat['name']).'</a>';
 			}
 		}
@@ -83,16 +90,9 @@ function mdocs_dashboard_view() {
 }
 
 function mdoc_doc_list($current_cat) {
+	global $current_cat_array, $parent_cat_array;
 	$is_read_write = mdocs_check_read_write();
 	if($is_read_write) {
-		$cats = get_option('mdocs-cats');
-		foreach( $cats as $index => $cat ){
-			if($cat['slug'] == $current_cat) {
-				if(count($cat['children']) > 0 ) $the_children = $cat['children'];
-			} 
-		}
-		
-		
 		$mdocs = get_option('mdocs-list');
 		$mdocs = mdocs_sort_by($mdocs, 5, 'dashboard');
 		$upload_dir = wp_upload_dir();	
@@ -102,17 +102,20 @@ function mdoc_doc_list($current_cat) {
 		$list_type = get_option('mdocs-list-type-dashboard');
 		if($list_type == 'small') {
 			echo '<table class="mdocs-list-table">';
-			/* SUB CATS
-			if(isset($the_children)) {
-			foreach($the_children as $index => $child) {
+			$num_cols = 2;
+			if(get_option('mdocs-show-downloads') == '1' || get_option('mdocs-show-downloads')) $num_cols++;
+			if(get_option('mdocs-show-author') == '1' || get_option('mdocs-show-author')) $num_cols++;
+			if(get_option('mdocs-show-version') == '1' || get_option('mdocs-show-version')) $num_cols++;
+			if(get_option('mdocs-show-update') == '1' || get_option('mdocs-show-update')) $num_cols++;
+			if(get_option('mdocs-show-ratings') == '1' || get_option('mdocs-show-ratings')) $num_cols++;
 			?>
 			<tr>
-				<td colspan="10" id="subfolder" ><i class="fa fa-folder"></i> <?php echo $child['name']; ?></td>
+				<td colspan="<?php echo $num_cols; ?>" class="mdocs-dashboard-header"></td>
 			</tr>
 			<?php
-			}
-			}
-			*/
+			// SUB CATS
+			if(isset($current_cat_array['children'])) $num_cols = mdocs_get_subcats($current_cat_array, $parent_cat_array);
+			else $num_cols =mdocs_get_subcats($current_cat_array, $parent_cat_array, false);
 		}
 		foreach($mdocs as $index => $value) {
 			if($mdocs[$index]['cat'] == $current_cat) {
@@ -141,9 +144,7 @@ function mdoc_doc_list($current_cat) {
 				
 			}
 		}
-		if($count == 0) { ?>
-			<p class="mdocs-nofiles" ><?php _e('No files found in this category.'); ?></p> <?php
-		}
+		if($count == 0) { ?><tr><td colspan="<?php echo $num_cols; ?>"><p class="mdocs-nofiles" ><?php _e('No files found in this category.'); ?></p></td></tr><?php }
 		if(get_option('mdocs-list-type') == 'small') echo '</table>';
 	}
 }
@@ -208,13 +209,7 @@ function mdocs_uploader($edit_type='Add Document') {
 				</label>
 				<label><?php _e('Category'); ?>:
 				<select name="mdocs-cat">
-				<?php
-					foreach( $cats as $index => $cat ){
-					//foreach( $cats as $select => $name ){ 
-						$is_selected = ( $cat['slug'] == $current_cat ) ? 'selected="selected"' : '';
-						echo '<option  value="'.$cat['slug'].'" '.$is_selected.'>'.$cat['name'].'</option>';
-					}
-				?>
+				<?php mdocs_get_cats($cats, $current_cat); ?>
 				</select>
 				</label>
 				<label>

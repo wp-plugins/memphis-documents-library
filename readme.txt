@@ -6,13 +6,22 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 2.4.1
+Stable tag: 2.5
 
-A documents library for WordPress.  
+A documents library for WordPress.
 
 == Description ==
 
-= Memphis Documents Library Features =
+*Memphis Documents Library Features*
+
+
+= Whats New in Version 2.5 =
+
+* *New* - You have the ability to create sub categories.
+* *New* - Three new widgets have been added, you can now display, Most Downloaded, Highest Rated and Recently Updated documents.
+* *Fix* -  Issue with file upload on Windows platform, now is resolved.  Batch upload still remains in beta.
+* *Fix* - Minor style changes
+* *Bug* - small bug fixes and updates.
 
 A documents library for WordPress.  This documents library features:
 
@@ -25,13 +34,13 @@ A documents library for WordPress.  This documents library features:
 * Referential file methodology. This allows for the updating of a file while the link remains the same.
 * Importing of document libraries into your current library, or just migrating to another website.
 * Exporting you documents libraries for safe backup and store, migration to another website or sharing with someone else.
-* The ability to create categories, edit categories and delete categories.
+* The ability to create, edit and delete categories and subcategories.
 * Search for files using the WordPress search.
 * Customization of download button
 
 = Document Preview Not Displaying Content =
 
-Error while viewing files in Memphis Documents Library Ð "You've reached the bandwidth limit for viewing or downloading files that aren't in Google Docs format. Please try again later".
+Error while viewing files in Memphis Documents Library - "You've reached the bandwidth limit for viewing or downloading files that aren't in Google Docs format. Please try again later".
 
 Memphis Documents Library uses Google Docs to display the files including PDF, DOC and XLS within the browser. If you are having trouble viewing files and you are logged into your Google account, it could be bandwidth limit on that account. There is no bandwidth limit in Memphis Documents Library and in most cases refreshing the page will display the file.
 
@@ -112,8 +121,16 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 3. screenshot-3.png
 4. screenshot-4.png
 5. screenshot-5.png
+6. screenshot-6.png
+7. screenshot-7.png
 
 == Changelog ==
+= 2.5 =
+* *New* - You have the ability to create sub categories.
+* *New* - Three new widgets have been added, you can now display, Most Downloaded, Highest Rated and Recently Updated documents.
+* *Fix* -  Issue with file upload on Windows platform, now is resolved.  Batch upload still remains in beta.
+* *Fix* - Minor style changes
+* *Bug* - small bug fixes and updates.
 = 2.4.1 =
 * fixed short code, not showing categories.
 * special character changes.

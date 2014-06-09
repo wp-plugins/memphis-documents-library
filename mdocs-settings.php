@@ -14,7 +14,7 @@ define('MDOCS_CURRENT_TIME', date('Y-m-d H:i:s', time()+MDOCS_TIME_OFFSET));
 //define('MDOCS_VERSION', );
 $add_error = false;
 $mdocs_img_types = array('jpeg','jpg','png','gif');
-$mdocs_input_text_bg_colors = array('#f1f1f1','#5FC0CE','#FFB673','#FFFF73','#AD66D5','#ff5000','#00ff20');
+$mdocs_input_text_bg_colors = array('#f1f1f1','#e5eaff','#efffe7','#ffecdc','#ffe9fe','#ff5000','#00ff20');
 
 function mdocs_register_settings() {
 	//CREATE REPOSITORY DIRECTORY
@@ -22,6 +22,15 @@ function mdocs_register_settings() {
 	$is_read_write = mdocs_check_read_write();
 	if($is_read_write) {
 		$upload_dir = wp_upload_dir();
+		register_setting('mdocs-patch-vars', 'mdocs-v2-5-patch-var-1');
+		add_action('mdocs-v2-5-patch-var-1',false);
+		if(get_option('mdocs-v2-5-patch-var-1') == false) {
+			$num_cats = 0;
+			foreach( get_option('mdocs-cats') as $index => $cat ){ $num_cats++;}
+			update_option('mdocs-num-cats',$num_cats);
+			add_action( 'admin_notices', 'mdocs_v2_5_admin_notice_v1' );
+			update_option('mdocs-v2-5-patch-var-1',true);
+		}
 		register_setting('mdocs-patch-vars', 'mdocs-v2-4-patch-var-1');
 		add_option('mdocs-v2-4-patch-var-1',false);
 		if(get_option('mdocs-v2-4-patch-var-1') == false) {
@@ -98,8 +107,16 @@ function mdocs_register_settings() {
 		if(is_string(get_option('mdocs-cats'))) update_option('mdocs-cats',array());
 		register_setting('mdocs-settings', 'mdocs-list');
 		add_option('mdocs-list',array());
+		register_setting('mdocs-settings', 'mdocs-total-cats');
+		add_option('mdocs-total-cats',0);
 		register_setting('mdocs-settings', 'mdocs-zip');
 		add_option('mdocs-zip','mdocs-export.zip');
+		register_setting('mdocs-top-downloads', 'mdocs-top-downloads');
+		add_option('mdocs-top-downloads',10);
+		register_setting('mdocs-top-downloads', 'mdocs-top-rated');
+		add_option('mdocs-top-rated',10);
+		register_setting('mdocs-top-downloads', 'mdocs-last-updated');
+		add_option('mdocs-last-updated',10);
 		//GLOBAL VARIABLES
 		register_setting('mdocs-global-settings', 'mdocs-list-type');
 		add_option('mdocs-list-type','small');
@@ -254,6 +271,13 @@ function mdocs_v2_4_admin_notice_v1() {
     ?>
     <div class="updated">
         <p><?php _e('Your Memphis <b>Categories</b> have been updated to handle subcategories this should not effect your current file system in anyway.  If there is any issues please post a comment in the support forum of this plugin.  It is recommended to re-export your files again due to the new way categories are structured.'); ?></p>
+    </div
+    <?php
+}
+function mdocs_v2_5_admin_notice_v1() {
+    ?>
+    <div class="updated">
+        <p><?php _e('Your Memphis <b>Categories</b> have been counted to handle subcategories this should not effect your current file system in anyway.  If there is any issues please post a comment in the support forum of this plugin.  It is recommended to re-export your files again due to the new way categories are structured.'); ?></p>
     </div
     <?php
 }

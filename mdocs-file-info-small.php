@@ -58,7 +58,7 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 				if($is_new == true) $status_tag = MDOCS_NEW_SMALL;
 				else $status_tag = MDOCS_UPDATE_SMALL;
 			} else $status_tag = '';
-		}
+		} else $status_tag = '';
 	?>
 		<tr>
 			<td id="title" class="mdocs-tooltip">
