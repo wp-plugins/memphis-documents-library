@@ -12,8 +12,7 @@ A documents library for WordPress.
 
 == Description ==
 
-*Memphis Documents Library Features*
-
+Memphis Documents Library is a  documents library for WordPress with a robust feature set.  It is a great tool for the organization and distribution of files.
 
 = Whats New in Version 2.5 =
 
@@ -23,10 +22,10 @@ A documents library for WordPress.
 * *Fix* - Minor style changes
 * *Bug* - small bug fixes and updates.
 
-A documents library for WordPress.  This documents library features:
+= Memphis Documents Library Features =
 
 * Batch Upload of files into the system (Beta)
-* Upload media files that match WordPress's whitelist. This whitelist is configurable from the WordPress menus.
+* Upload media files that match WordPress's white-list. This white-list is configurable from the WordPress menus.
 * Download tracking of media
 * Posts created for each new media upload, showing information of the specific file.
 * Version control, allows you to view and revise to older version of your file.
@@ -64,7 +63,7 @@ When you uninstall the documents library make sure you export all your important
 When you uninstall the documents library make sure you export all your important files. **All data will be removed on completion of uninstall, this includes files, directories, posts, and media.**
 
 = Mempihs Documents Library look wrong in IE =
-Add the following code to your theme right under the `<head>` tag this will turn off compatiablity mode for IE.
+Add the following code to your theme right under the `<head>` tag this will turn off compatibility mode for IE.
 `<meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" />`
 
 = Document Preview not displaying content =
@@ -137,7 +136,7 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 * lots of bug fixes
 * optimization of code
 = 2.4 =
-* Removed IE Compatiablity mode fix, this was causing too many header errors.  If you want to this functionality add this line to your theme header file, right under the `<head>` tag
+* Removed IE Compatibility mode fix, this was causing too many header errors.  If you want to this functionality add this line to your theme header file, right under the `<head>` tag
  * `<meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" />`
 * Add the ability to change the color of the download button.
 * Fixed the rss feed bug
@@ -145,16 +144,16 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 * More small fixes and updates
 = 2.3.2 =
 * possible hotfix to header issues
-* fix of google docs issues
+* fix of Google docs issues
 * privacy and protection updates
 * still working on child categories
 = 2.3.1 =
 * htaccess update
 * htaccess file editor in settings menu
-* fixed a file not fould error
+* fixed a file not found error
 = 2.3 =
 * Batch file upload beta
-* List of avaible short codes
+* List of available sshort codes
 * Document page options added
 ** Default Content (Preview or Description)
 ** Show/Hide (Preview and Description)
@@ -173,7 +172,7 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 = 2.1 =
 * added a rating system
 * code cleanup
-* browser capatiablity fixes
+* browser capability fixes
 * updated the language file
 = 2.0.2 =
 * ie compatibility mode fix.
@@ -190,7 +189,7 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
  * Hide/Show all files from everybody or just non-members
  * Hide/Show all post from everybody or just non-members
  * Hide/Show new and updated banner
- * Determine the lenght in days to display the new or update banner
+ * Determine the length in days to display the new or update banner
 * Updated the translation file.
 = 1.4 =
 * Changed the why sharing works.  Now you share the page that the file is on not the file itself.
@@ -198,7 +197,7 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 = 1.3.2 =
 * fixed permalink bug where the default setting would cause errors when trying to move from one category to another.
 = 1.3.1 =
-* small bug fixs
+* small bug fixes
 = 1.3 =
 * Added the ability to disable social apps
 * Added the ability to only allow members to download file
