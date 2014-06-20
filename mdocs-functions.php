@@ -529,13 +529,14 @@ function mdocs_get_subcats($current, $parent, $has_children=true) {
 	if(get_option('mdocs-show-version') == '1' || get_option('mdocs-show-version')) $num_cols++;
 	if(get_option('mdocs-show-update') == '1' || get_option('mdocs-show-update')) $num_cols++;
 	if(get_option('mdocs-show-ratings') == '1' || get_option('mdocs-show-ratings')) $num_cols++;
+	if(get_option('mdocs-list-type') == 'large') echo '<table class="mdocs-list-table">';
 	if(isset($current['parent']) && $current['parent'] != '') {
 	?>
 	<tr class="mdocs-parent-cat" >
 		<td colspan="<?php echo $num_cols; ?>" id="title" class="mdocs-tooltip">
 			<a href="<?php echo $permalink.$parent['slug']; ?>" alt="<?php echo $permalink.$parent['slug']; ?>">
 				<i class="fa fa-reply"></i> <?php echo $parent['name']; ?>
-				<span class="float-right"><i class="fa fa-reply"></i> <?php echo $parent['name']; ?></span>
+				
 			</a>
 		</td>
 	</tr>
@@ -546,7 +547,8 @@ function mdocs_get_subcats($current, $parent, $has_children=true) {
 			?>
 			<tr class="mdocs-sub-cats" >
 				<td colspan="<?php echo $num_cols; ?>" id="title" class="mdocs-tooltip">
-					<a href="<?php echo $permalink.$child['slug']; ?>" alt="<?php echo $child['name']; ?>"><i class="fa fa-folder-o"></i> <?php echo $child['name']; ?><span class="float-right"><i class="fa fa-folder-o"></i> <?php echo $child['name']; ?></span></a>
+					<a href="<?php echo $permalink.$child['slug']; ?>" alt="<?php echo $child['name']; ?>"><i class="fa fa-folder-o"></i> <?php echo $child['name']; ?>
+					
 				</td>
 			</tr>
 			<?php
@@ -555,10 +557,11 @@ function mdocs_get_subcats($current, $parent, $has_children=true) {
 	?>
 	<tr class="mdocs-current-cat" >
 		<td colspan="<?php echo $num_cols; ?>" id="title" class="mdocs-tooltip">
-			<p><i class="fa fa fa-folder-open-o"></i> <?php echo $current['name']; ?><span class="float-right"><i class="fa fa fa-folder-open-o"></i> <?php echo $current['name']; ?></span></p>
+			<p><i class="fa fa fa-folder-open-o"></i> <?php echo $current['name']; ?></p>
 			
 		</td>
 	</tr>
 	<?php
+	if(get_option('mdocs-list-type') == 'large') echo '</table>';
 	return $num_cols;
 }

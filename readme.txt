@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 2.5
+Stable tag: 2.5.1
 
 A documents library for WordPress.
 
@@ -14,13 +14,14 @@ A documents library for WordPress.
 
 Memphis Documents Library is a  documents library for WordPress with a robust feature set.  It is a great tool for the organization and distribution of files.
 
-= Whats New in Version 2.5 =
+= Whats New in Version 2.5.1 =
 
-* *New* - You have the ability to create sub categories.
-* *New* - Three new widgets have been added, you can now display, Most Downloaded, Highest Rated and Recently Updated documents.
-* *Fix* -  Issue with file upload on Windows platform, now is resolved.  Batch upload still remains in beta.
-* *Fix* - Minor style changes
-* *Bug* - small bug fixes and updates.
+* *Fix* - Removed style.php and replaced it with style.css and used the WordPress function `wp_add_inline_style` to handle custom stylesheet changes.
+* *Fix* - Disabled the ability to view a private post if the user does not have the capabilities to.
+* *Fix* - Updated large list to reflect the addition of sub categories.
+* *Fix* - Removed unnecessary padding from the category tabs.
+* *Update* - Updated localization.
+* *Update* - Removed the sub folder on the right side of the documents list, seems unneeded.
 
 = Memphis Documents Library Features =
 
@@ -37,7 +38,14 @@ Memphis Documents Library is a  documents library for WordPress with a robust fe
 * Search for files using the WordPress search.
 * Customization of download button
 
-= Document Preview Not Displaying Content =
+== Frequently Asked Questions ==
+
+= Mempihs Documents Library look wrong in IE =
+
+Add the following code to your theme right under the `<head>` tag this will turn off compatibility mode for IE.
+`<meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" />`
+
+= Document Preview not displaying content =
 
 Error while viewing files in Memphis Documents Library - "You've reached the bandwidth limit for viewing or downloading files that aren't in Google Docs format. Please try again later".
 
@@ -53,36 +61,8 @@ The error is based upon these limits set by Google for each account and here's t
 
 <https://support.google.com/a/answer/1071518?hl=en>
 
-= Uninstalling Mempihs Documents Library =
-
-When you uninstall the documents library make sure you export all your important files. **All data will be removed on completion of uninstall, this includes files, directories, posts, and media.**  
-
-== Frequently Asked Questions ==
-
-= Uninstalling Mempihs Documents Library =
-When you uninstall the documents library make sure you export all your important files. **All data will be removed on completion of uninstall, this includes files, directories, posts, and media.**
-
-= Mempihs Documents Library look wrong in IE =
-Add the following code to your theme right under the `<head>` tag this will turn off compatibility mode for IE.
-`<meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" />`
-
-= Document Preview not displaying content =
-
-Error while viewing files in Memphis Documents Library Ð "You've reached the bandwidth limit for viewing or downloading files that aren't in Google Docs format. Please try again later".
-
-Memphis Documents Library uses Google Docs to display the files including PDF, DOC and XLS within the browser. If you are having trouble viewing files and you are logged into your Google account, it could be bandwidth limit on that account. There is no bandwidth limit in Memphis Documents Library and in most cases refreshing the page will display the file.
-
-If the message persists, please try signing out of Google, and then try viewing the file again in Memphis Documents Library. This should make you anonymous to Google and avoid the bandwidth limitation.
-
-To sign out of Google, You can use the link below:
-
-<https://accounts.google.com/Logout>
-
-The error is based upon these limits set by Google for each account and here's the link to Google's bandwidth limit page:
-
-<https://support.google.com/a/answer/1071518?hl=en>
-
 = Importing Into Memphis Documents Library =
+
 There are two type of imports you can choose from.
 
 **Keep Existing Saved Variables**
@@ -99,9 +79,14 @@ get a list of all the conflicts that have occurred make note of them.
 Please take great care in using this method as there is little to no return.
 
 = Exporting Out of Memphis Documents Library =
+
 When you click the export button the document library will create a ZIP files for you to save to your computer.
 This compressed data, will contain your documents, saved variables, media and posts tied to each document.
 Once you've saved the download file, you can use the Import function in another WordPress installation to import the content from this site.
+
+= Uninstalling Mempihs Documents Library =
+
+When you uninstall the documents library make sure you export all your important files. **All data will be removed on completion of uninstall, this includes files, directories, posts, and media.**
 
 == Installation ==
 
@@ -124,6 +109,13 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 7. screenshot-7.png
 
 == Changelog ==
+= 2.5.1 =
+* *Fix* - Removed style.php and replaced it with style.css and used the WordPress function `wp_add_inline_style` to handle custom stylesheet changes.
+* *Fix* - Disabled the ability to view a private post if the user does not have the capabilities to.
+* *Fix* - Updated large list to reflect the addition of sub categories.
+* *Fix* - Removed unnecessary padding from the category tabs.
+* *Update* - Updated localization.
+* *Update* - Removed the sub folder on the right side of the documents list, seems unneeded.
 = 2.5 =
 * *New* - You have the ability to create sub categories.
 * *New* - Three new widgets have been added, you can now display, Most Downloaded, Highest Rated and Recently Updated documents.

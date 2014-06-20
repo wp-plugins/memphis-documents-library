@@ -1,23 +1,3 @@
-<?php
-header("Content-type: text/css; charset: UTF-8");
-$raw_path = $_SERVER['SCRIPT_FILENAME'];
-$explode_path = explode('/wp-content/', $raw_path);
-$doc_root = $explode_path[0];
-//echo $doc_root;
-require( $doc_root.'/wp-load.php' );
-
-$num_show = 0;
-if(get_option('mdocs-show-downloads')==1) $num_show++;
-if(get_option('mdocs-show-author')==1) $num_show++;
-if(get_option('mdocs-show-version')==1) $num_show++;
-if(get_option('mdocs-show-update')==1) $num_show++;
-if(get_option('mdocs-show-ratings')==1) $num_show++;
-if($num_show==5) $title_width = '35%';
-if($num_show==4) $title_width = '45%';
-if($num_show==3) $title_width = '55%';
-if($num_show==2) $title_width = '65%';
-if($num_show==1) $title_width = '75%';
-?>
 /* COLOURS */
 .mdocs-white { color: #fff !important; }
 .mdocs-gold { color: #ffc002 !important;}
@@ -59,7 +39,6 @@ if($num_show==1) $title_width = '75%';
 	font-size: 14px !important;
 	font-family: 'Bitter', Verdana, Arial, sans-serif !important;
 	cursor: pointer !important;
-	color: <?php echo get_option('mdocs-download-text-color-normal'); ?> !important;
 	border: none !important;
 	margin-right: 5px !important; 
 	padding: 10px !important;
@@ -67,9 +46,7 @@ if($num_show==1) $title_width = '75%';
 	text-shadow: none !important;
 	height: 38px !important;
 	box-shadow: none !important;
-	background: <?php echo get_option('mdocs-download-color-normal'); ?> !important;
 }
-.mdocs-download-btn:hover { background: <?php echo get_option('mdocs-download-color-hover'); ?> !important; color: <?php echo get_option('mdocs-download-text-color-hover'); ?> !important;}
 .mdocs-download-page, .mdocs-direct-download { font-size: 16px !important; border: dashed 1px #b6bcbc !important; background: #f1f1f1; }
 .mdocs-shortcode-table { border: solid 1px #888; width: 100%; text-align: left; border-collapse: collapse; margin-bottom: 20px;}
 .mdocs-shortcode-table th, .mdocs-shortcode-table td { border: solid 1px #888; padding: 5px;}
@@ -118,7 +95,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdoc-desc img { margin: 5px !important; padding: 0 !important; border: solid 1px #E2E2E2 !important;}
 .mdocs-container { font-family: 'Bitter', "HelveticaNeue-Light",sans-serif !important; width: 100% !important; }
 .mdocs-container h2 { margin: 5px 10px; padding:0; font-weight: normal; }
-.mdocs-nav-wrapper { padding: 0 15px 0px 0 !important; line-height: 29px; display: block; overflow: hidden; margin: 0 !important; width: 100% !important; clear: both !important;}
+.mdocs-nav-wrapper { padding: 0 0 0 0 !important; line-height: 29px; display: block; overflow: hidden; margin: 0 !important; width: 100% !important; clear: both !important;}
 .mdocs-nav-tab { font-family: 'Bitter', "HelveticaNeue-Light",sans-serif !important; font-weight: normal !important; font-size: 20px !important; background: #e7e7e7; font-size: 17px !important; border-top:  solid 1px #DCDCDC !important; border-left:  solid 1px #DCDCDC; border-right:  solid 1px #DCDCDC; line-height: 24px; display: inline-block; padding: 4px 10px 6px; margin: 4px 2px 0px 2px !important; border-radius: 3px 3px 0 0; text-decoration: none; color: #AAA !important; text-shadow: none !important; white-space:nowrap !important; cursor: pointer !important; }
 .mdocs-nav-tab span { display: inline-block; }
 .mdocs-nav-tab:link, .mdocs-nav-tab:visited { color: #CCC; } 
@@ -164,7 +141,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-list-table .sub-cats { background: #eef8ff; }
 .mdocs-list-table .parent-cat { background: #f1fff0; }
 */
-.mdocs-list-table #title { width: <?php echo $title_width; ?> !important; word-break: break-all !important;}
+.mdocs-list-table #title { word-break: break-all !important;}
 .mdocs-list-table #downloads { width: auto !important; text-align: center;}
 .mdocs-list-table #version { width: auto !important; text-align: center;}
 .mdocs-list-table #owner { width: auto !important; text-align: center;}
@@ -244,7 +221,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-rating-container-small span { font-size: 11px; }
 .mdocs-big-star { text-shadow: 1px 2px 1px #474747; padding: 0 1px;}
 /* BUTTON STYLES */
-.mdocs-download-btn-config:hover { background: <?php echo get_option('mdocs-download-color-hover'); ?>; color: <?php echo get_option('mdocs-download-text-color-hover'); ?>}
 .mdocs-close-btn { position: absolute; float: right; right: 20px; top: 30px !important; border: solid 1px #0074a2; box-shadow: inset 0 1px 0 #005c81; background: #2ea2cc; padding: 3px 5px; color: #fff; border-radius: 3px; margin: 15px !important; font-size: 13px !important; font-family: 'Open Sans', sans-serif; padding: 2px 10px 2px 10px; cursor: pointer; }
 .mdocs-close-btn:hover { background: #1E8CBE; }
 .wp-picker-holder { position: absolute !important; z-index: 2000;}
@@ -254,7 +230,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 	font-size: 14px !important;
 	font-family: 'Bitter', Verdana, Arial, sans-serif !important;
 	cursor: pointer !important;
-	color: <?php echo get_option('mdocs-download-text-color-normal'); ?>;
 	border: none !important;
 	margin: 5px 0 !important;
 	padding: 10px !important;
@@ -262,7 +237,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 	text-shadow: none !important;
 	height: 20px !important;
 	box-shadow: none !important;
-	background: <?php echo get_option('mdocs-download-color-normal'); ?> ;
 }
 /* WIDGET STYLE */
 .mdocs-widget-container { padding: 0 !important; margin: 5px 0 !important; }

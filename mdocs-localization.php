@@ -13,6 +13,31 @@ function mdocs_js_handle() {
 		'levels'=> 2,
 	));
 }
+function mdocs_get_inline_css() {
+	$num_show = 0;
+	if(get_option('mdocs-show-downloads')==1) $num_show++;
+	if(get_option('mdocs-show-author')==1) $num_show++;
+	if(get_option('mdocs-show-version')==1) $num_show++;
+	if(get_option('mdocs-show-update')==1) $num_show++;
+	if(get_option('mdocs-show-ratings')==1) $num_show++;
+	if($num_show==5) $title_width = '35%';
+	if($num_show==4) $title_width = '45%';
+	if($num_show==3) $title_width = '55%';
+	if($num_show==2) $title_width = '65%';
+	if($num_show==1) $title_width = '75%';
+	$download_button_color = get_option('mdocs-download-text-color-normal');
+	$download_button_bg = get_option('mdocs-download-color-normal'); 
+	$download_button_hover_color = get_option('mdocs-download-text-color-hover');
+	$download_button_hover_bg = get_option('mdocs-download-color-hover');
+	$set_inline_style = "
+		.mdocs-list-table #title { width: $title_width !important }
+		.mdocs-download-btn-config:hover { background: $download_button_hover_bg; color: $download_button_hover_color; }
+		.mdocs-download-btn-config { color: $download_button_color; background: $download_button_bg ; }
+		.mdocs-download-btn, .mdocs-download-btn:active { color: $download_button_color !important; background: $download_button_bg !important;  }
+		.mdocs-download-btn:hover { background: $download_button_hover_bg !important; color: $download_button_hover_color !important;}
+	";
+	return $set_inline_style;
+}
 function mdocs_localize() {
 	global $upload_dir, $mdocs_zip;
 	$query = new WP_Query('pagename=mdocuments-library');	

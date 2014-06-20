@@ -15,8 +15,10 @@ define('MDOCS_CURRENT_TIME', date('Y-m-d H:i:s', time()+MDOCS_TIME_OFFSET));
 $add_error = false;
 $mdocs_img_types = array('jpeg','jpg','png','gif');
 $mdocs_input_text_bg_colors = array('#f1f1f1','#e5eaff','#efffe7','#ffecdc','#ffe9fe','#ff5000','#00ff20');
+$mdocs_options = array();
 
 function mdocs_register_settings() {
+	global $mdocs_options;
 	//CREATE REPOSITORY DIRECTORY
 	$upload_dir = wp_upload_dir();
 	$is_read_write = mdocs_check_read_write();
@@ -101,6 +103,14 @@ function mdocs_register_settings() {
 			update_option('mdocs-list', $the_list);
 			update_option('mdocs-2-1-patch-1', true);
 		}
+		//REGISTER SAVED VARIABLES ARRAY
+		//register_setting('mdocs-core-settings', 'mdocs-options');
+		//add_option('mdocs-options', array());
+		//$mdocs_options = get_option('mdocs-options');
+		//if(empty($mdocs_options)) {
+			//$mdocs_options['mdocs-cats'] = get_option('mdocs-cats');
+		//}
+		
 		//REGISTER SAVED VARIABLES
 		register_setting('mdocs-settings', 'mdocs-cats');
 		add_option('mdocs-cats',array('slug' => 'mdocuments','name' => 'Documents', 'parent' => '', 'children' => array(), 'depth' => 0));
@@ -220,13 +230,18 @@ function mdocs_script() {
 	//MEMPHIS DOCS 
 	wp_register_script( 'mdocs-script', MDOC_URL.'mdocs-script.js');
 	wp_enqueue_script('mdocs-script');
-	wp_register_style( 'mdocs-style', MDOC_URL.'style.php');
+	wp_register_style( 'mdocs-style', MDOC_URL.'style.css');
 	wp_enqueue_style( 'mdocs-style' );
+	mdocs_inline_css();
 	//FONT-AWESOME STYLE
 	wp_register_style( 'mdocs-font-awesome2-style', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
 	wp_enqueue_style( 'mdocs-font-awesome2-style' );
 }
 
+function mdocs_inline_css() {
+	$set_inline_style = mdocs_get_inline_css();
+	wp_add_inline_style( 'mdocs-style', $set_inline_style );
+}
 function mdocs_document_ready_wp() {
 ?>
 <script type="application/x-javascript">

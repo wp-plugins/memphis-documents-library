@@ -59,6 +59,8 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 				else $status_tag = MDOCS_UPDATE_SMALL;
 			} else $status_tag = '';
 		} else $status_tag = '';
+		if ( current_user_can('read_private_posts') ) $read_private_posts = true;
+		else $read_private_posts = false;
 	?>
 		<tr>
 			<td id="title" class="mdocs-tooltip">
@@ -82,9 +84,8 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 					<a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat.'&action=update-doc&mdocs-index='.$index; ?>" ><?php echo str_replace('\\','',$the_mdoc['name']).$status_tag; ?></a>
 				<?php }
 				else {
-				?>
-					<a href="<?php echo $the_mdoc_permalink; ?>" ><?php echo str_replace('\\','',$the_mdoc['name']).$status_tag; ?></a>
-				<?php } ?>
+					if($the_mdoc['post_status'] == 'private' && $read_private_posts == false) echo str_replace('\\','',$the_mdoc['name']).$status_tag;
+					else { ?><a href="<?php echo $the_mdoc_permalink; ?>" ><?php echo str_replace('\\','',$the_mdoc['name']).$status_tag; ?></a><?php }} ?>
 			</td>
 			<?php if($mdocs_show_downloads) { ?><td id="downloads"><i class="fa fa-cloud-download"></i> <b class="mdocs-orange"><?php echo $the_mdoc['downloads'].' '.__('Downloads'); ?></b></td><?php } ?>
 			<?php if($mdocs_show_version) { ?><td id="version"><i class="fa fa-power-off"></i><b class="mdocs-blue"> <?php echo $the_mdoc['version']; ?></b></td><?php } ?>

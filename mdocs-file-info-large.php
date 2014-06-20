@@ -44,7 +44,12 @@ function mdocs_file_info_large($the_mdoc, $page_type='site', $index=0, $current_
 		}
 	?>
 	<div class="mdocs-post-button-box">
-		<h2><a href="<?php echo htmlspecialchars($the_mdoc_permalink); ?>" title="<?php echo $the_mdoc['name']; ?> "><?php echo $the_mdoc['name']; ?></a>
+		<?php
+		if ( current_user_can('read_private_posts') ) $read_private_posts = true;
+		else $read_private_posts = false;
+		if($the_mdoc['post_status'] == 'private' && $read_private_posts == false) echo '<h2>'.str_replace('\\','',$the_mdoc['name']).'</h2>';
+		else { ?><h2><a href="<?php echo $the_mdoc_permalink; ?>" ><?php echo str_replace('\\','',$the_mdoc['name']); ?></a></h2><?php }
+		?>
 		<?php
 		if($mdocs_show_non_members  == 'off' && $user_logged_in == false ) { ?>
 			<div class="mdocs-login-msg"><?php _e('Please login<br>to download this file'); ?></div>

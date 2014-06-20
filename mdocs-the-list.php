@@ -47,6 +47,7 @@ function mdocs_the_list($att=null) {
 		// SUB CATEGORIES
 		if(isset($current_cat_array['children'])) $num_cols = mdocs_get_subcats($current_cat_array, $parent_cat_array);
 		else $num_cols = mdocs_get_subcats($current_cat_array, $parent_cat_array, false);
+		
 		foreach($mdocs as $index => $the_mdoc) {			
 			if($the_mdoc['cat'] == $current_cat || $current_cat == 'all') {
 				if($the_mdoc['file_status'] == 'public' ) {

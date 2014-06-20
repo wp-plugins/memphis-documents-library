@@ -232,13 +232,13 @@ function mdocs_uploader($edit_type='Add Document') {
 						elseif($edit_type=='Add Document') echo 'checked';
 						?> />
 				</label>
-				<label>File Status:
+				<label><?php _e('File Status'); ?>:
 					<select name="mdocs-file-status" id="mdocs-file-status" >
 						<option value="public" <?php if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['file_status'] == 'public') echo 'selected'; }?> ><?php _e('Public'); ?></option>
 						<option value="hidden" <?php if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['file_status'] == 'hidden') echo 'selected'; }?>><?php _e('Hidden'); ?></option>
 					</select>
 				</label>
-				<label>Post Status:
+				<label><?php _e('Post Status'); ?>:
 					<select name="mdocs-post-status" id="mdocs-post-status" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['file_status'] == 'hidden' || get_option( 'mdocs-hide-all-files' ) || get_option( 'mdocs-hide-all-posts' )) echo 'disabled'; }?> >
 						<option value="publish" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['post_status'] == 'publish') echo 'selected'; ?> ><?php _e('Published'); } ?></option>
 						<option value="private" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['post_status'] == 'private') echo 'selected'; ?> ><?php _e('Private'); } ?></option>
