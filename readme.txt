@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 2.5.1
+Stable tag: 2.5.1.1
 
 A documents library for WordPress.
 
@@ -109,6 +109,8 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 7. screenshot-7.png
 
 == Changelog ==
+= 2.5.1.1 =
+* *Hot-Fix* - Added the style.css file to the admin page. Now the page will display the correct style.
 = 2.5.1 =
 * *Fix* - Removed style.php and replaced it with style.css and used the WordPress function `wp_add_inline_style` to handle custom stylesheet changes.
 * *Fix* - Disabled the ability to view a private post if the user does not have the capabilities to.

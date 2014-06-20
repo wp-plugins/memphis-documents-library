@@ -208,10 +208,11 @@ function mdocs_admin_script() {
 	wp_enqueue_style( 'mdocs-jquery-ui-style' );
 	wp_enqueue_script( 'mdocs-jquery-ui-script', '//code.jquery.com/ui/1.10.3/jquery-ui.js' );
 	//MEMPHIS DOCS
-	wp_register_style( 'mdocs-admin-style', MDOC_URL.'/style.php');
+	wp_register_style( 'mdocs-admin-style', MDOC_URL.'/style.css');
 	wp_enqueue_style( 'mdocs-admin-style' );
 	wp_register_script( 'mdocs-admin-script', MDOC_URL.'/mdocs-script.js');
 	wp_enqueue_script('mdocs-admin-script');
+	mdocs_inline_css('mdocs-admin-style');
 	//FONT-AWESOME STYLE
 	wp_register_style( 'mdocs-font-awesome2-style', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
 	wp_enqueue_style( 'mdocs-font-awesome2-style' );
@@ -232,15 +233,15 @@ function mdocs_script() {
 	wp_enqueue_script('mdocs-script');
 	wp_register_style( 'mdocs-style', MDOC_URL.'style.css');
 	wp_enqueue_style( 'mdocs-style' );
-	mdocs_inline_css();
+	mdocs_inline_css('mdocs-style');
 	//FONT-AWESOME STYLE
 	wp_register_style( 'mdocs-font-awesome2-style', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
 	wp_enqueue_style( 'mdocs-font-awesome2-style' );
 }
 
-function mdocs_inline_css() {
+function mdocs_inline_css($style_name) {
 	$set_inline_style = mdocs_get_inline_css();
-	wp_add_inline_style( 'mdocs-style', $set_inline_style );
+	wp_add_inline_style( $style_name, $set_inline_style );
 }
 function mdocs_document_ready_wp() {
 ?>
