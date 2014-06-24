@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 2.5.1.1
+Stable tag: 2.5.1.2
 
 A documents library for WordPress.
 
@@ -109,6 +109,10 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 7. screenshot-7.png
 
 == Changelog ==
+= 2.5.1.2 =
+* *Bug* - Fixed loop bug, when a Memphis Documents post does not have the category mdocs-media.  Now the result will be an output of the shortcode only.
+* *Bug* - Permalink setting fixed. Sub categories where not working when set to default WordPress permalink setting.
+* *Bug* - Javascript error with FireFox and IE.  A undefined `event.preventDefault();` was causing Add Main Category to no function.  Removing this line fixed the issue.
 = 2.5.1.1 =
 * *Hot-Fix* - Added the style.css file to the admin page. Now the page will display the correct style.
 = 2.5.1 =

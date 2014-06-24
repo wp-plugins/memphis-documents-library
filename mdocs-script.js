@@ -189,7 +189,6 @@ var subcat_index = 0;
 var add_button_clicks = 1;
 function mdocs_add_sub_cat(total_cats, parent, parent_depth, object, is_parent) {
     //mdocs_set_onleave();
-    event.preventDefault();
     var child_depth = parseInt(parent_depth)+1;
     if (child_depth <= mdocs_js.levels) {
 	jQuery('input[name="mdocs-update-cat-index"]').val(add_button_clicks++);

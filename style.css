@@ -142,11 +142,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-list-table .parent-cat { background: #f1fff0; }
 */
 .mdocs-list-table #title { word-break: break-all !important;}
-.mdocs-list-table #downloads { width: auto !important; text-align: center;}
-.mdocs-list-table #version { width: auto !important; text-align: center;}
-.mdocs-list-table #owner { width: auto !important; text-align: center;}
-.mdocs-list-table #update { width: auto !important; text-align: center;}
-.mdocs-list-table #rating { width: auto !important; text-align: center;}
+.mdocs-list-table #downloads { word-break: break-all !important; width: auto !important; text-align: center;}
+.mdocs-list-table #version { word-break: break-all !important; width: auto !important; text-align: center;}
+.mdocs-list-table #owner { word-break: break-all !important; width: auto !important; text-align: center;}
+.mdocs-list-table #update { word-break: break-all !important; width: auto !important; text-align: center;}
+.mdocs-list-table #rating { width: 11% !important; text-align: center;}
 .mdocs-list-table #download { width: auto !important;  text-align: right; padding: 0 5px 0 0 !important; }
 .mdocs-list-table p { padding: 0 !important; margin: 0 !important; }
 .mdocs-list-table .float-right { float: right; }
