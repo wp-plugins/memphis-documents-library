@@ -16,12 +16,17 @@ Memphis Documents Library is a  documents library for WordPress with a robust fe
 
 = Whats New in Version 2.5.1 =
 
+* *Fix* - Added the style.css file to the admin page. Now the page will display the correct style.
 * *Fix* - Removed style.php and replaced it with style.css and used the WordPress function `wp_add_inline_style` to handle custom stylesheet changes.
 * *Fix* - Disabled the ability to view a private post if the user does not have the capabilities to.
 * *Fix* - Updated large list to reflect the addition of sub categories.
 * *Fix* - Removed unnecessary padding from the category tabs.
 * *Update* - Updated localization.
 * *Update* - Removed the sub folder on the right side of the documents list, seems unneeded.
+* *Bug* - Fixed loop bug, when a Memphis Documents post does not have the category mdocs-media.  Now the result will be an output of the shortcode only.
+* *Bug* - Permalink setting fixed. Sub categories where not working when set to default WordPress permalink setting.
+* *Bug* - Javascript error with FireFox and IE.  A undefined `event.preventDefault();` was causing Add Main Category to no function.  Removing this line fixed the issue.
+
 
 = Memphis Documents Library Features =
 
@@ -109,6 +114,8 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 7. screenshot-7.png
 
 == Changelog ==
+= 2.5.2 =
+* *Bug* - Error with javascript loading, if using WordPress multisite network admin. 
 = 2.5.1.2 =
 * *Bug* - Fixed loop bug, when a Memphis Documents post does not have the category mdocs-media.  Now the result will be an output of the shortcode only.
 * *Bug* - Permalink setting fixed. Sub categories where not working when set to default WordPress permalink setting.

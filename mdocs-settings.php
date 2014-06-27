@@ -253,6 +253,7 @@ function mdocs_document_ready_wp() {
 <?php
 }
 function mdocs_document_ready_admin() {
+	if(!is_network_admin()) {
 ?>
 <script type="application/x-javascript">
 		jQuery( document ).ready(function() {
@@ -260,6 +261,7 @@ function mdocs_document_ready_admin() {
 		});	
 	</script>
 <?php
+	}
 }
 function mdocs_ie_compat() { ?><meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" /><?php }
 function mdocs_send_headers() {
