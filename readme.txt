@@ -115,7 +115,14 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 
 == Changelog ==
 = 2.5.2 =
-* *Bug* - Error with javascript loading, if using WordPress multisite network admin. 
+* *New* - The ability to allow/deny user types access to Private Posts. 
+* *New* - In the setting menu you can now choose the allowed filetypes. 
+* *New* - Shortcode to add a download link to a post or page. [not done]
+* *Bug* - Error with javascript loading, if using WordPress multisite network admin.
+* *Bug* - Fixed issue where Post Status was not displaying any statuses.
+* *Bug* - Batch upload was cutting of filenames with dots in them.
+* *Bug* - Fixed bug causing new installs to produce errors, these errors would correct themselves but very annoying for users to see.
+* *Bug* - Removed extra label tag in sort box which was cause issues in Firefox.
 = 2.5.1.2 =
 * *Bug* - Fixed loop bug, when a Memphis Documents post does not have the category mdocs-media.  Now the result will be an output of the shortcode only.
 * *Bug* - Permalink setting fixed. Sub categories where not working when set to default WordPress permalink setting.

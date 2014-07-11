@@ -183,6 +183,42 @@ function mdocs_admin(plugin_url, wp_root) {
 		if (jQuery(this).val() == 'hidden') jQuery('#mdocs-post-status').prop('disabled','true');
 		else if (jQuery(this).val() == 'public') jQuery('#mdocs-post-status').removeAttr('disabled');
 	});
+	// ADD MIME TYPE
+	mdocs_add_mime_type(plugin_url, wp_root)
+	// REMOVE MIME TYPE
+	mdocs_remove_mime_type(plugin_url, wp_root);
+	// RESTORE DEFAULT FILE TYPES
+	jQuery('#mdocs-restore-default-file-types').click(function(event) {
+	    event.preventDefault();
+	    jQuery.post(plugin_url+'mdocs-update-mime.php',{type: 'restore-mime', wp_root: wp_root, is_admin: true},function(data) {
+		jQuery('.mdocs-mime-table').html(data);
+		mdocs_remove_mime_type(plugin_url, wp_root);
+		mdocs_add_mime_type(plugin_url, wp_root);
+	    });
+	});
+}
+// ADD MIME TYPE
+function mdocs_add_mime_type(plugin_url, wp_root) {
+    jQuery('#mdocs-add-mime').click(function(event) {
+	event.preventDefault();
+	var file_extension = jQuery('input[name="mdocs-file-extension"]').val();
+	var mime_type = jQuery('input[name="mdocs-mime-type"]').val();
+	jQuery.post(plugin_url+'mdocs-update-mime.php',{type: 'add-mime', file_extension: file_extension, mime_type: mime_type, wp_root: wp_root, is_admin: true},function(data) {
+	    jQuery(data).insertBefore('.mdocs-mime-submit');
+	    mdocs_remove_mime_type(plugin_url, wp_root);
+	    jQuery('input[name="mdocs-file-extension"]').val('');
+	    jQuery('input[name="mdocs-mime-type"]').val('');
+	});
+    });
+}
+// REMOVE MIME TYPE
+function mdocs_remove_mime_type(plugin_url, wp_root) {
+    jQuery('.mdocs-remove-mime').click(function(event) {
+	event.preventDefault();
+	var file_extension = jQuery(this).parent().parent().data('file-type');
+	jQuery(this).parent().parent().remove();
+	jQuery.post(plugin_url+'mdocs-update-mime.php',{type: 'remove-mime', file_extension: file_extension, wp_root: wp_root, is_admin: true},function(data) { });
+    });
 }
 // ADD SUB CATEGORY
 var subcat_index = 0;

@@ -45,10 +45,10 @@ function mdocs_batch_upload($current_cat) {
 			if(count($file) == 1) $file = explode('\\',$zip_file);
 			$file = $file[count($file)-1];
 			$file = preg_replace('/[^A-Za-z0-9\-._]/', '', $file);
-			$file = str_replace(' ','', $file);
+			$file = str_replace(' ','-', $file);
 			$filename = $file;
-			$file = explode('.',$file);
-			$file = $file[0];
+			$ext = strrchr($file,'.');
+			$file = str_replace($ext, '', $file);
 			?>
 			<div class="mdocs-batch-container">
 				<input type="hidden" name="mdocs[filename][<?php echo $index; ?>]" value="<?php echo $filename; ?>" />
@@ -134,6 +134,8 @@ function mdocs_batch_upload($current_cat) {
 	}
 	$batch_log .= _("Cleaning up tmp folder and files")."<br><br>";
 	$files = glob('/tmp/mdocs/*'); 
+	foreach($files as $file) if(is_file($file)) unlink($file);
+	$files = glob('/tmp/mdocs/.*'); 
 	foreach($files as $file) if(is_file($file)) unlink($file);
 	if(file_exists('/tmp/mdocs')) @rmdir('/tmp/mdocs');
 	$batch_log .= _("Batch Process Complete.");

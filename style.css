@@ -213,6 +213,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-filesystem-cleanup .cleanup-files { float: left; padding-right: 20px; }
 .mdocs-filesystem-cleanup .cleanup-data { float: left; }
 #the-list { text-shadow: none !important; }
+.mdocs-mime-table { max-width: 10px; }
+.mdocs-mime-table, .mdocs-mime-table th, .mdocs-mime-table td { background: #fff; border: solid 1px; padding: 3px; margin: 0; border-collapse: collapse; text-align: center; max-width: }
 /* RATING STYLE */
 .mdocs-rating-container { float: right; height: 10px;}
 .mdocs-rating-container-small { cursor: pointer; clear: both; float: right; padding: 0 10px 10px 10px; }

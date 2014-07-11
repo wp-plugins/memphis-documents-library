@@ -41,7 +41,8 @@ function mdocs_settings($cat) {
 <h2><?php _e('Global Documents Library Settings'); ?></h2>
 <form enctype="multipart/form-data" method="post" action="options.php" class="mdocs-setting-form">
 <table class="form-table mdocs-settings-table">
-	<?php settings_fields( 'mdocs-global-settings' ); ?>
+	<?php settings_fields( 'mdocs-global-settings' );
+	?>
 	<input type="hidden" name="mdocs-download-color-normal" value="<?php echo get_option( 'mdocs-download-color-normal' ); ?>" />
 	<input type="hidden" name="mdocs-download-color-hover" value="<?php echo get_option( 'mdocs-download-color-hover' ); ?>" />
 	<input type="hidden" name="mdocs-hide-all-posts-default" value="<?php echo get_option( 'mdocs-hide-all-posts-default' ); ?>" />
@@ -56,6 +57,35 @@ function mdocs_settings($cat) {
 		<td>
 			<input type="radio" name="mdocs-list-type-dashboard" value="small"  <?php checked( $mdocs_list_type_dashboard, 'small') ?>/> <?php _e('small'); ?><br>
 			<input type="radio" name="mdocs-list-type-dashboard" value="large" <?php checked( $mdocs_list_type_dashboard, 'large') ?>/> <?php _e('large'); ?>
+		</td>
+	</tr>
+	<tr>
+		<th><?php _e('Private File Viewing'); ?></th>
+		<td>
+			<?php
+			$wp_roles = get_editable_roles(); 
+			$mdocs_roles = get_option('mdocs-view-private');
+			foreach($wp_roles as $index => $role) {
+			?>
+			<input type="checkbox" name="mdocs-view-private[<?php echo $index; ?>]" value="1"  <?php checked($mdocs_roles[$index] , 1) ?> /> <span><?php echo $role['name']; ?></span><br>
+			<?php
+			}
+			?>
+		</td>
+		<th><?php _e('Style Settings'); ?></th>
+		<td>
+			<h2><?php _e('Download Button Options'); ?></h2>
+			<h4><?php _e('Background Options'); ?></h4>
+			<label><?php _e('Background Color'); ?></label>
+			<input type="text" value="<?php echo get_option('mdocs-download-color-normal'); ?>" name="mdocs-download-color-normal" id="bg-color-mdocs-picker" data-default-color="#d14836" /><br>
+			<label><?php _e('Background Hover Color'); ?></label>
+			<input type="text" value="<?php echo get_option('mdocs-download-color-hover'); ?>" name="mdocs-download-color-hover" id="bg-hover-color-mdocs-picker" data-default-color="#c34131" /><br>
+			<label><?php _e('Text Color'); ?></label>
+			<input type="text" value="<?php echo get_option('mdocs-download-text-color-normal'); ?>" name="mdocs-download-text-color-normal" id="bg-text-color-mdocs-picker" data-default-color="#ffffff" /><br>
+			<label><?php _e('Text Hover Color'); ?></label>
+			<input type="text" value="<?php echo get_option('mdocs-download-text-color-hover'); ?>" name="mdocs-download-text-color-hover" id="bg-text-hover-color-mdocs-picker" data-default-color="#ffffff" /><br>
+			<h4><?php _e('Download Button Preview'); ?></h4>
+			<div class="mdocs-download-btn-config"><?php echo __('Download');?></div>
 		</td>
 	</tr>
 	<tr>
@@ -156,25 +186,32 @@ function mdocs_settings($cat) {
 	</tr>
 	-->
 	<tr>
-		<th><?php _e('Style Settings'); ?></th>
+		<th><?php _e('Allowed File Types'); ?></th>
+		<?php
+		$mimes = get_allowed_mime_types();
+		?>
 		<td>
-			<h2><?php _e('Down Button Options'); ?></h2>
-			<h4><?php _e('Background Options'); ?></h4>
-			<label><?php _e('Background Color'); ?></label>
-			<input type="text" value="<?php echo get_option('mdocs-download-color-normal'); ?>" name="mdocs-download-color-normal" id="bg-color-mdocs-picker" data-default-color="#d14836" /><br>
-			<label><?php _e('Background Hover Color'); ?></label>
-			<input type="text" value="<?php echo get_option('mdocs-download-color-hover'); ?>" name="mdocs-download-color-hover" id="bg-hover-color-mdocs-picker" data-default-color="#c34131" /><br>
-			<label><?php _e('Text Color'); ?></label>
-			<input type="text" value="<?php echo get_option('mdocs-download-text-color-normal'); ?>" name="mdocs-download-text-color-normal" id="bg-text-color-mdocs-picker" data-default-color="#ffffff" /><br>
-			<label><?php _e('Text Hover Color'); ?></label>
-			<input type="text" value="<?php echo get_option('mdocs-download-text-color-hover'); ?>" name="mdocs-download-text-color-hover" id="bg-text-hover-color-mdocs-picker" data-default-color="#ffffff" /><br>
-			<h4><?php _e('Download Button Preview'); ?></h4>
-			<div class="mdocs-download-btn-config"><?php echo __('Download');?></div>
+			<table class="mdocs-mime-table">
+				<tr>
+					<th><?php _e('Extension'); ?></th>
+					<th><?php _e('Mime Type'); ?></th>
+				</tr>
+					<?php
+					foreach($mimes as $index => $mime) {
+						echo '<tr data-file-type="'.$index.'" ><td>'.$index.'</td><td>'.$mime.'</td>';
+						echo '<td><a href="#" class="mdocs-remove-mime">'.__('remove').'</a></td>';
+						echo '</tr>';
+					}
+					?>
+				<tr class="mdocs-mime-submit">
+					<td><input type="text" placeholder="Enter File Type..." name="mdocs-file-extension" value=""/></td>
+					<td><input type="text" placeholder="Enter Mime Type..." name="mdocs-mime-type" value=""/></td>
+					<td><a href="#" id="mdocs-add-mime"><?php _e('add'); ?></a></td>
+				</tr>
+			</table>
+			<a href="http://www.freeformatter.com/mime-types-list.html#mime-types-list" alt="<?php _e('List of Files and Their Mime Types'); ?>" target="_blank"><?php _e('List of Files and Their Mime Types'); ?></a><br>
+			<a href="#" id="mdocs-restore-default-file-types" alt="<?php _e('Restore Default File Types'); ?>"><?php _e('Restore Default File Types'); ?></a>
 		</td>
-		<td colspan="2">
-			
-		</td>
-		
 	</tr>
 </table>
 <input style="margin:15px;" type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />

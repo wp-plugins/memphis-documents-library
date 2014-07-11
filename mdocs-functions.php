@@ -239,7 +239,7 @@ function mdocs_sort_by($mdocs, $ypos=0, $page_type='site', $echo=true) {
 		<input type="radio" name="mdocs-list-type" value="small" <?php if($list_type == 'small') echo 'checked'; ?>/> <label><?php _e('Small'); ?></label>
 		<?php } ?>
 		
-		<i class="fa fa-cogs mdocs-green"></i><label>
+		<i class="fa fa-cogs mdocs-green"></i>
 		<input type="radio" name="mdocs-sort-range" value="desc" <?php if($sort_range == 'desc') echo 'checked'; ?>/> <label><?php _e('Descending'); ?></label>
 		<input type="radio" name="mdocs-sort-range" value="asc" <?php if($sort_range == 'asc') echo 'checked'; ?> /> <label><?php _e('Ascending'); ?></label>
 		
@@ -496,7 +496,9 @@ function mdocs_get_cats($cats, $current_cat, $depth=0, $echo=true) {
 	$nbsp = '';
 	for($i=0;$i < $depth;$i++) $nbsp .= '&nbsp;&nbsp;';
 	foreach( $cats as $index => $cat ){
-		$is_selected = ( $cat['slug'] == $current_cat ) ? 'selected="selected"' : '';
+		if($current_cat === $cat['slug']) $is_selected = 'selected="selected"';
+		else $is_selected = '';
+		//$is_selected = ( $cat['slug'] == $current_cat ) ? 'selected="selected"' : '';
 		if($echo) echo '<option  value="'.$cat['slug'].'" '.$is_selected.'>'.$nbsp.$cat['name'].'</option>';
 		if(count($cat['children']) > 0) { 
 			mdocs_get_cats($cat['children'], $current_cat ,$cat['depth']+1);
@@ -573,4 +575,17 @@ function mdocs_get_subcats($current, $parent, $has_children=true) {
 	<?php
 	if(get_option('mdocs-list-type') == 'large') echo '</table>';
 	return $num_cols;
+}
+
+function mdocs_custom_mime_types($existing_mimes=array()) {
+	// Add file extension 'extension' with mime type 'mime/type'
+	$mdocs_allowed_mime_types = get_option('mdocs-allowed-mime-types');
+	foreach($mdocs_allowed_mime_types as $index => $mime) {
+		$existing_mimes[$index] = $mime;
+	}
+	$mdocs_removed_mime_types = get_option('mdocs-removed-mime-types');
+	foreach($mdocs_removed_mime_types as $index => $mime) {
+		unset($existing_mimes[$mime]);
+	}
+	return $existing_mimes;
 }

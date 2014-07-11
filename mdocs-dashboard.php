@@ -240,10 +240,10 @@ function mdocs_uploader($edit_type='Add Document') {
 				</label>
 				<label><?php _e('Post Status'); ?>:
 					<select name="mdocs-post-status" id="mdocs-post-status" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['file_status'] == 'hidden' || get_option( 'mdocs-hide-all-files' ) || get_option( 'mdocs-hide-all-posts' )) echo 'disabled'; }?> >
-						<option value="publish" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['post_status'] == 'publish') echo 'selected'; ?> ><?php _e('Published'); } ?></option>
-						<option value="private" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['post_status'] == 'private') echo 'selected'; ?> ><?php _e('Private'); } ?></option>
-						<option value="pending" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['post_status'] == 'pending') echo 'selected'; ?> ><?php _e('Pending Review'); } ?></option>
-						<option value="draft" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['post_status'] == 'draft') echo 'selected'; ?> ><?php _e('Draft'); } ?></option>
+						<option value="publish" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['post_status'] == 'publish') echo 'selected';  } ?> ><?php _e('Published'); ?></option>
+						<option value="private" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['post_status'] == 'private') echo 'selected'; } ?> ><?php _e('Private');  ?></option>
+						<option value="pending" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['post_status'] == 'pending') echo 'selected'; } ?>  ><?php _e('Pending Review');  ?></option>
+						<option value="draft" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['post_status'] == 'draft') echo 'selected'; } ?> ><?php _e('Draft');  ?></option>
 					</select>
 				</label>
 			</div>
