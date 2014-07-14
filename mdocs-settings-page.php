@@ -60,7 +60,7 @@ function mdocs_settings($cat) {
 		</td>
 	</tr>
 	<tr>
-		<th><?php _e('Private File Viewing'); ?></th>
+		<th><?php _e('Private File Post Viewing'); ?></th>
 		<td>
 			<?php
 			$wp_roles = get_editable_roles(); 
@@ -233,6 +233,21 @@ function mdocs_settings($cat) {
 	} elseif(isset($_POST['mdocs-filesystem-cleanup']) && $_POST['mdocs-filesystem-cleanup'] == 'submit-cleanup') {
 		mdocs_cleanup_submit_html();
 	}
+	mdocs_restore_defaults();
+}
+
+function mdocs_restore_defaults() {
+	?>
+	<div class="updated">
+		<h3><?php _e('Restore Memphis Document Library\'s to Defaults'); ?></h3>
+		<p><?php _e('This will return Memphis Documents Library to its post install state.  This means that all you files, post, and categories will be remove and all setting will return to their default state. <b>Please backup your files before continuing.</b>'); ?></p>
+		<div class="mdocs-clear-both"></div>
+		<form enctype="multipart/form-data" method="post" action="" class="mdocs-setting-form">
+			<input type="hidden" name="mdocs-restore-default" value="clean-up" />
+			<input style="margin:15px;" type="button" class="button-primary" onclick="mdocs_restore_default()" value="<?php _e('Restore To Default') ?>" />
+		</form>
+	</div>
+	<?php
 }
 
 function mdocs_cleanup_submit_html() {

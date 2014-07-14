@@ -10,7 +10,11 @@ function mdocs_js_handle() {
 		'new_category' => __('New Category'),
 		'leave_page' => __('Are you sure you want to navigate away from this page?'),
 		'category_support' => __('Currently Memphis Documents Library only supports two sub categories.'),
+		'restore_warning' => __('Are you sure you want continue.  All you files, posts and directories will be delete.'),
 		'levels'=> 2,
+		'blog_id' => get_current_blog_id(),
+		'plugin_url' => plugins_url().'/memphis-documents-library/',
+		'wp_root' => get_home_path(),
 	));
 }
 function mdocs_get_inline_css() {

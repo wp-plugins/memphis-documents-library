@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 2.5.1.2
+Stable tag: 2.6
 
 A documents library for WordPress.
 
@@ -14,18 +14,18 @@ A documents library for WordPress.
 
 Memphis Documents Library is a  documents library for WordPress with a robust feature set.  It is a great tool for the organization and distribution of files.
 
-= Whats New in Version 2.5.1 =
+= What's New With Version 2.6 =
 
-* *Fix* - Added the style.css file to the admin page. Now the page will display the correct style.
-* *Fix* - Removed style.php and replaced it with style.css and used the WordPress function `wp_add_inline_style` to handle custom stylesheet changes.
-* *Fix* - Disabled the ability to view a private post if the user does not have the capabilities to.
-* *Fix* - Updated large list to reflect the addition of sub categories.
-* *Fix* - Removed unnecessary padding from the category tabs.
-* *Update* - Updated localization.
-* *Update* - Removed the sub folder on the right side of the documents list, seems unneeded.
-* *Bug* - Fixed loop bug, when a Memphis Documents post does not have the category mdocs-media.  Now the result will be an output of the shortcode only.
-* *Bug* - Permalink setting fixed. Sub categories where not working when set to default WordPress permalink setting.
-* *Bug* - Javascript error with FireFox and IE.  A undefined `event.preventDefault();` was causing Add Main Category to no function.  Removing this line fixed the issue.
+* *New* - The ability to allow/deny user types access to Private Posts. 
+* *New* - In the setting menu you can now choose the allowed file types.
+* *New* - A restore defaults option has been added this will restore Memphis Documents Library to its factory state, *WARNING all files and post will be deleted*.
+* *Update* - Updated localization files.
+* *Update* - Uninstall will not remove all saved variables , posts, files, categories, and directories for a single WordPress Site and also WordPress Multisite.
+* *Bug* - Error with javascript loading, if using WordPress Multisite network admin.
+* *Bug* - Fixed issue where Post Status was not displaying any statuses.
+* *Bug* - Batch upload was cutting of filenames with dots in them.
+* *Bug* - Fixed bug causing new installs to produce errors, these errors would correct themselves but very annoying for users to see.
+* *Bug* - Removed extra label tag in sort box which was cause issues in Firefox.
 
 
 = Memphis Documents Library Features =
@@ -114,11 +114,13 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 7. screenshot-7.png
 
 == Changelog ==
-= 2.5.2 =
+= 2.6 =
 * *New* - The ability to allow/deny user types access to Private Posts. 
-* *New* - In the setting menu you can now choose the allowed filetypes. 
-* *New* - Shortcode to add a download link to a post or page. [not done]
-* *Bug* - Error with javascript loading, if using WordPress multisite network admin.
+* *New* - In the setting menu you can now choose the allowed file types.
+* *New* - A restore defaults option has been added this will restore Memphis Documents Library to its factory state, *WARNING all files and post will be deleted*.
+* *Update* - Updated localization files.
+* *Update* - Uninstall will not remove all saved variables , posts, files, categories, and directories for a single WordPress Site and also WordPress Multisite.
+* *Bug* - Error with javascript loading, if using WordPress Multisite network admin.
 * *Bug* - Fixed issue where Post Status was not displaying any statuses.
 * *Bug* - Batch upload was cutting of filenames with dots in them.
 * *Bug* - Fixed bug causing new installs to produce errors, these errors would correct themselves but very annoying for users to see.
@@ -252,4 +254,5 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 == Upgrade Notice ==
 = 1.0 =
 * Initial Release of Memphis Documents Library
-
+== Feature Request ==
+* *New* - Shortcode to add a download link to a post or page.

@@ -349,3 +349,12 @@ function mdocs_ratings() {
 		}
 	});
 }
+// RESTORE DEFAULT
+function mdocs_restore_default() {
+   if (confirm(mdocs_js.restore_warning)) {
+	jQuery.post(mdocs_js.plugin_url+'uninstall.php',{type:'restore', blog_id: mdocs_js.blog_id, wp_root: mdocs_js.wp_root, is_admin: true},function(data) {
+	    window.location.href = "admin.php?page=memphis-documents.php&cat=settings"; 
+	});
+    } 
+   
+}
