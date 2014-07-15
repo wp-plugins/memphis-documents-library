@@ -1,10 +1,12 @@
 <?php
 function mdocs_export() {
 	$upload_dir = wp_upload_dir();
-	$zip_url = $upload_dir['baseurl'].'/'.DOCS_ZIP;
+	//$zip_url = $upload_dir['baseurl'].'/'.DOCS_ZIP;
 	$path = $upload_dir['basedir'];
-	$vars_url = $upload_dir['baseurl'].'/'.VARS_FILE;
-	$mdocs = htmlspecialchars(serialize(get_option('mdocs-list')));
+	//$vars_url = $upload_dir['baseurl'].'/'.VARS_FILE;
+	$mdocs = get_option('mdocs-list');
+	//$mdocs = mdocs_sort_by($mdocs, 0, 'dashboard', false);
+	$mdocs = htmlspecialchars(serialize($mdocs));
 	$cats = htmlspecialchars(serialize(get_option('mdocs-cats')));
 ?>
 <p>When you click the buttons below the document repository will create a ZIP files for you to save to your computer.</p>
@@ -12,7 +14,7 @@ function mdocs_export() {
 <p>Once you've saved the download file, you can use the Import function in another WordPress installation to import the content from this site.</p>
 <h3>Click the Button to Export Memphis Documents</h3>
 <form action method="post" id="mdocs-export">
-	<input type="button" onclick="mdocs_download_zip('<?php echo get_option('mdocs-zip'); ?>');" id="mdocs-export-submit" class="button button-primary" value="Export Memphis Documents Library">
+	<input type="button" onclick="mdocs_download_zip('<?php echo get_option('mdocs-zip'); ?>');" id="mdocs-export-submit" class="button button-primary" value="<?php _e('Export Memphis Documents Library'); ?>">
 </form><br>
 <?php
 	if($_GET['cat'] == 'export' || $_GET['cat'] == 'import') mdocs_export_file_status();
@@ -21,6 +23,7 @@ function mdocs_export() {
 function mdocs_export_zip() {
 	$mdocs_zip = get_option('mdocs-zip');
 	$mdocs_list = get_option('mdocs-list');
+	//$mdocs_list = mdocs_sort_by($mdocs_list, 0, 'dashboard', false);
 	if(empty($mdocs_list)) $mdocs_list = array();
 	$mdocs_cats = get_option('mdocs-cats');
 	if(is_string($mdocs_cats)) $mdocs_cats = array();
@@ -33,7 +36,6 @@ function mdocs_export_zip() {
 	mdocs_zip_dir($upload_dir['basedir'].'/mdocs',$mdocs_zip_file,true);
 	unlink($mdocs_cats_file);
 	unlink($mdocs_list_file);
-	//mdocs_download_file($mdocs_zip);
 }
 
 function mdocs_zip_dir($sourcePath, $outZipPath)  { 
