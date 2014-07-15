@@ -31,10 +31,12 @@ function mdocs_file_upload() {
 	$mimes = get_allowed_mime_types();
 	$valid_mime_type = false;
 	foreach ($mimes as $type => $mime) {
-	  if ($mime === $_FILES['mdocs']['type']) {
-		$valid_mime_type = true;
-		break;
-	  }
+		$file_type = wp_check_filetype($_FILES['mdocs']['name']);
+		$found_ext = strpos($type,$file_type['ext']);
+		if($found_ext !== false) {
+			$valid_mime_type = true;
+			break;
+		}
 	}
 	//MDOCS NONCE VERIFICATION
 	if ($_REQUEST['mdocs-nonce'] == MDOCS_NONCE ) {

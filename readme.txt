@@ -114,6 +114,10 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 7. screenshot-7.png
 
 == Changelog ==
+= 2.6.1 =
+* *Update* - Change the way date modified is handle, was using an array value now using file date modifed attribute.
+* *Update* - Updated localization files.
+* *Bug* - Fixed Chrome bug, where file types that are allowed in WordPress are being blocked by Memphis Documents Library.
 = 2.6 =
 * *New* - The ability to allow/deny user types access to Private Posts. 
 * *New* - In the setting menu you can now choose the allowed file types.
@@ -256,3 +260,4 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 * Initial Release of Memphis Documents Library
 == Feature Request ==
 * *New* - Shortcode to add a download link to a post or page.
+* *New* - Search shows only files that the specific user role has access too.
