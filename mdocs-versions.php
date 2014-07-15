@@ -2,11 +2,13 @@
 function mdocs_versions() {
 	$cats = get_option('mdocs-cats');
 	$mdocs = get_option('mdocs-list');
+	$mdocs = mdocs_sort_by($mdocs, 0 , 'dashboard', false);
 	$mdoc_index = $_GET['mdocs-index'];
 	$upload_dir = wp_upload_dir();
 	if(isset($_GET['cat'])) $current_cat = $_GET['cat'];
 	else $current_cat = $current_cat = key($cats);
-	$the_mdoc = $mdocs[$mdoc_index];	
+	$the_mdoc = $mdocs[$mdoc_index];
+	$the_mdoc_date_modified = gmdate('F jS Y \a\t g:i A', filemtime($upload_dir['basedir'].'/mdocs/'.$the_mdoc['fliename'])+MDOCS_TIME_OFFSET);
 ?>
 <div class="mdocs-uploader-bg"></div>
 <div class="mdocs-uploader">
@@ -16,7 +18,7 @@ function mdocs_versions() {
 	</h2>
 	<div class="mdocs-ds-container">
 		<div class="mdocs-uploader-content">
-			<form class="mdocs-uploader-form" enctype="multipart/form-data" action="<?php echo $_REQUEST['REQUEST_URI']; ?>" method="POST">
+			<form class="mdocs-uploader-form" enctype="multipart/form-data" action="" method="POST">
 				<input type="hidden" name="mdocs-nonce" value="<?php echo MDOCS_NONCE; ?>" />
 				<input type="hidden" name="mdocs-index" value="<?php echo $mdoc_index; ?>" />
 				<input type="hidden" name="action" value="mdocs-update-revision" />
@@ -45,22 +47,24 @@ function mdocs_versions() {
 							<tr class="mdocs-bg-odd">
 								<td class="mdocs-blue" id="file" ><?php echo $the_mdoc['filename']; ?></td>
 								<td class="mdocs-green" id="version" ><?php echo $the_mdoc['version']; ?></td>
-								<td class="mdocs-red" id="date"><?php  echo gmdate('F jS Y \a\t g:i A',filemtime($upload_dir['basedir'].'/mdocs/'.$the_mdoc['filename'])+MDOCS_TIME_OFFSET); ?></td>
-								<td id="download"><input type="button" id="mdocs-download" name="<?php echo $key; ?>" class="button button-primary" value=<?php _e("Download"); ?>  /></td>
+								<td class="mdocs-red" id="date"><?php  echo $the_mdoc_date_modified; ?></td>
+								<td id="download"><input type="button" id="mdocs-download" onclick="mdocs_download_current_version('<?php echo $the_mdoc['id']; ?>')" class="button button-primary" value=<?php _e("Download"); ?>  /></td>
 								<td></td>
 								<td id="current"><input type="radio" name="mdocs-version" value="<?php echo 'current'; ?>" checked /></td>
 							</tr>
 						</tr>
 					<?php
 						$bgcolor = 'mdocs-bg-even';
-						foreach( array_reverse($the_mdoc['archived']) as $key => $archive ){ 
+						foreach( array_reverse($the_mdoc['archived']) as $key => $archive ){
 							$file = substr($archive, 0, strrpos($archive, '-'));
 							$version = substr(strrchr($archive, '-'), 2 );
+							
+							$archive_date_modified = gmdate('F jS Y \a\t g:i A', filemtime($upload_dir['basedir'].'/mdocs/'.$archive)+MDOCS_TIME_OFFSET);
 							?>
 							<tr class="<?php echo $bgcolor; ?>">
 								<td class="mdocs-blue" id="file" ><?php echo $file; ?></td>
 								<td class="mdocs-green" id="version" ><?php echo $version; ?></td>
-								<td class="mdocs-red" id="date"><?php  echo gmdate('F jS Y \a\t g:i A',filemtime($upload_dir['basedir'].'/mdocs/'.$archive)+MDOCS_TIME_OFFSET); ?></td>
+								<td class="mdocs-red" id="date"><?php  echo $archive_date_modified; ?></td>
 								<td id="download"><input onclick="mdocs_download_version('<?php echo $archive; ?>')" type="button" id="mdocs-download" name="<?php echo $key; ?>" class="button button-primary" value=<?php _e("Download"); ?>  /></td>
 								<td id="download"><input onclick="mdocs_delete_version('<?php echo $archive; ?>','<?php echo $mdoc_index; ?>','<?php echo $current_cat; ?>','<?php echo MDOCS_NONCE; ?>')" type="button" id="mdocs-delete" name="<?php echo $key; ?>" class="button button-primary" value=<?php _e("Delete"); ?>  /></td>
 								<td id="current"><input type="radio" name="mdocs-version" value="<?php echo count($the_mdoc['archived'])-$key-1; ?>" /></td>
@@ -86,6 +90,7 @@ function mdocs_delete_version() {
 		$index = $_GET['mdocs-index'];
 		$version_file = $_GET['version-file'];
 		$mdocs = get_option('mdocs-list');
+		$mdocs = mdocs_sort_by($mdocs);
 		$the_mdoc = $mdocs[$index];
 		$upload_dir = wp_upload_dir();
 		$archive_index = array_search($version_file,$the_mdoc['archived']);
@@ -103,6 +108,7 @@ function mdocs_update_revision() {
 		if($_POST['mdocs-version'] != 'current') {
 			global $current_user;
 			$mdocs = get_option('mdocs-list');
+			$mdocs = mdocs_sort_by($mdocs, 0 ,'', false);
 			$mdocs_index = $_POST['mdocs-index'];
 			$upload_dir = wp_upload_dir();
 			$the_mdoc = $mdocs[$mdocs_index];
@@ -125,7 +131,7 @@ function mdocs_update_revision() {
 			$mdocs[$mdocs_index]['size'] = (string)filesize($upload_dir['basedir'].'/mdocs/'.$filename);
 			$mdocs[$mdocs_index]['modified'] = (string)time();
 			array_push($mdocs[$mdocs_index]['archived'], $old_doc_name);
-			$mdocs = mdocs_array_sort($mdocs, 'name', 'SORT_ASC, SORT_STRING');
+			$mdocs = mdocs_array_sort($mdocs, 'name', SORT_ASC);
 			update_option('mdocs-list', $mdocs);
 			$mdocs_post_cat = get_category_by_slug( 'mdocs-media' );
 			$wp_filetype = wp_check_filetype($upload_dir['basedir'].'/mdocs/'.$filename, null );
