@@ -8,7 +8,9 @@ function mdocs_export() {
 	//$mdocs = mdocs_sort_by($mdocs, 0, 'dashboard', false);
 	$mdocs = htmlspecialchars(serialize($mdocs));
 	$cats = htmlspecialchars(serialize(get_option('mdocs-cats')));
+	mdocs_list_header();
 ?>
+<h1><?php _e('Export Files'); ?></h1>
 <p>When you click the buttons below the document repository will create a ZIP files for you to save to your computer.</p>
 <p>This compressed data, will contain your documents, saved variables, and media posts tied to each document.</p>
 <p>Once you've saved the download file, you can use the Import function in another WordPress installation to import the content from this site.</p>
@@ -17,7 +19,7 @@ function mdocs_export() {
 	<input type="button" onclick="mdocs_download_zip('<?php echo get_option('mdocs-zip'); ?>');" id="mdocs-export-submit" class="button button-primary" value="<?php _e('Export Memphis Documents Library'); ?>">
 </form><br>
 <?php
-	if($_GET['cat'] == 'export' || $_GET['cat'] == 'import') mdocs_export_file_status();
+	if($_GET['mdocs-cat'] == 'export' || $_GET['mdocs-cat'] == 'import') mdocs_export_file_status();
 }
 
 function mdocs_export_zip() {

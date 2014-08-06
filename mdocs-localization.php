@@ -2,8 +2,8 @@
 $upload_dir = wp_upload_dir();
 $mdocs_zip = get_option('mdocs-zip');
 //PASS VARIABLES TO JAVASCRIPT
-function mdocs_js_handle() {
-	wp_localize_script( 'mdocs-admin-script', 'mdocs_js', array(
+function mdocs_js_handle($script) {
+	wp_localize_script( $script, 'mdocs_js', array(
 		'version_delete' => __("You are about to delete this version.  Once deleted you will lost this version of the file!\n\n'Cancel' to stop, 'OK' to delete."),
 		'category_delete' => __("You are about to delete this category.  Any file in this category will be lost!\n\n'Cancel' to stop, 'OK' to delete."),
 		'remove' => __('Remove'),
@@ -14,7 +14,7 @@ function mdocs_js_handle() {
 		'levels'=> 2,
 		'blog_id' => get_current_blog_id(),
 		'plugin_url' => plugins_url().'/memphis-documents-library/',
-		'wp_root' => get_home_path(),
+		'wp_root' => get_option('mdocs-wp-root'),
 	));
 }
 function mdocs_get_inline_css() {
@@ -34,6 +34,33 @@ function mdocs_get_inline_css() {
 	$download_button_hover_color = get_option('mdocs-download-text-color-hover');
 	$download_button_hover_bg = get_option('mdocs-download-color-hover');
 	$set_inline_style = "
+		.mdocs-list-table #title { width: $title_width !important }
+		.mdocs-download-btn-config:hover { background: $download_button_hover_bg; color: $download_button_hover_color; }
+		.mdocs-download-btn-config { color: $download_button_color; background: $download_button_bg ; }
+		.mdocs-download-btn, .mdocs-download-btn:active { color: $download_button_color !important; background: $download_button_bg !important;  }
+		.mdocs-download-btn:hover { background: $download_button_hover_bg !important; color: $download_button_hover_color !important;}
+	";
+	return $set_inline_style;
+}
+function mdocs_get_inline_admin_css() {
+	$num_show = 0;
+	if(get_option('mdocs-show-downloads')==1) $num_show++;
+	if(get_option('mdocs-show-author')==1) $num_show++;
+	if(get_option('mdocs-show-version')==1) $num_show++;
+	if(get_option('mdocs-show-update')==1) $num_show++;
+	if(get_option('mdocs-show-ratings')==1) $num_show++;
+	if($num_show==5) $title_width = '35%';
+	if($num_show==4) $title_width = '45%';
+	if($num_show==3) $title_width = '55%';
+	if($num_show==2) $title_width = '65%';
+	if($num_show==1) $title_width = '75%';
+	$download_button_color = get_option('mdocs-download-text-color-normal');
+	$download_button_bg = get_option('mdocs-download-color-normal'); 
+	$download_button_hover_color = get_option('mdocs-download-text-color-hover');
+	$download_button_hover_bg = get_option('mdocs-download-color-hover');
+	$set_inline_style = "
+		body { background: transparent; }
+		dd, li { margin: 0; }
 		.mdocs-list-table #title { width: $title_width !important }
 		.mdocs-download-btn-config:hover { background: $download_button_hover_bg; color: $download_button_hover_color; }
 		.mdocs-download-btn-config { color: $download_button_color; background: $download_button_bg ; }

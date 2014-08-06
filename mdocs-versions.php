@@ -5,7 +5,7 @@ function mdocs_versions() {
 	$mdocs = mdocs_sort_by($mdocs, 0 , 'dashboard', false);
 	$mdoc_index = $_GET['mdocs-index'];
 	$upload_dir = wp_upload_dir();
-	if(isset($_GET['cat'])) $current_cat = $_GET['cat'];
+	if(isset($_GET['mdocs-cat'])) $current_cat = $_GET['mdocs-cat'];
 	else $current_cat = $current_cat = key($cats);
 	$the_mdoc = $mdocs[$mdoc_index];
 	$the_mdoc_date_modified = gmdate('F jS Y \a\t g:i A', filemtime($upload_dir['basedir'].'/mdocs/'.$the_mdoc['fliename'])+MDOCS_TIME_OFFSET);
@@ -13,7 +13,7 @@ function mdocs_versions() {
 <div class="mdocs-uploader-bg"></div>
 <div class="mdocs-uploader">
 	<h2 class="mdocs-uploader-header">
-		<div class="close"><a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat; ?>"><img src='<?php echo MDOC_URL; ?>/assets/imgs/close.png'/></a></div>
+		<div class="close"><a href="<?php echo 'admin.php?page=memphis-documents.php&mdocs-cat='.$current_cat; ?>"><img src='<?php echo MDOC_URL; ?>/assets/imgs/close.png'/></a></div>
 		<?php echo __('Versions').': '.$the_mdoc['name']; ?>
 	</h2>
 	<div class="mdocs-ds-container">

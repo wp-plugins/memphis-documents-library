@@ -8,8 +8,8 @@ define('MDOCS_TIME_OFFSET', get_option('gmt_offset')*60*60);
 define('MDOCS_ROBOTS','http://www.kingofnothing.net/memphis/robots/memphis-robots.txt');
 define('MDOCS_UPDATE', '<div class="mdocs-updated">'.__('Updated').'</div>');
 define('MDOCS_NEW', '<div class="mdocs-new">'.__('New').'</div>');
-define('MDOCS_UPDATE_SMALL', '<span class="mdocs-updated-small">'.__('Updated').'</span>');
-define('MDOCS_NEW_SMALL', '<span class="mdocs-new-small">'.__('New').'</span>');
+define('MDOCS_UPDATE_SMALL', '<span class="mdocs-new-updated-small badge pull-right alert-info ">'.__('Updated').'</span>');
+define('MDOCS_NEW_SMALL', '<span class="mdocs-new-updated-small badge pull-right alert-success ">'.__('New').'</span>');
 define('MDOCS_CURRENT_TIME', date('Y-m-d H:i:s', time()+MDOCS_TIME_OFFSET));
 //define('MDOCS_VERSION', );
 $add_error = false;
@@ -125,6 +125,8 @@ function mdocs_init_settings() {
 	add_option('mdocs-total-cats',0);
 	register_setting('mdocs-settings', 'mdocs-zip');
 	add_option('mdocs-zip','mdocs-export.zip');
+	register_setting('mdocs-settings', 'mdocs-wp-root');
+	update_option('mdocs-wp-root',get_home_path());
 	register_setting('mdocs-top-downloads', 'mdocs-top-downloads');
 	add_option('mdocs-top-downloads',10);
 	register_setting('mdocs-top-downloads', 'mdocs-top-rated');
@@ -194,6 +196,7 @@ function mdocs_init_settings() {
 	if(is_string(get_option('mdocs-removed-mime-types'))) update_option('mdocs-removed-mime-types',array());
 	register_setting('mdocs-global-settings', 'mdocs-view-private');
 	add_option('mdocs-view-private', mdocs_init_view_private());
+	
 	//Update View Private Users
 	mdocs_update_view_private_users();
 }
@@ -231,7 +234,14 @@ function mdocs_post_page_shortcode($att, $content=null) {
 }
 add_shortcode( 'mdocs_post_page', 'mdocs_post_page_shortcode' );
 function mdocs_admin_script() {
+	//JQUERY
 	wp_enqueue_script("jquery");
+	//BOOTSTRAP
+	if(isset($_GET['page']) && $_GET['page'] == 'memphis-documents.php') {
+		wp_register_style( 'mdocs-bootstrap-style', '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css');
+		wp_enqueue_style( 'mdocs-bootstrap-style' );
+		wp_enqueue_script( 'mdocs-bootstrap-script', '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js' );
+	}
 	//JQUERY UI
 	wp_register_style( 'mdocs-jquery-ui-style', '//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
 	wp_enqueue_style( 'mdocs-jquery-ui-style' );
@@ -240,19 +250,25 @@ function mdocs_admin_script() {
 	wp_register_style( 'mdocs-admin-style', MDOC_URL.'/style.css');
 	wp_enqueue_style( 'mdocs-admin-style' );
 	wp_register_script( 'mdocs-admin-script', MDOC_URL.'/mdocs-script.js');
+	//INLINE STYLE
 	wp_enqueue_script('mdocs-admin-script');
-	mdocs_inline_css('mdocs-admin-style');
+	mdocs_inline_admin_css('mdocs-admin-style');
 	//FONT-AWESOME STYLE
 	wp_register_style( 'mdocs-font-awesome2-style', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
 	wp_enqueue_style( 'mdocs-font-awesome2-style' );
 	//WORDPRESS IRIS COLOR PICKER
 	wp_enqueue_style( 'wp-color-picker' );
     wp_enqueue_script( 'mdocs-color-picker', plugins_url('mdocs-script.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
-	mdocs_js_handle();
+	mdocs_js_handle('mdocs-admin-script');
 }
 
 function mdocs_script() {
+	//JQUERY
 	wp_enqueue_script("jquery");
+	//BOOTSTRAP
+	wp_register_style( 'mdocs-bootstrap-style', '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css');
+	wp_enqueue_style( 'mdocs-bootstrap-style' );
+	wp_enqueue_script( 'mdocs-bootstrap-script', '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js' );
 	//JQUERY UI
 	wp_register_style( 'mdocs-jquery-ui-style', '//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
 	wp_enqueue_style( 'mdocs-jquery-ui-style' );
@@ -266,12 +282,18 @@ function mdocs_script() {
 	//FONT-AWESOME STYLE
 	wp_register_style( 'mdocs-font-awesome2-style', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
 	wp_enqueue_style( 'mdocs-font-awesome2-style' );
+	mdocs_js_handle('mdocs-script');
 }
 
 function mdocs_inline_css($style_name) {
 	$set_inline_style = mdocs_get_inline_css();
 	wp_add_inline_style( $style_name, $set_inline_style );
 }
+function mdocs_inline_admin_css($style_name) {
+	$set_inline_style = mdocs_get_inline_admin_css();
+	wp_add_inline_style( $style_name, $set_inline_style );
+}
+
 function mdocs_document_ready_wp() {
 ?>
 <script type="application/x-javascript">

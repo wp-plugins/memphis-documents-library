@@ -19,17 +19,22 @@ function mdocs_download_file($export_file='') {
 	elseif(isset($_GET['mdocs-version']) ) { $filename = isset($_GET['mdocs-version']); }
 	else {
 		if(is_modcs_google_doc_viewer() === false) $send_bot_alert = true;
+		$explode = explode('|',$_GET["mdocs-file"]);
+		$mdocs_file = $explode[0];
+		$is_logged_in = $explode[1];
 		foreach($mdocs as $index => $value) {
-			if($value['id'] == $_GET["mdocs-file"] ) {
-				$filename = $mdocs[$index]['filename'];
-				$non_member = $mdocs[$index]['non_members'];
-				$file_status = $mdocs[$index]['file_status'];
+			if($value['id'] == $mdocs_file ) {
+				$filename = $value['filename'];
+				$non_member = $value['non_members'];
+				$file_status = $value['file_status'];
 				break;
 			} //else $filename = 'mdocs-empty';
 		}
 	}
+	var_dump($is_logged_in);
 	if($non_member == '' && $is_logged_in == false || $file_status == 'hidden' && !is_admin() || $mdocs_hide_all_files  ) $login_denied = true;
 	else $login_denied = false;
+	
 	
 	if(mdocs_is_bot() == false && $login_denied == false && !isset($_GET['mdocs-export-file']) &&  is_modcs_google_doc_viewer() === false && !isset($_GET['mdocs-version'])) {
 		$mdocs[$index]['downloads'] = (string)(intval($mdocs[$index]['downloads'])+1);

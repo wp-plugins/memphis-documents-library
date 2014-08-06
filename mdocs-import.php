@@ -1,7 +1,9 @@
 <?php
 function mdocs_import() {
 	$upload_dir = wp_upload_dir();
+	mdocs_list_header();
 ?>
+<h1><?php _e('Import Files'); ?></h1>
 <p><?php _e('There are two type of imports you can choose from.'); ?></p>
 <p>
 	<ol>
@@ -18,7 +20,7 @@ function mdocs_import() {
 		</li>
 	</ol>
 </p>
-<form  id="mdocs-import" method="post" action="admin.php?page=memphis-documents.php&cat=import" enctype="multipart/form-data">
+<form  id="mdocs-import" method="post" action="admin.php?page=memphis-documents.php&mdocs-cat=import" enctype="multipart/form-data">
 	<h3><?php _e('Add the Zip File'); ?>:</h3>
 	<p><b><i><?php _e('Remember to always export any valuable data before doing an import.'); ?></i></b></p>
 	<input type="hidden" value="mdocs-import" id="action" name="action"/>
@@ -28,7 +30,7 @@ function mdocs_import() {
 	<input type="submit" class="button button-primary" id="mdocs-import-submit" value="<?php _e('Import Memphis Documents Library') ?>" />
 </form><br>
 <?php
-	if($_GET['cat'] == 'export' || $_GET['cat'] == 'import') mdocs_export_file_status();
+	if($_GET['mdocs-cat'] == 'export' || $_GET['mdocs-cat'] == 'import') mdocs_export_file_status();
 }
 
 function mdocs_import_zip() {

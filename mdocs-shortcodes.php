@@ -1,7 +1,7 @@
 <?php
 function mdocs_shortcodes($current_cat) {
+	mdocs_list_header();
 	?>
-	<br>
 	<div class="updated">
 		<h3>Short Codes</h3>
 		<table class="mdocs-shortcode-table" >

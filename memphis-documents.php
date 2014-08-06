@@ -24,6 +24,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 include 'mdocs-settings.php';
+include 'mdocs-rights.php';
+include 'mdocs-modals.php';
 include 'mdocs-functions.php';
 include 'mdocs-the-list.php';
 include 'mdocs-file-info-large.php';
@@ -42,6 +44,8 @@ include 'mdocs-shortcodes.php';
 include 'mdocs-localization.php';
 include 'mdocs-browser-compatibility.php';
 include 'mdocs-widgets.php';
+include 'mdocs-filesystem-cleanup.php';
+include 'mdocs-restore.php';
 mdocs_nonce();
 if(!headers_sent() && stripos($_SERVER['REQUEST_URI'], '/feed') === false) add_action('send_headers', 'mdocs_send_headers');
 elseif (!is_numeric(stripos($_SERVER['REQUEST_URI'], '/feed'))) {

@@ -1,13 +1,11 @@
 <?php
 function mdocs_edit_cats() {
 	$mdocs_cats = get_option('mdocs-cats');
-	//var_dump($mdocs_cats[0]);
-	//var_dump('Number of Categories: '.get_option('mdocs-num-cats'));
-	//var_dump($mdocs_cats[1]['children']);
+	mdocs_list_header();
 	?>
 	<div class="mdocs-ds-container">
-		<h2>Category Editor <a href="" id="mdocs-add-cat" class="mdocs-grey-btn"><?php _e('Add Main Category'); ?></a></h2>
-		<form  id="mdocs-cats" method="post" action="admin.php?page=memphis-documents.php&cat=cats" >
+		<h2>Category Editor <a href="" id="mdocs-add-cat" class="btn btn-primary btn-sm"><?php _e('Add Main Category'); ?></a></h2>
+		<form  id="mdocs-cats" method="post" action="admin.php?page=memphis-documents.php&mdocs-cat=cats" >
 			<input type="hidden" value="mdocs-update-cats" name="action"/>
 			<input type="hidden" name="mdocs-update-cat-index" value="0"/>
 			<table class="wp-list-table widefat plugins">
@@ -72,7 +70,7 @@ function mdocs_build_cat_td($mdocs_cat,$parent_index=0) {
 				<input <?php echo $color_scheme; ?> type="text" name="mdocs-cats[<?php echo $cat['slug']; ?>][name]"  value="<?php echo $cat['name']; ?>" />
 			</td>
 			<td id="order">
-				<input <?php echo $color_scheme; ?> type="text" name="mdocs-cats[<?php echo $cat['slug']; ?>][order]"  value="<?php echo $index+1; ?>" <?php if($cat['parent'] != '') echo 'disabled'; ?> title="Sorry this functionality is disabled"/>
+				<input <?php echo $color_scheme; ?> type="text" name="mdocs-cats[<?php echo $cat['slug']; ?>][order]"  value="<?php echo $index+1; ?>" <?php if($cat['parent'] != '') echo ''; ?> title="Sorry this functionality is disabled"/>
 				
 			</td>
 			<td id="remove">
@@ -118,13 +116,13 @@ function mdocs_update_cats() {
 				if($depth == 1) {
 					$mdocs_cats[$base_parent_id]['children'][$cat['index']] = array('base_parent'=>$base_parent_id,'index' => $cat['index'], 'parent_index'=>$cat['parent_index'], 'slug' => $cat['slug'], 'name' => $cat['name'], 'parent' => $cat['parent'], 'children' => array(), 'depth' => 1);
 					if($cat['remove'] == 1) unset($mdocs_cats[$base_parent_id]['children'][$cat['index']]);
-					ksort($mdocs_cats[$base_parent_id]['children']);
-					$index1 = $cat['index'];
+					//ksort($mdocs_cats[$base_parent_id]['children']);
+					//$index1 = $cat['index'];
 				} elseif($depth == 2) {
 					$mdocs_cats[$base_parent_id]['children'][$cat['parent_index']]['children'][$cat['index']] = array('base_parent'=>$base_parent_id,'index' => $cat['index'], 'parent_index'=>$cat['parent_index'],'slug' => $cat['slug'], 'name' => $cat['name'], 'parent' => $cat['parent'], 'children' => array(), 'depth' => 2);
 					if($cat['remove'] == 1) unset($mdocs_cats[$base_parent_id]['children'][$cat['parent_index']]['children'][$cat['index']]);
-					ksort($mdocs_cats[$base_parent_id]['children'][$cat['parent_index']]['children']);
-					$index2 = $cat['index'];
+					//ksort($mdocs_cats[$base_parent_id]['children'][$cat['parent_index']]['children']);
+					//$index2 = $cat['index'];
 				}
 				/* Work in Progress
 				} elseif($depth == 3) {

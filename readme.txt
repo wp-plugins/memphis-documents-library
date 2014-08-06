@@ -117,6 +117,8 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 7. screenshot-7.png
 
 == Changelog ==
+= 3.0 =
+* *New* - Interface improvements
 = 2.6.1 =
 * *Update* - Change the way date modified is handle, was using an array value now using file date modifed attribute.
 * *Update* - Updated localization files.
@@ -262,5 +264,7 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 = 1.0 =
 * Initial Release of Memphis Documents Library
 == Feature Request ==
+* *New* - Give other user types the ability to upload files.
 * *New* - Shortcode to add a download link to a post or page.
 * *New* - Search shows only files that the specific user role has access too.
+* *New* - Added more level to categories.

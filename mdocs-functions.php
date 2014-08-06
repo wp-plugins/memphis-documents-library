@@ -4,13 +4,13 @@ function mdocs_edit_file($the_mdocs, $index, $current_cat) {
 	?>
 	<div class="mdocs-edit-file">
 		<span class="update" id="<?php echo $index ?>">
-			<i class="fa fa-pencil"></i> <a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat.'&action=update-doc&mdocs-index='.$index; ?>" title="Update this file" class="edit"><?php _e('Update'); ?></a> |
+			<i class="fa fa-pencil"></i> <a href="<?php echo 'admin.php?page=memphis-documents.php&mdocs-cat='.$current_cat.'&action=update-doc&mdocs-index='.$index; ?>" title="Update this file" class="edit"><?php _e('Update'); ?></a> |
 		</span>
 		<span class='delete'>
-			<i class="fa fa-remove"></i> <a class='submitdelete' onclick="return showNotice.warn();" href="<?php echo 'admin.php?mdocs-nonce='.$_SESSION['mdocs-nonce'].'&page=memphis-documents.php&cat='.$current_cat.'&action=delete-doc&mdocs-index='.$index; ?>"><?php _e('Delete'); ?></a> |
+			<i class="fa fa-remove"></i> <a class='submitdelete' onclick="return showNotice.warn();" href="<?php echo 'admin.php?mdocs-nonce='.$_SESSION['mdocs-nonce'].'&page=memphis-documents.php&mdocs-cat='.$current_cat.'&action=delete-doc&mdocs-index='.$index; ?>"><?php _e('Delete'); ?></a> |
 		</span>
 		<span class="versions">
-			<i class="icon-off"></i> <a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat.'&mdocs-index='.$index; ?>&action=mdocs-versions" title="<?php _e('Versions'); ?>" class="edit"><?php _e('Versions'); ?></a></span>
+			<i class="icon-off"></i> <a href="<?php echo 'admin.php?page=memphis-documents.php&mdocs-cat='.$current_cat.'&mdocs-index='.$index; ?>&action=mdocs-versions" title="<?php _e('Versions'); ?>" class="edit"><?php _e('Versions'); ?></a></span>
 	</div>
 	<?php
 }
@@ -25,8 +25,8 @@ function  mdocs_des_preview_tabs($the_mdoc) {
 	//$file_url = $upload_dir['baseurl'].MDOCS_DIR.$the_mdoc['filename'];
 	$file_url = get_site_url().'?mdocs-file='.$the_mdoc['id'].'&mdocs-url='.$the_mdoc['parent'];
 	?>
-	<?php if($mdocs_show_description && $mdocs_show_preview) { ?><a class="mdocs-nav-tab" id="mdoc-show-desc-<?php echo $the_mdoc['id']; ?>">Description</a><?php } ?>
-	<?php if($mdocs_show_preview && $mdocs_show_description) { ?><a class="mdocs-nav-tab" id="mdoc-show-preview-<?php echo $the_mdoc['id']; ?>">Preview</a><?php } ?>
+	<?php if($mdocs_show_description && $mdocs_show_preview) { ?><a class="mdocs-nav-tab" data-mdocs-show-type="desc" data-mdocs-id="<?php echo $the_mdoc['id']; ?>">Description</a><?php } ?>
+	<?php if($mdocs_show_preview && $mdocs_show_description) { ?><a class="mdocs-nav-tab"  data-mdocs-show-type="preview" data-mdocs-id="<?php echo $the_mdoc['id']; ?>">Preview</a><?php } ?>
 	<div class="mdocs-show-container" id="mdocs-show-container-<?php echo $the_mdoc['id']; ?>">
 		<?php
 		if(!isset($_POST['show_type']) && $mdocs_show_description && $mdocs_default_content == 'description') {
@@ -468,10 +468,8 @@ function mdocs_check_read_write() {
 }
 
 function mdocs_doc_preview($file,$echo=true) {
-	//$view_js_url = plugins_url().'/memphis-documents-library'.'/ViewerJS';
 	if($echo) {
 	?>
-	<!--<iframe id="viewer" src = "<?php echo $view_js_url.'/#'.$file; ?>" width='100%' height='100%' style="text-align:center;" allowfullscreen webkitallowfullscreen></iframe>-->
 	<iframe class="mdocs-google-doc" src="https://docs.google.com/viewer?url=<?php echo $file; ?>&embedded=true" style="border: none;"></iframe>
 	<?php
 	} else  return '<iframe class="mdocs-google-doc" src="https://docs.google.com/viewer?url='.$file.'&embedded=true" style="border: none;"></iframe>';
@@ -533,7 +531,7 @@ function mdocs_get_subcats($current, $parent, $has_children=true) {
 		if(preg_match('/\?page_id=/',$permalink) || preg_match('/\?p=/',$permalink)) {
 			$permalink = $permalink.'&mdocs-cat=';
 		} else $permalink = $permalink.'?mdocs-cat=';
-	} else $permalink = 'admin.php?page=memphis-documents.php&cat=';
+	} else $permalink = 'admin.php?page=memphis-documents.php&mdocs-cat=';
 	$num_cols = 2;
 	if(get_option('mdocs-show-downloads') == '1' || get_option('mdocs-show-downloads')) $num_cols++;
 	if(get_option('mdocs-show-author') == '1' || get_option('mdocs-show-author')) $num_cols++;
@@ -588,4 +586,79 @@ function mdocs_custom_mime_types($existing_mimes=array()) {
 		unset($existing_mimes[$mime]);
 	}
 	return $existing_mimes;
+}
+
+function mdocs_list_header() {
+	global $current_cat_array, $parent_cat_array;
+	$cats = get_option('mdocs-cats');
+	$upload_dir = wp_upload_dir();
+	$message = '';
+	$current_cat = mdocs_get_current_cat();
+	mdocs_get_children_cats(get_option('mdocs-cats'),$current_cat);
+	?>
+	<div class="wrap">
+		<div class="mdocs-admin-preview"></div>
+		<?php if($message != "" && $type != 'update') { ?> <div id="message" class="error" ><p><?php _e($message); ?></p></div> <?php }?>
+		<?php if(is_admin()) { ?>
+		<h2 class="mdocs-h2 pull-left"><?php _e("Documents Library"); ?></h2>
+		
+		<div class="btn-group">
+			<a href="?page=memphis-documents.php&mdocs-cat=<?php echo $current_cat; ?>&action=add-doc" class="btn btn-danger btn-sm"><?php _e('Add New Document'); ?> <i class="fa fa-upload fa-lg"></i></a>
+		</div>
+		<div class="btn-group">
+			<button class="btn btn-default dropdown-toggle btn-sm" type="button" id="dropdownMenu1" data-toggle="dropdown"><?php _e('Options'); ?><span class="caret"></span></button>
+			<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=cats"><?php _e('Edit Categories'); ?></a></li>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=import"><?php _e('Import'); ?></a></li>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=export"><?php _e('Export'); ?></a></li>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=batch"><?php _e('Batch Upload'); ?></a></li>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=short-codes"><?php _e('Short Codes'); ?></a></li>
+			  <li role="presentation" class="divider"></li>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=settings"><?php _e('Settings'); ?></a></li>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=filesystem-cleanup"><?php _e('File System Cleanup'); ?></a></li>
+			   <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=restore"><?php _e('Restore To Default'); ?></a></li>
+			</ul>
+		</div>
+		<br><br>
+		<?php } ?>
+		
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					  <span class="sr-only">Toggle navigation</span>
+					  <span class="icon-bar"></span>
+					  <span class="icon-bar"></span>
+					  <span class="icon-bar"></span>
+					</button>
+					<span class="navbar-brand" href="#"><?php _e('Categories'); ?></span>
+				</div>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<?php
+						if(!empty($cats)) {
+							foreach( $cats as $index => $cat ){
+								if(isset($cat['slug']) && !empty($current_cat_array)) {
+									if( $cat['slug'] == $current_cat) $class = ' active';
+									elseif(isset($cats[$current_cat_array['base_parent']]['slug']) && $cats[$current_cat_array['base_parent']]['slug'] == $cat['slug']) $class = ' active';
+									else $class = '';
+								} else $class = '';
+								if(is_dir($upload_dir['basedir'].'/mdocs/')) echo '<li class="'.$class.'"><a href="?page=memphis-documents.php&mdocs-cat='.$cat['slug'].' ">'.__($cat['name']).'</a></li>';
+							}
+						}
+						?>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	<?php
+	return $current_cat;
+}
+
+function mdocs_get_current_cat() {
+	$cats =  get_option('mdocs-cats');
+	$current_cat = '';
+	if(isset($_GET['mdocs-cat'])) $current_cat = $_GET['mdocs-cat'];
+	elseif(!is_string($cats)) $current_cat = $cats[0]['slug'];
+	return $current_cat;
 }

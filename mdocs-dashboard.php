@@ -19,11 +19,6 @@ function mdocs_dashboard_menu() {
 
 function mdocs_dashboard() {
 	global $add_error;
-	//update_option('mdocs-list',array());
-	//$list = get_option('mdocs-list');
-	//var_dump($list);
-	//$cats = get_option('mdocs-cats');
-	//var_dump($cats[0]['children']);
 	if(isset($_FILES['mdocs']) && $_FILES['mdocs']['name'] != '' && $_POST['mdocs-type'] == 'mdocs-add') mdocs_file_upload();
 	if(isset($_FILES['mdocs']) && $_POST['mdocs-type'] == 'mdocs-update') mdocs_file_upload();
 	elseif(isset($_GET['action']) && $_GET['action'] == 'add-doc' && MDOCS_NONCE == $_SESSION['mdocs-nonce'] && !isset($_GET['mdocs-sort'])) mdocs_uploader(__('Add Document'));
@@ -38,61 +33,23 @@ function mdocs_dashboard() {
 }
 
 function mdocs_dashboard_view() {
-	global $current_cat_array, $parent_cat_array;
-	$cats = get_option('mdocs-cats');
-	$upload_dir = wp_upload_dir();
-	$message = '';
-	$import_active = '';
-	$export_active = '';
-	if(isset($_GET['cat'])) $current_cat = $_GET['cat'];
-	elseif(!is_string($cats)) $current_cat = $cats[0]['slug'];
-	mdocs_get_children_cats(get_option('mdocs-cats'),$current_cat);
-	//var_dump($cats[$current_cat_array['base_parent']]['slug']);
-	?>
-	<div class="wrap">
-		<div class="mdocs-admin-preview"></div>
-		<?php if($message != "" && $type != 'update') { ?> <div id="message" class="error" ><p><?php _e($message); ?></p></div> <?php }?>
-		<div id="icon-mdocs" class="icon32"><br></div><h2><?php _e("Documents Library"); ?>
-		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=<?php echo $current_cat; ?>&action=add-doc" class="mdocs-grey-btn"><?php _e('Add New Document'); ?></a><?php } ?>
-		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=cats" class="mdocs-grey-btn"><?php _e('Edit Categories'); ?></a><?php } ?>
-		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=settings" class="mdocs-grey-btn"><?php _e('Settings'); ?></a><?php } ?>
-		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=batch" class="mdocs-grey-btn"><?php _e('Batch Upload (Beta)'); ?></a><?php } ?>
-		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=short-codes" class="mdocs-grey-btn"><?php _e('Short Codes'); ?></a><?php } ?>
-		</h2>
-		
-		<div id="icon-edit-pages" class="icon32"><br></div>
-		<h2 class="nav-tab-wrapper">
-		<?php
-		if(!empty($cats)) {
-			foreach( $cats as $index => $cat ){
-				if(isset($cat['slug']) && !empty($current_cat_array)) {
-					if( $cat['slug'] == $current_cat) $class = ' nav-tab-active';
-					elseif(isset($cats[$current_cat_array['base_parent']]['slug']) && $cats[$current_cat_array['base_parent']]['slug'] == $cat['slug']) $class = ' nav-tab-active';
-					else $class = '';
-				} else $class = '';
-				if(is_dir($upload_dir['basedir'].'/mdocs/')) echo '<a class="nav-tab '.$class.'" href="?page=memphis-documents.php&cat='.$cat['slug'].' ">'.__($cat['name']).'</a>';
-			}
-		}
-		if($current_cat == 'import' ) $import_active = ' nav-tab-active';
-		if(is_dir($upload_dir['basedir'].'/mdocs/')) echo "<a class='nav-tab$import_active' href='?page=memphis-documents.php&cat=import'>".__('Import')."</a>";
-		if($current_cat == 'export') $export_active = ' nav-tab-active';
-		if(is_dir($upload_dir['basedir'].'/mdocs/')) echo "<a class='nav-tab$export_active' href='?page=memphis-documents.php&cat=export'>".__('Export')."</a>";
-		?>
-	   </h2>
-		<?php
-		if($current_cat == 'import') mdocs_import($current_cat);
-		elseif($current_cat == 'export') mdocs_export($current_cat);
-		elseif($current_cat == 'cats') mdocs_edit_cats($current_cat);
-		elseif($current_cat == 'settings') mdocs_settings($current_cat);
-		elseif($current_cat == 'batch') mdocs_batch_upload($current_cat);
-		elseif($current_cat == 'short-codes') mdocs_shortcodes($current_cat);
-		else mdoc_doc_list($current_cat);
+	$current_cat = mdocs_get_current_cat();
+	if($current_cat == 'import') mdocs_import($current_cat);
+	elseif($current_cat == 'export') mdocs_export($current_cat);
+	elseif($current_cat == 'cats') mdocs_edit_cats($current_cat);
+	elseif($current_cat == 'settings') mdocs_settings($current_cat);
+	elseif($current_cat == 'batch') mdocs_batch_upload($current_cat);
+	elseif($current_cat == 'short-codes') mdocs_shortcodes($current_cat);
+	elseif($current_cat == 'filesystem-cleanup') mdocs_filesystem_cleanup($current_cat);
+	elseif($current_cat == 'restore') mdocs_restore_defaults($current_cat);
+	else mdocs_the_list();
 }
 
 function mdoc_doc_list($current_cat) {
 	global $current_cat_array, $parent_cat_array;
 	$is_read_write = mdocs_check_read_write();
 	if($is_read_write) {
+		//mdocs_the_list();
 		$mdocs = get_option('mdocs-list');
 		$mdocs = mdocs_sort_by($mdocs, 5, 'dashboard');
 		$upload_dir = wp_upload_dir();	
@@ -176,7 +133,7 @@ function mdocs_uploader($edit_type='Add Document') {
 		$mdocs_post = get_post($mdocs[$mdoc_index]['parent']);
 		$mdocs_desc = $mdocs_post->post_excerpt;
 	} else $mdoc_index = '';
-	if(isset($_GET['cat'])) $current_cat = $_GET['cat'];
+	if(isset($_GET['mdocs-cat'])) $current_cat = $_GET['mdocs-cat'];
 	else $current_cat = $current_cat = key($cats);
 	if($edit_type == 'Update Document') $mdoc_type = 'mdocs-update';
 	else $mdoc_type = 'mdocs-add';
@@ -185,7 +142,7 @@ function mdocs_uploader($edit_type='Add Document') {
 <div class="mdocs-uploader-bg"></div>
 <div class="mdocs-uploader" >
 	<h2 class="mdocs-uploader-header">
-		<div class="close"><a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat; ?>"><img src='<?php echo MDOC_URL; ?>/assets/imgs/close.png'/></a></div>
+		<div class="close"><a href="<?php echo 'admin.php?page=memphis-documents.php&mdocs-cat='.$current_cat; ?>"><img src='<?php echo MDOC_URL; ?>/assets/imgs/close.png'/></a></div>
 		<?php _e($edit_type); ?>
 	</h2>
 	<div class="mdocs-uploader-content">
