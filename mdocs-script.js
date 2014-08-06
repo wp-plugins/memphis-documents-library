@@ -238,12 +238,16 @@ function mdocs_add_sub_cat(total_cats, parent, parent_depth, object, is_parent) 
 	    padding = 0;
 	    order = subcat_index;
 	    disabled = '';
+	    child_depth = 0;
 	}
+	if (jQuery('input[name="mdocs-cats['+parent+'][index]"]').val() != undefined) {
+	    var parent_index = jQuery('input[name="mdocs-cats['+parent+'][index]"]').val();
+	} else var parent_index = 0;
 	var html = '\
 	    <tr>\
 		<td  id="name" '+padding+' >\
 		   <input type="hidden" name="mdocs-cats[mdocs-cat-'+subcat_index+'][index]" value="'+(order-1)+'"/>\
-		    <input type="hidden" name="mdocs-cats[mdocs-cat-'+subcat_index+'][parent_index]" value="'+jQuery('input[name="mdocs-cats['+parent+'][index]"]').val()+'"/>\
+		    <input type="hidden" name="mdocs-cats[mdocs-cat-'+subcat_index+'][parent_index]" value="'+parent_index+'"/>\
 		    <input type="hidden" name="mdocs-cats[mdocs-cat-'+subcat_index+'][num_children]" value="0" />\
 		    <input type="hidden" name="mdocs-cats[mdocs-cat-'+subcat_index+'][depth]" value="'+child_depth+'"/>\
 		    <input type="hidden" name="mdocs-cats[mdocs-cat-'+subcat_index+'][parent]" value="'+parent+'"/>\

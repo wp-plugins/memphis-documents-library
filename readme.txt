@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 2.6.1
+Stable tag: 2.6.2
 
 A documents library for WordPress.
 
@@ -21,11 +21,15 @@ Memphis Documents Library is a  documents library for WordPress with a robust fe
 * *New* - A restore defaults option has been added this will restore Memphis Documents Library to its factory state, *WARNING all files and post will be deleted*.
 * *Update* - Updated localization files.
 * *Update* - Uninstall will not remove all saved variables , posts, files, categories, and directories for a single WordPress Site and also WordPress Multisite.
+* *Update* - Change the way date modified is handle, was using an array value now using file date modifed attribute.
+* *Update* - Updated localization files.
 * *Bug* - Error with javascript loading, if using WordPress Multisite network admin.
 * *Bug* - Fixed issue where Post Status was not displaying any statuses.
 * *Bug* - Batch upload was cutting of filenames with dots in them.
 * *Bug* - Fixed bug causing new installs to produce errors, these errors would correct themselves but very annoying for users to see.
 * *Bug* - Removed extra label tag in sort box which was cause issues in Firefox.
+* *Bug* - Fixed Chrome bug, where file types that are allowed in WordPress are being blocked by Memphis Documents Library.
+* *Bug* - Fixed a bug when creating categories a null category would be created that could not be delete.
 
 
 = Memphis Documents Library Features =
@@ -114,6 +118,8 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 7. screenshot-7.png
 
 == Changelog ==
+= 2.6.2 =
+* *Bug* - Fixed a bug when creating categories a nul category would be created that could not be delete.
 = 2.6.1 =
 * *Update* - Change the way date modified is handle, was using an array value now using file date modifed attribute.
 * *Update* - Updated localization files.
@@ -259,5 +265,7 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 = 1.0 =
 * Initial Release of Memphis Documents Library
 == Feature Request ==
+* *New* - Give other user types the ability to upload files.
 * *New* - Shortcode to add a download link to a post or page.
 * *New* - Search shows only files that the specific user role has access too.
+* *New* - Added more level to categories.
