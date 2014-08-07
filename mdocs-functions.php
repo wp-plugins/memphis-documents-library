@@ -608,15 +608,18 @@ function mdocs_list_header() {
 		<div class="btn-group">
 			<button class="btn btn-default dropdown-toggle btn-sm" type="button" id="dropdownMenu1" data-toggle="dropdown"><?php _e('Options'); ?><span class="caret"></span></button>
 			<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+				 <li role="presentation" class="dropdown-header"><?php _e('File Options'); ?></li>
 			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=cats"><?php _e('Edit Categories'); ?></a></li>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=allowed-file-types"><?php _e('Allowed File Types'); ?></a></li>
 			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=import"><?php _e('Import'); ?></a></li>
 			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=export"><?php _e('Export'); ?></a></li>
 			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=batch"><?php _e('Batch Upload'); ?></a></li>
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=short-codes"><?php _e('Short Codes'); ?></a></li>
 			  <li role="presentation" class="divider"></li>
+			  <li role="presentation" class="dropdown-header"><?php _e('Admin Options'); ?></li>
 			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=settings"><?php _e('Settings'); ?></a></li>
 			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=filesystem-cleanup"><?php _e('File System Cleanup'); ?></a></li>
 			   <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=restore"><?php _e('Restore To Default'); ?></a></li>
+			    <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=short-codes"><?php _e('Short Codes'); ?></a></li>
 			</ul>
 		</div>
 		<br><br>

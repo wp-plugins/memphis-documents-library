@@ -104,9 +104,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-nav-wrapper hr { padding: 0; margin: 0;  position: relative; left: -20px; bottom: -7px;  background:  none; overflow: hidden; border: none; border-bottom:  solid 1px #DCDCDC !important; }
 .mdocs-bg-even { background: #FFF; }
 .mdocs-bg-odd { background: #f9f9f9; }
+/*
 .mdocs-container table { border: none !important; border-top: solid 1px #dcdcdc !important; border-left: solid 1px #dcdcdc !important;  border-right: solid 1px #dcdcdc !important; width: 100%; margin: 0px auto !important; background: #fff !important;}
 .mdocs-container table th { border: none !important; border-bottom: solid 1px #DCDCDC !important;}
-.mdocs-container table td { border:  none !important; }
+.mdocs-container table td { border:  none !important; }*/
 .mdocs-td-social { padding: 0 !important; margin: 0 !important; border: none !important; }
 .mdocs-float-right { float: right; }
 .mdocs-table-header { font-size: 13px !important; background: #FCFCFC !important; padding: 4px 10px 6px; font-weight: normal !important; text-shadow: 1px 1px #AAA; border-top: solid 1px #dcdcdc !important; color: #636363 !important;}
@@ -133,11 +134,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-line { border-bottom: solid 1px #E2E2E2; height: 1px; width: 99%; margin: auto; }
 .mdocs-login-msg { border: solid 1px #ccc; float: right; font-size: 13px !important; padding: 10px; margin: 5px; font-weight: normal; background:  #f0f0f0; text-align: center; }
 
-
+/*
 .mdocs-list-table, .mdocs-list-table tr, .mdocs-list-table td { width: 100% !important; border: solid 1px #ccc !important; vertical-align: middle; border-collapse: collapse !important; padding: 3px 0 !important; margin: 0 !important; font-size: 13px !important;}
 .mdocs-list-table td { border: none !important;  padding: 0 !important; height: 28px !important; padding: 1px 5px !important;}
 .mdocs-list-table { margin-top: 10px !important; }
-/*
+
 .mdocs-list-table .sub-cats { background: #eef8ff; }
 .mdocs-list-table .parent-cat { background: #f1fff0; }
 */
@@ -169,16 +170,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-show-social { cursor: pointer; }
 
 /* BOOTSTRAP STYLES */
-.btn-default { background: inherit !important; padding: 9px 10px !important; }
+.btn-default { background: inherit !important;  }
 .btn-default:hover, .btn-default:active, .navbar-toggle:hover, .navbar-toggle:active { background: #ddd !important;  border: 1px solid transparent !important; }
 .close:hover, .close:active {  padding: 0 !important; background: transparent !important; border: none !important; }
-
 .mdocs-h2 { padding: 0 !important; margin: 0 10px !important;}
 .nav, .navbar-nav { margin: 0 !important; padding: 0 !important; }
 .mdocs-title-href img { float: left !important; margin: 2px 8px 2px 2px !important; }
 .dropdown-menu { list-style: none !important; }
 .dropdown-menu li { margin: 0 !important }
-.btn-group { padding-top: 5px !important; }
+/*.btn-group { padding-top: 5px !important; }*/
 .modal-lg { width:  90% !important; }
 #adminmenuwrap { z-index: 999 !important; }
 

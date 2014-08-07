@@ -94,6 +94,7 @@ function mdocs_update_cats() {
 	$upload_dir = wp_upload_dir();
 	if(isset($_POST['mdocs-update-cat-index'])) mdocs_update_num_cats(intval($_POST['mdocs-update-cat-index']));
 	if(isset($_POST['mdocs-cats'])) {
+		//var_dump($_POST['mdocs-cats']);
 		$mdocs_cats_post = $_POST['mdocs-cats'];
 		$parent_id = 0;
 		$parent_ids = array();
@@ -113,16 +114,15 @@ function mdocs_update_cats() {
 				$mdocs_cats[$base_parent_id] = array('base_parent'=>'','index' => $cat['index'], 'parent_index'=>$cat['parent_index'], 'slug' => $cat['slug'], 'name' => $cat['name'], 'parent' => '', 'children' => array(), 'depth' => 0);
 				if($cat['remove'] == 1) unset($mdocs_cats[$base_parent_id]);
 			} else {
+				$order = intval($cat['order'])-1;
 				if($depth == 1) {
-					$mdocs_cats[$base_parent_id]['children'][$cat['index']] = array('base_parent'=>$base_parent_id,'index' => $cat['index'], 'parent_index'=>$cat['parent_index'], 'slug' => $cat['slug'], 'name' => $cat['name'], 'parent' => $cat['parent'], 'children' => array(), 'depth' => 1);
-					if($cat['remove'] == 1) unset($mdocs_cats[$base_parent_id]['children'][$cat['index']]);
-					//ksort($mdocs_cats[$base_parent_id]['children']);
-					//$index1 = $cat['index'];
+					$mdocs_cats[$base_parent_id]['children'][$order] = array('base_parent'=>$base_parent_id,'index' => $cat['index'], 'parent_index'=>$cat['parent_index'], 'slug' => $cat['slug'], 'name' => $cat['name'], 'parent' => $cat['parent'], 'children' => array(), 'depth' => 1);
+					if($cat['remove'] == 1) unset($mdocs_cats[$base_parent_id]['children'][$order]);
+					$parent1_id = $order;
 				} elseif($depth == 2) {
-					$mdocs_cats[$base_parent_id]['children'][$cat['parent_index']]['children'][$cat['index']] = array('base_parent'=>$base_parent_id,'index' => $cat['index'], 'parent_index'=>$cat['parent_index'],'slug' => $cat['slug'], 'name' => $cat['name'], 'parent' => $cat['parent'], 'children' => array(), 'depth' => 2);
-					if($cat['remove'] == 1) unset($mdocs_cats[$base_parent_id]['children'][$cat['parent_index']]['children'][$cat['index']]);
-					//ksort($mdocs_cats[$base_parent_id]['children'][$cat['parent_index']]['children']);
-					//$index2 = $cat['index'];
+					$mdocs_cats[$base_parent_id]['children'][$parent1_id]['children'][$order] = array('base_parent'=>$base_parent_id,'index' => $cat['index'], 'parent_index'=>$cat['parent_index'],'slug' => $cat['slug'], 'name' => $cat['name'], 'parent' => $cat['parent'], 'children' => array(), 'depth' => 2);
+					if($cat['remove'] == 1) unset($mdocs_cats[$base_parent_id]['children'][$parent1_id]['children'][$order]);
+					$parent2_id = $order;
 				}
 				/* Work in Progress
 				} elseif($depth == 3) {
@@ -137,6 +137,17 @@ function mdocs_update_cats() {
 			}
 			$parent_slug = $cat['slug'];
 			if($cat['remove'] == 1) mdocs_cleanup_cats($cat);
+		}
+		
+		foreach($mdocs_cats as $index_1 => $cat1) {
+			ksort($cat1['children']);
+			$cat1 = array_values($cat1['children']);
+			$mdocs_cats[$index_1]['children'] = $cat1;
+			foreach($cat1 as $index_2 => $cat2) {
+				ksort($cat2['children']);
+				$cat2 = array_values($cat2['children']);
+				$mdocs_cats[$index_1]['children'][$index_2]['children'] = $cat2;
+			}
 		}
 		
 		ksort($mdocs_cats);

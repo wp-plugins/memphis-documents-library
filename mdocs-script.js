@@ -184,7 +184,7 @@ function mdocs_add_sub_cat(total_cats, parent, parent_depth, object, is_parent) 
 	if (subcat_index == 0) subcat_index = parseInt(total_cats)+1;
 	else subcat_index++;
 	var order = parseInt(jQuery('input[name="mdocs-cats['+parent+'][num_children]"]').val())+1;
-	var disabled = 'disabled';
+	var disabled = '';
 	jQuery('input[name="mdocs-cats['+parent+'][num_children]"]').val(order);
 	if (is_parent) {
 	    padding = 0;
@@ -228,7 +228,8 @@ function mdocs_add_sub_cat(total_cats, parent, parent_depth, object, is_parent) 
 	    var slug = jQuery('input[name="mdocs-cats[mdocs-cat-'+id+'][slug]"]').val();
 	    var slug = jQuery('input[name="mdocs-cats[mdocs-cat-'+id+'][slug]"]').val();
 	    var depths = jQuery('input[name="mdocs-cats[mdocs-cat-'+id+'][depth]"]').val();
-	    console.debug(id,depths);
+	    //console.debug(jQuery('input[name="mdocs-cats[mdocs-cat-'+id+'][depth]"]').val());
+	    alert(jQuery('input[name="mdocs-cats[mdocs-cat-3][index]"]').val());
 	    mdocs_add_sub_cat(subcat_index,slug, depths, this);
 	});
     } else alert(mdocs_js.category_support);

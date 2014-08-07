@@ -46,6 +46,7 @@ include 'mdocs-browser-compatibility.php';
 include 'mdocs-widgets.php';
 include 'mdocs-filesystem-cleanup.php';
 include 'mdocs-restore.php';
+include 'mdocs-allowed-file-types.php';
 mdocs_nonce();
 if(!headers_sent() && stripos($_SERVER['REQUEST_URI'], '/feed') === false) add_action('send_headers', 'mdocs_send_headers');
 elseif (!is_numeric(stripos($_SERVER['REQUEST_URI'], '/feed'))) {

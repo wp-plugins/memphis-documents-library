@@ -42,6 +42,7 @@ function mdocs_dashboard_view() {
 	elseif($current_cat == 'short-codes') mdocs_shortcodes($current_cat);
 	elseif($current_cat == 'filesystem-cleanup') mdocs_filesystem_cleanup($current_cat);
 	elseif($current_cat == 'restore') mdocs_restore_defaults($current_cat);
+	elseif($current_cat == 'allowed-file-types') mdocs_allowed_file_types($current_cat);
 	else mdocs_the_list();
 }
 
