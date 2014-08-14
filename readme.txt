@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 2.6.1
+Stable tag: 3.0
 
 A documents library for WordPress.
 
@@ -264,6 +264,7 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 = 1.0 =
 * Initial Release of Memphis Documents Library
 == Feature Request ==
+* *New* - Get thumbails of the documents as the featured image for the post.
 * *New* - Give other user types the ability to upload files.
 * *New* - Shortcode to add a download link to a post or page.
 * *New* - Search shows only files that the specific user role has access too.

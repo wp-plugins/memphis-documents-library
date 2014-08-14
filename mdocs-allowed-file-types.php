@@ -1,7 +1,8 @@
 <?php
 function mdocs_allowed_file_types() {
-	mdocs_list_header();
 ?>
+<h1><?php _e('Allowed File Types'); ?></h1>
+<?php mdocs_list_header(); ?>
 <table class="table form-table">
 	<tr>
 		<th><?php _e('Allowed File Types'); ?></th>

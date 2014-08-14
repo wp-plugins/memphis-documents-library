@@ -17,21 +17,30 @@ function mdocs_the_list($att=null) {
 			$mdocs_get = $permalink.'&mdocs-cat=';
 		} else $mdocs_get = $permalink.'?mdocs-cat=';
 		mdocs_get_children_cats(get_option('mdocs-cats'),$current_cat);
+		
+		
+		$mdocs_sort_type = get_option('mdocs-sort-type');
+		$mdocs_sort_style = get_option('mdocs-sort-style');
+		if(isset($_COOKIE['mdocs-sort-type'])) $mdocs_sort_type = $_COOKIE['mdocs-sort-type'];
+		if(isset($_COOKIE['mdocs-sort-range'])) $mdocs_sort_style = $_COOKIE['mdocs-sort-range'];
+		if($mdocs_sort_style == 'desc') $mdocs_sort_style_icon = ' <i class="fa fa-chevron-down"></i>';
+		else $mdocs_sort_style_icon = ' <i class="fa fa-chevron-up"></i>';
 	?>
 	<div class="mdocs-container">
 		<?php mdocs_load_modals(); ?>	
 		<?php if(isset($att['header'])) echo '<p>'.__($att['header']).'</p>'; ?>
-		<?php $mdocs = mdocs_sort_by($mdocs, null, 'site', false);
+		<?php
+		$mdocs = mdocs_array_sort($mdocs, $mdocs_sort_type, $mdocs_sort_style);
 		$count = 0;
 		if(get_option('mdocs-list-type') == 'small') echo '<table class="table table-hover table-condensed mdocs-list-table">';
 		?>
 		<tr class="hidden-sm hidden-xs">
-		<th>Name</th>
-		<th>DL's</th>
-		<th>Ver</th>
-		<th>Owner</th>
-		<th>Modified</th>
-		<th>Stars</th>
+		<th class="mdocs-sort-option" data-sort-type="name" data-current-cat="<?php echo $current_cat; ?>"><?php _e('Name'); ?><?php if($mdocs_sort_type == 'name') echo $mdocs_sort_style_icon; ?></th>
+		<th class="mdocs-sort-option" data-sort-type="downloads" data-current-cat="<?php echo $current_cat; ?>"><?php _e('Downloads'); ?><?php if($mdocs_sort_type == 'downloads') echo $mdocs_sort_style_icon; ?></th>
+		<th class="mdocs-sort-option" data-sort-type="version" data-current-cat="<?php echo $current_cat; ?>"><?php _e('Version'); ?><?php if($mdocs_sort_type == 'version') echo $mdocs_sort_style_icon; ?></th>
+		<th class="mdocs-sort-option" data-sort-type="owner" data-current-cat="<?php echo $current_cat; ?>"><?php _e('Owner'); ?><?php if($mdocs_sort_type == 'owner') echo $mdocs_sort_style_icon; ?></th>
+		<th class="mdocs-sort-option" data-sort-type="modified" data-current-cat="<?php echo $current_cat; ?>"><?php _e('Updated'); ?><?php if($mdocs_sort_type == 'modified') echo $mdocs_sort_style_icon; ?></th>
+		<th class="mdocs-sort-option" data-sort-type="rating" data-current-cat="<?php echo $current_cat; ?>"><?php _e('Stars'); ?><?php if($mdocs_sort_type == 'rating') echo $mdocs_sort_style_icon; ?></th>
 		</tr>
 		<?php
 		// SUB CATEGORIES

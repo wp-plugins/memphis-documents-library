@@ -27,8 +27,8 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 	$mdocs_desc = apply_filters('the_content', $the_mdoc['desc']);
 	$mdocs_desc = str_replace('\\','',$mdocs_desc);
 	if(preg_match('/\?page_id=/',$permalink) || preg_match('/\?p=/',$permalink)) {
-		$mdocs_get = $permalink.'&cat=';
-	} else $mdocs_get = $permalink.'?cat=';
+		$mdocs_get = $permalink.'&mdocs-cat=';
+	} else $mdocs_get = $permalink.'?mdocs-cat=';
 	$tooltip = '<button class="mdocs-close-btn mdocs-close-desc" onclick="mdocs_close_preview(\'wp\');">Close</button>';
 	$tooltip .= '<h1>'.$the_mdoc['filename'].'</h1>';
 	$tooltip .= '<div class="mdocs-divider"></div>';
@@ -67,6 +67,7 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 	?>
 		<tr>
 			<td id="title" class="mdocs-tooltip">
+				<button type="button" class="btn btn-default test-pop" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">Popover on left</button>
 				<?php
 				
 				if($page_type == 'dashboard') {
@@ -77,18 +78,17 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 					if($the_mdoc['post_status'] == 'private' && $read_private_posts == false) echo str_replace('\\','',$the_mdoc['name']).$status_tag;
 					else { ?>
 					<div class="btn-group">
-						<a class="dropdown-toggle mdocs-title-href" data-toggle="dropdown" href="<?php echo $the_mdoc_permalink; ?>" ><?php echo $file_icon.' '.str_replace('\\','',$the_mdoc['name']).$status_tag; ?></a>
+						<a class="dropdown-toggle mdocs-title-href" data-toggle="dropdown" href="#" ><?php echo $file_icon.' '.str_replace('\\','',$the_mdoc['name']).$status_tag; ?></a>
 						
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 							<li role="presentation" class="dropdown-header">File Options</li>
 							<?php
 								mdocs_download_rights($the_mdoc);
 								mdocs_preview_rights($the_mdoc);
+								mdocs_rating_rights($the_mdoc,$current_cat);
 							?>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><i class="fa fa-arrow-circle-o-right"></i> <?php _e('Goto Post'); ?></a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><i class="fa fa-star"></i> <?php _e('Rate'); ?></a></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo $the_mdoc_permalink; ?>" target="_blank"><i class="fa fa-arrow-circle-o-right"></i> <?php _e('Goto Post'); ?></a></li>
 							<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><i class="fa fa-share"></i> <?php _e('Share'); ?></a></li>
-							
 							<?php if(is_admin()) { ?>
 							<li role="presentation" class="divider"></li>
 							<li role="presentation" class="dropdown-header">Admin Options</li>

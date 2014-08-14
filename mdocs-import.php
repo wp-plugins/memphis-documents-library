@@ -38,7 +38,6 @@ function mdocs_import_zip() {
 		$error = false;
 		$upload_dir = wp_upload_dir();
 		$mdocs = get_option('mdocs-list');
-		//$mdocs = mdocs_sort_by($mdocs, 0, 'dashboard', false);
 		$mdocs_zip_file = $upload_dir['basedir'].'/mdocs/'.$_FILES['mdocs-import-file']['name'];
 		//Backup Current Memphis Documents
 		if(!file_exists($upload_dir['basedir'].'/mdocs-backup/')) mkdir($upload_dir['basedir'].'/mdocs-backup/');
@@ -102,8 +101,6 @@ function mdocs_import_zip() {
 					$cats = get_option('mdocs-cats');
 					$mdocs = array();
 				} else {
-					//$mdocs = get_option('mdocs-list');
-					//$mdocs = mdocs_sort_by($mdocs, 0,  'dashboard', false);
 					$mdocs_cats = get_option('mdocs-cats');
 					$modocs_list_return = array();
 					foreach($mdocs as $key => $value) {

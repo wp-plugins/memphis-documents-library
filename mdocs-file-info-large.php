@@ -23,8 +23,8 @@ function mdocs_file_info_large($the_mdoc, $page_type='site', $index=0, $current_
 	if(isset($post)) $permalink = get_permalink($post->ID);
 	else $permalink = '';
 	if(preg_match('/\?page_id=/',$permalink) || preg_match('/\?p=/',$permalink)) {
-		$mdocs_get = $permalink.'&cat=';
-	} else $mdocs_get = $permalink.'?cat=';
+		$mdocs_get = $permalink.'&mdocs-cat=';
+	} else $mdocs_get = $permalink.'?mdocs-cat=';
 	//if($mdocs_hide_all_files_non_members && $user_logged_in == false) $show_files = false;
 	//elseif($mdocs_hide_all_files == false || $page_type == 'dashboard') $show_files = true;
 	//else $show_files = false;
@@ -80,7 +80,7 @@ function mdocs_file_info_large($the_mdoc, $page_type='site', $index=0, $current_
 		<?php if($mdocs_show_author) { ?><p><i class="fa fa-pencil"></i> <?php _e('Author'); ?>: <i class="mdocs-green"><?php echo $the_mdoc['owner']; ?></i></p> <?php } ?>
 		<?php if($mdocs_show_version) { ?><p><i class="fa fa-power-off"></i> <?php _e('Version') ?>:  <b class="mdocs-blue"><?php echo $the_mdoc['version']; ?></b>
 			<?php if($page_type == 'site' ) { ?>
-				<!--<a href="<?php echo $the_mdoc_permalink.'&cat='.$current_cat.'&mdocs-index='.$index; ?>&action=mdocs-versions">[ View More Versions ]</a>-->
+				<!--<a href="<?php echo $the_mdoc_permalink.'&mdocs-cat='.$current_cat.'&mdocs-index='.$index; ?>&action=mdocs-versions">[ View More Versions ]</a>-->
 			<?php } ?>
 		</p><?php } ?>
 		<?php if($mdocs_show_update) { ?><p><i class="fa fa-calendar"></i> <?php _e('Last Updated'); ?>: <b class="mdocs-red"><?php echo $last_modified; ?></b></p><?php } ?>

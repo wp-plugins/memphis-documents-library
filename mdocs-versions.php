@@ -2,7 +2,8 @@
 function mdocs_versions() {
 	$cats = get_option('mdocs-cats');
 	$mdocs = get_option('mdocs-list');
-	$mdocs = mdocs_sort_by($mdocs, 0 , 'dashboard', false);
+	//$mdocs = mdocs_sort_by($mdocs, 0 , 'dashboard', false);
+	$mdocs = mdocs_array_sort();
 	$mdoc_index = $_GET['mdocs-index'];
 	$upload_dir = wp_upload_dir();
 	if(isset($_GET['mdocs-cat'])) $current_cat = $_GET['mdocs-cat'];
@@ -90,7 +91,8 @@ function mdocs_delete_version() {
 		$index = $_GET['mdocs-index'];
 		$version_file = $_GET['version-file'];
 		$mdocs = get_option('mdocs-list');
-		$mdocs = mdocs_sort_by($mdocs);
+		//$mdocs = mdocs_sort_by($mdocs);
+		$mdocs = mdocs_array_sort();
 		$the_mdoc = $mdocs[$index];
 		$upload_dir = wp_upload_dir();
 		$archive_index = array_search($version_file,$the_mdoc['archived']);
@@ -108,7 +110,8 @@ function mdocs_update_revision() {
 		if($_POST['mdocs-version'] != 'current') {
 			global $current_user;
 			$mdocs = get_option('mdocs-list');
-			$mdocs = mdocs_sort_by($mdocs, 0 ,'', false);
+			//$mdocs = mdocs_sort_by($mdocs, 0 ,'', false);
+			$mdocs = mdocs_array_sort();
 			$mdocs_index = $_POST['mdocs-index'];
 			$upload_dir = wp_upload_dir();
 			$the_mdoc = $mdocs[$mdocs_index];

@@ -5,7 +5,7 @@ function mdocs_edit_cats() {
 	?>
 	<div class="mdocs-ds-container">
 		<h2>Category Editor <a href="" id="mdocs-add-cat" class="btn btn-primary btn-sm"><?php _e('Add Main Category'); ?></a></h2>
-		<form  id="mdocs-cats" method="post" action="admin.php?page=memphis-documents.php&mdocs-cat=cats" >
+		<form  id="mdocs-cats" method="post" action="admin.php?page=memphis-documents.php&mdocs-cat=cats" data-cat-index="<?php echo get_option('mdocs-num-cats'); ?>">
 			<input type="hidden" value="mdocs-update-cats" name="action"/>
 			<input type="hidden" name="mdocs-update-cat-index" value="0"/>
 			<table class="wp-list-table widefat plugins">
@@ -80,7 +80,7 @@ function mdocs_build_cat_td($mdocs_cat,$parent_index=0) {
 				<?php } ?>
 			</td>
 			<td id="add-cat">
-				<input  type="button" class="mdocs-add-sub-cat button button-primary" value="Add Category" onclick="mdocs_add_sub_cat( '<?php echo intval(get_option('mdocs-num-cats')); ?>', '<?php echo $cat['slug']; ?>','<?php echo $cat['depth']; ?>', this);"  />
+				<input  type="button" class="mdocs-add-sub-cat button button-primary" value="Add Category" onclick="mdocs_add_sub_cat( '<?php echo intval(get_option('mdocs-num-cats')); ?>', '<?php echo $cat['slug']; ?>','<?php echo $cat['depth']; ?>', this);" />
 			</td>
 		</tr>
 		<?php
@@ -94,7 +94,6 @@ function mdocs_update_cats() {
 	$upload_dir = wp_upload_dir();
 	if(isset($_POST['mdocs-update-cat-index'])) mdocs_update_num_cats(intval($_POST['mdocs-update-cat-index']));
 	if(isset($_POST['mdocs-cats'])) {
-		//var_dump($_POST['mdocs-cats']);
 		$mdocs_cats_post = $_POST['mdocs-cats'];
 		$parent_id = 0;
 		$parent_ids = array();
@@ -138,7 +137,6 @@ function mdocs_update_cats() {
 			$parent_slug = $cat['slug'];
 			if($cat['remove'] == 1) mdocs_cleanup_cats($cat);
 		}
-		
 		foreach($mdocs_cats as $index_1 => $cat1) {
 			ksort($cat1['children']);
 			$cat1 = array_values($cat1['children']);

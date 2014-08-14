@@ -152,11 +152,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-list-table p { padding: 0 !important; margin: 0 !important; }
 .mdocs-list-table .float-right { float: right; }
 .mdocs-list-table tr { background: #fff; }
-.mdocs-list-table .mdocs-parent-cat, .mdocs-list-table .mdocs-current-cat, .mdocs-list-table .mdocs-sub-cats { background: #f7f7f7; font-weight: bold;}
+.mdocs-list-table .mdocs-parent-cat, .mdocs-list-table .mdocs-current-cat, .mdocs-list-table .mdocs-sub-cats { font-weight: bold;}
 .mdocs-list-table .mdocs-current-cat p {  font-size: 1.1em;  }
 .mdocs-list-table .mdocs-parent-cat a { font-size: 1.1em; }
 .mdocs-list-table .mdocs-sub-cats a { font-size: 1.1em; }
 .mdocs-list-table .mdocs-dashboard-header { background: #eaeaea; }
+.mdocs-list-table th:first-child { text-align: left; }
+.mdocs-list-table th { text-align: center; cursor: pointer;}
+.mdocs-list-table th:hover { color: #990000; }
 
 .mdocs-sort { position: relative; float: right; border: solid 1px #e2e2e2 !important; padding: 5px !important; background: #fcfcfc; clear: both !important;}
 .mdocs-sort label { font-size: 12px !important; }
@@ -230,7 +233,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-mime-table { max-width: 10px; }
 .mdocs-mime-table, .mdocs-mime-table th, .mdocs-mime-table td { background: #fff; border: solid 1px; padding: 3px; margin: 0; border-collapse: collapse; text-align: center; max-width: }
 /* RATING STYLE */
-.mdocs-rating-container { float: right; height: 10px;}
+.mdocs-ratings-stars { text-align: center; }
 .mdocs-rating-container-small { cursor: pointer; clear: both; float: right; padding: 0 10px 10px 10px; }
 .mdocs-rating-container-small div:first-child { font-size: 11px; margin: auto; text-align: center;}
 .mdocs-rating-container-small div:last-child { font-size: 20px; margin: auto; text-align: center; color: #9d9d9d;}

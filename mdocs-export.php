@@ -5,7 +5,6 @@ function mdocs_export() {
 	$path = $upload_dir['basedir'];
 	//$vars_url = $upload_dir['baseurl'].'/'.VARS_FILE;
 	$mdocs = get_option('mdocs-list');
-	//$mdocs = mdocs_sort_by($mdocs, 0, 'dashboard', false);
 	$mdocs = htmlspecialchars(serialize($mdocs));
 	$cats = htmlspecialchars(serialize(get_option('mdocs-cats')));
 	mdocs_list_header();
@@ -25,7 +24,6 @@ function mdocs_export() {
 function mdocs_export_zip() {
 	$mdocs_zip = get_option('mdocs-zip');
 	$mdocs_list = get_option('mdocs-list');
-	//$mdocs_list = mdocs_sort_by($mdocs_list, 0, 'dashboard', false);
 	if(empty($mdocs_list)) $mdocs_list = array();
 	$mdocs_cats = get_option('mdocs-cats');
 	if(is_string($mdocs_cats)) $mdocs_cats = array();

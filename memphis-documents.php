@@ -4,7 +4,7 @@ Plugin Name: Memphis Documents Library
 Plugin URI: http://www.kingofnothing.net/memphis-documents-library/
 Description: A documents repository for WordPress. 
 Author: Ian Howatson
-Version: 2.6.1
+Version: 3.0
 Author URI: http://www.kingofnothing.net/
 Date: 07/15/2014
 
@@ -47,10 +47,11 @@ include 'mdocs-widgets.php';
 include 'mdocs-filesystem-cleanup.php';
 include 'mdocs-restore.php';
 include 'mdocs-allowed-file-types.php';
+include 'mdocs-sort.php';
 mdocs_nonce();
 if(!headers_sent() && stripos($_SERVER['REQUEST_URI'], '/feed') === false) add_action('send_headers', 'mdocs_send_headers');
 elseif (!is_numeric(stripos($_SERVER['REQUEST_URI'], '/feed'))) {
-	$message = sprintf('Premature output is preventing Memphis Documents Library from working properly. Outpust has started in %s on line %d.', $file, $line);
+	$message = sprintf('Premature output is preventing Memphis Documents Library from working properly. Outputs has started in %s on line %d.', $file, $line);
 	echo '<div style="border: 1em solid red; background: #fff; color: #f00; margin:2em; padding: 1em;">', htmlspecialchars($message), '</div>';
 	trigger_error($message);
 	die();	

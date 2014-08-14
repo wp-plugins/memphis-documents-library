@@ -18,8 +18,12 @@ function mdocs_wp(plugin_url, wp_root) {
     mdocs_file_preview();
     // IMAGE PREVIEW
     mdocs_image_preview();
-   // RATING SYSTEM
+    // RATING SYSTEM
     mdocs_ratings();
+    // SORT OPTIONS
+    mdocs_sort_files();
+    // RATINGS SUBMIT
+    mdocs_submit_rating('small');
 }
 // INITIALIZE THE ADMIN JAVASCRIPT
 function mdocs_admin(plugin_url, wp_root) {
@@ -118,10 +122,10 @@ function mdocs_admin(plugin_url, wp_root) {
 	});
 	// ADD ROOT CATEGORY
 	jQuery('#mdocs-add-cat').click(function(event) {
-		event.preventDefault();
-		var num_main_cats = 0;
-		jQuery('input[name$="[parent]"]').each(function() { if (jQuery(this).val() == '') num_main_cats++; });
-		mdocs_add_sub_cat(num_main_cats, '', 0, jQuery('#the-list'), true); 
+	    event.preventDefault();
+	    var num_main_cats = 0;
+	    jQuery('input[name$="[parent]"]').each(function() { if (jQuery(this).val() == '') num_main_cats++; });
+	    mdocs_add_sub_cat(num_main_cats, '', 0, jQuery('#the-list'), true); 
 	});
 	jQuery('input[id="mdocs-cat-remove"]').click(function() {
 		var confirm = window.confirm(mdocs_js.category_delete);
@@ -148,6 +152,10 @@ function mdocs_admin(plugin_url, wp_root) {
 		mdocs_add_mime_type(plugin_url, wp_root);
 	    });
 	});
+    // SORT OPTIONS
+    mdocs_sort_files();
+    // RATING SYSTEM
+    mdocs_ratings();
 }
 // ADD MIME TYPE
 function mdocs_add_mime_type(plugin_url, wp_root) {
@@ -188,17 +196,22 @@ function mdocs_add_sub_cat(total_cats, parent, parent_depth, object, is_parent) 
 	jQuery('input[name="mdocs-cats['+parent+'][num_children]"]').val(order);
 	if (is_parent) {
 	    padding = 0;
-	    order = subcat_index;
-	    disabled = '';
+	    //order = subcat_index;
+	    //disabled = '';
+	    order = 1;
+	    jQuery('input[name$="[parent]"]').each(function() {
+		if(jQuery(this).val() == '') order++;
+	    });
 	    child_depth = 0;
 	}
 	if (jQuery('input[name="mdocs-cats['+parent+'][index]"]').val() != undefined) {
 	    var parent_index = jQuery('input[name="mdocs-cats['+parent+'][index]"]').val();
 	} else var parent_index = 0;
+	subcat_index = jQuery('#mdocs-cats').data('cat-index');
 	var html = '\
 	    <tr>\
 		<td  id="name" '+padding+' >\
-		   <input type="hidden" name="mdocs-cats[mdocs-cat-'+subcat_index+'][index]" value="'+(order-1)+'"/>\
+		   <input type="hidden" name="mdocs-cats[mdocs-cat-'+subcat_index+'][index]" value="'+subcat_index+'"/>\
 		    <input type="hidden" name="mdocs-cats[mdocs-cat-'+subcat_index+'][parent_index]" value="'+parent_index+'"/>\
 		    <input type="hidden" name="mdocs-cats[mdocs-cat-'+subcat_index+'][num_children]" value="0" />\
 		    <input type="hidden" name="mdocs-cats[mdocs-cat-'+subcat_index+'][depth]" value="'+child_depth+'"/>\
@@ -229,13 +242,16 @@ function mdocs_add_sub_cat(total_cats, parent, parent_depth, object, is_parent) 
 	    var slug = jQuery('input[name="mdocs-cats[mdocs-cat-'+id+'][slug]"]').val();
 	    var depths = jQuery('input[name="mdocs-cats[mdocs-cat-'+id+'][depth]"]').val();
 	    //console.debug(jQuery('input[name="mdocs-cats[mdocs-cat-'+id+'][depth]"]').val());
-	    alert(jQuery('input[name="mdocs-cats[mdocs-cat-3][index]"]').val());
+	    //alert(jQuery('input[name="mdocs-cats[mdocs-cat-3][depth]"]').val());
 	    mdocs_add_sub_cat(subcat_index,slug, depths, this);
 	});
+	subcat_index++;
+	jQuery('#mdocs-cats').data('cat-index', subcat_index);
     } else alert(mdocs_js.category_support);
     //jQuery('.mdocs-add-sub-cat').unbind('click');
    
 }
+// FUNCTIONS
 function mdocs_set_onleave() { window.onbeforeunload = function() { return mdocs_js.leave_page;}; }
 function mdocs_reset_onleave() { window.onbeforeunload = null; }
 function mdocs_download_zip(zip_file) { window.location.href = '?mdocs-export-file='+zip_file; }
@@ -263,8 +279,6 @@ function mdocs_share(mdocs_link,mdocs_direct,the_id) {
 	}
 }
 
-function mdocs_close_preview(type) { window.location.href = '';}
-
 function mdocs_toogle_disable_setting(main, disable) {
 	var checked = jQuery(main).prop('checked');
 	if (checked) jQuery(disable).prop('disabled', true);
@@ -277,34 +291,49 @@ function mdocs_toogle_disable_setting(main, disable) {
 }
 // RATINGS
 function mdocs_ratings() {
-	jQuery('.mdocs-my-rating').click(function() {
-		window.location.href = '?mdocs-rating='+this.id;
+    // DISPLAY RATING WIDGET
+    jQuery('.ratings-button' ).click(function(event) {
+	//event.preventDefault();
+	var mdocs_file_id = jQuery(this).data('mdocs-id');
+	var mdocs_is_admin = jQuery(this).data('is-admin');
+	jQuery.post(mdocs_js.plugin_url+'mdocs-ratings.php',{type: 'rating',mdocs_file_id: mdocs_file_id, wp_root: mdocs_js.wp_root, is_admin: mdocs_is_admin},function(data) {
+		jQuery('.mdocs-ratings-body').empty();
+		jQuery('.mdocs-ratings-body').html(data);
+		mdocs_submit_rating('large');
 	});
-	jQuery('.mdocs-my-rating').mouseover(function() {
-		for (index = 1; index < 6; ++index) {
-			if (this.id >= index) jQuery('#'+index).prop('class', 'fa fa-star mdocs-gold mdocs-my-rating');
-			else  jQuery('#'+index).prop('class', 'fa fa-star-o mdocs-my-rating');
-			
-		}
-	});
-	
-	jQuery('.mdocs-rating-container-small').mouseover(function() {
-		if (init_rating == false) {
-			for (index = 1; index < 6; ++index) {
-				if (jQuery('#'+index).hasClass("fa fa-star")) {
-					the_rating = index;
-				}  
-			}
-		}
-		init_rating = true;
-	});
-	
-	jQuery('.mdocs-rating-container-small').mouseout(function() {
-		for (index = 1; index < 6; ++index) {
-			if (the_rating >= index) jQuery('#'+index).prop('class', 'fa fa-star mdocs-gold mdocs-my-rating');
-			else  jQuery('#'+index).prop('class', 'fa fa-star-o mdocs-my-rating');
-		}
-	});
+    });
+}
+    
+function mdocs_submit_rating(size) {
+    if (size == 'large') size = 'fa-5x';
+    else size = '';
+    jQuery('.mdocs-my-rating').click(function() {
+	window.location.href = '?mdocs-rating='+this.id;
+    });
+    jQuery('.mdocs-my-rating').mouseover(function() {
+	for (index = 1; index < 6; ++index) {
+	    if (this.id >= index) jQuery('#'+index).prop('class', 'fa fa-star '+size+' mdocs-gold mdocs-my-rating');
+	    else  jQuery('#'+index).prop('class', 'fa fa-star-o '+size+'  mdocs-my-rating');
+	}
+    });
+    
+    jQuery('.mdocs-rating-container-small, .mdocs-rating-container').mouseover(function() {
+	if (init_rating == false) {
+	    for (index = 1; index < 6; ++index) {
+		if (jQuery('#'+index).hasClass("fa fa-star "+size+" ")) {
+		    the_rating = index;
+		}  
+	    }
+	}
+	init_rating = true;
+    });
+    
+    jQuery('.mdocs-rating-container-small, .mdocs-rating-container').mouseout(function() {
+	    for (index = 1; index < 6; ++index) {
+		    if (the_rating >= index) jQuery('#'+index).prop('class', 'fa fa-star '+size+'  mdocs-gold mdocs-my-rating');
+		    else  jQuery('#'+index).prop('class', 'fa fa-star-o '+size+'  mdocs-my-rating');
+	    }
+    });
 }
 // RESTORE DEFAULT
 function mdocs_restore_default() {
@@ -315,8 +344,6 @@ function mdocs_restore_default() {
     } 
    
 }
-
-// FUNCTIONS
 // FILE PREVIEW
 function mdocs_file_preview() {
     jQuery('.file-preview' ).click(function(event) {
@@ -349,6 +376,23 @@ function mdocs_toogle_description_preview() {
 	jQuery.post(mdocs_js.plugin_url+'mdocs-doc-preview.php',{type:'show', show_type:show_type,mdocs_file_id: mdocs_file_id, wp_root: mdocs_js.wp_root},function(data) {
 		jQuery('#mdocs-show-container-'+mdocs_file_id).empty();
 		jQuery('#mdocs-show-container-'+mdocs_file_id).html(data);
+	});
+    });
+}
+
+// SORT FUNCTIONALITY
+function mdocs_sort_files(is_admin) {
+    jQuery('.mdocs-sort-option').click(function() {
+	var current_cat = jQuery(this).data('current-cat');
+	var sort_type = jQuery(this).data('sort-type');
+	var sort_range = jQuery(this).children(':first').prop('class');
+	if (sort_range == 'fa fa-chevron-down') {
+	    sort_range = 'asc';
+	} else sort_range = 'desc';
+	jQuery.post(mdocs_js.plugin_url+'mdocs-sort.php',{type: 'sort', wp_root: mdocs_js.wp_root, sort_type: sort_type, sort_range: sort_range  },function(data) {
+	    jQuery('.mdocs-container').append(data);
+	    if(is_admin) window.location.href = "admin.php?page=memphis-documents.php&mdocs-cat="+current_cat;
+	    else window.location.href = "?page=memphis-documents.php&mdocs-cat="+current_cat;
 	});
     });
 }

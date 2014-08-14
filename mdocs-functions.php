@@ -216,7 +216,7 @@ function mdocs_nonce() {
 	if(!isset($_SESSION['mdocs-nonce']) || isset($_REQUEST['mdocs-nonce'])) $_SESSION['mdocs-nonce'] = md5(rand(0,1000000));
 	session_write_close();	
 }
-
+/* SCHEDULED FOR REMOVAL
 function mdocs_sort_by($mdocs, $ypos=0, $page_type='site', $echo=true) {
 	$mdocs_sort_type = get_option('mdocs-sort-type');
 	$mdocs_sort_style = get_option('mdocs-sort-style');
@@ -263,9 +263,17 @@ function mdocs_sort_by($mdocs, $ypos=0, $page_type='site', $echo=true) {
 	if($mdocs == null) $mdocs = array();
 	return $mdocs;
 }
-
-function mdocs_array_sort($the_array, $orderby, $sort_types=SORT_ASC) {
-	
+*/
+function mdocs_array_sort($the_array=null, $orderby=null, $sort_types=null) {
+	if($the_array == null) $the_array = get_option('mdocs-list');
+	if($orderby == null) $orderby = get_option('mdocs-sort-type');
+	if($sort_types == null) {
+		$sort_types = get_option('mdocs-sort-style');
+		if(isset($_COOKIE['mdocs-sort-type'])) $orderby = $_COOKIE['mdocs-sort-type'];
+		if(isset($_COOKIE['mdocs-sort-range'])) $sort_types = $_COOKIE['mdocs-sort-range'];
+	}
+	if($sort_types == 'desc') $sort_types = SORT_DESC;
+	if($sort_types == 'asc') $sort_types = SORT_ASC;
     if($the_array != null) {
 		foreach($the_array as $a){ 
 			foreach($a as $key=>$value){ 
@@ -275,7 +283,6 @@ function mdocs_array_sort($the_array, $orderby, $sort_types=SORT_ASC) {
 				$sortArray[$key][] = $value; 
 			} 
 		}
-		
 		$array_lowercase = array_map('strtolower', $sortArray[$orderby]);
 		if(is_numeric($array_lowercase[0])) $sort_var_type = SORT_NUMERIC;
 		else $sort_var_type = SORT_STRING;
@@ -298,7 +305,7 @@ function mdocs_errors($error, $type='updated') {
 	if($type == 'error') $error = '<b>'.__('Memphis Error').': </b>'.$error;
 	else $error = '<b>'.__('Memphis Info').': </b>'.$error;
 	?>
-	<div class="<?php echo $type; ?>">
+	<div class="<?php echo $type; ?>" style="clear:both;">
 		<div id="mdocs-error">
 		<p><?php _e($error); ?></p>
 		</div>

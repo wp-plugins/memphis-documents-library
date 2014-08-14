@@ -52,7 +52,8 @@ function mdoc_doc_list($current_cat) {
 	if($is_read_write) {
 		//mdocs_the_list();
 		$mdocs = get_option('mdocs-list');
-		$mdocs = mdocs_sort_by($mdocs, 5, 'dashboard');
+		//$mdocs = mdocs_sort_by($mdocs, 5, 'dashboard');
+		$mdocs = mdocs_array_sort();
 		$upload_dir = wp_upload_dir();	
 		$bgcolor = "active";
 		$count = 0;
@@ -110,7 +111,8 @@ function mdoc_doc_list($current_cat) {
 function mdocs_delete() {
 	if ( $_REQUEST['mdocs-nonce'] == MDOCS_NONCE ) {
 		$mdocs = get_option('mdocs-list');
-		$mdocs = mdocs_sort_by($mdocs, 0, 'dashboard', false);
+		//$mdocs = mdocs_sort_by($mdocs, 0, 'dashboard', false);
+		$mdocs = mdocs_array_sort();
 		$index = $_GET['mdocs-index'];
 		$upload_dir = wp_upload_dir();
 		$mdocs_file = $mdocs[$index];
@@ -128,7 +130,8 @@ function mdocs_delete() {
 function mdocs_uploader($edit_type='Add Document') {
 	$cats = get_option('mdocs-cats');
 	$mdocs = get_option('mdocs-list');
-	$mdocs = mdocs_sort_by($mdocs, 0, 'dashboard', false);
+	//$mdocs = mdocs_sort_by($mdocs, 0, 'dashboard', false);
+	$mdocs = mdocs_array_sort();
 	if(isset($_GET['mdocs-index'])) {
 		$mdoc_index = $_GET['mdocs-index'];
 		$mdocs_post = get_post($mdocs[$mdoc_index]['parent']);
@@ -138,7 +141,6 @@ function mdocs_uploader($edit_type='Add Document') {
 	else $current_cat = $current_cat = key($cats);
 	if($edit_type == 'Update Document') $mdoc_type = 'mdocs-update';
 	else $mdoc_type = 'mdocs-add';
-	
 ?>
 <div class="mdocs-uploader-bg"></div>
 <div class="mdocs-uploader" >
@@ -147,7 +149,7 @@ function mdocs_uploader($edit_type='Add Document') {
 		<?php _e($edit_type); ?>
 	</h2>
 	<div class="mdocs-uploader-content">
-		<form class="mdocs-uploader-form" enctype="multipart/form-data" action="<?php echo get_site_url().'/wp-admin/admin.php?page='.$_REQUEST['page'].'&cat='.$_REQUEST['cat']; ?>" method="POST">
+		<form class="mdocs-uploader-form" enctype="multipart/form-data" action="<?php echo get_site_url().'/wp-admin/admin.php?page='.$_REQUEST['page'].'&mdocs-cat='.$_REQUEST['mdocs-cat']; ?>" method="POST">
 			<input type="hidden" name="mdocs-type" value="<?php echo $mdoc_type; ?>" />
 			<input type="hidden" name="mdocs-index" value="<?php if($edit_type == 'Update Document') echo $mdoc_index; ?>" />
 			<input type="hidden" name="mdocs-cat" value="<?php echo $current_cat; ?>" />

@@ -121,8 +121,8 @@ function mdocs_init_settings() {
 	if(is_string(get_option('mdocs-cats'))) update_option('mdocs-cats',$temp_cats);
 	register_setting('mdocs-settings', 'mdocs-list');
 	add_option('mdocs-list',array());
-	register_setting('mdocs-settings', 'mdocs-total-cats');
-	add_option('mdocs-total-cats',0);
+	register_setting('mdocs-settings', 'mdocs-num-cats');
+	add_option('mdocs-num-cats',1);
 	register_setting('mdocs-settings', 'mdocs-zip');
 	add_option('mdocs-zip','mdocs-export.zip');
 	register_setting('mdocs-settings', 'mdocs-wp-root');
@@ -238,8 +238,10 @@ function mdocs_admin_script() {
 	wp_enqueue_script("jquery");
 	//BOOTSTRAP
 	if(isset($_GET['page']) && $_GET['page'] == 'memphis-documents.php') {
-		wp_register_style( 'mdocs-bootstrap-style', '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css');
-		wp_enqueue_style( 'mdocs-bootstrap-style' );
+		//wp_register_style( 'mdocs-bootstrap-style', '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css');
+		//wp_enqueue_style( 'mdocs-bootstrap-style' );
+		wp_register_style( 'mdocs-bootstrap-style2', '//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/cerulean/bootstrap.min.css');
+		wp_enqueue_style( 'mdocs-bootstrap-style2' );
 		wp_enqueue_script( 'mdocs-bootstrap-script', '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js' );
 	}
 	//JQUERY UI
@@ -266,8 +268,10 @@ function mdocs_script() {
 	//JQUERY
 	wp_enqueue_script("jquery");
 	//BOOTSTRAP
-	wp_register_style( 'mdocs-bootstrap-style', '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css');
-	wp_enqueue_style( 'mdocs-bootstrap-style' );
+	//wp_register_style( 'mdocs-bootstrap-style', '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css');
+	//wp_enqueue_style( 'mdocs-bootstrap-style' );
+	wp_register_style( 'mdocs-bootstrap-style2', '//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/cerulean/bootstrap.min.css');
+	wp_enqueue_style( 'mdocs-bootstrap-style2' );
 	wp_enqueue_script( 'mdocs-bootstrap-script', '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js' );
 	//JQUERY UI
 	wp_register_style( 'mdocs-jquery-ui-style', '//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
@@ -317,16 +321,16 @@ function mdocs_document_ready_admin() {
 function mdocs_ie_compat() { ?><meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" /><?php }
 function mdocs_send_headers() {
 	//SET SORT VALUES SITE
-	if(isset($_POST['mdocs-sort-type'])) setcookie('mdocs-sort-type-site', $_POST['mdocs-sort-type']); 
-	if(isset($_POST['mdocs-sort-range'])) setcookie('mdocs-sort-range-site', $_POST['mdocs-sort-range']);
+	if(isset($_POST['sort_type'])) setcookie('mdocs-sort-type-site', $_POST['mdocs-sort-type']); 
+	if(isset($_POST['sort_range'])) setcookie('mdocs-sort-range-site', $_POST['mdocs-sort-range']);
 	//$get_browser = new mdocs_browser_compatibility();
 	//$browser = $get_browser->get_browser();
 	//if($browser['name'] == 'Internet Explorer') mdocs_ie_compat();
 }
 function mdocs_send_headers_dashboard() {
 	//SET SORT VALUES DASHBOARD
-	if(isset($_POST['mdocs-sort-type'])) setcookie('mdocs-sort-type-dashboard', $_POST['mdocs-sort-type']); 
-	if(isset($_POST['mdocs-sort-range'])) setcookie('mdocs-sort-range-dashboard', $_POST['mdocs-sort-range']);
+	if(isset($_POST['sort_type'])) setcookie('mdocs-sort-type-dashboard', $_POST['mdocs-sort-type']); 
+	if(isset($_POST['sort_range'])) setcookie('mdocs-sort-range-dashboard', $_POST['mdocs-sort-range']);
 	//mdocs_ie_compat();
 }
 function mdocs_v2_2_1_admin_notice_v1() {

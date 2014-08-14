@@ -8,7 +8,6 @@ function mdocs_download_file($export_file='') {
 	require_once(ABSPATH . 'wp-includes/pluggable.php');
 	$upload_dir = wp_upload_dir();
 	$mdocs = get_option('mdocs-list');
-	//$mdocs = mdocs_sort_by($mdocs,0,'dashboard',false);
 	$mdocs_hide_all_files = get_option( 'mdocs-hide-all-files' );
 	$is_logged_in = is_user_logged_in();
 	$login_denied = false;

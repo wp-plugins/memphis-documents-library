@@ -2,7 +2,8 @@
 function mdocs_file_upload() {
 	global $current_user, $wp_filetype;
 	$mdocs = get_option('mdocs-list');
-	$mdocs = mdocs_sort_by($mdocs, 0, 'dashboard', false);
+	//$mdocs = mdocs_sort_by($mdocs, 0, 'dashboard', false);
+	$mdocs = mdocs_array_sort();
 	$mdocs_cats = get_option('mdocs-cats');
 	$mdocs_index = $_POST['mdocs-index'];
 	$mdocs_filename = $_FILES['mdocs']['name'];

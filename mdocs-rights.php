@@ -24,4 +24,14 @@ function mdocs_preview_rights($the_mdoc) {
 	<li role="presentation"><a class="<?php echo $preview_type; ?>" role="menuitem" tabindex="-1" data-toggle="modal" data-target="#mdocs-file-preview" data-mdocs-id="<?php echo $the_mdoc['id']; ?>" data-is-admin="<?php echo is_admin(); ?>" href=""><i class="fa fa-search mdocs-preview-icon" ></i> <?php _e('Preview'); ?></a></li>
 	<?php
 }
+
+function mdocs_rating_rights($the_mdoc) {
+	//global $post;
+	//if($post != null) $permalink = get_permalink($post->ID);
+	//if(is_admin()) $permalink = site_url().'/wp-admin/admin.php?page=memphis-documents.php&mdocs-cat='+$current_cat;
+	//var_dump($permalink);
+	?>
+	<li role="presentation"><a class="ratings-button" role="menuitem" tabindex="-1" href="" data-toggle="modal" data-target="#mdocs-rating" data-mdocs-id="<?php echo $the_mdoc['id']; ?>" data-is-admin="<?php echo is_admin(); ?>"><i class="fa fa-star"></i> <?php _e('Rate'); ?></a></li>
+	<?php
+}
 ?>
