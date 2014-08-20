@@ -290,7 +290,7 @@ function mdocs_toogle_disable_setting(main, disable) {
 	});
 }
 // RATINGS
-function mdocs_ratings() {
+function mdocs_ratings() {    
     // DISPLAY RATING WIDGET
     jQuery('.ratings-button' ).click(function(event) {
 	//event.preventDefault();
@@ -312,15 +312,15 @@ function mdocs_submit_rating(size) {
     });
     jQuery('.mdocs-my-rating').mouseover(function() {
 	for (index = 1; index < 6; ++index) {
-	    if (this.id >= index) jQuery('#'+index).prop('class', 'fa fa-star '+size+' mdocs-gold mdocs-my-rating');
-	    else  jQuery('#'+index).prop('class', 'fa fa-star-o '+size+'  mdocs-my-rating');
+	    if (this.id >= index) jQuery('#'+index).prop('class', 'fa fa-star '+size+' mdocs-gold mdocs-big-star mdocs-my-rating');
+	    else  jQuery('#'+index).prop('class', 'fa fa-star-o '+size+' mdocs-big-star mdocs-my-rating');
 	}
     });
     
     jQuery('.mdocs-rating-container-small, .mdocs-rating-container').mouseover(function() {
 	if (init_rating == false) {
 	    for (index = 1; index < 6; ++index) {
-		if (jQuery('#'+index).hasClass("fa fa-star "+size+" ")) {
+		if (jQuery('#'+index).hasClass("fa fa-star "+size+" mdocs-big-star")) {
 		    the_rating = index;
 		}  
 	    }
@@ -329,10 +329,13 @@ function mdocs_submit_rating(size) {
     });
     
     jQuery('.mdocs-rating-container-small, .mdocs-rating-container').mouseout(function() {
-	    for (index = 1; index < 6; ++index) {
-		    if (the_rating >= index) jQuery('#'+index).prop('class', 'fa fa-star '+size+'  mdocs-gold mdocs-my-rating');
-		    else  jQuery('#'+index).prop('class', 'fa fa-star-o '+size+'  mdocs-my-rating');
-	    }
+	var my_rating = jQuery(this).parent().prop('class');
+	//alert(my_rating);
+	console.debug(my_rating);
+	for (index = 1; index < 6; ++index) {
+	    if (the_rating >= index) jQuery('#'+index).prop('class', 'fa fa-star '+size+'  mdocs-gold mdocs-big-star mdocs-my-rating');
+	    else  jQuery('#'+index).prop('class', 'fa fa-star-o '+size+' mdocs-big-star mdocs-my-rating');
+	}
     });
 }
 // RESTORE DEFAULT

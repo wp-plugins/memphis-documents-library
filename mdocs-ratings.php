@@ -14,12 +14,12 @@ if(isset($_POST['type']) && $_POST['type'] == 'rating') {
 				else $text = __("Your Rating");
 				echo '<div class="mdocs-rating-container">';
 				echo '<h1>'.$the_mdoc['name'].'</h1>';
-				echo '<div class="mdocs-ratings-stars">';
+				echo '<div class="mdocs-ratings-stars" data-my-rating="'.$the_rating['your_rating'].'">';
 				echo '<p>'.$text,'</p>';
 				for($i=1;$i<=5;$i++) {
 					if($the_rating['average'] >= $i) echo '<i class="fa fa-star fa-5x mdocs-gold mdocs-big-star mdocs-my-rating" id="'.$i.'"></i>';
 					elseif(ceil($the_rating['average']) == $i ) echo '<i class="fa fa-star-half-full fa-5x mdocs-gold mdocs-big-star mdocs-my-rating" id="'.$i.'"></i>';
-					else echo '<i class="fa fa-star-o fa-5x mdocs-gold mdocs-big-star mdocs-my-rating" id="'.$i.'"></i>';
+					else echo '<i class="fa fa-star-o fa-5x mdocs-big-star mdocs-my-rating" id="'.$i.'"></i>';
 				}
 				echo '</div>';
 				echo '</div>';

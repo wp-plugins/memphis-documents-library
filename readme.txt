@@ -264,8 +264,10 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 = 1.0 =
 * Initial Release of Memphis Documents Library
 == Feature Request ==
-* *New* - Get thumbails of the documents as the featured image for the post.
-* *New* - Give other user types the ability to upload files.
-* *New* - Shortcode to add a download link to a post or page.
-* *New* - Search shows only files that the specific user role has access too.
-* *New* - Added more level to categories.
+* *Feature* - Get thumbails of the documents as the featured image for the post, as an alternative to Google Preview.
+* *Feature* - Give other user types the ability to upload files.
+* *Feature* - Shortcode to add a download link to a post or page.
+* *Feature* - Search shows only files that the specific user role has access too.
+* *Feature* - Added more level to categories.
+* *Feature* - Batch upload choose a category for all file before uploading them.
+* *Feature* - Add a pdf preview on the description page

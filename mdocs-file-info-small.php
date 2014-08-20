@@ -67,9 +67,7 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 	?>
 		<tr>
 			<td id="title" class="mdocs-tooltip">
-				<button type="button" class="btn btn-default test-pop" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">Popover on left</button>
 				<?php
-				
 				if($page_type == 'dashboard') {
 				?>
 					<a href="<?php echo 'admin.php?page=memphis-documents.php&mdocs-cat='.$current_cat.'&action=update-doc&mdocs-index='.$index; ?>" ><?php echo str_replace('\\','',$the_mdoc['name']).$status_tag; ?></a>
