@@ -6,13 +6,17 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 2.6.2
+Stable tag: 2.6.3
 
 A documents library for WordPress.
 
 == Description ==
 
 Memphis Documents Library is a  documents library for WordPress with a robust feature set.  It is a great tool for the organization and distribution of files.
+
+= Security Update!! =
+
+Memphis Documents Library version *2.6.3* is an important sercurity update.  Please update your plugin as soon as possible.
 
 = What's New With Version 2.6 =
 
@@ -30,7 +34,8 @@ Memphis Documents Library is a  documents library for WordPress with a robust fe
 * *Bug* - Removed extra label tag in sort box which was cause issues in Firefox.
 * *Bug* - Fixed Chrome bug, where file types that are allowed in WordPress are being blocked by Memphis Documents Library.
 * *Bug* - Fixed a bug when creating categories a null category would be created that could not be delete.
-
+* *Bug* - Fixed the XSS (Cross Site Scripting) issues root cause was using $_REQUEST inside a form.
+* *Bug* - Fixed the sercuirty vulnerabilities known as LFI/RFI, which stands for Local or Remote File Inclusion.
 
 = Memphis Documents Library Features =
 
@@ -118,6 +123,9 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 7. screenshot-7.png
 
 == Changelog ==
+= 2.6.3 =
+* *Bug* - Fixed sercuirty issues using $_REQUEST inside a form.
+* *Bug* - Fixed sercuirty issue Local or Remote File Inclusion.
 = 2.6.2 =
 * *Bug* - Fixed a bug when creating categories a nul category would be created that could not be delete.
 = 2.6.1 =

@@ -248,7 +248,7 @@ function mdocs_admin_script() {
 	//WORDPRESS IRIS COLOR PICKER
 	wp_enqueue_style( 'wp-color-picker' );
     wp_enqueue_script( 'mdocs-color-picker', plugins_url('mdocs-script.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
-	mdocs_js_handle();
+	mdocs_js_handle('mdocs-admin-script');
 }
 
 function mdocs_script() {
@@ -266,6 +266,7 @@ function mdocs_script() {
 	//FONT-AWESOME STYLE
 	wp_register_style( 'mdocs-font-awesome2-style', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
 	wp_enqueue_style( 'mdocs-font-awesome2-style' );
+	mdocs_js_handle('mdocs-script');
 }
 
 function mdocs_inline_css($style_name) {

@@ -1,9 +1,18 @@
 <?php
-if (is_multisite()) {
-	 mdocs_multi_site_remove();
-} else {
-	mdocs_single_site_remove();
+function mdocs_restore_default() {
+	if(isset($_POST['type']) && $_POST['type'] == 'restore') {
+		$blog_id = intval($_POST['blog_id']);
+		if ( is_main_site($blog_id) ) mdocs_single_site_remove();
+		else mdocs_single_site_remove($blog_id);
+	} else { 
+		if (is_multisite()) {
+			 mdocs_multi_site_remove();
+		} else {
+			mdocs_single_site_remove();
+		}
+	}
 }
+
 function mdocs_multi_site_remove() {
 	global $wpdb;
 	$blogs = $wpdb->get_results("SELECT blog_id FROM {$wpdb->blogs}", ARRAY_A);

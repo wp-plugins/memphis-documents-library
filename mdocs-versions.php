@@ -104,7 +104,8 @@ function mdocs_delete_version() {
 
 function mdocs_update_revision() {
 	//MDOCS NONCE VERIFICATION
-	if ($_REQUEST['mdocs-nonce'] == MDOCS_NONCE ) {
+	$post_mdocs_nonce = sanitize_text_field($_REQUEST['mdocs-nonce']);
+	if ($post_mdocs_nonce == MDOCS_NONCE ) {
 		if($_POST['mdocs-version'] != 'current') {
 			global $current_user;
 			$mdocs = get_option('mdocs-list');

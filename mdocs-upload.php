@@ -39,7 +39,8 @@ function mdocs_file_upload() {
 		}
 	}
 	//MDOCS NONCE VERIFICATION
-	if ($_REQUEST['mdocs-nonce'] == MDOCS_NONCE ) {
+	$post_mdocs_nonce = sanitize_text_field($_REQUEST['mdocs-nonce']);
+	if ($post_mdocs_nonce == MDOCS_NONCE ) {
 		if(!empty($mdocs_cats)) {
 			if($mdocs_type == 'mdocs-add') {
 				if($valid_mime_type) {

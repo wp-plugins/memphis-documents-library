@@ -1,11 +1,12 @@
 <?php
+add_action('init', 'mdocs_init_download');
+function mdocs_init_download() {
 if(isset($_GET['mdocs-file'])) mdocs_download_file();
 if(isset($_GET['mdocs-version'])) mdocs_download_file($_GET['mdocs-version']);
 if(isset($_GET['mdocs-export-file'])) mdocs_download_file($_GET['mdocs-export-file']);
 if(isset($_GET['mdocs-img-preview'])) mdocs_img_preview();
-
+}
 function mdocs_download_file($export_file='') {
-	require_once(ABSPATH . 'wp-includes/pluggable.php');
 	$upload_dir = wp_upload_dir();
 	$mdocs = get_option('mdocs-list');
 	//$mdocs = mdocs_sort_by($mdocs,0,'dashboard',false);

@@ -212,6 +212,8 @@ function mdocs_process_file($file, $import=false) {
 
 function mdocs_nonce() {
 	session_start();
+	$post_mdocs_nonce = sanitize_text_field($_REQUEST['mdocs-nonce']);
+	$session_mdocs_nonce = sanitize_text_field($_SESSION['mdocs-nonce']);
 	if(isset($_SESSION['mdocs-nonce'])) define('MDOCS_NONCE',$_SESSION['mdocs-nonce']);
 	if(!isset($_SESSION['mdocs-nonce']) || isset($_REQUEST['mdocs-nonce'])) $_SESSION['mdocs-nonce'] = md5(rand(0,1000000));
 	session_write_close();	

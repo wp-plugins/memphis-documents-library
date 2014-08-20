@@ -12,41 +12,9 @@ function mdocs_wp(plugin_url, wp_root) {
 		jQuery(this).tooltip("open");
 		jQuery( this ).unbind( "mouseleave" );
 	});
-	// TOOGLE DESCRIPTION/PREVIEW
-	jQuery('[id^="mdoc-show-desc-"], [id^="mdoc-show-preview-"]' ).click(function(e) {
-		e.preventDefault();
-		var exploded = jQuery(this).prop('id').split('-');
-		var mdocs_file_id = exploded[exploded.length-1];
-		var show_type = exploded[exploded.length-2];
-		jQuery.post(plugin_url+'mdocs-doc-preview.php',{type:'show', show_type:show_type,mdocs_file_id: mdocs_file_id, wp_root: wp_root},function(data) {
-			jQuery('#mdocs-show-container-'+mdocs_file_id).empty();
-			jQuery('#mdocs-show-container-'+mdocs_file_id).html(data);
-		});
-	});
 	// FILE PREVIEW
-	jQuery('[id^="file-preview-"]' ).click(function() {
-		var mdocs_file_id = jQuery(this).prop('id').split('-');
-		mdocs_file_id = mdocs_file_id[mdocs_file_id.length-1];
-		jQuery('.mdocs-wp-preview').empty();
-		jQuery('.mdocs-wp-preview').fadeIn();
-		jQuery.post(plugin_url+'mdocs-doc-preview.php',{type: 'file',mdocs_file_id: mdocs_file_id, wp_root: wp_root},function(data) {
-			jQuery('html, body').css('overflow-y','hidden');
-			jQuery('.mdocs-wp-preview').empty();
-			jQuery('.mdocs-wp-preview').html(data);
-		});
-	});
-	// IMAGE PREVIEW
-	jQuery('[id^="img-preview-"]' ).click(function() {
-		var mdocs_file_id = jQuery(this).prop('id').split('-');
-		mdocs_file_id = mdocs_file_id[mdocs_file_id.length-1];
-		jQuery('.mdocs-wp-preview').empty();
-		jQuery('.mdocs-wp-preview').fadeIn();
-		jQuery.post(plugin_url+'mdocs-doc-preview.php',{type: 'img',mdocs_file_id: mdocs_file_id, wp_root: wp_root, is_admin: true},function(data) {
-			jQuery('html, body').css('overflow-y','hidden');
-			jQuery('.mdocs-wp-preview').empty();
-			jQuery('.mdocs-wp-preview').html(data);
-		});
-	});
+	mdocs_file_preview();
+	// RATINGS
 	mdocs_ratings();
 }
 // INITIALIZE THE ADMIN JAVASCRIPT
@@ -96,43 +64,8 @@ function mdocs_admin(plugin_url, wp_root) {
 	mdocs_toogle_disable_setting('#mdocs-hide-all-files-non-members','#mdocs-hide-all-files');
 	mdocs_toogle_disable_setting('#mdocs-hide-all-posts','#mdocs-hide-all-posts-non-members');
 	mdocs_toogle_disable_setting('#mdocs-hide-all-posts-non-members','#mdocs-hide-all-posts');
-	
-	// TOOGLE DESCRIPTION/PREVIEW
-	jQuery('[id^="mdoc-show-desc-"], [id^="mdoc-show-preview-"]' ).click(function(e) {
-		e.preventDefault();
-		var exploded = jQuery(this).prop('id').split('-');
-		var mdocs_file_id = exploded[exploded.length-1];
-		var show_type = exploded[exploded.length-2];
-		jQuery.post(plugin_url+'mdocs-doc-preview.php',{type:'show', show_type:show_type,mdocs_file_id: mdocs_file_id, wp_root: wp_root},function(data) {
-			jQuery('#mdocs-show-container-'+mdocs_file_id).empty();
-			jQuery('#mdocs-show-container-'+mdocs_file_id).html(data);
-		});
-	});
 	// FILE PREVIEW
-	jQuery('[id^="file-preview-"]' ).click(function() {
-		var mdocs_file_id = jQuery(this).prop('id').split('-');
-		mdocs_file_id = mdocs_file_id[mdocs_file_id.length-1];
-		jQuery('.mdocs-admin-preview').empty();
-		jQuery('.mdocs-admin-preview').fadeIn();
-		jQuery.post(plugin_url+'mdocs-doc-preview.php',{type: 'file', mdocs_file_id: mdocs_file_id, wp_root: wp_root, is_admin: true},function(data) {
-			jQuery('html, body').css('overflow-y','hidden');
-			jQuery('.mdocs-admin-preview').empty();
-			jQuery('.mdocs-admin-preview').html(data);
-		});
-	});
-	// IMAGE PREVIEW
-	jQuery('[id^="img-preview-"]' ).click(function() {
-		var mdocs_file_id = jQuery(this).prop('id').split('-');
-		mdocs_file_id = mdocs_file_id[mdocs_file_id.length-1];
-		jQuery('.mdocs-admin-preview').empty();
-		jQuery('.mdocs-admin-preview').fadeIn();
-		jQuery.post(plugin_url+'mdocs-doc-preview.php',{type: 'img',mdocs_file_id: mdocs_file_id, wp_root: wp_root, is_admin: true},function(data) {
-			jQuery('html, body').css('overflow-y','hidden');
-			jQuery('.mdocs-admin-preview').empty();
-			jQuery('.mdocs-admin-preview').html(data);
-		});
-	});
-	
+	mdocs_file_preview();
 	/*
 	jQuery('#download-normal').iris({
 		hide: false,
@@ -188,36 +121,76 @@ function mdocs_admin(plugin_url, wp_root) {
 	// REMOVE MIME TYPE
 	mdocs_remove_mime_type(plugin_url, wp_root);
 	// RESTORE DEFAULT FILE TYPES
-	jQuery('#mdocs-restore-default-file-types').click(function(event) {
-	    event.preventDefault();
-	    jQuery.post(plugin_url+'mdocs-update-mime.php',{type: 'restore-mime', wp_root: wp_root, is_admin: true},function(data) {
-		jQuery('.mdocs-mime-table').html(data);
-		mdocs_remove_mime_type(plugin_url, wp_root);
-		mdocs_add_mime_type(plugin_url, wp_root);
-	    });
+	mdocs_restore_mime_types();
+}
+function mdocs_file_preview() {
+   // TOOGLE DESCRIPTION/PREVIEW
+    jQuery('[id^="mdoc-show-desc-"], [id^="mdoc-show-preview-"]' ).click(function(e) {
+	e.preventDefault();
+	var exploded = jQuery(this).prop('id').split('-');
+	var mdocs_file_id = exploded[exploded.length-1];
+	var show_type = exploded[exploded.length-2];
+	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type:'show', show_type:show_type,mdocs_file_id: mdocs_file_id},function(data) {
+		jQuery('#mdocs-show-container-'+mdocs_file_id).empty();
+		jQuery('#mdocs-show-container-'+mdocs_file_id).html(data);
 	});
+    });
+    // FILE PREVIEW
+    jQuery('[id^="file-preview-"]' ).click(function() {
+	var mdocs_file_id = jQuery(this).prop('id').split('-');
+	mdocs_file_id = mdocs_file_id[mdocs_file_id.length-1];
+	jQuery('.mdocs-admin-preview').empty();
+	jQuery('.mdocs-admin-preview').fadeIn();
+	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'file', mdocs_file_id: mdocs_file_id, is_admin: true},function(data) {
+		jQuery('html, body').css('overflow-y','hidden');
+		jQuery('.mdocs-admin-preview').empty();
+		jQuery('.mdocs-admin-preview').html(data);
+	});
+    });
+    // IMAGE PREVIEW
+    jQuery('[id^="img-preview-"]' ).click(function() {
+	var mdocs_file_id = jQuery(this).prop('id').split('-');
+	mdocs_file_id = mdocs_file_id[mdocs_file_id.length-1];
+	jQuery('.mdocs-admin-preview').empty();
+	jQuery('.mdocs-admin-preview').fadeIn();
+	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'img',mdocs_file_id: mdocs_file_id, is_admin: true},function(data) {
+		jQuery('html, body').css('overflow-y','hidden');
+		jQuery('.mdocs-admin-preview').empty();
+		jQuery('.mdocs-admin-preview').html(data);
+	});
+    });
 }
 // ADD MIME TYPE
-function mdocs_add_mime_type(plugin_url, wp_root) {
+function mdocs_add_mime_type() {
     jQuery('#mdocs-add-mime').click(function(event) {
 	event.preventDefault();
 	var file_extension = jQuery('input[name="mdocs-file-extension"]').val();
 	var mime_type = jQuery('input[name="mdocs-mime-type"]').val();
-	jQuery.post(plugin_url+'mdocs-update-mime.php',{type: 'add-mime', file_extension: file_extension, mime_type: mime_type, wp_root: wp_root, is_admin: true},function(data) {
+	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'add-mime', file_extension: file_extension, mime_type: mime_type, is_admin: true},function(data) {
 	    jQuery(data).insertBefore('.mdocs-mime-submit');
-	    mdocs_remove_mime_type(plugin_url, wp_root);
+	    mdocs_remove_mime_type();
 	    jQuery('input[name="mdocs-file-extension"]').val('');
 	    jQuery('input[name="mdocs-mime-type"]').val('');
 	});
     });
 }
 // REMOVE MIME TYPE
-function mdocs_remove_mime_type(plugin_url, wp_root) {
+function mdocs_remove_mime_type() {
     jQuery('.mdocs-remove-mime').click(function(event) {
 	event.preventDefault();
 	var file_extension = jQuery(this).parent().parent().data('file-type');
 	jQuery(this).parent().parent().remove();
-	jQuery.post(plugin_url+'mdocs-update-mime.php',{type: 'remove-mime', file_extension: file_extension, wp_root: wp_root, is_admin: true},function(data) { });
+	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'remove-mime', file_extension: file_extension, is_admin: true},function(data) { });
+    });
+}
+function mdocs_restore_mime_types() {
+    jQuery('#mdocs-restore-default-file-types').click(function(event) {
+	event.preventDefault();
+	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'restore-mime', is_admin: true},function(data) {
+	    jQuery('.mdocs-mime-table').html(data);
+	    mdocs_remove_mime_type(plugin_url, wp_root);
+	    mdocs_add_mime_type(plugin_url, wp_root);
+	});
     });
 }
 // ADD SUB CATEGORY
@@ -356,8 +329,8 @@ function mdocs_ratings() {
 // RESTORE DEFAULT
 function mdocs_restore_default() {
    if (confirm(mdocs_js.restore_warning)) {
-	jQuery.post(mdocs_js.plugin_url+'uninstall.php',{type:'restore', blog_id: mdocs_js.blog_id, wp_root: mdocs_js.wp_root, is_admin: true},function(data) {
-	    window.location.href = "admin.php?page=memphis-documents.php&cat=settings"; 
+	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type:'restore', blog_id: mdocs_js.blog_id, is_admin: true},function(data) {
+	    window.location.href = "admin.php?page=memphis-documents.php&cat=mdocuments"; 
 	});
     } 
    

@@ -1,5 +1,8 @@
 <?php
 function mdocs_batch_upload($current_cat) {
+	// INPUT SANITIZATION
+	$post_page = sanitize_text_field($_REQUEST['page']);
+	$post_cat = sanitize_text_field($_REQUEST['cat']);
 	$do_zip = false;
 	//$mdocs = get_option('mdocs-list');
 	$cats = get_option('mdocs-cats');
@@ -28,7 +31,7 @@ function mdocs_batch_upload($current_cat) {
 	<p><?php _e('Create a zip file of all the documents you want to upload.  You may name it whatever you want, naming doesn\'t matter.  Once you have created the file, simply upload it, then use the quick select form to place the files in the proper directory.  Once satisfied press the \'Complete\' button to finsh the process.'); ?></p>
 </div>
 <?php if($do_zip == false && $do_complte == false) { ?>
-<form class="mdocs-uploader-form" enctype="multipart/form-data" action="<?php echo get_site_url().'/wp-admin/admin.php?page='.$_REQUEST['page'].'&cat='.$_REQUEST['cat']; ?>" method="POST">
+<form class="mdocs-uploader-form" enctype="multipart/form-data" action="<?php echo get_site_url().'/wp-admin/admin.php?page='.$post_page.'&cat='.$post_cat; ?>" method="POST">
 	<input type="file" name="mdocs-batch" /><br/>
 	<input type="submit" class="button button-primary" value="<?php _e('Upload Zip File') ?>" /><br/>
 </form>
@@ -36,7 +39,7 @@ function mdocs_batch_upload($current_cat) {
 	$cats = get_option('mdocs-cats');
 	$current_cat = key($cats);
 	?>
-	<form class="mdocs-uploader-form" enctype="multipart/form-data" action="<?php echo get_site_url().'/wp-admin/admin.php?page='.$_REQUEST['page'].'&cat='.$_REQUEST['cat']; ?>" method="POST">
+	<form class="mdocs-uploader-form" enctype="multipart/form-data" action="<?php echo get_site_url().'/wp-admin/admin.php?page='.$post_page.'&cat='.$post_cat; ?>" method="POST">
 		<input type="hidden" name="mdocs-batch-complete" value="1" />
 		<input type="hidden" name="mdocs-type" value="mdocs-add" />
 		<?php
@@ -144,7 +147,7 @@ function mdocs_batch_upload($current_cat) {
 		<p><?php _e('The batch process has completed, below is a log of results:'); ?></p>
 		<p><?php echo $batch_log; ?></p>
 	</div>
-	<form class="mdocs-uploader-form" enctype="multipart/form-data" action="<?php echo get_site_url().'/wp-admin/admin.php?page='.$_REQUEST['page'].'&cat='.$_REQUEST['cat']; ?>" method="POST">
+	<form class="mdocs-uploader-form" enctype="multipart/form-data" action="<?php echo get_site_url().'/wp-admin/admin.php?page='.$post_page.'&cat='.$post_cat; ?>" method="POST">
 		<input type="file" name="mdocs-batch" /><br/>
 		<input type="submit" class="button button-primary" value="<?php _e('Upload Zip File') ?>" /><br/>
 	</form>

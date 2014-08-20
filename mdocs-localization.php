@@ -2,8 +2,8 @@
 $upload_dir = wp_upload_dir();
 $mdocs_zip = get_option('mdocs-zip');
 //PASS VARIABLES TO JAVASCRIPT
-function mdocs_js_handle() {
-	wp_localize_script( 'mdocs-admin-script', 'mdocs_js', array(
+function mdocs_js_handle($handle) {
+	wp_localize_script( $handle, 'mdocs_js', array(
 		'version_delete' => __("You are about to delete this version.  Once deleted you will lost this version of the file!\n\n'Cancel' to stop, 'OK' to delete."),
 		'category_delete' => __("You are about to delete this category.  Any file in this category will be lost!\n\n'Cancel' to stop, 'OK' to delete."),
 		'remove' => __('Remove'),
@@ -14,9 +14,39 @@ function mdocs_js_handle() {
 		'levels'=> 2,
 		'blog_id' => get_current_blog_id(),
 		'plugin_url' => plugins_url().'/memphis-documents-library/',
-		'wp_root' => get_home_path(),
+		'ajaxurl' => admin_url( 'admin-ajax.php' ), 
 	));
 }
+// PROCESS AJAX REQUESTS
+add_action( 'wp_ajax_nopriv_myajax-submit', 'mdocs_ajax_processing' );
+add_action( 'wp_ajax_myajax-submit', 'mdocs_ajax_processing' );
+function mdocs_ajax_processing() {
+	switch($_POST['type']) {
+		case 'file':
+			mdocs_load_preview();
+			break;
+		case 'img':
+			mdocs_load_preview();
+			break;
+		case 'show':
+			mdocs_load_preview();
+			break;
+		case 'add-mime':
+			mdocs_update_mime();
+			break;
+		case 'remove-mime':
+			mdocs_update_mime();
+			break;
+		case 'restore-mime':
+			mdocs_update_mime();
+			break;
+		case 'restore':
+			mdocs_restore_default();
+			break;
+	}
+	exit;
+}
+// this hook is fired if the current viewer is not logged in
 function mdocs_get_inline_css() {
 	$num_show = 0;
 	if(get_option('mdocs-show-downloads')==1) $num_show++;

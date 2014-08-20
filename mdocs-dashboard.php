@@ -150,6 +150,7 @@ function mdoc_doc_list($current_cat) {
 }
 
 function mdocs_delete() {
+	$post_mdocs_nonce = sanitize_text_field($_REQUEST['mdocs-nonce']);
 	if ( $_REQUEST['mdocs-nonce'] == MDOCS_NONCE ) {
 		$mdocs = get_option('mdocs-list');
 		$mdocs = mdocs_sort_by($mdocs, 0, 'dashboard', false);
@@ -180,7 +181,8 @@ function mdocs_uploader($edit_type='Add Document') {
 	else $current_cat = $current_cat = key($cats);
 	if($edit_type == 'Update Document') $mdoc_type = 'mdocs-update';
 	else $mdoc_type = 'mdocs-add';
-	
+	$post_page = sanitize_text_field($_REQUEST['page']);
+	$post_cat = sanitize_text_field($_REQUEST['cat']);
 ?>
 <div class="mdocs-uploader-bg"></div>
 <div class="mdocs-uploader" >
@@ -189,7 +191,7 @@ function mdocs_uploader($edit_type='Add Document') {
 		<?php _e($edit_type); ?>
 	</h2>
 	<div class="mdocs-uploader-content">
-		<form class="mdocs-uploader-form" enctype="multipart/form-data" action="<?php echo get_site_url().'/wp-admin/admin.php?page='.$_REQUEST['page'].'&cat='.$_REQUEST['cat']; ?>" method="POST">
+		<form class="mdocs-uploader-form" enctype="multipart/form-data" action="<?php echo get_site_url().'/wp-admin/admin.php?page='.$post_page.'&cat='.$post_cat; ?>" method="POST">
 			<input type="hidden" name="mdocs-type" value="<?php echo $mdoc_type; ?>" />
 			<input type="hidden" name="mdocs-index" value="<?php if($edit_type == 'Update Document') echo $mdoc_index; ?>" />
 			<input type="hidden" name="mdocs-cat" value="<?php echo $current_cat; ?>" />
