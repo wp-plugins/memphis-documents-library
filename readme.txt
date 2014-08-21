@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 3.0
+Stable tag: 3.0.0
 
 A documents library for WordPress.
 
@@ -21,7 +21,7 @@ Memphis Documents Library is a  documents library for WordPress with a robust fe
 * *New* - A restore defaults option has been added this will restore Memphis Documents Library to its factory state, *WARNING all files and post will be deleted*.
 * *Update* - Updated localization files.
 * *Update* - Uninstall will not remove all saved variables , posts, files, categories, and directories for a single WordPress Site and also WordPress Multisite.
-* *Update* - Change the way date modified is handle, was using an array value now using file date modifed attribute.
+* *Update* - Change the way date modified is handle, was using an array value now using file date modified attribute.
 * *Update* - Updated localization files.
 * *Bug* - Error with javascript loading, if using WordPress Multisite network admin.
 * *Bug* - Fixed issue where Post Status was not displaying any statuses.
@@ -48,7 +48,7 @@ Memphis Documents Library is a  documents library for WordPress with a robust fe
 
 == Frequently Asked Questions ==
 
-= Mempihs Documents Library look wrong in IE =
+= Memphis Documents Library look wrong in IE =
 
 Add the following code to your theme right under the `<head>` tag this will turn off compatibility mode for IE.
 `<meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" />`
@@ -92,7 +92,7 @@ When you click the export button the document library will create a ZIP files fo
 This compressed data, will contain your documents, saved variables, media and posts tied to each document.
 Once you've saved the download file, you can use the Import function in another WordPress installation to import the content from this site.
 
-= Uninstalling Mempihs Documents Library =
+= Uninstalling Memphis Documents Library =
 
 When you uninstall the documents library make sure you export all your important files. **All data will be removed on completion of uninstall, this includes files, directories, posts, and media.**
 
@@ -116,13 +116,13 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 6. screenshot-6.png
 7. screenshot-7.png
 
-== Changelog ==
+== Change-log ==
 = 3.0 =
 * *New* - Interface improvements
 * *Bug* - Fixed the XSS (Cross Site Scripting) issues root cause was using $_REQUEST inside a form.
-* *Bug* - Fixed the sercuirty vulnerabilities known as LFI/RFI, which stands for Local or Remote File Inclusion.
+* *Bug* - Fixed the security vulnerabilities known as LFI/RFI, which stands for Local or Remote File Inclusion.
 = 2.6.1 =
-* *Update* - Change the way date modified is handle, was using an array value now using file date modifed attribute.
+* *Update* - Change the way date modified is handle, was using an array value now using file date modified attribute.
 * *Update* - Updated localization files.
 * *Bug* - Fixed Chrome bug, where file types that are allowed in WordPress are being blocked by Memphis Documents Library.
 = 2.6 =
@@ -137,7 +137,7 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 * *Bug* - Fixed bug causing new installs to produce errors, these errors would correct themselves but very annoying for users to see.
 * *Bug* - Removed extra label tag in sort box which was cause issues in Firefox.
 = 2.5.1.2 =
-* *Bug* - Fixed loop bug, when a Memphis Documents post does not have the category mdocs-media.  Now the result will be an output of the shortcode only.
+* *Bug* - Fixed loop bug, when a Memphis Documents post does not have the category mdocs-media.  Now the result will be an output of the short-code only.
 * *Bug* - Permalink setting fixed. Sub categories where not working when set to default WordPress permalink setting.
 * *Bug* - Javascript error with FireFox and IE.  A undefined `event.preventDefault();` was causing Add Main Category to no function.  Removing this line fixed the issue.
 = 2.5.1.1 =
@@ -163,12 +163,12 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 = 2.4 =
 * Removed IE Compatibility mode fix, this was causing too many header errors.  If you want to this functionality add this line to your theme header file, right under the `<head>` tag
  * `<meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" />`
-* Add the ability to change the color of the download button.
+* Add the ability to change the colour of the download button.
 * Fixed the rss feed bug
 * Fixed a look an feel issue with the sort box
 * More small fixes and updates
 = 2.3.2 =
-* possible hotfix to header issues
+* possible hot-fix to header issues
 * fix of Google docs issues
 * privacy and protection updates
 * still working on child categories
@@ -178,7 +178,7 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 * fixed a file not found error
 = 2.3 =
 * Batch file upload beta
-* List of available sshort codes
+* List of available short-codes
 * Document page options added
 ** Default Content (Preview or Description)
 ** Show/Hide (Preview and Description)
@@ -266,9 +266,9 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 = 1.0 =
 * Initial Release of Memphis Documents Library
 == Feature Request ==
-* *Feature* - Get thumbails of the documents as the featured image for the post, as an alternative to Google Preview.
+* *Feature* - Get thumbnails of the documents as the featured image for the post, as an alternative to Google Preview.
 * *Feature* - Give other user types the ability to upload files.
-* *Feature* - Shortcode to add a download link to a post or page.
+* *Feature* - Short-code to add a download link to a post or page.
 * *Feature* - Search shows only files that the specific user role has access too.
 * *Feature* - Added more level to categories.
 * *Feature* - Batch upload choose a category for all file before uploading them.
