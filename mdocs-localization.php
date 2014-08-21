@@ -15,7 +15,40 @@ function mdocs_js_handle($script) {
 		'blog_id' => get_current_blog_id(),
 		'plugin_url' => plugins_url().'/memphis-documents-library/',
 		'wp_root' => get_option('mdocs-wp-root'),
+		'ajaxurl' => admin_url( 'admin-ajax.php' ), 
 	));
+}
+// PROCESS AJAX REQUESTS
+add_action( 'wp_ajax_nopriv_myajax-submit', 'mdocs_ajax_processing' );
+add_action( 'wp_ajax_myajax-submit', 'mdocs_ajax_processing' );
+function mdocs_ajax_processing() {
+	switch($_POST['type']) {
+		case 'file':
+			mdocs_load_preview();
+			break;
+		case 'img':
+			mdocs_load_preview();
+			break;
+		case 'show':
+			mdocs_load_preview();
+			break;
+		case 'add-mime':
+			mdocs_update_mime();
+			break;
+		case 'remove-mime':
+			mdocs_update_mime();
+			break;
+		case 'restore-mime':
+			mdocs_update_mime();
+			break;
+		case 'restore':
+			mdocs_restore_default();
+			break;
+		case 'sort':
+			mdocs_sort();
+			break;
+	}
+	exit;
 }
 function mdocs_get_inline_css() {
 	$num_show = 0;

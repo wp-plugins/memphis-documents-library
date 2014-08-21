@@ -119,6 +119,8 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 == Changelog ==
 = 3.0 =
 * *New* - Interface improvements
+* *Bug* - Fixed the XSS (Cross Site Scripting) issues root cause was using $_REQUEST inside a form.
+* *Bug* - Fixed the sercuirty vulnerabilities known as LFI/RFI, which stands for Local or Remote File Inclusion.
 = 2.6.1 =
 * *Update* - Change the way date modified is handle, was using an array value now using file date modifed attribute.
 * *Update* - Updated localization files.

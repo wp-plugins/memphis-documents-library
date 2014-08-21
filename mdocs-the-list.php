@@ -35,18 +35,17 @@ function mdocs_the_list($att=null) {
 		if(get_option('mdocs-list-type') == 'small') echo '<table class="table table-hover table-condensed mdocs-list-table">';
 		?>
 		<tr class="hidden-sm hidden-xs">
-		<th class="mdocs-sort-option" data-sort-type="name" data-current-cat="<?php echo $current_cat; ?>"><?php _e('Name'); ?><?php if($mdocs_sort_type == 'name') echo $mdocs_sort_style_icon; ?></th>
-		<th class="mdocs-sort-option" data-sort-type="downloads" data-current-cat="<?php echo $current_cat; ?>"><?php _e('Downloads'); ?><?php if($mdocs_sort_type == 'downloads') echo $mdocs_sort_style_icon; ?></th>
-		<th class="mdocs-sort-option" data-sort-type="version" data-current-cat="<?php echo $current_cat; ?>"><?php _e('Version'); ?><?php if($mdocs_sort_type == 'version') echo $mdocs_sort_style_icon; ?></th>
-		<th class="mdocs-sort-option" data-sort-type="owner" data-current-cat="<?php echo $current_cat; ?>"><?php _e('Owner'); ?><?php if($mdocs_sort_type == 'owner') echo $mdocs_sort_style_icon; ?></th>
-		<th class="mdocs-sort-option" data-sort-type="modified" data-current-cat="<?php echo $current_cat; ?>"><?php _e('Updated'); ?><?php if($mdocs_sort_type == 'modified') echo $mdocs_sort_style_icon; ?></th>
-		<th class="mdocs-sort-option" data-sort-type="rating" data-current-cat="<?php echo $current_cat; ?>"><?php _e('Stars'); ?><?php if($mdocs_sort_type == 'rating') echo $mdocs_sort_style_icon; ?></th>
+		<th class="mdocs-sort-option" data-sort-type="name" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Name'); ?><?php if($mdocs_sort_type == 'name') echo $mdocs_sort_style_icon; ?></th>
+		<th class="mdocs-sort-option" data-sort-type="downloads" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Downloads'); ?><?php if($mdocs_sort_type == 'downloads') echo $mdocs_sort_style_icon; ?></th>
+		<th class="mdocs-sort-option" data-sort-type="version" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Version'); ?><?php if($mdocs_sort_type == 'version') echo $mdocs_sort_style_icon; ?></th>
+		<th class="mdocs-sort-option" data-sort-type="owner" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Owner'); ?><?php if($mdocs_sort_type == 'owner') echo $mdocs_sort_style_icon; ?></th>
+		<th class="mdocs-sort-option" data-sort-type="modified" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Updated'); ?><?php if($mdocs_sort_type == 'modified') echo $mdocs_sort_style_icon; ?></th>
+		<th class="mdocs-sort-option" data-sort-type="rating" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Stars'); ?><?php if($mdocs_sort_type == 'rating') echo $mdocs_sort_style_icon; ?></th>
 		</tr>
 		<?php
 		// SUB CATEGORIES
 		if(isset($current_cat_array['children'])) $num_cols = mdocs_get_subcats($current_cat_array, $parent_cat_array);
 		else $num_cols = mdocs_get_subcats($current_cat_array, $parent_cat_array, false);
-		
 		foreach($mdocs as $index => $the_mdoc) {			
 			if($the_mdoc['cat'] == $current_cat || $current_cat == 'all') {
 				if($the_mdoc['file_status'] == 'public' ) {

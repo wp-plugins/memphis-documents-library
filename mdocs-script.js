@@ -3,15 +3,6 @@ the_rating = 0;
 init_rating = false;
 // INITIALIZE THE ADMIN JAVASCRIPT
 function mdocs_wp(plugin_url, wp_root) {    
-    //JQUERY UI TOOLTIP INIT
-    jQuery('[id^="file-desc-"]').click(function() {
-	    jQuery(this).tooltip({
-		    items: this,
-		    content: function () { return jQuery(this).prop('title'); },
-	    });
-	    jQuery(this).tooltip("open");
-	    jQuery( this ).unbind( "mouseleave" );
-    });
     // TOOGLE DESCRIPTION/PREVIEW
     mdocs_toogle_description_preview();
     // FILE PREVIEW
@@ -27,135 +18,110 @@ function mdocs_wp(plugin_url, wp_root) {
 }
 // INITIALIZE THE ADMIN JAVASCRIPT
 function mdocs_admin(plugin_url, wp_root) {
-	//JQUERY UI TOOLTIP INIT
-	jQuery('[id^="file-desc-"]').click(function() {
-		jQuery(this).tooltip({
-			items: this,
-			content: function () { return jQuery(this).prop('title'); },
-		});
-		jQuery(this).tooltip("open");
-		jQuery( this ).unbind( "mouseleave" );
-	});
-	//INITIALIZE IRIS COLOR PICKER
-	var button_bg_color_normal = jQuery('#bg-color-mdocs-picker').prop('value');
-	var button_bg_color_hover = jQuery('#bg-hover-color-mdocs-picker').prop('value');
-	var button_text_color_normal = jQuery('#bg-text-color-mdocs-picker').prop('value');
-	var button_text_color_hover =  jQuery('#bg-text-hover-color-mdocs-picker').prop('value');
-	var color_options = {
-	    change: function(event, ui) {
-		var element = jQuery(this).prop('id');
-		if (element == 'bg-color-mdocs-picker') {
-		    button_bg_color_normal = ui.color.toString();
-		    jQuery('.mdocs-download-btn-config').css('background', button_bg_color_normal);
-		} else if (element == 'bg-hover-color-mdocs-picker') button_bg_color_hover = ui.color.toString();
-		if (element == 'bg-text-color-mdocs-picker') {
-		    button_text_color_normal = ui.color.toString();
-		    jQuery('.mdocs-download-btn-config').css('color', button_text_color_normal);
-		} else if (element == 'bg-text-hover-color-mdocs-picker') button_text_color_hover = ui.color.toString();
-	    }
-	}
-	jQuery('[id$="mdocs-picker"]').wpColorPicker(color_options);
-	// HOVER ADMIN DOWNLOAD BUTTON PREVIEW
-	 jQuery('.mdocs-download-btn-config').hover(
-	    function() {
-		jQuery(this).css('background', button_bg_color_hover);
-		jQuery(this).css('color', button_text_color_hover);
-	    }, function() {
-		jQuery(this).css('background', button_bg_color_normal);
-		jQuery(this).css('color', button_text_color_normal);
-	    }
-	);
-	// INITALIZE DRAGGABLE
-	//jQuery(".draggable").draggable();
-	// DISABLED SETTINGS
-	mdocs_toogle_disable_setting('#mdocs-hide-all-files','#mdocs-hide-all-files-non-members');
-	mdocs_toogle_disable_setting('#mdocs-hide-all-files-non-members','#mdocs-hide-all-files');
-	mdocs_toogle_disable_setting('#mdocs-hide-all-posts','#mdocs-hide-all-posts-non-members');
-	mdocs_toogle_disable_setting('#mdocs-hide-all-posts-non-members','#mdocs-hide-all-posts');
-	
-	// TOOGLE DESCRIPTION/PREVIEW
-	jQuery('[id^="mdoc-show-desc-"], [id^="mdoc-show-preview-"]' ).click(function(e) {
-		e.preventDefault();
-		var exploded = jQuery(this).prop('id').split('-');
-		var mdocs_file_id = exploded[exploded.length-1];
-		var show_type = exploded[exploded.length-2];
-		jQuery.post(plugin_url+'mdocs-doc-preview.php',{type:'show', show_type:show_type,mdocs_file_id: mdocs_file_id, wp_root: wp_root},function(data) {
-			jQuery('#mdocs-show-container-'+mdocs_file_id).empty();
-			jQuery('#mdocs-show-container-'+mdocs_file_id).html(data);
-		});
-	});
-	// FILE PREVIEW
-	mdocs_file_preview();
-	// IMAGE PREVIEW
-	mdocs_image_preview();
-	
-	/*
-	jQuery('#download-normal').iris({
-		hide: false,
-		toggle: true,
-		change: function(event, ui) {
-			// event = standard jQuery event, produced by whichever control was changed.
-			// ui = standard jQuery UI object, with a color member containing a Color.js object
-	
-			// change the headline color
-			jQuery('#help').css( 'color', ui.color.toString());
-		}
-	});
-	*/
-	jQuery('.mdocs-show-social').click(function() {
-		if (jQuery(this).hasClass('fa fa-plus-sign-alt')) {
-			jQuery(this).removeClass('fa fa-plus-sign-alt');
-			jQuery(this).addClass('fa fa-minus-sign-alt');
-			var raw_id = jQuery(this).prop('id');
-		raw_id = raw_id.split("-");
-		var id = raw_id[raw_id.length-1];
-		jQuery('#mdocs-social-index-'+id).show();
-		} else {
-			jQuery(this).removeClass('fa fa-minus-sign-alt');
-			jQuery(this).addClass('icon-plus-sign-alt');
-			var raw_id = jQuery(this).prop('id');
-		raw_id = raw_id.split("-");
-		var id = raw_id[raw_id.length-1];
-		jQuery('#mdocs-social-index-'+id).hide();
-		}
-		
-	});
-	// ADD ROOT CATEGORY
-	jQuery('#mdocs-add-cat').click(function(event) {
-	    event.preventDefault();
-	    var num_main_cats = 0;
-	    jQuery('input[name$="[parent]"]').each(function() { if (jQuery(this).val() == '') num_main_cats++; });
-	    mdocs_add_sub_cat(num_main_cats, '', 0, jQuery('#the-list'), true); 
-	});
-	jQuery('input[id="mdocs-cat-remove"]').click(function() {
-		var confirm = window.confirm(mdocs_js.category_delete);
-		var cat = jQuery(this).prop('name');
-		if (confirm) {
-			jQuery('[name="mdocs-cats['+cat+'][remove]"]').prop('value',1);
-			jQuery('#mdocs-cats').submit();
-		}
-	});
-	jQuery('#mdocs-file-status').change(function() {
-		if (jQuery(this).val() == 'hidden') jQuery('#mdocs-post-status').prop('disabled','true');
-		else if (jQuery(this).val() == 'public') jQuery('#mdocs-post-status').removeAttr('disabled');
-	});
-	// ADD MIME TYPE
-	mdocs_add_mime_type(plugin_url, wp_root)
-	// REMOVE MIME TYPE
-	mdocs_remove_mime_type(plugin_url, wp_root);
-	// RESTORE DEFAULT FILE TYPES
-	jQuery('#mdocs-restore-default-file-types').click(function(event) {
-	    event.preventDefault();
-	    jQuery.post(plugin_url+'mdocs-update-mime.php',{type: 'restore-mime', wp_root: wp_root, is_admin: true},function(data) {
-		jQuery('.mdocs-mime-table').html(data);
-		mdocs_remove_mime_type(plugin_url, wp_root);
-		mdocs_add_mime_type(plugin_url, wp_root);
-	    });
-	});
+    mdocs_color_pickers();
+    // INITALIZE DRAGGABLE
+    //jQuery(".draggable").draggable();
+    // DISABLED SETTINGS
+    mdocs_toogle_disable_setting('#mdocs-hide-all-files','#mdocs-hide-all-files-non-members');
+    mdocs_toogle_disable_setting('#mdocs-hide-all-files-non-members','#mdocs-hide-all-files');
+    mdocs_toogle_disable_setting('#mdocs-hide-all-posts','#mdocs-hide-all-posts-non-members');
+    mdocs_toogle_disable_setting('#mdocs-hide-all-posts-non-members','#mdocs-hide-all-posts');
+    // FILE PREVIEW
+    mdocs_file_preview();
+    // IMAGE PREVIEW
+    mdocs_image_preview();
+    // ADD MIME TYPE
+    mdocs_add_mime_type()
+    // REMOVE MIME TYPE
+    mdocs_remove_mime_type();
+    // RESTORE DEFAULT FILE TYPES
+    mdocs_restore_default_mimes();
     // SORT OPTIONS
     mdocs_sort_files();
     // RATING SYSTEM
     mdocs_ratings();
+    // SOCIAL CLICKED
+    jQuery('.mdocs-show-social').click(function() {
+	    if (jQuery(this).hasClass('fa fa-plus-sign-alt')) {
+		    jQuery(this).removeClass('fa fa-plus-sign-alt');
+		    jQuery(this).addClass('fa fa-minus-sign-alt');
+		    var raw_id = jQuery(this).prop('id');
+	    raw_id = raw_id.split("-");
+	    var id = raw_id[raw_id.length-1];
+	    jQuery('#mdocs-social-index-'+id).show();
+	    } else {
+		    jQuery(this).removeClass('fa fa-minus-sign-alt');
+		    jQuery(this).addClass('icon-plus-sign-alt');
+		    var raw_id = jQuery(this).prop('id');
+	    raw_id = raw_id.split("-");
+	    var id = raw_id[raw_id.length-1];
+	    jQuery('#mdocs-social-index-'+id).hide();
+	    }
+	    
+    });
+    // ADD ROOT CATEGORY
+    jQuery('#mdocs-add-cat').click(function(event) {
+	event.preventDefault();
+	var num_main_cats = 0;
+	jQuery('input[name$="[parent]"]').each(function() { if (jQuery(this).val() == '') num_main_cats++; });
+	mdocs_add_sub_cat(num_main_cats, '', 0, jQuery('#the-list'), true); 
+    });
+    jQuery('input[id="mdocs-cat-remove"]').click(function() {
+	    var confirm = window.confirm(mdocs_js.category_delete);
+	    var cat = jQuery(this).prop('name');
+	    if (confirm) {
+		    jQuery('[name="mdocs-cats['+cat+'][remove]"]').prop('value',1);
+		    jQuery('#mdocs-cats').submit();
+	    }
+    });
+    jQuery('#mdocs-file-status').change(function() {
+	    if (jQuery(this).val() == 'hidden') jQuery('#mdocs-post-status').prop('disabled','true');
+	    else if (jQuery(this).val() == 'public') jQuery('#mdocs-post-status').removeAttr('disabled');
+    });
+}
+// === COLOR PICKERS === //
+//INITIALIZE IRIS COLOR PICKER
+function mdocs_color_pickers() {
+    var button_bg_color_normal = jQuery('#bg-color-mdocs-picker').prop('value');
+    var button_bg_color_hover = jQuery('#bg-hover-color-mdocs-picker').prop('value');
+    var button_text_color_normal = jQuery('#bg-text-color-mdocs-picker').prop('value');
+    var button_text_color_hover =  jQuery('#bg-text-hover-color-mdocs-picker').prop('value');
+    var color_options = {
+	change: function(event, ui) {
+	    var element = jQuery(this).prop('id');
+	    if (element == 'bg-color-mdocs-picker') {
+		button_bg_color_normal = ui.color.toString();
+		jQuery('.mdocs-download-btn-config').css('background', button_bg_color_normal);
+	    } else if (element == 'bg-hover-color-mdocs-picker') button_bg_color_hover = ui.color.toString();
+	    if (element == 'bg-text-color-mdocs-picker') {
+		button_text_color_normal = ui.color.toString();
+		jQuery('.mdocs-download-btn-config').css('color', button_text_color_normal);
+	    } else if (element == 'bg-text-hover-color-mdocs-picker') button_text_color_hover = ui.color.toString();
+	}
+    }
+    jQuery('[id$="mdocs-picker"]').wpColorPicker(color_options);
+    // HOVER ADMIN DOWNLOAD BUTTON PREVIEW
+     jQuery('.mdocs-download-btn-config').hover(
+	function() {
+	    jQuery(this).css('background', button_bg_color_hover);
+	    jQuery(this).css('color', button_text_color_hover);
+	}, function() {
+	    jQuery(this).css('background', button_bg_color_normal);
+	    jQuery(this).css('color', button_text_color_normal);
+	}
+    );
+}
+// === ALLOWED FILE TYPES === //
+// RESTORE MIME TYPES
+function mdocs_restore_default_mimes() {
+    jQuery('#mdocs-restore-default-file-types').click(function(event) {
+	event.preventDefault();
+	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'restore-mime', is_admin: true},function(data) {
+	    jQuery('.mdocs-mime-table').html(data);
+	    mdocs_remove_mime_type();
+	    mdocs_add_mime_type();
+	});
+    });
 }
 // ADD MIME TYPE
 function mdocs_add_mime_type(plugin_url, wp_root) {
@@ -163,7 +129,7 @@ function mdocs_add_mime_type(plugin_url, wp_root) {
 	event.preventDefault();
 	var file_extension = jQuery('input[name="mdocs-file-extension"]').val();
 	var mime_type = jQuery('input[name="mdocs-mime-type"]').val();
-	jQuery.post(plugin_url+'mdocs-update-mime.php',{type: 'add-mime', file_extension: file_extension, mime_type: mime_type, wp_root: wp_root, is_admin: true},function(data) {
+	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'add-mime', file_extension: file_extension, mime_type: mime_type, is_admin: true},function(data) {
 	    jQuery(data).insertBefore('.mdocs-mime-submit');
 	    mdocs_remove_mime_type(plugin_url, wp_root);
 	    jQuery('input[name="mdocs-file-extension"]').val('');
@@ -177,9 +143,10 @@ function mdocs_remove_mime_type(plugin_url, wp_root) {
 	event.preventDefault();
 	var file_extension = jQuery(this).parent().parent().data('file-type');
 	jQuery(this).parent().parent().remove();
-	jQuery.post(plugin_url+'mdocs-update-mime.php',{type: 'remove-mime', file_extension: file_extension, wp_root: wp_root, is_admin: true},function(data) { });
+	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'remove-mime', file_extension: file_extension, is_admin: true},function(data) { });
     });
 }
+// ========================== //
 // ADD SUB CATEGORY
 var subcat_index = 0;
 var add_button_clicks = 1;
@@ -278,7 +245,6 @@ function mdocs_share(mdocs_link,mdocs_direct,the_id) {
 		toggle_share = false;
 	}
 }
-
 function mdocs_toogle_disable_setting(main, disable) {
 	var checked = jQuery(main).prop('checked');
 	if (checked) jQuery(disable).prop('disabled', true);
@@ -296,14 +262,13 @@ function mdocs_ratings() {
 	//event.preventDefault();
 	var mdocs_file_id = jQuery(this).data('mdocs-id');
 	var mdocs_is_admin = jQuery(this).data('is-admin');
-	jQuery.post(mdocs_js.plugin_url+'mdocs-ratings.php',{type: 'rating',mdocs_file_id: mdocs_file_id, wp_root: mdocs_js.wp_root, is_admin: mdocs_is_admin},function(data) {
+	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'rating',mdocs_file_id: mdocs_file_id, wp_root: mdocs_js.wp_root, is_admin: mdocs_is_admin},function(data) {
 		jQuery('.mdocs-ratings-body').empty();
 		jQuery('.mdocs-ratings-body').html(data);
 		mdocs_submit_rating('large');
 	});
     });
 }
-    
 function mdocs_submit_rating(size) {
     if (size == 'large') size = 'fa-5x';
     else size = '';
@@ -341,7 +306,7 @@ function mdocs_submit_rating(size) {
 // RESTORE DEFAULT
 function mdocs_restore_default() {
    if (confirm(mdocs_js.restore_warning)) {
-	jQuery.post(mdocs_js.plugin_url+'uninstall.php',{type:'restore', blog_id: mdocs_js.blog_id, wp_root: mdocs_js.wp_root, is_admin: true},function(data) {
+	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type:'restore', blog_id: mdocs_js.blog_id, is_admin: true},function(data) {
 	    window.location.href = "admin.php?page=memphis-documents.php&mdocs-cat=mdocuments"; 
 	});
     } 
@@ -353,7 +318,7 @@ function mdocs_file_preview() {
 	//event.preventDefault();
 	var mdocs_file_id = jQuery(this).data('mdocs-id');
 	var mdocs_is_admin = jQuery(this).data('is-admin');
-	jQuery.post(mdocs_js.plugin_url+'mdocs-doc-preview.php',{type: 'file',mdocs_file_id: mdocs_file_id, wp_root: mdocs_js.wp_root, is_admin: mdocs_is_admin},function(data) {
+	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'file',mdocs_file_id: mdocs_file_id, is_admin: mdocs_is_admin},function(data) {
 		jQuery('.mdocs-file-preview-body').empty();
 		jQuery('.mdocs-file-preview-body').html(data);
 	});
@@ -364,7 +329,7 @@ function mdocs_image_preview() {
      jQuery('.img-preview' ).click(function() {
 	var mdocs_file_id = jQuery(this).data('mdocs-id');
 	var mdocs_is_admin = jQuery(this).data('is-admin');
-	jQuery.post(mdocs_js.plugin_url+'mdocs-doc-preview.php',{type: 'img',mdocs_file_id: mdocs_file_id, wp_root: mdocs_js.wp_root, is_admin: mdocs_is_admin},function(data) {
+	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'img',mdocs_file_id: mdocs_file_id, is_admin: mdocs_is_admin},function(data) {
 	    jQuery('.mdocs-file-preview-body').empty();
 	    jQuery('.mdocs-file-preview-body').html(data);
 	});
@@ -376,26 +341,26 @@ function mdocs_toogle_description_preview() {
 	e.preventDefault();
 	var mdocs_file_id = jQuery(this).data('mdocs-id');
 	var show_type = jQuery(this).data('mdocs-show-type');
-	jQuery.post(mdocs_js.plugin_url+'mdocs-doc-preview.php',{type:'show', show_type:show_type,mdocs_file_id: mdocs_file_id, wp_root: mdocs_js.wp_root},function(data) {
+	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type:'show', show_type:show_type,mdocs_file_id: mdocs_file_id, wp_root: mdocs_js.wp_root},function(data) {
 		jQuery('#mdocs-show-container-'+mdocs_file_id).empty();
 		jQuery('#mdocs-show-container-'+mdocs_file_id).html(data);
 	});
     });
 }
-
 // SORT FUNCTIONALITY
 function mdocs_sort_files(is_admin) {
     jQuery('.mdocs-sort-option').click(function() {
+	var permalink = jQuery(this).data('permalink');
 	var current_cat = jQuery(this).data('current-cat');
 	var sort_type = jQuery(this).data('sort-type');
 	var sort_range = jQuery(this).children(':first').prop('class');
 	if (sort_range == 'fa fa-chevron-down') {
 	    sort_range = 'asc';
 	} else sort_range = 'desc';
-	jQuery.post(mdocs_js.plugin_url+'mdocs-sort.php',{type: 'sort', wp_root: mdocs_js.wp_root, sort_type: sort_type, sort_range: sort_range  },function(data) {
+	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'sort', sort_type: sort_type, sort_range: sort_range  },function(data) {
 	    jQuery('.mdocs-container').append(data);
 	    if(is_admin) window.location.href = "admin.php?page=memphis-documents.php&mdocs-cat="+current_cat;
-	    else window.location.href = "?page=memphis-documents.php&mdocs-cat="+current_cat;
+	    else window.location.href = permalink;
 	});
     });
 }

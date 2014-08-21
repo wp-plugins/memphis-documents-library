@@ -289,7 +289,7 @@ function mdocs_array_sort($the_array=null, $orderby=null, $sort_types=null) {
 		array_multisort($array_lowercase, $sort_types, $sort_var_type,$the_array);
 		$the_array = array_values($the_array);
 		return $the_array;
-	} else return null;
+	} else return array();
 }
 
 function mdocs_export_file_status() {
@@ -596,12 +596,20 @@ function mdocs_custom_mime_types($existing_mimes=array()) {
 }
 
 function mdocs_list_header() {
-	global $current_cat_array, $parent_cat_array;
+	global $post, $current_cat_array, $parent_cat_array;
 	$cats = get_option('mdocs-cats');
 	$upload_dir = wp_upload_dir();
 	$message = '';
 	$current_cat = mdocs_get_current_cat();
 	mdocs_get_children_cats(get_option('mdocs-cats'),$current_cat);
+	if($post == null) $is_admin = true;
+	else {
+		$is_admin = false;
+		$permalink = get_permalink($post->ID);
+		if(preg_match('/\?page_id=/',$permalink) || preg_match('/\?p=/',$permalink)) {
+			$permalink = $permalink.'&mdocs-cat=';
+		} else $permalink = $permalink.'?mdocs-cat=';
+	}
 	?>
 	<div class="wrap">
 		<div class="mdocs-admin-preview"></div>
@@ -653,7 +661,10 @@ function mdocs_list_header() {
 									elseif(isset($cats[$current_cat_array['base_parent']]['slug']) && $cats[$current_cat_array['base_parent']]['slug'] == $cat['slug']) $class = ' active';
 									else $class = '';
 								} else $class = '';
-								if(is_dir($upload_dir['basedir'].'/mdocs/')) echo '<li class="'.$class.'"><a href="?page=memphis-documents.php&mdocs-cat='.$cat['slug'].' ">'.__($cat['name']).'</a></li>';
+								if(is_dir($upload_dir['basedir'].'/mdocs/')) {
+									if($is_admin) echo '<li class="'.$class.'"><a href="?page=memphis-documents.php&mdocs-cat='.$cat['slug'].' ">'.__($cat['name']).'</a></li>';
+									else echo '<li class="'.$class.'"><a href="'.$permalink.$cat['slug'].'">'.__($cat['name']).'</a></li>';
+								}
 							}
 						}
 						?>
