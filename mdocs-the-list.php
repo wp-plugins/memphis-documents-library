@@ -7,18 +7,20 @@ function mdocs_the_list($att=null) {
 		$site_url = site_url();
 		$upload_dir = wp_upload_dir();	
 		$mdocs = get_option('mdocs-list');
+		$cats =  get_option('mdocs-cats');
 		$current_cat = mdocs_get_current_cat();
-		if(isset($att['cat']) && $att['cat'] != 'All Files') {
+		if(isset($att['cat']) && $att['cat'] != 'All Files'  && !isset($_GET['mdocs-cat'])) {
 			//$current_cat = array_search($att['cat'],$cats);
-			foreach($cats as $cat) if($att['cat'] == $cat['name']) $current_cat = $cat['slug'];
+			var_dump('Need to fix categories => mdocs-the-list.php line 14.');
+			foreach($cats as $cat) {
+				if($att['cat'] == $cat['name']) { $current_cat = $cat['slug']; break; }
+			}
 		} elseif(isset($att['cat']) && $att['cat'] == 'All Files') $current_cat = 'all';
 		$permalink = get_permalink($post->ID);
 		if(preg_match('/\?page_id=/',$permalink) || preg_match('/\?p=/',$permalink)) {
 			$mdocs_get = $permalink.'&mdocs-cat=';
 		} else $mdocs_get = $permalink.'?mdocs-cat=';
 		mdocs_get_children_cats(get_option('mdocs-cats'),$current_cat);
-		
-		
 		$mdocs_sort_type = get_option('mdocs-sort-type');
 		$mdocs_sort_style = get_option('mdocs-sort-style');
 		if(isset($_COOKIE['mdocs-sort-type'])) $mdocs_sort_type = $_COOKIE['mdocs-sort-type'];
