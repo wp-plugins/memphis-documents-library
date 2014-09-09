@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 2.6.3
+Stable tag: 2.6.4
 
 A documents library for WordPress.
 
@@ -36,6 +36,7 @@ Memphis Documents Library version *2.6.3* is an important sercurity update.  Ple
 * *Bug* - Fixed a bug when creating categories a null category would be created that could not be delete.
 * *Bug* - Fixed the XSS (Cross Site Scripting) issues root cause was using $_REQUEST inside a form.
 * *Bug* - Fixed the sercuirty vulnerabilities known as LFI/RFI, which stands for Local or Remote File Inclusion.
+* *Bug* - Fixed bug which didn't allow for viewing sub categories when using mdocs short codes.  This short code currently only works on main categories you can't target a subcategory to display.
 
 = Memphis Documents Library Features =
 
@@ -123,6 +124,8 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 7. screenshot-7.png
 
 == Changelog ==
+= 2,6,4 =
+* *Bug* - Fixed bug which didn't allow for viewing sub categories when using mdocs short codes.  This short code currently only works on main categories you can't target a subcategory to display.
 = 2.6.3 =
 * *Bug* - Fixed sercuirty issues using $_REQUEST inside a form.
 * *Bug* - Fixed sercuirty issue Local or Remote File Inclusion.

@@ -11,7 +11,7 @@ function mdocs_the_list($att=null) {
 		$current_cat = '';
 		if(isset($_GET['mdocs-cat'])) $current_cat = $_GET['mdocs-cat'];
 		elseif(!is_string($cats)) $current_cat = $cats[0]['slug'];
-		if(isset($att['cat']) && $att['cat'] != 'All Files') {
+		if(isset($att['cat']) && $att['cat'] != 'All Files' && !isset($_GET['mdocs-cat'])) {
 			//$current_cat = array_search($att['cat'],$cats);
 			foreach($cats as $cat) if($att['cat'] == $cat['name']) $current_cat = $cat['slug'];
 		} elseif(isset($att['cat']) && $att['cat'] == 'All Files') $current_cat = 'all';
