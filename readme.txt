@@ -273,3 +273,4 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 * *Feature* - Added more level to categories.
 * *Feature* - Batch upload choose a category for all file before uploading them.
 * *Feature* - Add a pdf preview on the description page
+* *Feature* - Add a tag editor to the add/update document page.
