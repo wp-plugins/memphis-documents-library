@@ -5,7 +5,7 @@ msgstr ""
 "PO-Revision-Date: 2014-09-24 16:38-0500\n"
 "Last-Translator: Ian Howatson <ian@howatson.net>\n"
 "Language-Team: \n"
-"Language: en_US\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,11 +17,11 @@ msgstr ""
 
 #: ../mdocs-batch-upload.php:14
 msgid "Please upload a zip file."
-msgstr ""
+msgstr "Lataa ZIP-tiedosto"
 
 #: ../mdocs-batch-upload.php:26
 msgid "Batch Library Upload"
-msgstr ""
+msgstr "Massalataus"
 
 #: ../mdocs-batch-upload.php:29
 msgid ""
@@ -30,6 +30,9 @@ msgid ""
 "using the\"Overwrite Saved Variables\" option, and then run the \"File "
 "System Cleanup\" process to revert to the original state."
 msgstr ""
+"Massalataus on vielä beta. Varmista kirjasto ennen kuin käytät ominaisuutta. "
+"Jos jokin menee pieleen, tuo varmistus käyttämällä \"Ylikirjoita Tallennetut "
+"Muuttujat\"-optiota ja aja \"Tiedostojärjestelmän Siivous\""
 
 #: ../mdocs-batch-upload.php:31
 msgid ""
@@ -39,334 +42,338 @@ msgid ""
 "proper directory.  Once satisfied press the 'Complete' button to finsh the "
 "process."
 msgstr ""
+"Luo ZIP-tiedosto kaikista siirrettävistä tiedostoista. Voit nimetä sen "
+"halusi mukaan. Siirron jälkeen käytä pikavalintalomaketta siirtääksesi "
+"tiedoston oikeaan hakemistoon. Kun olet tyytyväinen, paina 'Valmis'-"
+"painiketta."
 
 #: ../mdocs-batch-upload.php:36 ../mdocs-batch-upload.php:152
 msgid "Upload Zip File"
-msgstr ""
+msgstr "Siirrä ZIP-tiedosto"
 
 #: ../mdocs-batch-upload.php:59 ../mdocs-dashboard.php:209
 #: ../mdocs-functions.php:251 ../mdocs-settings-page.php:120
 msgid "File Name"
-msgstr ""
+msgstr "Tiedostonimi"
 
 #: ../mdocs-batch-upload.php:62 ../mdocs-categories.php:16
 #: ../mdocs-categories.php:24 ../mdocs-dashboard.php:212
 msgid "Category"
-msgstr ""
+msgstr "Kategoria"
 
 #: ../mdocs-batch-upload.php:68 ../mdocs-dashboard.php:218
 #: ../mdocs-file-info-large.php:81 ../mdocs-functions.php:253
 #: ../mdocs-settings-page.php:96 ../mdocs-settings-page.php:122
 #: ../mdocs-versions.php:29 ../mdocs-versions.php:39
 msgid "Version"
-msgstr ""
+msgstr "Versio"
 
 #: ../mdocs-batch-upload.php:76
 msgid "Complete"
-msgstr ""
+msgstr "Valmis"
 
 #: ../mdocs-batch-upload.php:101
 msgid "Processed File => "
-msgstr ""
+msgstr "Prosessoitu Tiedosto =>"
 
 #: ../mdocs-batch-upload.php:130
 msgid "Mime Type Allowed => "
-msgstr ""
+msgstr "Sallitut Mime-tyypit =>"
 
 #: ../mdocs-batch-upload.php:131
 msgid "File Uploaded with No Errors."
-msgstr ""
+msgstr "Tiedosto Siirretty Virheittä."
 
 #: ../mdocs-batch-upload.php:133
 msgid "Invalid Mime Type => "
-msgstr ""
+msgstr "Väärä Mime-tyyppi =>"
 
 #: ../mdocs-batch-upload.php:133
 msgid " Unable to process file."
-msgstr ""
+msgstr "Tiedostoa ei voida prosessoida."
 
 #: ../mdocs-batch-upload.php:134
 msgid "File Was Not Uploaded because an Error occured."
-msgstr ""
+msgstr "Tiedostoa ei siirretty virheen vuoksi."
 
 #: ../mdocs-batch-upload.php:138
 msgid "Cleaning up tmp folder and files"
-msgstr ""
+msgstr "Puhdistetaan väliaikainen hakemisto ja tiedostot"
 
 #: ../mdocs-batch-upload.php:144
 msgid "Batch Process Complete."
-msgstr ""
+msgstr "Massasiirto Suoritettu"
 
 #: ../mdocs-batch-upload.php:147
 msgid "The batch process has completed, below is a log of results:"
-msgstr ""
+msgstr "Massasiirto suoritettu, alla loki tuloksista:"
 
 #: ../mdocs-categories.php:9
 msgid "Add Main Category"
-msgstr ""
+msgstr "Lisää Pääkategoria"
 
 #: ../mdocs-categories.php:17 ../mdocs-categories.php:25
 msgid "Order"
-msgstr ""
+msgstr "Järjestys"
 
 #: ../mdocs-categories.php:18 ../mdocs-categories.php:26
 #: ../mdocs-localization.php:15
 msgid "Remove"
-msgstr ""
+msgstr "Poista"
 
 #: ../mdocs-categories.php:19 ../mdocs-categories.php:27
 msgid "Add Category"
-msgstr ""
+msgstr "Lisää Kategoria"
 
 #: ../mdocs-categories.php:40
 msgid "No categories created."
-msgstr ""
+msgstr "Kategoriaa ei luotu."
 
 #: ../mdocs-categories.php:48
 msgid "Save Categories"
-msgstr ""
+msgstr "Tallenna Kategoriat"
 
 #: ../mdocs-dashboard.php:10
 msgid "Memphis Documents Library"
-msgstr ""
+msgstr "Memphis Dokumenttikirjasto"
 
 #: ../mdocs-dashboard.php:10
 msgid "Memphis Docs"
-msgstr ""
+msgstr "Memphis Docs"
 
 #: ../mdocs-dashboard.php:29 ../mdocs-dashboard.php:261
 msgid "Add Document"
-msgstr ""
+msgstr "Lisää Dokumentti"
 
 #: ../mdocs-dashboard.php:30 ../mdocs-dashboard.php:260
 msgid "Update Document"
-msgstr ""
+msgstr "Päivitä Dokumentti"
 
 #: ../mdocs-dashboard.php:55
 msgid "Documents Library"
-msgstr ""
+msgstr "Dokumenttikirjasto"
 
 #: ../mdocs-dashboard.php:56
 msgid "Add New Document"
-msgstr ""
+msgstr "Lisää Uusi Dokumentti"
 
 #: ../mdocs-dashboard.php:57
 msgid "Edit Categories"
-msgstr ""
+msgstr "Muokkaa Kategorioita"
 
 #: ../mdocs-dashboard.php:58
 msgid "Settings"
-msgstr ""
+msgstr "Asetukset"
 
 #: ../mdocs-dashboard.php:59
 msgid "Batch Upload (Beta)"
-msgstr ""
+msgstr "Massavienti (Beta)"
 
 #: ../mdocs-dashboard.php:60 ../mdocs-shortcodes.php:9
 msgid "Short Codes"
-msgstr ""
+msgstr "Lyhytkoodit"
 
 #: ../mdocs-dashboard.php:77
 msgid "Import"
-msgstr ""
+msgstr "Tuo"
 
 #: ../mdocs-dashboard.php:79
 msgid "Export"
-msgstr ""
+msgstr "Vie"
 
 #: ../mdocs-dashboard.php:147 ../mdocs-the-list.php:85
 msgid "No files found in this category."
-msgstr ""
+msgstr "Kategoriasta ei löytynyt tiedostoja."
 
 #: ../mdocs-dashboard.php:201
 msgid "File Configuration"
-msgstr ""
+msgstr "Tiedoston Asetukset"
 
 #: ../mdocs-dashboard.php:203
 msgid "File Uploader"
-msgstr ""
+msgstr "Tiedoston Siirtäjä"
 
 #: ../mdocs-dashboard.php:205
 msgid "Current File"
-msgstr ""
+msgstr "Nykyinen Tiedosto"
 
 #: ../mdocs-dashboard.php:223
 msgid "Show Social Apps"
-msgstr ""
+msgstr "Näytä some-sovellukset"
 
 #: ../mdocs-dashboard.php:230
 msgid "Downloadable by Non Members"
-msgstr ""
+msgstr "Ladattavissa Ei-jäsenille"
 
 #: ../mdocs-dashboard.php:237 ../mdocs-file-info-large.php:88
 #: ../mdocs-file-info-small.php:36
 msgid "File Status"
-msgstr ""
+msgstr "Tiedoston Tila"
 
 #: ../mdocs-dashboard.php:239
 msgid "Public"
-msgstr ""
+msgstr "Julkinen"
 
 #: ../mdocs-dashboard.php:240
 msgid "Hidden"
-msgstr ""
+msgstr "Piilotettu"
 
 #: ../mdocs-dashboard.php:243 ../mdocs-file-info-large.php:89
 #: ../mdocs-file-info-small.php:37
 msgid "Post Status"
-msgstr ""
+msgstr "Lähetyksen Tila"
 
 #: ../mdocs-dashboard.php:245
 msgid "Published"
-msgstr ""
+msgstr "Julkaistu"
 
 #: ../mdocs-dashboard.php:246
 msgid "Private"
-msgstr ""
+msgstr "Yksityinen"
 
 #: ../mdocs-dashboard.php:247
 msgid "Pending Review"
-msgstr ""
+msgstr "Odottavat"
 
 #: ../mdocs-dashboard.php:248
 msgid "Draft"
-msgstr ""
+msgstr "Luonnos"
 
 #: ../mdocs-dashboard.php:254 ../mdocs-settings-page.php:141
 #: ../mdocs-shortcodes.php:10
 msgid "Description"
-msgstr ""
+msgstr "Kuvaus"
 
 #: ../mdocs-downloads.php:62
 msgid "Check this file out"
-msgstr ""
+msgstr "Varaa tämä tiedosto"
 
 #: ../mdocs-downloads.php:62
 msgid "Download it from"
-msgstr ""
+msgstr "Lataa"
 
 #: ../mdocs-downloads.php:62
 msgid "powered by Memphis Documents Library"
-msgstr ""
+msgstr "moottorina Memphis Documents Library"
 
 #: ../mdocs-downloads.php:63
 msgid "Sorry you are unauthorized to download this file."
-msgstr ""
+msgstr "Pahoittelut, sinulla ei ole oikeuksia ladata tätä tiedostoa."
 
 #: ../mdocs-export.php:17
 msgid "Export Memphis Documents Library"
-msgstr ""
+msgstr "Vie Memphis Documents Library"
 
 #: ../mdocs-file-info-large.php:55 ../mdocs-file-info-large.php:60
 msgid "Please login<br>to download this file"
-msgstr ""
+msgstr "Kirjaudu<br>ladataksesi"
 
 #: ../mdocs-file-info-large.php:57 ../mdocs-settings-page.php:88
 #: ../mdocs-social.php:12 ../mdocs-versions.php:31 ../mdocs-versions.php:41
 #: ../mdocs-versions.php:51 ../mdocs-versions.php:68
 msgid "Download"
-msgstr ""
+msgstr "Lataa"
 
 #: ../mdocs-file-info-large.php:66
 msgid "Rate Me!"
-msgstr ""
+msgstr "Arvioi!"
 
 #: ../mdocs-file-info-large.php:67
 msgid "Your Rating"
-msgstr ""
+msgstr "Sinun Arviosi"
 
 #: ../mdocs-file-info-large.php:79 ../mdocs-file-info-small.php:90
 #: ../mdocs-settings-page.php:94
 msgid "Downloads"
-msgstr ""
+msgstr "Lataukset"
 
 #: ../mdocs-file-info-large.php:80 ../mdocs-functions.php:254
 #: ../mdocs-settings-page.php:95 ../mdocs-settings-page.php:123
 msgid "Author"
-msgstr ""
+msgstr "Omistaja"
 
 #: ../mdocs-file-info-large.php:86 ../mdocs-functions.php:255
 #: ../mdocs-settings-page.php:124
 msgid "Last Updated"
-msgstr ""
+msgstr "Päivitetty Viimeksi"
 
 #: ../mdocs-file-info-small.php:38
 msgid "All Files Are Hidden"
-msgstr ""
+msgstr "Kaikki Tiedostot Piilotettu"
 
 #: ../mdocs-file-info-small.php:39
 msgid "All Posts Are Hidden"
-msgstr ""
+msgstr "Kaikki Viestit Piilotettu"
 
 #: ../mdocs-file-info-small.php:116
 msgid "Visit"
-msgstr ""
+msgstr "Vieraile"
 
 #: ../mdocs-file-info-small.php:117 ../mdocs-functions.php:10
 #: ../mdocs-versions.php:32 ../mdocs-versions.php:42 ../mdocs-versions.php:69
 msgid "Delete"
-msgstr ""
+msgstr "Poista"
 
 #: ../mdocs-file-info-small.php:118 ../mdocs-functions.php:13
 #: ../mdocs-versions.php:17
 msgid "Versions"
-msgstr ""
+msgstr "Versiot"
 
 #: ../mdocs-functions.php:7
 msgid "Update"
-msgstr ""
+msgstr "Päivitä"
 
 #: ../mdocs-functions.php:52
 msgid "Please login to access the preview."
-msgstr ""
+msgstr "Kirjaudu jotta voit esikatsella."
 
 #: ../mdocs-functions.php:239
 msgid "List Size"
-msgstr ""
+msgstr "Listan Koko"
 
 #: ../mdocs-functions.php:240
 msgid "Large"
-msgstr ""
+msgstr "Iso"
 
 #: ../mdocs-functions.php:241
 msgid "Small"
-msgstr ""
+msgstr "Pieni"
 
 #: ../mdocs-functions.php:245
 msgid "Descending"
-msgstr ""
+msgstr "Aleneva"
 
 #: ../mdocs-functions.php:246
 msgid "Ascending"
-msgstr ""
+msgstr "Nouseva"
 
 #: ../mdocs-functions.php:249
 msgid "Sort By"
-msgstr ""
+msgstr "Järjestä"
 
 #: ../mdocs-functions.php:252 ../mdocs-settings-page.php:121
 msgid "Number of Downloads"
-msgstr ""
+msgstr "Latausmäärä"
 
 #: ../mdocs-functions.php:256 ../mdocs-settings-page.php:125
 msgid "Rating"
-msgstr ""
+msgstr "Arvio"
 
 #: ../mdocs-functions.php:300
 msgid "Memphis Error"
-msgstr ""
+msgstr "Memphis-virhe"
 
 #: ../mdocs-functions.php:301
 msgid "Memphis Info"
-msgstr ""
+msgstr "Memphis-info"
 
 #: ../mdocs-import.php:5
 msgid "There are two type of imports you can choose from."
-msgstr ""
+msgstr "Voit valita kahdesta tuonnista."
 
 #: ../mdocs-import.php:8 ../mdocs-import.php:25
 msgid "Keep Existing Saved Variables"
-msgstr ""
+msgstr "Pidä Olemassa Olevat Muuttujat"
 
 #: ../mdocs-import.php:9
 msgid ""
@@ -376,16 +383,21 @@ msgid ""
 "system, the one on the current system will be left untouched,\n"
 "\t\t\t<br>and you will have to manually import these files."
 msgstr ""
+"On varmin tapa tuoda. Tämä option pitää kaikki nykyiset ja tuo vain uudet. \n"
+"\t\t\t<br>Jos tuotava tiedosto vastaa nykyistä järjestelmässä olevaa, "
+"järjestelmän tiedostoon ei kosketa,\n"
+"\t\t\t<br>vaan nämä tiedostot pitää tuoda käsin."
 
 #: ../mdocs-import.php:13 ../mdocs-import.php:26
 msgid "Overwrite Saved Variables"
-msgstr ""
+msgstr "Ylikirjoita Tallennetut Muuttujat"
 
 #: ../mdocs-import.php:14
 msgid ""
 "Is a good when you have a empty documents library or you at looking to "
 "refresh your current library."
 msgstr ""
+"On hyvä tyhjän kirjaston kanssa tai kun haluat päivittää nykyistä kirjastoa."
 
 #: ../mdocs-import.php:15
 msgid ""
@@ -394,29 +406,33 @@ msgid ""
 "\t\t\t<br>get a list of all the conflicts that have occured make note of "
 "them."
 msgstr ""
+"Tapa poistaa kaikki tiedostot ja versiot. Saat listan konflikteista ajon "
+"jälkeen, ota tiedot talteen."
 
 #: ../mdocs-import.php:17
 msgid ""
 "Please take great care in using this method as there is little to no return."
-msgstr ""
+msgstr "Varovasti, peruuttaminen vähäistä tai mahdotonta."
 
 #: ../mdocs-import.php:22
 msgid "Add the Zip File"
-msgstr ""
+msgstr "Lisää ZIp-tiedosto"
 
 #: ../mdocs-import.php:23
 msgid "Remember to always export any valuable data before doing an import."
-msgstr ""
+msgstr "Muista aina viedä ensin kaikki arvokas tieto ennen tuontia."
 
 #: ../mdocs-import.php:28
 msgid "Import Memphis Documents Library"
-msgstr ""
+msgstr "Tuo Memphis Documents Library"
 
 #: ../mdocs-import.php:65
 msgid ""
 "Old category structure found, updated to the new category structure.  It is "
 "recommened that you re-export you files again.  The process did finish."
 msgstr ""
+"Vanha kategoriarakenne löytyi, päivitettiin uuteen rakenteeseen. "
+"Suositellaan uudelleen vientiä. Prosessi pääsi loppuun."
 
 #: ../mdocs-localization.php:13
 msgid ""
@@ -425,6 +441,9 @@ msgid ""
 "\n"
 "'Cancel' to stop, 'OK' to delete."
 msgstr ""
+"Olet poistamassa versiota. oletko varma?\n"
+"\n"
+"'Peruuta' peruaksesi, 'OK' poistaaksesi."
 
 #: ../mdocs-localization.php:14
 msgid ""
@@ -433,44 +452,54 @@ msgid ""
 "\n"
 "'Cancel' to stop, 'OK' to delete."
 msgstr ""
+"Olet poistamassa kategoriaa. oletko varma? Kaikki tiedostot kategoriassa "
+"poistetaan.\n"
+"\n"
+"'Peruuta' peruaksesi, 'OK' poistaaksesi."
 
 #: ../mdocs-localization.php:16
 msgid "New Category"
-msgstr ""
+msgstr "Uusi Kategoria"
 
 #: ../mdocs-localization.php:17
 msgid "Are you sure you want to navigate away from this page?"
-msgstr ""
+msgstr "Oletko varma, että haluat navigoida pois sivulta?"
 
 #: ../mdocs-localization.php:18
 msgid "Currently Memphis Documents Library only supports two sub categories."
 msgstr ""
+"Memphis Documents Library tukee tällä hetkellä vain kahta alikategoriaa."
 
 #: ../mdocs-localization.php:19
 msgid ""
 "Are you sure you want continue.  All you files, posts and directories will "
 "be delete."
 msgstr ""
+"Oletko varma, että haluat jatkaa...kaikki tiedostot, viestit ja hakemistot "
+"poistetaan."
 
 #: ../mdocs-localization.php:87
 msgid ""
 "Memphis Documents Library has an export file on this WordPress instance it "
 "was created on "
 msgstr ""
+"Memphis Documents Library:llä on vientitiedosto tälle Wordpress-ilmentymälle"
 
 #: ../mdocs-localization.php:88
 msgid ""
 "Memphis Documents Library has no export file on this WordPress instance.  "
 "You may want to create an export file now."
 msgstr ""
+"Memphis Documents Library:llä ei ole vientitiedostoa tälle Wordpress-"
+"ilmentymälle. Voit haluta luoda vientitiedoston nyt."
 
 #: ../mdocs-localization.php:89
 msgid "This file is part of the Documents Library."
-msgstr ""
+msgstr "Tiedosto on osa Dokumenttikirjastoa."
 
 #: ../mdocs-localization.php:91
 msgid "No file was uploaded, please try again."
-msgstr ""
+msgstr "Tiedostoa ei ladattu, yritä uudestaan."
 
 #: ../mdocs-localization.php:92
 msgid ""
@@ -478,213 +507,217 @@ msgid ""
 "administrator for more details.<br>If you are running Multisite you can add "
 "this file type from the Settings menu of the Network Admin."
 msgstr ""
+"Hups, tiedostomuoto ei ole sallittujen listalla. Ota yhteys ylläpitoon "
+"saadaksesi lisätietoja.<br>Jos käytät Monisivustoa, voit lisätä "
+"tiedostotyypin asetuksien kohdasta Verkon Ylläpito."
 
 #: ../mdocs-localization.php:93
 msgid "No categories found.  The upload process can not proceed."
-msgstr ""
+msgstr "Kategorioita ei löytynyt, latausta ei voida suorittaa."
 
 #: ../mdocs-localization.php:94
 msgid ""
 "Data was not submitted.  The submit process is out of sync, please refresh "
 "your browser and try again."
 msgstr ""
+"Tietoa ei lähetetty. Lähetys ei ole synkronissa, päivitä selaimen näkymä."
 
 #: ../mdocs-localization.php:95
 msgid "File Upload Error.  Please try again."
-msgstr ""
+msgstr "Tiedoston Siirtovirhe, yritä uudelleen."
 
 #: ../mdocs-localization.php:96
 msgid "You are already at the most recent version of this document."
-msgstr ""
+msgstr "Tämä on tiedoston viimeisin versio."
 
 #: ../mdocs-settings-page.php:41
 msgid "Global Documents Library Settings"
-msgstr ""
+msgstr "Yleiset Dokumenttikirjaston Asetukset"
 
 #: ../mdocs-settings-page.php:51
 msgid "Document List Size: (Site)"
-msgstr ""
+msgstr "Dokumenttilistan Koko: (Sivusto)"
 
 #: ../mdocs-settings-page.php:53 ../mdocs-settings-page.php:58
 msgid "small"
-msgstr ""
+msgstr "pieni"
 
 #: ../mdocs-settings-page.php:54 ../mdocs-settings-page.php:59
 msgid "large"
-msgstr ""
+msgstr "iso"
 
 #: ../mdocs-settings-page.php:56
 msgid "Document List Size: (Dashboard)"
-msgstr ""
+msgstr "Dokumenttilistan Koko: (Käyttöpaneeli)"
 
 #: ../mdocs-settings-page.php:63
 msgid "Private File Post Viewing"
-msgstr ""
+msgstr "Yksityisen Tiedoston Katselu"
 
 #: ../mdocs-settings-page.php:75
 msgid "Style Settings"
-msgstr ""
+msgstr "Tyyliasetukset"
 
 #: ../mdocs-settings-page.php:77
 msgid "Download Button Options"
-msgstr ""
+msgstr "Latausnapin Asetukset"
 
 #: ../mdocs-settings-page.php:78
 msgid "Background Options"
-msgstr ""
+msgstr "Taustan Asetukset"
 
 #: ../mdocs-settings-page.php:79
 msgid "Background Color"
-msgstr ""
+msgstr "Taustaväri"
 
 #: ../mdocs-settings-page.php:81
 msgid "Background Hover Color"
-msgstr ""
+msgstr "Taustan Leijuväri"
 
 #: ../mdocs-settings-page.php:83
 msgid "Text Color"
-msgstr ""
+msgstr "Tekstin Väri"
 
 #: ../mdocs-settings-page.php:85
 msgid "Text Hover Color"
-msgstr ""
+msgstr "Tekstin Leijuväri"
 
 #: ../mdocs-settings-page.php:87
 msgid "Download Button Preview"
-msgstr ""
+msgstr "Latausnapin Esikatselu"
 
 #: ../mdocs-settings-page.php:92
 msgid "Displayed File Information"
-msgstr ""
+msgstr "Tiedoston Informaatio"
 
 #: ../mdocs-settings-page.php:97 ../mdocs-settings.php:9
 #: ../mdocs-settings.php:11
 msgid "Updated"
-msgstr ""
+msgstr "Päivitetty"
 
 #: ../mdocs-settings-page.php:98
 msgid "Ratings"
-msgstr ""
+msgstr "Arviot"
 
 #: ../mdocs-settings-page.php:99
 msgid "Social"
-msgstr ""
+msgstr "Some"
 
 #: ../mdocs-settings-page.php:102
 msgid "Hide Things"
-msgstr ""
+msgstr "Piilota Asioita"
 
 #: ../mdocs-settings-page.php:104
 msgid "All Files"
-msgstr ""
+msgstr "Kaikki Tiedostot"
 
 #: ../mdocs-settings-page.php:105
 msgid "All Posts (May take awhile)"
-msgstr ""
+msgstr "Kaikki Lähetykset (voi kestää hetken)"
 
 #: ../mdocs-settings-page.php:106
 msgid "All Files: (Non Members)"
-msgstr ""
+msgstr "Kaikki Tiedostot: (Ei-jäseniltä)"
 
 #: ../mdocs-settings-page.php:107
 msgid "All Posts: (Non Members)"
-msgstr ""
+msgstr "Kaikki Lähetykset: (Ei-jäseniltä)"
 
 #: ../mdocs-settings-page.php:111
 msgid "New & Updated Banner"
-msgstr ""
+msgstr "Uusi & Päivitetty Mainos"
 
 #: ../mdocs-settings-page.php:113
 msgid "Show New & Updated Banner"
-msgstr ""
+msgstr "Näytä Uusi & Päivitetty Mainos"
 
 #: ../mdocs-settings-page.php:114
 msgid "days - Time to Displayed"
-msgstr ""
+msgstr "päivät - Näytettävä Aika"
 
 #: ../mdocs-settings-page.php:116
 msgid "Default Sort Options"
-msgstr ""
+msgstr "Oletusjärjestyksen Asetukset"
 
 #: ../mdocs-settings-page.php:118
 msgid "Order Types:"
-msgstr ""
+msgstr "Järjestystyypit:"
 
 #: ../mdocs-settings-page.php:128
 msgid "Order Style:"
-msgstr ""
+msgstr "Järjestystyylit:"
 
 #: ../mdocs-settings-page.php:130
 msgid "Sort Descending"
-msgstr ""
+msgstr "Laskeva"
 
 #: ../mdocs-settings-page.php:131
 msgid "Sort Ascending"
-msgstr ""
+msgstr "Nouseva"
 
 #: ../mdocs-settings-page.php:137
 msgid "Document Page Settings"
-msgstr ""
+msgstr "Dokumenttisivun Asetukset"
 
 #: ../mdocs-settings-page.php:139
 msgid "Default Content:"
-msgstr ""
+msgstr "Oletussisältö:"
 
 #: ../mdocs-settings-page.php:142
 msgid "Preview"
-msgstr ""
+msgstr "Esikatselu"
 
 #: ../mdocs-settings-page.php:145
 msgid "Show Description"
-msgstr ""
+msgstr "Näytä Kuvaus"
 
 #: ../mdocs-settings-page.php:146
 msgid "Show Preview"
-msgstr ""
+msgstr "Näytä Esikatselu"
 
 #: ../mdocs-settings-page.php:148
 msgid ".htaccess File Editor"
-msgstr ""
+msgstr ".htaccess-editori"
 
 #: ../mdocs-settings-page.php:163
 msgid "Roles & Permissions"
-msgstr ""
+msgstr "Roolit & Oikeudet"
 
 #: ../mdocs-settings-page.php:189
 msgid "Allowed File Types"
-msgstr ""
+msgstr "Sallitut Tiedostotyypit"
 
 #: ../mdocs-settings-page.php:196 ../mdocs-update-mime.php:27
 msgid "Extension"
-msgstr ""
+msgstr "Pääte"
 
 #: ../mdocs-settings-page.php:197 ../mdocs-update-mime.php:28
 msgid "Mime Type"
-msgstr ""
+msgstr "Mime-tyyppi"
 
 #: ../mdocs-settings-page.php:202
 msgid "remove"
-msgstr ""
+msgstr "poista"
 
 #: ../mdocs-settings-page.php:209 ../mdocs-update-mime.php:40
 msgid "add"
-msgstr ""
+msgstr "lisää"
 
 #: ../mdocs-settings-page.php:212
 msgid "List of Files and Their Mime Types"
-msgstr ""
+msgstr "Tiedosto- ja Mime-tyypit"
 
 #: ../mdocs-settings-page.php:213
 msgid "Restore Default File Types"
-msgstr ""
+msgstr "Palauta Oletustyypit"
 
 #: ../mdocs-settings-page.php:217
 msgid "Save Changes"
-msgstr ""
+msgstr "Tallenna Muutokset"
 
 #: ../mdocs-settings-page.php:224
 msgid "Filesystem Cleanup"
-msgstr ""
+msgstr "Tiedostojärjestelmän Puhdistus"
 
 #: ../mdocs-settings-page.php:225
 msgid ""
@@ -692,14 +725,16 @@ msgid ""
 "files/data links inside Memphis Documents Library.<br>Be sure to make a "
 "backup copy before running this check."
 msgstr ""
+"Käytä tarkistaaksesi ja puhdistaaksesi rikkinäiset tiedosto/tietolinkit "
+"kirjastosta.<br>Tee varmistus ennen tarkitusta."
 
 #: ../mdocs-settings-page.php:227
 msgid "Run Filesystem Cleanup"
-msgstr ""
+msgstr "Aja Tiedostojärjestelmän Puhdistus "
 
 #: ../mdocs-settings-page.php:242
 msgid "Restore Memphis Document Library's to Defaults"
-msgstr ""
+msgstr "Palauta Memphis Document Library Oletusasetuksiin"
 
 #: ../mdocs-settings-page.php:243
 msgid ""
@@ -708,48 +743,52 @@ msgid ""
 "setting will return to their default state. <b>Please backup your files "
 "before continuing.</b>"
 msgstr ""
+"Tämä palauttaa kirjaston asennuksen jälkeiseen tilaan. Kaikki tieto "
+"poistetaan ja asetukset palautetaan oletuksiinsa. <b>Tee varmistus ensin.</b>"
 
 #: ../mdocs-settings-page.php:247
 msgid "Restore To Default"
-msgstr ""
+msgstr "Palauta Oletukset"
 
 #: ../mdocs-settings-page.php:257
 msgid "Filesystem Cleanup Complete"
-msgstr ""
+msgstr "Tiedostojärjestelmän Puhdistus Valmis "
 
 #: ../mdocs-settings-page.php:258
 msgid ""
 "Your file system has been cleaned.  Remember if you encounter any issues "
 "revert back to your previous version using the import tool."
 msgstr ""
+"Järjestelmä on puhdistettu. Jos löydät ongelmia, voit palata vanhaan "
+"versioon tuontityökalun avulla."
 
 #: ../mdocs-settings-page.php:260 ../mdocs-settings-page.php:289
 msgid "Unlinked Files"
-msgstr ""
+msgstr "Linkittämättömiä Tiedostoja"
 
 #: ../mdocs-settings-page.php:264 ../mdocs-settings-page.php:292
 msgid "There are no unlinked files."
-msgstr ""
+msgstr "Ei linkittämättömiä tiedostoja."
 
 #: ../mdocs-settings-page.php:268 ../mdocs-settings-page.php:296
 msgid "Unlinked Data"
-msgstr ""
+msgstr "Linkittämätön Tieto"
 
 #: ../mdocs-settings-page.php:270 ../mdocs-settings-page.php:298
 msgid "Element ID"
-msgstr ""
+msgstr "Elementin ID"
 
 #: ../mdocs-settings-page.php:271 ../mdocs-settings-page.php:299
 msgid "There is no unlinked data."
-msgstr ""
+msgstr "Ei linkittämätöntä tietoa."
 
 #: ../mdocs-settings-page.php:277
 msgid "Run File System Cleanup Again"
-msgstr ""
+msgstr "Aja Tiedostojärjestelmän Puhdistus Uudelleen"
 
 #: ../mdocs-settings-page.php:286
 msgid "Filesystem Analyzed"
-msgstr ""
+msgstr "Tiedostojärjestelmä Analysoitu"
 
 #: ../mdocs-settings-page.php:287
 msgid ""
@@ -759,24 +798,30 @@ msgid ""
 "export of the files before continuing.  If anything goes wrong just import "
 "your export file to revert all changes."
 msgstr ""
+"Alta löytyy lista tiedostoista ja tiedosta jotka eivät näytä olevan "
+"käytössä. Seuraavassa vaiheessa yritetään poistaa kaikki tuo linkittämätön "
+"informaatio.<br>Olethan ottanut varmistuksen. Jos jokin menee vikaan, voit "
+"palauttaa tilanteen varmistuksen avulla."
 
 #: ../mdocs-settings-page.php:305
 msgid "Cleanup The File System"
-msgstr ""
+msgstr "Puhdista Tiedostojärjestelmä"
 
 #: ../mdocs-settings.php:10 ../mdocs-settings.php:12
 msgid "New"
-msgstr ""
+msgstr "Uusi"
 
 #: ../mdocs-settings.php:82
 msgid ""
 "Unable to create the directory \"mdocs\" which is needed by Memphis "
 "Documents Library. Is its parent directory writable by the server?"
 msgstr ""
+"Hakemisto \"mdocs\" ei voida luoda, Kirjasto itse tarvitsee sitä. Ovatko "
+"isäntähakemiston kirjoitusoikeudet kunnossa?"
 
 #: ../mdocs-settings.php:89
 msgid "Documents"
-msgstr ""
+msgstr "Dokumentit"
 
 #: ../mdocs-settings.php:111
 msgid ""
@@ -784,6 +829,8 @@ msgid ""
 "Documents Library. Its parent directory is not readable/writable by the "
 "server?"
 msgstr ""
+"Hakemisto \"mdocs\" ei voida luoda, Kirjasto itse tarvitsee sitä. "
+"Isäntähakemiston kirjoitusoikeudet eivät ole kunnossa?"
 
 #: ../mdocs-settings.php:314
 msgid ""
@@ -791,6 +838,8 @@ msgid ""
 "access to the system.   This step is necessary to allow documents to be "
 "previewed."
 msgstr ""
+"<b>.htaccess</b>-tiedosto on päivitetty jotta Googlella on pääsy "
+"järjestelmään. Tämä on välttämätöntä, jotta dokumenttien esikatselu toimisi."
 
 #: ../mdocs-settings.php:321
 msgid ""
@@ -800,6 +849,10 @@ msgid ""
 "recommended to re-export your files again due to the new way categories are "
 "structured."
 msgstr ""
+"<b>Kategoriat</b> on päivitetty jotta alikategoriat toimisivat. Tällä ei "
+"pitäisi olla muita vaikutuksia järjestelmään. Jos näin kuitenkin on, ota "
+"yhteyttä pluginin tukifoorumin kautta. On suositeltua tehdä uudelleen "
+"varmistus, koska kategoriarakenne on muuttunut."
 
 #: ../mdocs-settings.php:328
 msgid ""
@@ -809,60 +862,72 @@ msgid ""
 "recommended to re-export your files again due to the new way categories are "
 "structured."
 msgstr ""
+"<b>Kategoriat</b> on päivitetty jotta alikategoriat toimisivat. Tällä ei "
+"pitäisi olla muita vaikutuksia järjestelmään. Jos näin kuitenkin on, ota "
+"yhteyttä pluginin tukifoorumin kautta. On suositeltua tehdä uudelleen "
+"varmistus, koska kategoriarakenne on muuttunut."
 
 #: ../mdocs-shortcodes.php:14
 msgid ""
 "Adds the default Memphis Documents Library file list to any page, post or "
 "widget."
 msgstr ""
+"Lisää Tiedostolistan mille tahansa sivulle, artikkeliin tai widgettiin."
 
 #: ../mdocs-shortcodes.php:17
 msgid "The Category Name"
-msgstr ""
+msgstr "Kategorian Nimi"
 
 #: ../mdocs-shortcodes.php:18
 msgid ""
 "Adds files from  a specific main category of the Memphis Documents Library "
 "on any page, post or widget."
 msgstr ""
+"Lisää Kirjaston tiedostoja valitusta hakemistosta mille tahansa sivulle, "
+"artikkeliin tai widgettiin."
 
 #: ../mdocs-shortcodes.php:22
 msgid ""
 "Adds a list of all files of the Memphis Documents Library on any page, post "
 "or widget."
 msgstr ""
+"Lisää Kirjaston kaikkien tiedostojen listauksen mille tahansa sivulle, "
+"artikkeliin tai widgettiin."
 
 #: ../mdocs-shortcodes.php:25
 msgid "This text will show up above the documents list."
-msgstr ""
+msgstr "Teksti näkyy dokumenttilistan yläpuolella."
 
 #: ../mdocs-shortcodes.php:26
 msgid ""
 "Adds a header to the Memphis Documents LIbrary on ay page, post or widget."
 msgstr ""
+"Lisää Kirjaston otsikon mille tahansa sivulle, artikkeliin tai widgettiin."
 
 #: ../mdocs-social.php:29
 msgid "This page is hidden to all users accepts admins."
-msgstr ""
+msgstr "Sivu on piilotettu kaikilta paitsi pääkäyttäjiltä."
 
 #: ../mdocs-the-list.php:88
 msgid ""
 "Unable to create the directory \"mdocs\" which is needed by Memphis "
 "Documents Library. Its parent directory is not writable by the server?"
 msgstr ""
+"Hakemisto \"mdocs\" ei voida luoda, Kirjasto itse tarvitsee sitä. "
+"Isäntähakemiston kirjoitusoikeudet eivät ole kunnossa?"
 
 #: ../mdocs-versions.php:28 ../mdocs-versions.php:38
 msgid "File"
-msgstr ""
+msgstr "Tiedosto"
 
 #: ../mdocs-versions.php:30 ../mdocs-versions.php:40
 msgid "Date Modified"
-msgstr ""
+msgstr "Muutettu"
 
 #: ../mdocs-versions.php:33 ../mdocs-versions.php:43
 msgid "Current"
-msgstr ""
+msgstr "Nykyinen"
 
 #: ../mdocs-versions.php:80
 msgid "Update To Revision"
-msgstr ""
+msgstr "Päivitä Revisioon"

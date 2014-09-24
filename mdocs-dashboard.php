@@ -7,7 +7,7 @@ function mdocs_dashboard_menu() {
 	if(isset($memphis_custom_login['Version'])) $memphis_version = intval($memphis_custom_login['Version']);
 	else $memphis_version = 0;
 	If (!is_plugin_active('memphis-wordpress-custom-login/memphis-wp-login.php') || $memphis_version < 3) {
-		add_menu_page( __('Memphis Documents Library'), __('Memphis Docs'), 'administrator', 'memphis-documents.php', 'mdocs_dashboard', MDOC_URL.'/assets/imgs/kon.ico'  );
+		add_menu_page( __('Memphis Documents Library','mdocs'), __('Memphis Docs','mdocs'), 'administrator', 'memphis-documents.php', 'mdocs_dashboard', MDOC_URL.'/assets/imgs/kon.ico'  );
 	}
 	if ( is_admin() ){
 		add_action('admin_init','mdocs_register_settings');
@@ -26,8 +26,8 @@ function mdocs_dashboard() {
 	//var_dump($cats[0]['children']);
 	if(isset($_FILES['mdocs']) && $_FILES['mdocs']['name'] != '' && $_POST['mdocs-type'] == 'mdocs-add') mdocs_file_upload();
 	if(isset($_FILES['mdocs']) && $_POST['mdocs-type'] == 'mdocs-update') mdocs_file_upload();
-	elseif(isset($_GET['action']) && $_GET['action'] == 'add-doc' && MDOCS_NONCE == $_SESSION['mdocs-nonce'] && !isset($_GET['mdocs-sort'])) mdocs_uploader(__('Add Document'));
-	elseif(isset($_GET['action']) && $_GET['action'] == 'update-doc') mdocs_uploader(__('Update Document'));
+	elseif(isset($_GET['action']) && $_GET['action'] == 'add-doc' && MDOCS_NONCE == $_SESSION['mdocs-nonce'] && !isset($_GET['mdocs-sort'])) mdocs_uploader(__('Add Document','mdocs'));
+	elseif(isset($_GET['action']) && $_GET['action'] == 'update-doc') mdocs_uploader(__('Update Document','mdocs'));
 	elseif(isset($_GET['action']) && $_GET['action'] == 'delete-doc') mdocs_delete();
 	elseif(isset($_GET['action']) && $_GET['action'] == 'delete-version') mdocs_delete_version();
 	elseif(isset($_POST['action']) && $_POST['action'] == 'mdocs-import') mdocs_import_zip();
@@ -51,13 +51,13 @@ function mdocs_dashboard_view() {
 	?>
 	<div class="wrap">
 		<div class="mdocs-admin-preview"></div>
-		<?php if($message != "" && $type != 'update') { ?> <div id="message" class="error" ><p><?php _e($message); ?></p></div> <?php }?>
-		<div id="icon-mdocs" class="icon32"><br></div><h2><?php _e("Documents Library"); ?>
-		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=<?php echo $current_cat; ?>&action=add-doc" class="mdocs-grey-btn"><?php _e('Add New Document'); ?></a><?php } ?>
-		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=cats" class="mdocs-grey-btn"><?php _e('Edit Categories'); ?></a><?php } ?>
-		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=settings" class="mdocs-grey-btn"><?php _e('Settings'); ?></a><?php } ?>
-		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=batch" class="mdocs-grey-btn"><?php _e('Batch Upload (Beta)'); ?></a><?php } ?>
-		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=short-codes" class="mdocs-grey-btn"><?php _e('Short Codes'); ?></a><?php } ?>
+		<?php if($message != "" && $type != 'update') { ?> <div id="message" class="error" ><p><?php echo $message; ?></p></div> <?php }?>
+		<div id="icon-mdocs" class="icon32"><br></div><h2><?php _e("Documents Library",'mdocs'); ?>
+		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=<?php echo $current_cat; ?>&action=add-doc" class="mdocs-grey-btn"><?php _e('Add New Document','mdocs'); ?></a><?php } ?>
+		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=cats" class="mdocs-grey-btn"><?php _e('Edit Categories','mdocs'); ?></a><?php } ?>
+		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=settings" class="mdocs-grey-btn"><?php _e('Settings','mdocs'); ?></a><?php } ?>
+		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=batch" class="mdocs-grey-btn"><?php _e('Batch Upload (Beta)','mdocs'); ?></a><?php } ?>
+		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=short-codes" class="mdocs-grey-btn"><?php _e('Short Codes','mdocs'); ?></a><?php } ?>
 		</h2>
 		
 		<div id="icon-edit-pages" class="icon32"><br></div>
@@ -74,9 +74,9 @@ function mdocs_dashboard_view() {
 			}
 		}
 		if($current_cat == 'import' ) $import_active = ' nav-tab-active';
-		if(is_dir($upload_dir['basedir'].'/mdocs/')) echo "<a class='nav-tab$import_active' href='?page=memphis-documents.php&cat=import'>".__('Import')."</a>";
+		if(is_dir($upload_dir['basedir'].'/mdocs/')) echo "<a class='nav-tab$import_active' href='?page=memphis-documents.php&cat=import'>".__('Import','mdocs')."</a>";
 		if($current_cat == 'export') $export_active = ' nav-tab-active';
-		if(is_dir($upload_dir['basedir'].'/mdocs/')) echo "<a class='nav-tab$export_active' href='?page=memphis-documents.php&cat=export'>".__('Export')."</a>";
+		if(is_dir($upload_dir['basedir'].'/mdocs/')) echo "<a class='nav-tab$export_active' href='?page=memphis-documents.php&cat=export'>".__('Export','mdocs')."</a>";
 		?>
 	   </h2>
 		<?php
@@ -144,7 +144,7 @@ function mdoc_doc_list($current_cat) {
 				
 			}
 		}
-		if($count == 0) { ?><tr><td colspan="<?php echo $num_cols; ?>"><p class="mdocs-nofiles" ><?php _e('No files found in this category.'); ?></p></td></tr><?php }
+		if($count == 0) { ?><tr><td colspan="<?php echo $num_cols; ?>"><p class="mdocs-nofiles" ><?php _e('No files found in this category.','mdocs'); ?></p></td></tr><?php }
 		if(get_option('mdocs-list-type') == 'small') echo '</table>';
 	}
 }
@@ -188,7 +188,7 @@ function mdocs_uploader($edit_type='Add Document') {
 <div class="mdocs-uploader" >
 	<h2 class="mdocs-uploader-header">
 		<div class="close"><a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat; ?>"><img src='<?php echo MDOC_URL; ?>/assets/imgs/close.png'/></a></div>
-		<?php _e($edit_type); ?>
+		<?php _e($edit_type,'mdocs'); ?>
 	</h2>
 	<div class="mdocs-uploader-content">
 		<form class="mdocs-uploader-form" enctype="multipart/form-data" action="<?php echo get_site_url().'/wp-admin/admin.php?page='.$post_page.'&cat='.$post_cat; ?>" method="POST">
@@ -198,67 +198,67 @@ function mdocs_uploader($edit_type='Add Document') {
 			<input type="hidden" name="mdocs-pname" value="<?php if($edit_type == 'Update Document') echo $mdocs[$mdoc_index]['name']; ?>" />
 			<input type="hidden" name="mdocs-nonce" value="<?php echo MDOCS_NONCE; ?>" />
 			<input type="hidden" name="mdocs-post-status-sys" value="<?php if($edit_type == 'Update Document') echo $mdocs[$mdoc_index]['post_status']; ?>" />
-			<h3><?php _e('File Configuration'); ?></h3>
+			<h3><?php _e('File Configuration','mdocs'); ?></h3>
 			<div class="mdocs-form-box">
-				<label><?php _e('File Uploader'); ?>:
+				<label><?php _e('File Uploader','mdocs'); ?>:
 					<input type="file" name="mdocs" />
-					<?php if($edit_type=='Update Document') echo __('Current File').':  <p class="current-name">'.$mdocs[$mdoc_index]['filename'].'</p>'; ?>
+					<?php if($edit_type=='Update Document') echo __('Current File','mdocs').':  <p class="current-name">'.$mdocs[$mdoc_index]['filename'].'</p>'; ?>
 				</label>
 			</div>
 			<div class="mdocs-form-box">
-				<label><?php _e('File Name'); ?>:
+				<label><?php _e('File Name','mdocs'); ?>:
 				<input type="text" name="mdocs-name" <?php if($edit_type=='Update Document') echo 'value="'. $mdocs[$mdoc_index]['name'].'"'; ?> />
 				</label>
-				<label><?php _e('Category'); ?>:
+				<label><?php _e('Category','mdocs'); ?>:
 				<select name="mdocs-cat">
 				<?php mdocs_get_cats($cats, $current_cat); ?>
 				</select>
 				</label>
 				<label>
-					<?php _e('Version'); ?>: 
+					<?php _e('Version','mdocs'); ?>: 
 					<input type="text" name="mdocs-version" <?php if($edit_type=='Update Document') echo 'value="'.$mdocs[$mdoc_index]['version'].'"'; else echo 'value="1.0"'; ?> />
 				</label>
 			</div>
 			<div class="mdocs-form-box">
-				<label><?php _e('Show Social Apps'); ?>:
+				<label><?php _e('Show Social Apps','mdocs'); ?>:
 					<input type="checkbox" name="mdocs-social"
 					<?php
 						if($edit_type=='Update Document' && $mdocs[$mdoc_index]['show_social'] !== '') echo 'checked';
 						elseif($edit_type=='Add Document') echo 'checked';
 						?> />
 				</label>
-				<label><?php _e('Downloadable by Non Members'); ?>:
+				<label><?php _e('Downloadable by Non Members','mdocs'); ?>:
 					<input type="checkbox" name="mdocs-non-members"
 					<?php
 						if($edit_type=='Update Document' && $mdocs[$mdoc_index]['non_members'] !== '' ) echo 'checked';
 						elseif($edit_type=='Add Document') echo 'checked';
 						?> />
 				</label>
-				<label><?php _e('File Status'); ?>:
+				<label><?php _e('File Status','mdocs'); ?>:
 					<select name="mdocs-file-status" id="mdocs-file-status" >
-						<option value="public" <?php if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['file_status'] == 'public') echo 'selected'; }?> ><?php _e('Public'); ?></option>
-						<option value="hidden" <?php if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['file_status'] == 'hidden') echo 'selected'; }?>><?php _e('Hidden'); ?></option>
+						<option value="public" <?php if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['file_status'] == 'public') echo 'selected'; }?> ><?php _e('Public','mdocs'); ?></option>
+						<option value="hidden" <?php if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['file_status'] == 'hidden') echo 'selected'; }?>><?php _e('Hidden','mdocs'); ?></option>
 					</select>
 				</label>
-				<label><?php _e('Post Status'); ?>:
+				<label><?php _e('Post Status','mdocs'); ?>:
 					<select name="mdocs-post-status" id="mdocs-post-status" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['file_status'] == 'hidden' || get_option( 'mdocs-hide-all-files' ) || get_option( 'mdocs-hide-all-posts' )) echo 'disabled'; }?> >
-						<option value="publish" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['post_status'] == 'publish') echo 'selected';  } ?> ><?php _e('Published'); ?></option>
-						<option value="private" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['post_status'] == 'private') echo 'selected'; } ?> ><?php _e('Private');  ?></option>
-						<option value="pending" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['post_status'] == 'pending') echo 'selected'; } ?>  ><?php _e('Pending Review');  ?></option>
-						<option value="draft" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['post_status'] == 'draft') echo 'selected'; } ?> ><?php _e('Draft');  ?></option>
+						<option value="publish" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['post_status'] == 'publish') echo 'selected';  } ?> ><?php _e('Published','mdocs'); ?></option>
+						<option value="private" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['post_status'] == 'private') echo 'selected'; } ?> ><?php _e('Private','mdocs');  ?></option>
+						<option value="pending" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['post_status'] == 'pending') echo 'selected'; } ?>  ><?php _e('Pending Review','mdocs');  ?></option>
+						<option value="draft" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['post_status'] == 'draft') echo 'selected'; } ?> ><?php _e('Draft','mdocs');  ?></option>
 					</select>
 				</label>
 			</div>
 			<br>
 			<div id="mdocs-desc-container" >
-				<h2><?php _e('Description'); ?></h2>
+				<h2><?php _e('Description','mdocs'); ?></h2>
 				<?php
 					if($edit_type=='Update Document') wp_editor($mdocs_desc, "mdocs-desc");
 					else wp_editor('', "mdocs-desc"); ?><br>
 			</div>
 			<?php if($edit_type=='Update Document') { ?>
-				<input type="submit" class="button button-primary" value="<?php _e('Update Document') ?>" /><br/>
-			<?php } else { ?> <input type="submit" class="button button-primary" value="<?php _e('Add Document') ?>" /><br/> <?php } ?>
+				<input type="submit" class="button button-primary" value="<?php _e('Update Document','mdocs') ?>" /><br/>
+			<?php } else { ?> <input type="submit" class="button button-primary" value="<?php _e('Add Document','mdocs') ?>" /><br/> <?php } ?>
 		</form>
 	</div>
 </div>

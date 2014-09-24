@@ -24,8 +24,8 @@ function mdocs_update_mime() {
 		$mimes = get_allowed_mime_types();
 		?>
 		<tr>
-			<th><?php _e('Extension'); ?></th>
-			<th><?php _e('Mime Type'); ?></th>
+			<th><?php _e('Extension','mdocs'); ?></th>
+			<th><?php _e('Mime Type','mdocs'); ?></th>
 		</tr>
 		<?php
 		foreach($mimes as $index => $mime) {
@@ -37,7 +37,7 @@ function mdocs_update_mime() {
 		<tr class="mdocs-mime-submit">
 			<td><input type="text" placeholder="Enter File Type..." name="mdocs-file-extension" value=""/></td>
 			<td><input type="text" placeholder="Enter Mime Type..." name="mdocs-mime-type" value=""/></td>
-			<td><a href="#" id="mdocs-add-mime"><?php _e('add'); ?></a></td>
+			<td><a href="#" id="mdocs-add-mime"><?php _e('add','mdocs'); ?></a></td>
 		</tr>
 		<?php
 	}

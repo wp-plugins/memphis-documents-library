@@ -5,8 +5,8 @@ Tags: plugin,documents,memphis,bhaldie,wordpress,library,repository,files,versio
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
-Tested up to: 3.9.1
-Stable tag: 2.6.4
+Tested up to: 4.0
+Stable tag: 2.6.5
 
 A documents library for WordPress.
 
@@ -20,6 +20,7 @@ Memphis Documents Library version *2.6.3* is an important sercurity update.  Ple
 
 = What's New With Version 2.6 =
 
+* *New* - Added Finnish language support, thanks to *sloworks* for their hard work.
 * *New* - The ability to allow/deny user types access to Private Posts. 
 * *New* - In the setting menu you can now choose the allowed file types.
 * *New* - A restore defaults option has been added this will restore Memphis Documents Library to its factory state, *WARNING all files and post will be deleted*.
@@ -124,7 +125,9 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 7. screenshot-7.png
 
 == Changelog ==
-= 2,6,4 =
+= 2.6.5 =
+* *Feature* - Added Finnish language support, thanks to *sloworks* for their hard work.
+= 2.6.4 =
 * *Bug* - Fixed bug which didn't allow for viewing sub categories when using mdocs short codes.  This short code currently only works on main categories you can't target a subcategory to display.
 = 2.6.3 =
 * *Bug* - Fixed sercuirty issues using $_REQUEST inside a form.
@@ -276,7 +279,13 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 = 1.0 =
 * Initial Release of Memphis Documents Library
 == Feature Request ==
-* *New* - Give other user types the ability to upload files.
-* *New* - Shortcode to add a download link to a post or page.
-* *New* - Search shows only files that the specific user role has access too.
-* *New* - Added more level to categories.
+* *Feature* - Get thumbnails of the documents as the featured image for the post, as an alternative to Google Preview.
+* *Feature* - Give other user types the ability to upload files.
+* *Feature* - Short-code to add a download link to a post or page.
+* *Feature* - Search shows only files that the specific user role has access too.
+* *Feature* - Added more level to categories.
+* *Feature* - Batch upload choose a category for all file before uploading them.
+* *Feature* - Add a pdf preview on the description page
+* *Feature* - Add a tag editor to the add/update document page.
+* *Feature* - Create a separate area to store all posts related to Memphis Documents.
+* *Feature* - In the Media tab find a way to display the category of the documents created by Memphis Documents.

@@ -52,19 +52,19 @@ function mdocs_file_info_large($the_mdoc, $page_type='site', $index=0, $current_
 		?>
 		<?php
 		if($mdocs_show_non_members  == 'off' && $user_logged_in == false ) { ?>
-			<div class="mdocs-login-msg"><?php _e('Please login<br>to download this file'); ?></div>
+			<div class="mdocs-login-msg"><?php _e('Please login<br>to download this file','mdocs'); ?></div>
 		<?php } elseif($the_mdoc['non_members'] == 'on' || $user_logged_in) { ?>
-			<input type="button" onclick="mdocs_download_file('<?php echo $the_mdoc['id']; ?>','<?php  echo $the_post->ID; ?>');" class="mdocs-download-btn" value="<?php echo __('Download'); ?>">
+			<input type="button" onclick="mdocs_download_file('<?php echo $the_mdoc['id']; ?>','<?php  echo $the_post->ID; ?>');" class="mdocs-download-btn" value="<?php echo __('Download','mdocs'); ?>">
 		</h2>
 		<?php } else { ?>
-			<div class="mdocs-login-msg"><?php _e('Please login<br>to download this file'); ?></div>
+			<div class="mdocs-login-msg"><?php _e('Please login<br>to download this file','mdocs'); ?></div>
 		<?php } ?>
 	</div>
 	<?php
 	$user_logged_in = is_user_logged_in();
 	if($user_logged_in && $mdocs_show_ratings) {
-			if($the_rating['your_rating'] == 0) $text = __("Rate Me!");
-			else $text = __("Your Rating");
+			if($the_rating['your_rating'] == 0) $text = __("Rate Me!",'mdocs');
+			else $text = __("Your Rating",'mdocs');
 			echo '<div class="mdocs-rating-container-small">';
 			echo '<div class="mdocs-green">'.$text.'</div><div id="mdocs-star-container">';
 			for($i=1;$i<=5;$i++) {
@@ -76,17 +76,17 @@ function mdocs_file_info_large($the_mdoc, $page_type='site', $index=0, $current_
 		?>
 	<div class="mdocs-post-file-info">
 		<?php if($mdocs_show_ratings) { ?><p><i class="fa fa-star"></i> <?php echo $the_rating['average']; ?> Stars (<?php echo $the_rating['total']; ?>)</p> <?php } ?>
-		<?php if($mdocs_show_downloads) { ?><p class="mdocs-file-info"><i class="fa fa-cloud-download"></i> <b class="mdocs-orange"><?php echo $the_mdoc['downloads'].' '.__('Downloads'); ?></b></p> <?php } ?>
-		<?php if($mdocs_show_author) { ?><p><i class="fa fa-pencil"></i> <?php _e('Author'); ?>: <i class="mdocs-green"><?php echo $the_mdoc['owner']; ?></i></p> <?php } ?>
-		<?php if($mdocs_show_version) { ?><p><i class="fa fa-power-off"></i> <?php _e('Version') ?>:  <b class="mdocs-blue"><?php echo $the_mdoc['version']; ?></b>
+		<?php if($mdocs_show_downloads) { ?><p class="mdocs-file-info"><i class="fa fa-cloud-download"></i> <b class="mdocs-orange"><?php echo $the_mdoc['downloads'].' '.__('Downloads','mdocs'); ?></b></p> <?php } ?>
+		<?php if($mdocs_show_author) { ?><p><i class="fa fa-pencil"></i> <?php _e('Author','mdocs'); ?>: <i class="mdocs-green"><?php echo $the_mdoc['owner']; ?></i></p> <?php } ?>
+		<?php if($mdocs_show_version) { ?><p><i class="fa fa-power-off"></i> <?php _e('Version','mdocs') ?>:  <b class="mdocs-blue"><?php echo $the_mdoc['version']; ?></b>
 			<?php if($page_type == 'site' ) { ?>
 				<!--<a href="<?php echo $the_mdoc_permalink.'&cat='.$current_cat.'&mdocs-index='.$index; ?>&action=mdocs-versions">[ View More Versions ]</a>-->
 			<?php } ?>
 		</p><?php } ?>
-		<?php if($mdocs_show_update) { ?><p><i class="fa fa-calendar"></i> <?php _e('Last Updated'); ?>: <b class="mdocs-red"><?php echo $last_modified; ?></b></p><?php } ?>
+		<?php if($mdocs_show_update) { ?><p><i class="fa fa-calendar"></i> <?php _e('Last Updated','mdocs'); ?>: <b class="mdocs-red"><?php echo $last_modified; ?></b></p><?php } ?>
 		<?php if(is_admin()) { ?>
-		<p><i class="fa fa-file "></i> <?php echo __('File Status').': <b class="mdocs-olive">'.strtoupper($the_mdoc['file_status']).'</b>'; ?></p>
-		<p><i class="fa fa-file-text"></i> <?php echo __('Post Status').': <b class="mdocs-salmon">'.strtoupper($post_status).'</b>'; ?></p>
+		<p><i class="fa fa-file "></i> <?php echo __('File Status','mdocs').': <b class="mdocs-olive">'.strtoupper($the_mdoc['file_status']).'</b>'; ?></p>
+		<p><i class="fa fa-file-text"></i> <?php echo __('Post Status','mdocs').': <b class="mdocs-salmon">'.strtoupper($post_status).'</b>'; ?></p>
 		<?php } ?>
 	</div>
 <?php
