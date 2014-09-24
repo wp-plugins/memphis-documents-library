@@ -33,10 +33,10 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 	$tooltip .= '<h1>'.$the_mdoc['filename'].'</h1>';
 	$tooltip .= '<div class="mdocs-divider"></div>';
 	if($page_type == 'dashboard') {
-		$tooltip .= __('File Status').':<b class="mdocs-olive"> '.$the_mdoc['file_status'].'</b><br>';
-		$tooltip .= __('Post Status').':<b class="mdocs-salmon"> '.$the_post->post_status.'</b><br>';
-		if($mdocs_hide_all_files) $tooltip .= '<br><i class="fa fa-lock mdocs-orange"></i> '.__('All Files Are Hidden');
-		if($mdocs_hide_all_posts) $tooltip .= '<br><i class="fa fa-lock mdocs-red"></i> '.__('All Posts Are Hidden'); 
+		$tooltip .= __('File Status','mdocs').':<b class="mdocs-olive"> '.$the_mdoc['file_status'].'</b><br>';
+		$tooltip .= __('Post Status','mdocs').':<b class="mdocs-salmon"> '.$the_post->post_status.'</b><br>';
+		if($mdocs_hide_all_files) $tooltip .= '<br><i class="fa fa-lock mdocs-orange"></i> '.__('All Files Are Hidden','mdocs');
+		if($mdocs_hide_all_posts) $tooltip .= '<br><i class="fa fa-lock mdocs-red"></i> '.__('All Posts Are Hidden','mdocs'); 
 	}
 	$tooltip .= '<p>'.$mdocs_desc.'</p>';
 	$tooltip .= '<div class="mdocs-divider"></div>';
@@ -85,20 +85,20 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 								mdocs_preview_rights($the_mdoc);
 								mdocs_rating_rights($the_mdoc,$current_cat);
 							?>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo $the_mdoc_permalink; ?>" target="_blank"><i class="fa fa-arrow-circle-o-right"></i> <?php _e('Goto Post'); ?></a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><i class="fa fa-share"></i> <?php _e('Share'); ?></a></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo $the_mdoc_permalink; ?>" target="_blank"><i class="fa fa-arrow-circle-o-right"></i> <?php _e('Goto Post','mdocs'); ?></a></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><i class="fa fa-share"></i> <?php _e('Share','mdocs'); ?></a></li>
 							<?php if(is_admin()) { ?>
 							<li role="presentation" class="divider"></li>
 							<li role="presentation" class="dropdown-header">Admin Options</li>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo 'admin.php?page=memphis-documents.php&mdocs-cat='.$current_cat.'&action=update-doc&mdocs-index='.$index; ?>"><i class="fa fa-file-o"></i> <?php _e('Manage File'); ?></a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=short-codes"><i class="fa fa-road"></i> <?php _e('Manage Versions'); ?></a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=batch"><i class="fa fa-times-circle"></i> <?php _e('Delete File'); ?></a></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo 'admin.php?page=memphis-documents.php&mdocs-cat='.$current_cat.'&action=update-doc&mdocs-index='.$index; ?>"><i class="fa fa-file-o"></i> <?php _e('Manage File','mdocs'); ?></a></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=short-codes"><i class="fa fa-road"></i> <?php _e('Manage Versions','mdocs'); ?></a></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=batch"><i class="fa fa-times-circle"></i> <?php _e('Delete File','mdocs'); ?></a></li>
 							<?php } ?>
 						  </ul>
 					</div>
 					<?php }} ?>
 			</td>
-			<?php if($mdocs_show_downloads) { ?><td id="downloads"><i class="fa fa-cloud-download"></i> <b class="mdocs-orange"><?php echo $the_mdoc['downloads'].' '.__('Downloads'); ?></b></td><?php } ?>
+			<?php if($mdocs_show_downloads) { ?><td id="downloads"><i class="fa fa-cloud-download"></i> <b class="mdocs-orange"><?php echo $the_mdoc['downloads'].' '.__('Downloads','mdocs'); ?></b></td><?php } ?>
 			<?php if($mdocs_show_version) { ?><td id="version"><i class="fa fa-power-off"></i><b class="mdocs-blue"> <?php echo $the_mdoc['version']; ?></b></td><?php } ?>
 			<?php if($mdocs_show_author) { ?><td id="owner"><i class="fa fa-pencil"></i> <i class="mdocs-green"><?php echo $the_mdoc['owner']; ?></i></td><?php } ?>
 			<?php if($mdocs_show_update) { ?><td id="update"><i class="fa fa-calendar"></i> <b class="mdocs-red"><?php echo $last_modified; ?></b></td><?php } ?>

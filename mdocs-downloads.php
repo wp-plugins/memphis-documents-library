@@ -62,8 +62,8 @@ function mdocs_download_file($export_file='') {
 			readfile($file);
 			if($send_bot_alert) mdocs_send_bot_alert($_GET['mdocs-url']);
 			exit;
-		} else die(__('Check this file out').' <b>'.$filename. '</b>.  '.  __('Download it from').' <b>'.get_bloginfo('name').'</b>.<br><sup>'.__('powered by Memphis Documents Library').'</sup>');
-	} else die(__('Sorry you are unauthorized to download this file.'));
+		} else die(__('Check this file out','mdocs','mdocs').' <b>'.$filename. '</b>.  '.  __('Download it from').' <b>'.get_bloginfo('name').'</b>.<br><sup>'.__('powered by Memphis Documents Library','mdocs').'</sup>');
+	} else die(__('Sorry you are unauthorized to download this file.','mdocs'));
 	
 }
 

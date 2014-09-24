@@ -4,13 +4,13 @@ function mdocs_edit_file($the_mdocs, $index, $current_cat) {
 	?>
 	<div class="mdocs-edit-file">
 		<span class="update" id="<?php echo $index ?>">
-			<i class="fa fa-pencil"></i> <a href="<?php echo 'admin.php?page=memphis-documents.php&mdocs-cat='.$current_cat.'&action=update-doc&mdocs-index='.$index; ?>" title="Update this file" class="edit"><?php _e('Update'); ?></a> |
+			<i class="fa fa-pencil"></i> <a href="<?php echo 'admin.php?page=memphis-documents.php&mdocs-cat='.$current_cat.'&action=update-doc&mdocs-index='.$index; ?>" title="Update this file" class="edit"><?php _e('Update','mdocs'); ?></a> |
 		</span>
 		<span class='delete'>
-			<i class="fa fa-remove"></i> <a class='submitdelete' onclick="return showNotice.warn();" href="<?php echo 'admin.php?mdocs-nonce='.$_SESSION['mdocs-nonce'].'&page=memphis-documents.php&mdocs-cat='.$current_cat.'&action=delete-doc&mdocs-index='.$index; ?>"><?php _e('Delete'); ?></a> |
+			<i class="fa fa-remove"></i> <a class='submitdelete' onclick="return showNotice.warn();" href="<?php echo 'admin.php?mdocs-nonce='.$_SESSION['mdocs-nonce'].'&page=memphis-documents.php&mdocs-cat='.$current_cat.'&action=delete-doc&mdocs-index='.$index; ?>"><?php _e('Delete','mdocs'); ?></a> |
 		</span>
 		<span class="versions">
-			<i class="icon-off"></i> <a href="<?php echo 'admin.php?page=memphis-documents.php&mdocs-cat='.$current_cat.'&mdocs-index='.$index; ?>&action=mdocs-versions" title="<?php _e('Versions'); ?>" class="edit"><?php _e('Versions'); ?></a></span>
+			<i class="icon-off"></i> <a href="<?php echo 'admin.php?page=memphis-documents.php&mdocs-cat='.$current_cat.'&mdocs-index='.$index; ?>&action=mdocs-versions" title="<?php _e('Versions','mdocs'); ?>" class="edit"><?php _e('Versions','mdocs'); ?></a></span>
 	</div>
 	<?php
 }
@@ -49,7 +49,7 @@ function  mdocs_des_preview_tabs($the_mdoc) {
 			<?php } ?>
 			</div>
 			<?php
-			} else { echo '<p>'.__('Please login to access the preview.').'</p>'; }
+			} else { echo '<p>'.__('Please login to access the preview.','mdocs').'</p>'; }
 		}  ?>
 	</div>
 	<?php
@@ -234,7 +234,7 @@ function mdocs_sort_by($mdocs, $ypos=0, $page_type='site', $echo=true) {
 	<form enctype="multipart/form-data" method="post" action="<?php echo $_SERVER['REQUEST_URI']; if($page_type=='dashboard') echo '&mdocs-sort=true'; ?>">
 		<?php if($page_type == 'dashboard') { ?>
 		<i class="fa fa-cogs mdocs-orange"></i>
-		<label><?php _e('List Size'); ?>:</label>
+		<label><?php _e('List Size','mdocs'); ?>:</label>
 		<input type="radio" name="mdocs-list-type" value="large" <?php if($list_type == 'large') echo 'checked'; ?> /> <label><?php _e('Large'); ?></label>
 		<input type="radio" name="mdocs-list-type" value="small" <?php if($list_type == 'small') echo 'checked'; ?>/> <label><?php _e('Small'); ?></label>
 		<?php } ?>
@@ -302,8 +302,8 @@ function mdocs_export_file_status() {
 
 
 function mdocs_errors($error, $type='updated') {
-	if($type == 'error') $error = '<b>'.__('Memphis Error').': </b>'.$error;
-	else $error = '<b>'.__('Memphis Info').': </b>'.$error;
+	if($type == 'error') $error = '<b>'.__('Memphis Error','mdocs').': </b>'.$error;
+	else $error = '<b>'.__('Memphis Info','mdocs').': </b>'.$error;
 	?>
 	<div class="<?php echo $type; ?>" style="clear:both;">
 		<div id="mdocs-error">
@@ -615,26 +615,26 @@ function mdocs_list_header() {
 		<div class="mdocs-admin-preview"></div>
 		<?php if($message != "" && $type != 'update') { ?> <div id="message" class="error" ><p><?php _e($message); ?></p></div> <?php }?>
 		<?php if(is_admin()) { ?>
-		<h2 class="mdocs-h2 pull-left"><?php _e("Documents Library"); ?></h2>
+		<h2 class="mdocs-h2 pull-left"><?php _e("Documents Library",'mdocs'); ?></h2>
 		
 		<div class="btn-group">
-			<a href="?page=memphis-documents.php&mdocs-cat=<?php echo $current_cat; ?>&action=add-doc" class="btn btn-danger btn-sm"><?php _e('Add New Document'); ?> <i class="fa fa-upload fa-lg"></i></a>
+			<a href="?page=memphis-documents.php&mdocs-cat=<?php echo $current_cat; ?>&action=add-doc" class="btn btn-danger btn-sm"><?php _e('Add New Document','mdocs'); ?> <i class="fa fa-upload fa-lg"></i></a>
 		</div>
 		<div class="btn-group">
-			<button class="btn btn-default dropdown-toggle btn-sm" type="button" id="dropdownMenu1" data-toggle="dropdown"><?php _e('Options'); ?><span class="caret"></span></button>
+			<button class="btn btn-default dropdown-toggle btn-sm" type="button" id="dropdownMenu1" data-toggle="dropdown"><?php _e('Options','mdocs'); ?><span class="caret"></span></button>
 			<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-				 <li role="presentation" class="dropdown-header"><?php _e('File Options'); ?></li>
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=cats"><?php _e('Edit Categories'); ?></a></li>
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=allowed-file-types"><?php _e('Allowed File Types'); ?></a></li>
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=import"><?php _e('Import'); ?></a></li>
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=export"><?php _e('Export'); ?></a></li>
+				 <li role="presentation" class="dropdown-header"><?php _e('File Options','mdocs'); ?></li>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=cats"><?php _e('Edit Categories','mdocs'); ?></a></li>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=allowed-file-types"><?php _e('Allowed File Types','mdocs'); ?></a></li>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=import"><?php _e('Import','mdocs'); ?></a></li>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=export"><?php _e('Export','mdocs'); ?></a></li>
 			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=batch"><?php _e('Batch Upload'); ?></a></li>
 			  <li role="presentation" class="divider"></li>
-			  <li role="presentation" class="dropdown-header"><?php _e('Admin Options'); ?></li>
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=settings"><?php _e('Settings'); ?></a></li>
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=filesystem-cleanup"><?php _e('File System Cleanup'); ?></a></li>
-			   <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=restore"><?php _e('Restore To Default'); ?></a></li>
-			    <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=short-codes"><?php _e('Short Codes'); ?></a></li>
+			  <li role="presentation" class="dropdown-header"><?php _e('Admin Options','mdocs'); ?></li>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=settings"><?php _e('Settings','mdocs'); ?></a></li>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=filesystem-cleanup"><?php _e('File System Cleanup','mdocs'); ?></a></li>
+			   <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=restore"><?php _e('Restore To Default','mdocs'); ?></a></li>
+			    <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=short-codes"><?php _e('Short Codes','mdocs'); ?></a></li>
 			</ul>
 		</div>
 		<br><br>
@@ -649,7 +649,7 @@ function mdocs_list_header() {
 					  <span class="icon-bar"></span>
 					  <span class="icon-bar"></span>
 					</button>
-					<span class="navbar-brand" href="#"><?php _e('Categories'); ?></span>
+					<span class="navbar-brand" href="#"><?php _e('Categories','mdocs'); ?></span>
 				</div>
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">

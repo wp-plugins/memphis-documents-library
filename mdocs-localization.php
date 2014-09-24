@@ -1,16 +1,24 @@
 <?php
+
 $upload_dir = wp_upload_dir();
 $mdocs_zip = get_option('mdocs-zip');
+// LOCALIZATION INIT
+function mdocs_localization() {
+	//FOR TESTING LANG FILES
+	//global $locale; $locale = 'fi_FI';
+	$loaded = load_plugin_textdomain('mdocs', false, basename( dirname( __FILE__ ) ) . '/languages/' );
+}
+add_action('init', 'mdocs_localization');
 //PASS VARIABLES TO JAVASCRIPT
 function mdocs_js_handle($script) {
 	wp_localize_script( $script, 'mdocs_js', array(
-		'version_delete' => __("You are about to delete this version.  Once deleted you will lost this version of the file!\n\n'Cancel' to stop, 'OK' to delete."),
-		'category_delete' => __("You are about to delete this category.  Any file in this category will be lost!\n\n'Cancel' to stop, 'OK' to delete."),
-		'remove' => __('Remove'),
-		'new_category' => __('New Category'),
-		'leave_page' => __('Are you sure you want to navigate away from this page?'),
-		'category_support' => __('Currently Memphis Documents Library only supports two sub categories.'),
-		'restore_warning' => __('Are you sure you want continue.  All you files, posts and directories will be delete.'),
+		'version_delete' => __("You are about to delete this version.  Once deleted you will lost this version of the file!\n\n'Cancel' to stop, 'OK' to delete.",'mdocs'),
+		'category_delete' => __("You are about to delete this category.  Any file in this category will be lost!\n\n'Cancel' to stop, 'OK' to delete.",'mdocs'),
+		'remove' => __('Remove','mdocs'),
+		'new_category' => __('New Category','mdocs'),
+		'leave_page' => __('Are you sure you want to navigate away from this page?','mdocs'),
+		'category_support' => __('Currently Memphis Documents Library only supports two sub categories.','mdocs'),
+		'restore_warning' => __('Are you sure you want continue.  All you files, posts and directories will be delete.','mdocs'),
 		'levels'=> 2,
 		'blog_id' => get_current_blog_id(),
 		'plugin_url' => plugins_url().'/memphis-documents-library/',
@@ -108,15 +116,15 @@ function mdocs_localize() {
 	$permalink = get_permalink($query->post->ID);
 	if( strrchr($permalink, '?page_id=')) $mdocs_link = site_url().'/'.strrchr($permalink, '?page_id=');
 	else $mdocs_link = site_url().'/'.$query->post->post_name.'/';
-	define('MDOCS_ZIP_STATUS_OK',__('Memphis Documents Library has an export file on this WordPress instance it was created on '.gmdate('F jS Y \a\t g:i A',@filemtime($upload_dir['basedir'].'/mdocs/'.$mdocs_zip)+MDOCS_TIME_OFFSET).'.<br><br><!--Click <a href="'.$upload_dir['baseurl'].'/mdocs/'.$mdocs_zip.'" tiltle="Old Export File">here</a> to download this version of the export file.-->'));
-	define('MDOCS_ZIP_STATUS_FAIL',__('Memphis Documents Library has no export file on this WordPress instance.  You may want to create an export file now.'));
-	define('MDOCS_DEFAULT_DESC', __('This file is part of the Documents Library.'));	
+	define('MDOCS_ZIP_STATUS_OK',__('Memphis Documents Library has an export file on this WordPress instance it was created on '.gmdate('F jS Y \a\t g:i A',@filemtime($upload_dir['basedir'].'/mdocs/'.$mdocs_zip)+MDOCS_TIME_OFFSET).'.<br><br><!--Click <a href="'.$upload_dir['baseurl'].'/mdocs/'.$mdocs_zip.'" tiltle="Old Export File">here</a> to download this version of the export file.-->','mdocs'));
+	define('MDOCS_ZIP_STATUS_FAIL',__('Memphis Documents Library has no export file on this WordPress instance.  You may want to create an export file now.','mdocs'));
+	define('MDOCS_DEFAULT_DESC', __('This file is part of the Documents Library.','mdocs'));	
 	//ERRORS
-	define('MDOCS_ERROR_1',__('No file was uploaded, please try again.'));
-	define('MDOCS_ERROR_2',__('Sorry, this file type is not permitted for security reasons.  If you are running Multisite you can add this file type from the Settings menu of the Network Admin.  Memphis Documents Library also has file type configuration options, to access it  click on the <b>Options</b> button then click on <b>Allowed File Types</b> link.'));
-	define('MDOCS_ERROR_3',__('No categories found.  The upload process can not proceed.'));
-	define('MDOCS_ERROR_4',__('Data was not submitted.  The submit process is out of sync, please refresh your browser and try again.'));
-	define('MDOCS_ERROR_5', __('File Upload Error.  Please try again.'));
-	define('MDOCS_ERROR_6', __('You are already at the most recent version of this document.'));
+	define('MDOCS_ERROR_1',__('No file was uploaded, please try again.','mdocs'));
+	define('MDOCS_ERROR_2',__('Sorry, this file type is not permitted for security reasons.  If you are running Multisite you can add this file type from the Settings menu of the Network Admin.  Memphis Documents Library also has file type configuration options, to access it  click on the <b>Options</b> button then click on <b>Allowed File Types</b> link.','mdocs'));
+	define('MDOCS_ERROR_3',__('No categories found.  The upload process can not proceed.','mdocs'));
+	define('MDOCS_ERROR_4',__('Data was not submitted.  The submit process is out of sync, please refresh your browser and try again.','mdocs'));
+	define('MDOCS_ERROR_5', __('File Upload Error.  Please try again.','mdocs'));
+	define('MDOCS_ERROR_6', __('You are already at the most recent version of this document.','mdocs'));
 }
 ?>

@@ -36,7 +36,7 @@ function mdocs_load_preview() {
 						}
 					}
 				}  else {
-					?><div class="alert alert-warning" role="alert"><h1><?php _e('Sorry you are unauthorized to preview this file.'); ?></h1></div><?php
+					?><div class="alert alert-warning" role="alert"><h1><?php _e('Sorry you are unauthorized to preview this file.','mdocs'); ?></h1></div><?php
 				}
 				$found = true;
 				break;

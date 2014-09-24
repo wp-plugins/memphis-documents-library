@@ -274,3 +274,5 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 * *Feature* - Batch upload choose a category for all file before uploading them.
 * *Feature* - Add a pdf preview on the description page
 * *Feature* - Add a tag editor to the add/update document page.
+* *Feature* - Create a separate area to store all posts related to Memphis Documents.
+* *Feature* - In the Media tab find a way to display the category of the documents created by Memphis Documents.

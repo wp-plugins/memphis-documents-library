@@ -3,31 +3,31 @@ function mdocs_import() {
 	$upload_dir = wp_upload_dir();
 	mdocs_list_header();
 ?>
-<h1><?php _e('Import Files'); ?></h1>
-<p><?php _e('There are two type of imports you can choose from.'); ?></p>
+<h1><?php _e('Import Files','mdocs'); ?></h1>
+<p><?php _e('There are two type of imports you can choose from.','mdocs'); ?></p>
 <p>
 	<ol>
-		<li><b><?php _e('Keep Existing Saved Variables'); ?></b>
+		<li><b><?php _e('Keep Existing Saved Variables','mdocs'); ?></b>
 			<blockquote><?php _e('Is the safest way to import.  This option keeps all your current files and only imports new ones. 
 			<br>If a file that is being imported matches one on the current system, the one on the current system will be left untouched,
-			<br>and you will have to manually import these files.'); ?></blockquote>
+			<br>and you will have to manually import these files.','mdocs'); ?></blockquote>
 		</li>
-		<li><b><?php _e('Overwrite Saved Variables'); ?></b>
+		<li><b><?php _e('Overwrite Saved Variables','mdocs'); ?></b>
 			<blockquote><?php _e('Is a good when you have a empty documents library or you at looking to refresh your current library.'); ?>   
 			<br><?php _e('This method deletes all files, posted and version on the current system. After the method has completed you will
-			<br>get a list of all the conflicts that have occured make note of them.'); ?>
-			<i><?php _e('Please take great care in using this method as there is little to no return.'); ?></i></blockquote>
+			<br>get a list of all the conflicts that have occured make note of them.','mdocs'); ?>
+			<i><?php _e('Please take great care in using this method as there is little to no return.','mdocs'); ?></i></blockquote>
 		</li>
 	</ol>
 </p>
 <form  id="mdocs-import" method="post" action="admin.php?page=memphis-documents.php&mdocs-cat=import" enctype="multipart/form-data">
-	<h3><?php _e('Add the Zip File'); ?>:</h3>
-	<p><b><i><?php _e('Remember to always export any valuable data before doing an import.'); ?></i></b></p>
+	<h3><?php _e('Add the Zip File','mdocs'); ?>:</h3>
+	<p><b><i><?php _e('Remember to always export any valuable data before doing an import.','mdocs'); ?></i></b></p>
 	<input type="hidden" value="mdocs-import" id="action" name="action"/>
-	<input type="radio" value="keep" name="radio1" checked> <?php _e('Keep Existing Saved Variables'); ?>
-	<input type="radio" value="overwrite" name="radio1" > <?php _e('Overwrite Saved Variables'); ?><br><br>
+	<input type="radio" value="keep" name="radio1" checked> <?php _e('Keep Existing Saved Variables','mdocs'); ?>
+	<input type="radio" value="overwrite" name="radio1" > <?php _e('Overwrite Saved Variables','mdocs'); ?><br><br>
 	<input type="file" name="mdocs-import-file" id="mdocs-import-file"/>
-	<input type="submit" class="button button-primary" id="mdocs-import-submit" value="<?php _e('Import Memphis Documents Library') ?>" />
+	<input type="submit" class="button button-primary" id="mdocs-import-submit" value="<?php _e('Import Memphis Documents Library','mdocs') ?>" />
 </form><br>
 <?php
 	if($_GET['mdocs-cat'] == 'export' || $_GET['mdocs-cat'] == 'import') mdocs_export_file_status();
@@ -63,7 +63,7 @@ function mdocs_import_zip() {
 						array_push($new_mdocs_cats, array('slug' => $index,'name' => $cat, 'parent' => '', 'children' => array(), 'depth' => 0));
 					}
 					$mdocs_cats_file = $new_mdocs_cats;
-					mdocs_errors(__('Old category structure found, updated to the new category structure.  It is recommened that you re-export you files again.  The process did finish.'), 'error');
+					mdocs_errors(__('Old category structure found, updated to the new category structure.  It is recommened that you re-export you files again.  The process did finish.','mdocs'), 'error');
 				}
 			} else $error = true;
 			//var_dump($mdocs_list_file);

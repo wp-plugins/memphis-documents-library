@@ -5,10 +5,10 @@ if(!isset($_POST['mdocs-filesystem-cleanup'])) {
 	?>
 	<div class="updated">
 	<form enctype="multipart/form-data" method="post" action="" class="mdocs-setting-form">
-		<h3><?php _e('Filesystem Cleanup'); ?></h3>
-		<p><?php _e('Use this functionality to run a system check to locate and remove any broken files/data links inside Memphis Documents Library.<br>Be sure to make a backup copy before running this check.'); ?></p>
+		<h3><?php _e('Filesystem Cleanup','mdocs'); ?></h3>
+		<p><?php _e('Use this functionality to run a system check to locate and remove any broken files/data links inside Memphis Documents Library.<br>Be sure to make a backup copy before running this check.','mdocs'); ?></p>
 		<input type="hidden" name="mdocs-filesystem-cleanup" value="init-cleanup" />
-		<input style="margin:15px;" type="submit" class="button-primary" id="mdocs-filesystem-cleanup" value="<?php _e('Run Filesystem Cleanup') ?>" />
+		<input style="margin:15px;" type="submit" class="button-primary" id="mdocs-filesystem-cleanup" value="<?php _e('Run Filesystem Cleanup','mdocs') ?>" />
 	</form>
 	</div>
 <?php
@@ -23,27 +23,27 @@ function mdocs_cleanup_submit_html() {
 	mdocs_list_header();
 	?>
 	<div class="updated">
-		<h3><?php _e('Filesystem Cleanup Complete'); ?></h3>
-		<p><?php _e('Your file system has been cleaned.  Remember if you encounter any issues revert back to your previous version using the import tool.'); ?></p>
+		<h3><?php _e('Filesystem Cleanup Complete','mdocs'); ?></h3>
+		<p><?php _e('Your file system has been cleaned.  Remember if you encounter any issues revert back to your previous version using the import tool.','mdocs'); ?></p>
 		<div class="cleanup-files">
-			<h3><?php _e('Unlinked Files'); ?></h3>
+			<h3><?php _e('Unlinked Files','mdocs'); ?></h3>
 		<?php
 		$cleanup = mdocs_filesystem_cleanup_init();
 		foreach($cleanup['files'] as $file) echo $file.'<br>';
-		if(count($cleanup['files']) == 0) _e('There are no unlinked files.');
+		if(count($cleanup['files']) == 0) _e('There are no unlinked files.','mdocs');
 		?>
 		</div>
 		<div class="cleanup-data">
-			<h3><?php _e('Unlinked Data'); ?></h3>
+			<h3><?php _e('Unlinked Data','mdocs'); ?></h3>
 		<?php
-		foreach($cleanup['data'] as $data) echo __('Element ID').': '.$data['index'].'<br>';
-		if(count($cleanup['data']) == 0) _e('There is no unlinked data.');
+		foreach($cleanup['data'] as $data) echo __('Element ID','mdocs').': '.$data['index'].'<br>';
+		if(count($cleanup['data']) == 0) _e('There is no unlinked data.','mdocs');
 		?>
 		</div>
 		<div class="mdocs-clear-both"></div>
 		<form enctype="multipart/form-data" method="post" action="" class="mdocs-setting-form">
 			<input type="hidden" name="mdocs-filesystem-cleanup" value="init-cleanup" />
-			<input style="margin:15px;" type="submit" class="button-primary" id="mdocs-filesystem-cleanup" value="<?php _e('Run File System Cleanup Again') ?>" />
+			<input style="margin:15px;" type="submit" class="button-primary" id="mdocs-filesystem-cleanup" value="<?php _e('Run File System Cleanup Again','mdocs') ?>" />
 		</form>
 	</div>
 	<?php
@@ -53,26 +53,26 @@ function mdocs_cleanup_init_html() {
 	mdocs_list_header();
 	?>
 	<div class="updated">
-		<h3><?php _e('Filesystem Analyzed'); ?></h3>
-		<p><?php _e('Below is a list of files and data that look to be broken and or unused by Memphis Documents Library.  The next phase of the process will try and remove all this unlinked information.<br>Please make sure you have made an export of the files before continuing.  If anything goes wrong just import your export file to revert all changes.'); ?></p>
+		<h3><?php _e('Filesystem Analyzed','mdocs'); ?></h3>
+		<p><?php _e('Below is a list of files and data that look to be broken and or unused by Memphis Documents Library.  The next phase of the process will try and remove all this unlinked information.<br>Please make sure you have made an export of the files before continuing.  If anything goes wrong just import your export file to revert all changes.','mdocs'); ?></p>
 		<div class="cleanup-files">
-			<h3><?php _e('Unlinked Files'); ?></h3>
+			<h3><?php _e('Unlinked Files','mdocs'); ?></h3>
 		<?php
 		foreach($cleanup['files'] as $file) echo $file.'<br>';
-		if(count($cleanup['files']) == 0) _e('There are no unlinked files.');
+		if(count($cleanup['files']) == 0) _e('There are no unlinked files.','mdocs');
 		?>
 		</div>
 		<div class="cleanup-data">
-			<h3><?php _e('Unlinked Data'); ?></h3>
+			<h3><?php _e('Unlinked Data','mdocs'); ?></h3>
 		<?php
-		foreach($cleanup['data'] as $data) echo __('Element ID').': '.$data['index'].'<br>';
-		if(count($cleanup['data']) == 0) _e('There is no unlinked data.');
+		foreach($cleanup['data'] as $data) echo __('Element ID','mdocs').': '.$data['index'].'<br>';
+		if(count($cleanup['data']) == 0) _e('There is no unlinked data.','mdocs');
 		?>
 		</div>
 		<div class="mdocs-clear-both"></div>
 		<form enctype="multipart/form-data" method="post" action="" class="mdocs-setting-form">
 		   <input type="hidden" name="mdocs-filesystem-cleanup" value="submit-cleanup" />
-		   <input style="margin:15px;" type="submit" class="button-primary" id="mdocs-filesystem-cleanup" value="<?php _e('Cleanup The File System') ?>" />
+		   <input style="margin:15px;" type="submit" class="button-primary" id="mdocs-filesystem-cleanup" value="<?php _e('Cleanup The File System','mdocs') ?>" />
 	   </form>
 	</div>
 	<?php

@@ -6,10 +6,10 @@ define('MDOC_PATH',plugin_dir_path(__FILE__));
 define('MDOC_URL',plugin_dir_url(__FILE__));
 define('MDOCS_TIME_OFFSET', get_option('gmt_offset')*60*60);
 define('MDOCS_ROBOTS','http://www.kingofnothing.net/memphis/robots/memphis-robots.txt');
-define('MDOCS_UPDATE', '<div class="mdocs-updated">'.__('Updated').'</div>');
-define('MDOCS_NEW', '<div class="mdocs-new">'.__('New').'</div>');
-define('MDOCS_UPDATE_SMALL', '<span class="mdocs-new-updated-small badge pull-right alert-info ">'.__('Updated').'</span>');
-define('MDOCS_NEW_SMALL', '<span class="mdocs-new-updated-small badge pull-right alert-success ">'.__('New').'</span>');
+define('MDOCS_UPDATE', '<div class="mdocs-updated">'.__('Updated','mdocs').'</div>');
+define('MDOCS_NEW', '<div class="mdocs-new">'.__('New','mdocs').'</div>');
+define('MDOCS_UPDATE_SMALL', '<span class="mdocs-new-updated-small badge pull-right alert-info ">'.__('Updated','mdocs').'</span>');
+define('MDOCS_NEW_SMALL', '<span class="mdocs-new-updated-small badge pull-right alert-success ">'.__('New','mdocs').'</span>');
 define('MDOCS_CURRENT_TIME', date('Y-m-d H:i:s', time()+MDOCS_TIME_OFFSET));
 //define('MDOCS_VERSION', );
 $add_error = false;
@@ -79,14 +79,14 @@ function mdocs_register_settings() {
 		} else update_option('mdocs-2-1-patch-1', true);
 		// Creating File Structure
 		if(!is_dir($upload_dir['basedir'].'/mdocs/') && $upload_dir['error'] === false) mkdir($upload_dir['basedir'].'/mdocs/');
-		elseif(!is_dir($upload_dir['basedir'].'/mdocs/') && $upload_dir['error'] !== false) mdocs_errors(__('Unable to create the directory "mdocs" which is needed by Memphis Documents Library. Is its parent directory writable by the server?'),'error');
+		elseif(!is_dir($upload_dir['basedir'].'/mdocs/') && $upload_dir['error'] !== false) mdocs_errors(__('Unable to create the directory "mdocs" which is needed by Memphis Documents Library. Is its parent directory writable by the server?','mdocs'),'error');
 		//CREATE MDOCS POST CATEGORY
 		if(get_category_by_slug( 'mdocs_media' ) == false) wp_create_category('mdocs-media');
 		//CREATE MDOCS PAGE
 		$query = new WP_Query('pagename=mdocuments-library');	
 		if(empty($query->posts) && empty($query->queried_object) ) {
 			$mdocs_page = array(
-				'post_title' => __('Documents'),
+				'post_title' => __('Documents','mdocs'),
 				'post_name' => 'mdocuments-library',
 				'post_content' => '[mdocs]',
 				'post_status' => 'publish',
@@ -108,7 +108,7 @@ function mdocs_register_settings() {
 			fclose($fh);
 			chmod($htaccess, 0660);
 		}
-	} else mdocs_errors(__('Unable to create the directory "mdocs" which is needed by Memphis Documents Library. Its parent directory is not readable/writable by the server?'),'error');
+	} else mdocs_errors(__('Unable to create the directory "mdocs" which is needed by Memphis Documents Library. Its parent directory is not readable/writable by the server?','mdocs'),'error');
 	
 }
 
@@ -336,21 +336,21 @@ function mdocs_send_headers_dashboard() {
 function mdocs_v2_2_1_admin_notice_v1() {
     ?>
     <div class="update-nag">
-        <p><?php _e('Your Memphis <b>.htaccess</b> file has been updated to allow google.com access to the system.   This step is necessary to allow documents to be previewed.'); ?></p>
+        <p><?php _e('Your Memphis <b>.htaccess</b> file has been updated to allow google.com access to the system.   This step is necessary to allow documents to be previewed.','mdocs'); ?></p>
     </div>
     <?php
 }
 function mdocs_v2_4_admin_notice_v1() {
     ?>
     <div class="update-nag">
-        <p><?php _e('Your Memphis <b>Categories</b> have been updated to handle subcategories this should not effect your current file system in anyway.  If there is any issues please post a comment in the support forum of this plugin.  It is recommended to re-export your files again due to the new way categories are structured.'); ?></p>
+        <p><?php _e('Your Memphis <b>Categories</b> have been updated to handle subcategories this should not effect your current file system in anyway.  If there is any issues please post a comment in the support forum of this plugin.  It is recommended to re-export your files again due to the new way categories are structured.','mdocs'); ?></p>
     </div
     <?php
 }
 function mdocs_v2_5_admin_notice_v1() {
     ?>
     <div class="update-nag">
-        <p><?php _e('Your Memphis <b>Categories</b> have been counted to handle subcategories this should not effect your current file system in anyway.  If there is any issues please post a comment in the support forum of this plugin.  It is recommended to re-export your files again due to the new way categories are structured.'); ?></p>
+        <p><?php _e('Your Memphis <b>Categories</b> have been counted to handle subcategories this should not effect your current file system in anyway.  If there is any issues please post a comment in the support forum of this plugin.  It is recommended to re-export your files again due to the new way categories are structured.','mdocs'); ?></p>
     </div
     <?php
 }

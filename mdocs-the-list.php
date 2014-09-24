@@ -37,12 +37,12 @@ function mdocs_the_list($att=null) {
 		if(get_option('mdocs-list-type') == 'small') echo '<table class="table table-hover table-condensed mdocs-list-table">';
 		?>
 		<tr class="hidden-sm hidden-xs">
-		<th class="mdocs-sort-option" data-sort-type="name" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Name'); ?><?php if($mdocs_sort_type == 'name') echo $mdocs_sort_style_icon; ?></th>
-		<th class="mdocs-sort-option" data-sort-type="downloads" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Downloads'); ?><?php if($mdocs_sort_type == 'downloads') echo $mdocs_sort_style_icon; ?></th>
-		<th class="mdocs-sort-option" data-sort-type="version" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Version'); ?><?php if($mdocs_sort_type == 'version') echo $mdocs_sort_style_icon; ?></th>
-		<th class="mdocs-sort-option" data-sort-type="owner" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Owner'); ?><?php if($mdocs_sort_type == 'owner') echo $mdocs_sort_style_icon; ?></th>
-		<th class="mdocs-sort-option" data-sort-type="modified" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Updated'); ?><?php if($mdocs_sort_type == 'modified') echo $mdocs_sort_style_icon; ?></th>
-		<th class="mdocs-sort-option" data-sort-type="rating" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Stars'); ?><?php if($mdocs_sort_type == 'rating') echo $mdocs_sort_style_icon; ?></th>
+		<th class="mdocs-sort-option" data-sort-type="name" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Name','mdocs'); ?><?php if($mdocs_sort_type == 'name') echo $mdocs_sort_style_icon; ?></th>
+		<th class="mdocs-sort-option" data-sort-type="downloads" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Downloads','mdocs'); ?><?php if($mdocs_sort_type == 'downloads') echo $mdocs_sort_style_icon; ?></th>
+		<th class="mdocs-sort-option" data-sort-type="version" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Version','mdocs'); ?><?php if($mdocs_sort_type == 'version') echo $mdocs_sort_style_icon; ?></th>
+		<th class="mdocs-sort-option" data-sort-type="owner" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Owner','mdocs'); ?><?php if($mdocs_sort_type == 'owner') echo $mdocs_sort_style_icon; ?></th>
+		<th class="mdocs-sort-option" data-sort-type="modified" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Updated','mdocs'); ?><?php if($mdocs_sort_type == 'modified') echo $mdocs_sort_style_icon; ?></th>
+		<th class="mdocs-sort-option" data-sort-type="rating" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Stars','mdocs'); ?><?php if($mdocs_sort_type == 'rating') echo $mdocs_sort_style_icon; ?></th>
 		</tr>
 		<?php
 		// SUB CATEGORIES
@@ -82,9 +82,9 @@ function mdocs_the_list($att=null) {
 			} 
 		}
 		if($count == 0) {
-			?><tr><td colspan="<?php echo $num_cols; ?>"><p class="mdocs-nofiles" ><?php _e('No files found in this category.'); ?></p></td></tr><?php
+			?><tr><td colspan="<?php echo $num_cols; ?>"><p class="mdocs-nofiles" ><?php _e('No files found in this category.','mdocs'); ?></p></td></tr><?php
 		}
 		if(get_option('mdocs-list-type') == 'small') echo '</table></div>';
-	} else mdocs_errors(__('Unable to create the directory "mdocs" which is needed by Memphis Documents Library. Its parent directory is not writable by the server?'),'error');
+	} else mdocs_errors(__('Unable to create the directory "mdocs" which is needed by Memphis Documents Library. Its parent directory is not writable by the server?','mdocs'),'error');
 }
 ?>

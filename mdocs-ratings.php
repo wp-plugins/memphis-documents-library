@@ -23,7 +23,7 @@ function mdocs_ratings() {
 					}
 					echo '</div>';
 					echo '</div>';
-				} else _e('Ratings functionality is off.');
+				} else _e('Ratings functionality is off.','mdocs');
 				$found = true;
 				break;
 			}

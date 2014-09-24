@@ -15,7 +15,7 @@ function mdocs_versions() {
 <div class="mdocs-uploader">
 	<h2 class="mdocs-uploader-header">
 		<div class="close"><a href="<?php echo 'admin.php?page=memphis-documents.php&mdocs-cat='.$current_cat; ?>"><img src='<?php echo MDOC_URL; ?>/assets/imgs/close.png'/></a></div>
-		<?php echo __('Versions').': '.$the_mdoc['name']; ?>
+		<?php echo __('Versions','mdocs').': '.$the_mdoc['name']; ?>
 	</h2>
 	<div class="mdocs-ds-container">
 		<div class="mdocs-uploader-content">
@@ -26,22 +26,22 @@ function mdocs_versions() {
 				<table  class="wp-list-table widefat plugins">
 					<thead>
 						<tr>
-							<th scope="col" class="manage-column column-name" ><?php _e('File'); ?></th>
-							<th scope="col" class="manage-column column-name" ><?php _e('Version'); ?></th>
-							<th scope="col" class="manage-column column-name" ><?php _e('Date Modified'); ?></th>
-							<th scope="col" class="manage-column column-name" ><?php _e('Download'); ?></th>
-							<th scope="col" class="manage-column column-name" ><?php _e('Delete'); ?></th>
-							<th scope="col" class="manage-column column-name" ><?php _e('Current'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('File','mdocs'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Version','mdocs'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Date Modified','mdocs'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Download','mdocs'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Delete','mdocs'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Current','mdocs'); ?></th>
 						</tr>
 					</thead>
 					<tfoot>
 						<tr>
-							<th scope="col" class="manage-column column-name" ><?php _e('File'); ?></th>
-							<th scope="col" class="manage-column column-name" ><?php _e('Version'); ?></th>
-							<th scope="col" class="manage-column column-name" ><?php _e('Date Modified'); ?></th>
-							<th scope="col" class="manage-column column-name" ><?php _e('Download'); ?></th>
-							<th scope="col" class="manage-column column-name" ><?php _e('Delete'); ?></th>
-							<th scope="col" class="manage-column column-name" ><?php _e('Current'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('File','mdocs'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Version','mdocs'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Date Modified','mdocs'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Download','mdocs'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Delete','mdocs'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Current','mdocs'); ?></th>
 						</tr>
 					</tfoot>
 					<tbody id="the-list">
