@@ -14,7 +14,7 @@ function mdocs_versions() {
 <div class="mdocs-uploader">
 	<h2 class="mdocs-uploader-header">
 		<div class="close"><a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat; ?>"><img src='<?php echo MDOC_URL; ?>/assets/imgs/close.png'/></a></div>
-		<?php echo __('Versions').': '.$the_mdoc['name']; ?>
+		<?php echo __('Versions','mdocs').': '.$the_mdoc['name']; ?>
 	</h2>
 	<div class="mdocs-ds-container">
 		<div class="mdocs-uploader-content">
@@ -25,22 +25,22 @@ function mdocs_versions() {
 				<table  class="wp-list-table widefat plugins">
 					<thead>
 						<tr>
-							<th scope="col" class="manage-column column-name" ><?php _e('File'); ?></th>
-							<th scope="col" class="manage-column column-name" ><?php _e('Version'); ?></th>
-							<th scope="col" class="manage-column column-name" ><?php _e('Date Modified'); ?></th>
-							<th scope="col" class="manage-column column-name" ><?php _e('Download'); ?></th>
-							<th scope="col" class="manage-column column-name" ><?php _e('Delete'); ?></th>
-							<th scope="col" class="manage-column column-name" ><?php _e('Current'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('File','mdocs'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Version','mdocs'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Date Modified','mdocs'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Download','mdocs'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Delete','mdocs'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Current','mdocs'); ?></th>
 						</tr>
 					</thead>
 					<tfoot>
 						<tr>
-							<th scope="col" class="manage-column column-name" ><?php _e('File'); ?></th>
-							<th scope="col" class="manage-column column-name" ><?php _e('Version'); ?></th>
-							<th scope="col" class="manage-column column-name" ><?php _e('Date Modified'); ?></th>
-							<th scope="col" class="manage-column column-name" ><?php _e('Download'); ?></th>
-							<th scope="col" class="manage-column column-name" ><?php _e('Delete'); ?></th>
-							<th scope="col" class="manage-column column-name" ><?php _e('Current'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('File','mdocs'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Version','mdocs'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Date Modified','mdocs'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Download','mdocs'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Delete','mdocs'); ?></th>
+							<th scope="col" class="manage-column column-name" ><?php _e('Current','mdocs'); ?></th>
 						</tr>
 					</tfoot>
 					<tbody id="the-list">
@@ -48,7 +48,7 @@ function mdocs_versions() {
 								<td class="mdocs-blue" id="file" ><?php echo $the_mdoc['filename']; ?></td>
 								<td class="mdocs-green" id="version" ><?php echo $the_mdoc['version']; ?></td>
 								<td class="mdocs-red" id="date"><?php  echo $the_mdoc_date_modified; ?></td>
-								<td id="download"><input type="button" id="mdocs-download" onclick="mdocs_download_current_version('<?php echo $the_mdoc['id']; ?>')" class="button button-primary" value=<?php _e("Download"); ?>  /></td>
+								<td id="download"><input type="button" id="mdocs-download" onclick="mdocs_download_current_version('<?php echo $the_mdoc['id']; ?>')" class="button button-primary" value=<?php _e("Download",'mdocs'); ?>  /></td>
 								<td></td>
 								<td id="current"><input type="radio" name="mdocs-version" value="<?php echo 'current'; ?>" checked /></td>
 							</tr>
@@ -65,8 +65,8 @@ function mdocs_versions() {
 								<td class="mdocs-blue" id="file" ><?php echo $file; ?></td>
 								<td class="mdocs-green" id="version" ><?php echo $version; ?></td>
 								<td class="mdocs-red" id="date"><?php  echo $archive_date_modified; ?></td>
-								<td id="download"><input onclick="mdocs_download_version('<?php echo $archive; ?>')" type="button" id="mdocs-download" name="<?php echo $key; ?>" class="button button-primary" value=<?php _e("Download"); ?>  /></td>
-								<td id="download"><input onclick="mdocs_delete_version('<?php echo $archive; ?>','<?php echo $mdoc_index; ?>','<?php echo $current_cat; ?>','<?php echo MDOCS_NONCE; ?>')" type="button" id="mdocs-delete" name="<?php echo $key; ?>" class="button button-primary" value=<?php _e("Delete"); ?>  /></td>
+								<td id="download"><input onclick="mdocs_download_version('<?php echo $archive; ?>')" type="button" id="mdocs-download" name="<?php echo $key; ?>" class="button button-primary" value=<?php _e("Download",'mdocs'); ?>  /></td>
+								<td id="download"><input onclick="mdocs_delete_version('<?php echo $archive; ?>','<?php echo $mdoc_index; ?>','<?php echo $current_cat; ?>','<?php echo MDOCS_NONCE; ?>')" type="button" id="mdocs-delete" name="<?php echo $key; ?>" class="button button-primary" value=<?php _e("Delete",'mdocs'); ?>  /></td>
 								<td id="current"><input type="radio" name="mdocs-version" value="<?php echo count($the_mdoc['archived'])-$key-1; ?>" /></td>
 							</tr>
 							<?php
@@ -77,7 +77,7 @@ function mdocs_versions() {
 					</tbody>
 				</table>
 				<br/>
-				<input type="submit" class="button button-primary" value="<?php _e('Update To Revision') ?>" /><br/>
+				<input type="submit" class="button button-primary" value="<?php _e('Update To Revision','mdocs') ?>" /><br/>
 			</form>
 		</div>
 	</div>

@@ -33,10 +33,10 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 	$tooltip .= '<h1>'.$the_mdoc['filename'].'</h1>';
 	$tooltip .= '<div class="mdocs-divider"></div>';
 	if($page_type == 'dashboard') {
-		$tooltip .= __('File Status').':<b class="mdocs-olive"> '.$the_mdoc['file_status'].'</b><br>';
-		$tooltip .= __('Post Status').':<b class="mdocs-salmon"> '.$the_post->post_status.'</b><br>';
-		if($mdocs_hide_all_files) $tooltip .= '<br><i class="fa fa-lock mdocs-orange"></i> '.__('All Files Are Hidden');
-		if($mdocs_hide_all_posts) $tooltip .= '<br><i class="fa fa-lock mdocs-red"></i> '.__('All Posts Are Hidden'); 
+		$tooltip .= __('File Status','mdocs').':<b class="mdocs-olive"> '.$the_mdoc['file_status'].'</b><br>';
+		$tooltip .= __('Post Status','mdocs').':<b class="mdocs-salmon"> '.$the_post->post_status.'</b><br>';
+		if($mdocs_hide_all_files) $tooltip .= '<br><i class="fa fa-lock mdocs-orange"></i> '.__('All Files Are Hidden','mdocs');
+		if($mdocs_hide_all_posts) $tooltip .= '<br><i class="fa fa-lock mdocs-red"></i> '.__('All Posts Are Hidden','mdocs'); 
 	}
 	$tooltip .= '<p>'.$mdocs_desc.'</p>';
 	$tooltip .= '<div class="mdocs-divider"></div>';
@@ -87,7 +87,7 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 					if($the_mdoc['post_status'] == 'private' && $read_private_posts == false) echo str_replace('\\','',$the_mdoc['name']).$status_tag;
 					else { ?><a href="<?php echo $the_mdoc_permalink; ?>" ><?php echo str_replace('\\','',$the_mdoc['name']).$status_tag; ?></a><?php }} ?>
 			</td>
-			<?php if($mdocs_show_downloads) { ?><td id="downloads"><i class="fa fa-cloud-download"></i> <b class="mdocs-orange"><?php echo $the_mdoc['downloads'].' '.__('Downloads'); ?></b></td><?php } ?>
+			<?php if($mdocs_show_downloads) { ?><td id="downloads"><i class="fa fa-cloud-download"></i> <b class="mdocs-orange"><?php echo $the_mdoc['downloads'].' '.__('Downloads','mdocs'); ?></b></td><?php } ?>
 			<?php if($mdocs_show_version) { ?><td id="version"><i class="fa fa-power-off"></i><b class="mdocs-blue"> <?php echo $the_mdoc['version']; ?></b></td><?php } ?>
 			<?php if($mdocs_show_author) { ?><td id="owner"><i class="fa fa-pencil"></i> <i class="mdocs-green"><?php echo $the_mdoc['owner']; ?></i></td><?php } ?>
 			<?php if($mdocs_show_update) { ?><td id="update"><i class="fa fa-calendar"></i> <b class="mdocs-red"><?php echo $last_modified; ?></b></td><?php } ?>
@@ -113,9 +113,9 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 				<?php }
 				if($page_type == 'dashboard') {
 					?>
-					| <a href="<?php echo $the_mdoc_permalink; ?>" title="Visit the files post page" class="edit" target="_blank"><?php _e('Visit'); ?></a> |
-					<a class='submitdelete' onclick="return showNotice.warn();" href="<?php echo 'admin.php?mdocs-nonce='.$_SESSION['mdocs-nonce'].'&page=memphis-documents.php&cat='.$current_cat.'&action=delete-doc&mdocs-index='.$index; ?>"><?php _e('Delete'); ?></a> |
-					<a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat.'&mdocs-index='.$index; ?>&action=mdocs-versions" title="<?php _e('Versions'); ?>" class="edit"><?php _e('Versions'); ?></a>
+					| <a href="<?php echo $the_mdoc_permalink; ?>" title="Visit the files post page" class="edit" target="_blank"><?php _e('Visit','mdocs'); ?></a> |
+					<a class='submitdelete' onclick="return showNotice.warn();" href="<?php echo 'admin.php?mdocs-nonce='.$_SESSION['mdocs-nonce'].'&page=memphis-documents.php&cat='.$current_cat.'&action=delete-doc&mdocs-index='.$index; ?>"><?php _e('Delete','mdocs'); ?></a> |
+					<a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat.'&mdocs-index='.$index; ?>&action=mdocs-versions" title="<?php _e('Versions','mdocs'); ?>" class="edit"><?php _e('Versions','mdocs'); ?></a>
 					<?php
 				} ?>
 			</td>

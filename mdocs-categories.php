@@ -6,25 +6,25 @@ function mdocs_edit_cats() {
 	//var_dump($mdocs_cats[1]['children']);
 	?>
 	<div class="mdocs-ds-container">
-		<h2>Category Editor <a href="" id="mdocs-add-cat" class="mdocs-grey-btn"><?php _e('Add Main Category'); ?></a></h2>
+		<h2>Category Editor <a href="" id="mdocs-add-cat" class="mdocs-grey-btn"><?php _e('Add Main Category','mdocs'); ?></a></h2>
 		<form  id="mdocs-cats" method="post" action="admin.php?page=memphis-documents.php&cat=cats" >
 			<input type="hidden" value="mdocs-update-cats" name="action"/>
 			<input type="hidden" name="mdocs-update-cat-index" value="0"/>
 			<table class="wp-list-table widefat plugins">
 				<thead>
 					<tr>
-						<th scope="col" class="manage-column column-name" ><?php _e('Category'); ?></th>
-						<th scope="col"  class="manage-column column-name" ><?php _e('Order'); ?></th>
-						<th scope="col"  class="manage-column column-name" ><?php _e('Remove'); ?></th>
-						<th scope="col" class="manage-column column-name" ><?php _e('Add Category'); ?></th>
+						<th scope="col" class="manage-column column-name" ><?php _e('Category','mdocs'); ?></th>
+						<th scope="col"  class="manage-column column-name" ><?php _e('Order','mdocs'); ?></th>
+						<th scope="col"  class="manage-column column-name" ><?php _e('Remove','mdocs'); ?></th>
+						<th scope="col" class="manage-column column-name" ><?php _e('Add Category','mdocs'); ?></th>
 					</tr>
 				</thead>
 				<tfoot>
 					<tr>
-						<th scope="col" class="manage-column column-name" ><?php _e('Category'); ?></th>
-						<th scope="col" class="manage-column column-name" ><?php _e('Order'); ?></th>
-						<th scope="col" class="manage-column column-name" ><?php _e('Remove'); ?></th>
-						<th scope="col" class="manage-column column-name" ><?php _e('Add Category'); ?></th>
+						<th scope="col" class="manage-column column-name" ><?php _e('Category','mdocs'); ?></th>
+						<th scope="col" class="manage-column column-name" ><?php _e('Order','mdocs'); ?></th>
+						<th scope="col" class="manage-column column-name" ><?php _e('Remove','mdocs'); ?></th>
+						<th scope="col" class="manage-column column-name" ><?php _e('Add Category','mdocs'); ?></th>
 					</tr>
 				</tfoot>
 				<tbody id="the-list">
@@ -37,7 +37,7 @@ function mdocs_edit_cats() {
 				?>
 				<tr>
 					<td class="mdocs-nofiles" colspan="3">
-						<p><?php _e('No categories created.'); ?></p>
+						<p><?php _e('No categories created.','mdocs'); ?></p>
 					</td>
 				</tr>
 			<?php 
@@ -45,7 +45,7 @@ function mdocs_edit_cats() {
 			?>
 				</tbody>
 			</table><br>
-			<input type="submit" class="button button-primary" id="mdocs-import-submit" onclick="mdocs_reset_onleave()" value="<?php _e('Save Categories') ?>" />
+			<input type="submit" class="button button-primary" id="mdocs-import-submit" onclick="mdocs_reset_onleave()" value="<?php _e('Save Categories','mdocs') ?>" />
 		</form>
 	</div>
 	<?php

@@ -4,13 +4,13 @@ function mdocs_edit_file($the_mdocs, $index, $current_cat) {
 	?>
 	<div class="mdocs-edit-file">
 		<span class="update" id="<?php echo $index ?>">
-			<i class="fa fa-pencil"></i> <a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat.'&action=update-doc&mdocs-index='.$index; ?>" title="Update this file" class="edit"><?php _e('Update'); ?></a> |
+			<i class="fa fa-pencil"></i> <a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat.'&action=update-doc&mdocs-index='.$index; ?>" title="Update this file" class="edit"><?php _e('Update','mdocs'); ?></a> |
 		</span>
 		<span class='delete'>
-			<i class="fa fa-remove"></i> <a class='submitdelete' onclick="return showNotice.warn();" href="<?php echo 'admin.php?mdocs-nonce='.$_SESSION['mdocs-nonce'].'&page=memphis-documents.php&cat='.$current_cat.'&action=delete-doc&mdocs-index='.$index; ?>"><?php _e('Delete'); ?></a> |
+			<i class="fa fa-remove"></i> <a class='submitdelete' onclick="return showNotice.warn();" href="<?php echo 'admin.php?mdocs-nonce='.$_SESSION['mdocs-nonce'].'&page=memphis-documents.php&cat='.$current_cat.'&action=delete-doc&mdocs-index='.$index; ?>"><?php _e('Delete','mdocs'); ?></a> |
 		</span>
 		<span class="versions">
-			<i class="icon-off"></i> <a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat.'&mdocs-index='.$index; ?>&action=mdocs-versions" title="<?php _e('Versions'); ?>" class="edit"><?php _e('Versions'); ?></a></span>
+			<i class="icon-off"></i> <a href="<?php echo 'admin.php?page=memphis-documents.php&cat='.$current_cat.'&mdocs-index='.$index; ?>&action=mdocs-versions" title="<?php _e('Versions','mdocs'); ?>" class="edit"><?php _e('Versions','mdocs'); ?></a></span>
 	</div>
 	<?php
 }
@@ -49,7 +49,7 @@ function  mdocs_des_preview_tabs($the_mdoc) {
 			<?php } ?>
 			</div>
 			<?php
-			} else { echo '<p>'.__('Please login to access the preview.').'</p>'; }
+			} else { echo '<p>'.__('Please login to access the preview.','mdocs').'</p>'; }
 		}  ?>
 	</div>
 	<?php
@@ -236,24 +236,24 @@ function mdocs_sort_by($mdocs, $ypos=0, $page_type='site', $echo=true) {
 	<form enctype="multipart/form-data" method="post" action="<?php echo $_SERVER['REQUEST_URI']; if($page_type=='dashboard') echo '&mdocs-sort=true'; ?>">
 		<?php if($page_type == 'dashboard') { ?>
 		<i class="fa fa-cogs mdocs-orange"></i>
-		<label><?php _e('List Size'); ?>:</label>
-		<input type="radio" name="mdocs-list-type" value="large" <?php if($list_type == 'large') echo 'checked'; ?> /> <label><?php _e('Large'); ?></label>
-		<input type="radio" name="mdocs-list-type" value="small" <?php if($list_type == 'small') echo 'checked'; ?>/> <label><?php _e('Small'); ?></label>
+		<label><?php _e('List Size','mdocs'); ?>:</label>
+		<input type="radio" name="mdocs-list-type" value="large" <?php if($list_type == 'large') echo 'checked'; ?> /> <label><?php _e('Large','mdocs'); ?></label>
+		<input type="radio" name="mdocs-list-type" value="small" <?php if($list_type == 'small') echo 'checked'; ?>/> <label><?php _e('Small','mdocs'); ?></label>
 		<?php } ?>
 		
 		<i class="fa fa-cogs mdocs-green"></i>
-		<input type="radio" name="mdocs-sort-range" value="desc" <?php if($sort_range == 'desc') echo 'checked'; ?>/> <label><?php _e('Descending'); ?></label>
-		<input type="radio" name="mdocs-sort-range" value="asc" <?php if($sort_range == 'asc') echo 'checked'; ?> /> <label><?php _e('Ascending'); ?></label>
+		<input type="radio" name="mdocs-sort-range" value="desc" <?php if($sort_range == 'desc') echo 'checked'; ?>/> <label><?php _e('Descending','mdocs'); ?></label>
+		<input type="radio" name="mdocs-sort-range" value="asc" <?php if($sort_range == 'asc') echo 'checked'; ?> /> <label><?php _e('Ascending','mdocs'); ?></label>
 		
 		
-		<i class="fa fa-cogs mdocs-blue"></i><label> <?php _e('Sort By'); ?>:</label>
+		<i class="fa fa-cogs mdocs-blue"></i><label> <?php _e('Sort By','mdocs'); ?>:</label>
 		<select name="mdocs-sort-type">
-			<option value="name" <?php if($sort_type == 'name') echo 'selected'; ?>><?php _e('File Name'); ?></option>
-			<option value="downloads" <?php if($sort_type == 'downloads') echo 'selected'; ?>><?php _e('Number of Downloads'); ?></option>
-			<option value="version" <?php if($sort_type == 'version') echo 'selected'; ?>><?php _e('Version'); ?></option>
-			<option value="owner" <?php if($sort_type == 'owner') echo 'selected'; ?>><?php _e('Author'); ?></option>
-			<option value="modified" <?php if($sort_type == 'modified') echo 'selected'; ?>><?php _e('Last Updated'); ?></option>
-			<option value="rating" <?php if($sort_type == 'rating') echo 'selected'; ?>><?php _e('Rating'); ?></option>
+			<option value="name" <?php if($sort_type == 'name') echo 'selected'; ?>><?php _e('File Name','mdocs'); ?></option>
+			<option value="downloads" <?php if($sort_type == 'downloads') echo 'selected'; ?>><?php _e('Number of Downloads','mdocs'); ?></option>
+			<option value="version" <?php if($sort_type == 'version') echo 'selected'; ?>><?php _e('Version','mdocs'); ?></option>
+			<option value="owner" <?php if($sort_type == 'owner') echo 'selected'; ?>><?php _e('Author','mdocs'); ?></option>
+			<option value="modified" <?php if($sort_type == 'modified') echo 'selected'; ?>><?php _e('Last Updated','mdocs'); ?></option>
+			<option value="rating" <?php if($sort_type == 'rating') echo 'selected'; ?>><?php _e('Rating','mdocs'); ?></option>
 		</select>
 		<input type="submit" value="go" />
 	</form>
@@ -297,12 +297,12 @@ function mdocs_export_file_status() {
 
 
 function mdocs_errors($error, $type='updated') {
-	if($type == 'error') $error = '<b>'.__('Memphis Error').': </b>'.$error;
-	else $error = '<b>'.__('Memphis Info').': </b>'.$error;
+	if($type == 'error') $error = '<b>'.__('Memphis Error','mdocs').': </b>'.$error;
+	else $error = '<b>'.__('Memphis Info','mdocs').': </b>'.$error;
 	?>
 	<div class="<?php echo $type; ?>">
 		<div id="mdocs-error">
-		<p><?php _e($error); ?></p>
+		<p><?php echo $error; ?></p>
 		</div>
 	</div>
     <?php

@@ -14,7 +14,7 @@ function mdocs_export() {
 <p>Once you've saved the download file, you can use the Import function in another WordPress installation to import the content from this site.</p>
 <h3>Click the Button to Export Memphis Documents</h3>
 <form action method="post" id="mdocs-export">
-	<input type="button" onclick="mdocs_download_zip('<?php echo get_option('mdocs-zip'); ?>');" id="mdocs-export-submit" class="button button-primary" value="<?php _e('Export Memphis Documents Library'); ?>">
+	<input type="button" onclick="mdocs_download_zip('<?php echo get_option('mdocs-zip'); ?>');" id="mdocs-export-submit" class="button button-primary" value="<?php _e('Export Memphis Documents Library','mdocs'); ?>">
 </form><br>
 <?php
 	if($_GET['cat'] == 'export' || $_GET['cat'] == 'import') mdocs_export_file_status();
