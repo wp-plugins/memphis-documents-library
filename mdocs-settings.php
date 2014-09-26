@@ -227,7 +227,7 @@ function mdocs_shortcode($att, $content=null) { mdocs_the_list($att); }
 add_shortcode( 'mdocs', 'mdocs_shortcode' );
 //[mdocs_post_page]
 function mdocs_post_page_shortcode($att, $content=null) {
-	mdocs_post_page($att);
+	return mdocs_post_page($att);
 }
 add_shortcode( 'mdocs_post_page', 'mdocs_post_page_shortcode' );
 function mdocs_admin_script() {

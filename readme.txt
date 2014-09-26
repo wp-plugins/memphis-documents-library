@@ -125,6 +125,9 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 7. screenshot-7.png
 
 == Changelog ==
+= 2.6.6 =
+* *Bug* - Fixed mime type bug, where mime types where not being removed properly.
+* *Bug* - Fixed issue with post always showing mDocs at the top of the post.  Now it behaves as expected.
 = 2.6.5 =
 * *Feature* - Added Finnish language support, thanks to *sloworks* for their hard work.
 = 2.6.4 =

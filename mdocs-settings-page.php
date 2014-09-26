@@ -195,6 +195,7 @@ function mdocs_settings($cat) {
 				<tr>
 					<th><?php _e('Extension','mdocs'); ?></th>
 					<th><?php _e('Mime Type','mdocs'); ?></th>
+					<th><?php _e('Options','mdocs'); ?></th>
 				</tr>
 					<?php
 					foreach($mimes as $index => $mime) {

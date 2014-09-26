@@ -151,7 +151,7 @@ function mdocs_update_revision() {
 			$mdocs_attach_id = wp_update_post( $attachment );
 			$mdocs_attach_data = wp_generate_attachment_metadata( $mdocs_attach_id, $upload_dir['basedir'].'/mdocs/'.$filename );
 			wp_update_attachment_metadata( $mdocs_attach_id, $mdocs_attach_data );
-			wp_set_post_tags( $mdocs_post_id, 'memphis documents library,memphis,documents,library,media,'.$wp_filetype['type'] );
+			wp_set_post_tags( $mdocs_post_id, $the_mdoc['name'].', '.$the_mdoc['cat'].', memphis documents library, '.$wp_filetype['type'] );
 		
 		} else mdocs_errors('You are already at the most recent version of this document.');
 	} else mdocs_errors(MDOCS_ERROR_4,'error'); 

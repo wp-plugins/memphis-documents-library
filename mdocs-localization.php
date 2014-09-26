@@ -89,7 +89,7 @@ function mdocs_localize() {
 	define('MDOCS_DEFAULT_DESC', __('This file is part of the Documents Library.','mdocs'));	
 	//ERRORS
 	define('MDOCS_ERROR_1',__('No file was uploaded, please try again.','mdocs'));
-	define('MDOCS_ERROR_2',__('Sorry, this file type is not permitted for security reasons, contact your administrator for more details.<br>If you are running Multisite you can add this file type from the Settings menu of the Network Admin.','mdocs'));
+	define('MDOCS_ERROR_2',__('Sorry, this file type is not permitted for security reasons.  If you want to add this file type please goto the setting page of Memphis Documents Library and add it to the Allowed File Type menu.','mdocs'));
 	define('MDOCS_ERROR_3',__('No categories found.  The upload process can not proceed.','mdocs'));
 	define('MDOCS_ERROR_4',__('Data was not submitted.  The submit process is out of sync, please refresh your browser and try again.','mdocs'));
 	define('MDOCS_ERROR_5', __('File Upload Error.  Please try again.','mdocs'));

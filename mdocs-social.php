@@ -1,5 +1,6 @@
 <?php
 function mdocs_social($the_mdoc, $page_type='site') {
+	ob_start();
 	$the_rating = mdocs_get_rating($the_mdoc);
 	$mdocs_show_ratings = get_option( 'mdocs-show-ratings' );
 	if(get_option('mdocs-hide-all-posts') == false && get_option('mdocs-hide-all-files') == false || is_user_logged_in() &&  get_option('mdocs-hide-all-posts-non-members') ) {
@@ -29,6 +30,8 @@ function mdocs_social($the_mdoc, $page_type='site') {
 			<h2><?php _e('This page is hidden to all users accepts admins.','mdocs'); ?></h2>
 		<?php
 	}
+	$the_social = ob_get_clean();
+	return $the_social;
 }
 
 function mdocs_social_scripts() {
