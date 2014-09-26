@@ -140,7 +140,7 @@ function mdocs_file_upload() {
 						'post_date' => MDOCS_CURRENT_TIME
 					);
 					$mdocs_post_id = wp_update_post( $mdocs_post );
-					wp_set_post_tags( $mdocs_post_id, $mdocs[$mdocs_index]['name'].', memphis documents library,memphis,documents,library,media,'.$wp_filetype['type'] );
+					wp_set_post_tags( $mdocs_post_id, $mdocs_name.', '.$mdocs_cat.', memphis documents library, '.$wp_filetype['type'] );
 					$mdocs_attachment = array(
 						'ID' => $mdocs[$mdocs_index]['id'],
 						'post_title' => $mdocs_name

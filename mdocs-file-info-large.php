@@ -1,6 +1,7 @@
 <?php
 function mdocs_file_info_large($the_mdoc, $page_type='site', $index=0, $current_cat) {
 	global $post;
+	ob_start();
 	$upload_dir = wp_upload_dir();
 	$the_mdoc_permalink = htmlspecialchars(get_permalink($the_mdoc['parent']));
 	$the_post = get_post($the_mdoc['parent']);
@@ -90,7 +91,8 @@ function mdocs_file_info_large($the_mdoc, $page_type='site', $index=0, $current_
 		<?php } ?>
 	</div>
 <?php
-		return $the_mdoc;
+		$the_page = ob_get_clean();
+		return $the_page;
 	}
 }
 ?>

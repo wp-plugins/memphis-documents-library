@@ -24,6 +24,7 @@ function  mdocs_des_preview_tabs($the_mdoc) {
 	$upload_dir = wp_upload_dir();
 	//$file_url = $upload_dir['baseurl'].MDOCS_DIR.$the_mdoc['filename'];
 	$file_url = get_site_url().'?mdocs-file='.$the_mdoc['id'].'&mdocs-url='.$the_mdoc['parent'];
+	ob_start();
 	?>
 	<?php if($mdocs_show_description && $mdocs_show_preview) { ?><a class="mdocs-nav-tab" data-mdocs-show-type="desc" data-mdocs-id="<?php echo $the_mdoc['id']; ?>">Description</a><?php } ?>
 	<?php if($mdocs_show_preview && $mdocs_show_description) { ?><a class="mdocs-nav-tab"  data-mdocs-show-type="preview" data-mdocs-id="<?php echo $the_mdoc['id']; ?>">Preview</a><?php } ?>
@@ -53,6 +54,8 @@ function  mdocs_des_preview_tabs($the_mdoc) {
 		}  ?>
 	</div>
 	<?php
+	$the_des = ob_get_clean();
+	return $the_des;
 }
 
 
@@ -81,17 +84,18 @@ function mdocs_post_page($att=null) {
 		if( strrchr($permalink, '?page_id=')) $mdocs_link = site_url().'/'.strrchr($permalink, '?page_id=');
 		else $mdocs_link = site_url().'/'.$query->post->post_name.'/';
 		$mdocs_desc = apply_filters('the_content', $post->post_excerpt);
-		?>
-		<div class="mdocs-post">
-			<?php $the_mdoc = mdocs_file_info_large($the_mdoc, 'site', $index, null); ?>
-			<div class="mdocs-clear-both"></div>
-			<?php mdocs_social($the_mdoc); ?>
-		</div>
-		<div class="mdocs-clear-both"></div>
-		<?php mdocs_des_preview_tabs($the_mdoc) ?>
-		<div class="mdocs-clear-both"></div>
-		</div>
-		<?php
+		ob_start();
+		$the_page = '<div class="mdocs-post">';
+		$the_page .= mdocs_file_info_large($the_mdoc, 'site', $index, null);
+		$the_page .= '<div class="mdocs-clear-both"></div>';
+		$the_page .= mdocs_social($the_mdoc);
+		$the_page .= '</div>';
+		$the_page .= '<div class="mdocs-clear-both"></div>';
+		$the_page .= mdocs_des_preview_tabs($the_mdoc);
+		$the_page .= '<div class="mdocs-clear-both"></div>';
+		$the_page .= '</div>';
+		$the_page .= ob_get_clean();
+		return $the_page;
 	} else {
 		print nl2br(get_the_content('Continue Reading &rarr;'));
 	}
@@ -176,7 +180,7 @@ function mdocs_process_file($file, $import=false) {
 		wp_update_attachment_metadata( $mdocs_attach_id, $mdocs_attach_data );
 		$upload['parent_id'] = $mdocs_post_id;
 		$upload['attachment_id'] = $mdocs_attach_id;
-		wp_set_post_tags( $mdocs_post_id, $upload['name'].', memphis documents library,memphis,documents,library,media,'.$wp_filetype['type'] );
+		wp_set_post_tags( $mdocs_post_id, $upload['name'].', '.$file['cat'].', memphis documents library, '.$wp_filetype['type'] );
 	} elseif($mdocs_type == 'mdocs-update') {
 		$mdocs_post = array(
 			'ID' => $file['parent'],
@@ -204,7 +208,7 @@ function mdocs_process_file($file, $import=false) {
 		$mdocs_attach_id = wp_update_post( $attachment );
 		$mdocs_attach_data = wp_generate_attachment_metadata( $mdocs_attach_id, $upload['file'] );
 		wp_update_attachment_metadata( $mdocs_attach_id, $mdocs_attach_data );
-		wp_set_post_tags( $mdocs_post_id, $upload['name'].', memphis documents library,memphis,documents,library,media,'.$wp_filetype['type'] );
+		wp_set_post_tags( $mdocs_post_id, $upload['name'].', '.$file['cat'].', memphis documents library, '.$wp_filetype['type'] );
 	}
 	$upload['desc'] = $desc;
 	return $upload;

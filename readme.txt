@@ -118,9 +118,16 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 
 == Change-log ==
 = 3.0 =
-* *New* - Interface improvements
+* *Feature* - Added Finnish language support, thanks to *sloworks* for their hard work.
+* *Feature* - Interface improvements
 * *Bug* - Fixed the XSS (Cross Site Scripting) issues root cause was using $_REQUEST inside a form.
 * *Bug* - Fixed the security vulnerabilities known as LFI/RFI, which stands for Local or Remote File Inclusion.
+* *Bug* - Fixed mime type bug, where mime types where not being removed properly.
+* *Bug* - Fixed issue with post always showing mDocs at the top of the post.  Now it behaves as expected.
+* *Bug* - Fixed bug which didn't allow for viewing sub categories when using mdocs short codes.  This short code currently only works on main categories you can't target a subcategory to display.
+* *Bug* - Fixed sercuirty issues using $_REQUEST inside a form.
+* *Bug* - Fixed sercuirty issue Local or Remote File Inclusion.
+* *Bug* - Fixed a bug when creating categories a nul category would be created that could not be delete.
 = 2.6.1 =
 * *Update* - Change the way date modified is handle, was using an array value now using file date modified attribute.
 * *Update* - Updated localization files.
