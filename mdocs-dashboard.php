@@ -6,13 +6,14 @@ function mdocs_dashboard_menu() {
 	if (is_plugin_active('memphis-wordpress-custom-login/memphis-wp-login.php')) $memphis_custom_login = (get_plugin_data($plugin_path.'memphis-wordpress-custom-login/memphis-wp-login.php'));
 	if(isset($memphis_custom_login['Version'])) $memphis_version = intval($memphis_custom_login['Version']);
 	else $memphis_version = 0;
-	If (!is_plugin_active('memphis-wordpress-custom-login/memphis-wp-login.php') || $memphis_version < 3) {
+	if (!is_plugin_active('memphis-wordpress-custom-login/memphis-wp-login.php') || $memphis_version < 3) {
 		add_menu_page( __('Memphis Documents Library','mdocs'), __('Memphis Docs','mdocs'), 'administrator', 'memphis-documents.php', 'mdocs_dashboard', MDOC_URL.'/assets/imgs/kon.ico'  );
 	}
 	if ( is_admin() ){
 		add_action('admin_init','mdocs_register_settings');
 		add_action('admin_enqueue_scripts', 'mdocs_admin_script');
 	}
+	//add_submenu_page('edit.php','mDocs Posts', 'Memphis Posts','administrator', 'mdocs-post-pages.php','mdocs_post_pages');
 	// ERRORS AND UPDATES
 	if(isset($_FILES['mdocs']) && $_FILES['mdocs']['name'] == '' && $_POST['mdocs-type'] == 'mdocs-add')  { mdocs_errors(MDOCS_ERROR_1,'error'); $add_error = true; }	
 }

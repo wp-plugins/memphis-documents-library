@@ -16,6 +16,7 @@ function mdocs_settings($cat) {
 	$mdocs_show_update = get_option( 'mdocs-show-update' );
 	$mdocs_show_ratings = get_option( 'mdocs-show-ratings' );
 	$mdocs_show_social = get_option( 'mdocs-show-social' );
+	$mdocs_show_share = get_option('mdocs-show-share');
 	$mdocs_show_new_banners = get_option('mdocs-show-new-banners');
 	$mdocs_time_to_display_banners = strval(get_option('mdocs-time-to-display-banners'));
 	$mdocs_sort_type = get_option('mdocs-sort-type');
@@ -96,7 +97,8 @@ function mdocs_settings($cat) {
 			<input type="checkbox" name="mdocs-show-version" value="1"  <?php checked( $mdocs_show_version, 1) ?>/> <?php _e('Version','mdocs'); ?><br>
 			<input type="checkbox" name="mdocs-show-update" value="1"  <?php checked( $mdocs_show_update, 1) ?>/> <?php _e('Updated','mdocs'); ?><br>
 			<input type="checkbox" name="mdocs-show-ratings" value="1"  <?php checked( $mdocs_show_ratings, 1) ?>/> <?php _e('Ratings','mdocs'); ?><br>
-			<input type="checkbox" name="mdocs-show-social" value="1"  <?php checked( $mdocs_show_social, 1) ?>/> <?php _e('Social','mdocs'); ?>
+			<input type="checkbox" name="mdocs-show-social" value="1"  <?php checked( $mdocs_show_social, 1) ?>/> <?php _e('Social','mdocs'); ?><br>
+			<input type="checkbox" name="mdocs-show-share" value="1"  <?php checked( $mdocs_show_share, 1) ?>/> <?php _e('Share','mdocs'); ?>
 		</td>
 	
 		<th><?php _e('Hide Things','mdocs'); ?></th>

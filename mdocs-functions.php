@@ -624,3 +624,48 @@ function mdocs_custom_mime_types($existing_mimes=array()) {
 	}
 	return $existing_mimes;
 }
+
+
+// GET ALL MDOCS POST AND DISPLAYS THEM ON THE MAIN PAGE.
+add_filter( 'pre_get_posts', 'mdocs_get_posts' );
+function mdocs_get_posts( $query ) { if ( is_home() && $query->is_main_query() ) $query->set( 'post_type', array( 'post', 'mdocs-posts' ) ); }
+// CREATES THE CUSTOM POST TYPE mDocs Posts which handles all the Memphis Document Libaray posts.
+function mdocs_post_pages() {
+	$labels = array(
+		'name'               => __( 'Memphis Documents Posts', 'mdocs' ),
+		'singular_name'      => _x( 'mdocs', 'mdocs' ),
+		'add_new'            => __( 'Add New', 'mdocs' ),
+		'add_new_item'       => __( 'Add New Documents', 'mdocs' ),
+		'edit_item'          => __( 'Edit Documents', 'mdocs' ),
+		'new_item'           => __( 'New Documents', 'mdocs' ),
+		'all_items'          => __( 'All Documents', 'mdocs' ),
+		'view_item'          => __( 'View Documents', 'mdocs' ),
+		'search_items'       => __( 'Search Documents', 'mdocs' ),
+		'not_found'          => __( 'No documents found', 'mdocs' ),
+		'not_found_in_trash' => __( 'No documents found in the Trash', 'mdocs' ), 
+		'parent_item_colon'  => '',
+		'menu_name'          => 'mDocs Posts'
+	);
+	$supports = array( 'title', 'editor','author','thumbnail','excerpt','trackbacks','custom-fields','comments','revisions','page-attributes','post-formats'  );
+	$args = array(
+		'labels'              		=> $labels,
+		'public'              		=> true,
+		'publicly_queryable'  => true,
+		'show_ui'             	=> true,
+		'show_in_menu' 		=> true,
+		'query_var'           	=> true,
+		'rewrite'             		=> array( 'slug' => $slug ),
+		'capability_type'     	=> 'post',
+		'has_archive'         	=> true,
+		'hierarchical'        	=> false,
+		'menu_position'       => 5,
+		'taxonomies' 			=> array('category'),
+		'supports'            		=> $supports,
+	 );
+	register_post_type( 'mdocs-posts', $args ); 
+}
+add_action( 'init', 'mdocs_post_pages' );
+
+
+//set_post_type(7651,'mdocs-posts');
+
