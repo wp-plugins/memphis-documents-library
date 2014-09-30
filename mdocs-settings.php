@@ -162,6 +162,8 @@ function mdocs_init_settings() {
 	add_option('mdocs-show-social', true);
 	register_setting('mdocs-global-settings', 'mdocs-show-ratings');
 	add_option('mdocs-show-ratings', true);
+	register_setting('mdocs-global-settings', 'mdocs-show-share');
+	add_option('mdocs-show-share', true);
 	register_setting('mdocs-global-settings', 'mdocs-download-color-normal');
 	add_option('mdocs-download-color-normal', '#d14836');
 	register_setting('mdocs-global-settings', 'mdocs-download-color-hover');

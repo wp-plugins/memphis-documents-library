@@ -16,6 +16,7 @@ function mdocs_settings($cat) {
 	$mdocs_show_update = get_option( 'mdocs-show-update' );
 	$mdocs_show_ratings = get_option( 'mdocs-show-ratings' );
 	$mdocs_show_social = get_option( 'mdocs-show-social' );
+	$mdocs_show_share = get_option('mdocs-show-share');
 	$mdocs_show_new_banners = get_option('mdocs-show-new-banners');
 	$mdocs_time_to_display_banners = strval(get_option('mdocs-time-to-display-banners'));
 	$mdocs_sort_type = get_option('mdocs-sort-type');
