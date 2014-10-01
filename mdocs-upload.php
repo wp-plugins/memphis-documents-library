@@ -87,6 +87,7 @@ function mdocs_file_upload() {
 						$_FILES['mdocs']['name'] = $filename;
 						$_FILES['mdocs']['parent'] = $old_doc['parent'];
 						$_FILES['mdocs']['id'] = $old_doc['id'];
+						$_FILES['mdocs']['cat'] = $old_doc['cat'];
 						$_FILES['mdocs']['post-status'] = $mdocs_post_status;
 						$upload = mdocs_process_file($_FILES['mdocs']);
 						if(!isset($upload['error'])) {
@@ -131,16 +132,18 @@ function mdocs_file_upload() {
 					$mdocs[$mdocs_index]['post_status'] =(string)$mdocs_post_status;
 					$mdocs[$mdocs_index]['post_status_sys'] =(string)$mdocs_post_status_sys;
 					$mdocs[$mdocs_index]['doc_preview'] =(string)$mdocs_doc_preview;
+					$post_content = get_post($mdocs[$mdocs_index]['parent'])->post_content;
+					$post_content = str_replace('[mdocs_post_page new=true]','[mdocs_post_page]',$post_content);
 					$mdocs_post = array(
 						'ID' => $mdocs[$mdocs_index]['parent'],
 						'post_title' => $mdocs[$mdocs_index]['name'],
-						'post_content' => '[mdocs_post_page]',
+						'post_content' => $post_content,
 						'post_status' => $the_post_status,
 						'post_excerpt' => $desc,
 						'post_date' => MDOCS_CURRENT_TIME
 					);
 					$mdocs_post_id = wp_update_post( $mdocs_post );
-					wp_set_post_tags( $mdocs_post_id, $mdocs[$mdocs_index]['name'].', memphis documents library,memphis,documents,library,media,'.$wp_filetype['type'] );
+					wp_set_post_tags( $mdocs_post_id, $mdocs_name.', '.$mdocs_cat.', memphis documents library, '.$wp_filetype['type'] );
 					$mdocs_attachment = array(
 						'ID' => $mdocs[$mdocs_index]['id'],
 						'post_title' => $mdocs_name

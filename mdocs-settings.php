@@ -23,6 +23,18 @@ function mdocs_register_settings() {
 	$is_read_write = mdocs_check_read_write();
 	if($is_read_write) {
 		// PATCHES
+		// 2.6.6
+		register_setting('mdocs-patch-vars', 'mdocs-v2-6-6-patch-var-1');
+		add_action('mdocs-v2-6-6-patch-var-1',false);
+		if(get_option('mdocs-v2-6-6-patch-var-1') == false && is_array(get_option('mdocs-list'))) {
+			$this_query = new WP_Query('category_name=mdocs-media&posts_per_page=-1');	
+			foreach($this_query->posts as $index => $post) set_post_type($post->ID,'mdocs-posts');
+			
+			//$update_query = query_posts( array ( 'category_name' => 'mdocs-media', 'posts_per_page' => -1 ) );
+			//var_dump($this_query->posts);
+			
+			//update_option('mdocs-v2-6-6-patch-var-1',true);
+		} 
 		// 2.5
 		register_setting('mdocs-patch-vars', 'mdocs-v2-5-patch-var-1');
 		add_action('mdocs-v2-5-patch-var-1',false);
@@ -160,6 +172,8 @@ function mdocs_init_settings() {
 	add_option('mdocs-show-social', true);
 	register_setting('mdocs-global-settings', 'mdocs-show-ratings');
 	add_option('mdocs-show-ratings', true);
+	register_setting('mdocs-global-settings', 'mdocs-show-share');
+	add_option('mdocs-show-share', true);
 	register_setting('mdocs-global-settings', 'mdocs-download-color-normal');
 	add_option('mdocs-download-color-normal', '#d14836');
 	register_setting('mdocs-global-settings', 'mdocs-download-color-hover');
@@ -227,7 +241,7 @@ function mdocs_shortcode($att, $content=null) { mdocs_the_list($att); }
 add_shortcode( 'mdocs', 'mdocs_shortcode' );
 //[mdocs_post_page]
 function mdocs_post_page_shortcode($att, $content=null) {
-	mdocs_post_page($att);
+	return mdocs_post_page($att);
 }
 add_shortcode( 'mdocs_post_page', 'mdocs_post_page_shortcode' );
 function mdocs_admin_script() {

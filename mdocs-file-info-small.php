@@ -41,7 +41,7 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 	$tooltip .= '<p>'.$mdocs_desc.'</p>';
 	$tooltip .= '<div class="mdocs-divider"></div>';
 	
-	
+	?> <div class="mdocs-admin-preview"></div> <?php
 	$tooltip = htmlspecialchars($tooltip);
 	
 	if($mdocs_hide_all_files_non_members && $user_logged_in == false) $show_files = false;
