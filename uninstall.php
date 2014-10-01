@@ -29,8 +29,6 @@ function mdocs_multi_site_remove() {
 			if(is_dir($upload_dir['basedir'].'/mdocs/')) rmdir($upload_dir['basedir'].'/mdocs/');
 			$query = new WP_Query('pagename=mdocuments-library');
 			wp_delete_post( $query->post->ID, true );
-			$mdocs_cat_id = get_cat_ID( 'mdocs-media' );
-			wp_delete_category(get_cat_ID( 'mdocs-media' ));
 			$init_blog = false;
 		}
 		restore_current_blog();
@@ -55,7 +53,6 @@ function mdocs_single_site_remove($blog_id=null) {
 	if(is_dir($upload_dir['basedir'].'/mdocs/')) rmdir($upload_dir['basedir'].'/mdocs/');
 	$query = new WP_Query('pagename=mdocuments-library');
 	wp_delete_post( $query->post->ID, true );
-	wp_delete_category(get_cat_ID( 'mdocs-media' ));
 }
 
 ?>

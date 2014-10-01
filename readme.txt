@@ -273,6 +273,9 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 = 1.0 =
 * Initial Release of Memphis Documents Library
 == Feature Request ==
+* *Feature* - Bulk Delete/Hide
+* *Feature* - Bulk move
+* *Feature* - Allow downloads only for registered users with specific levels of user i.e. editor/author etc.
 * *Feature* - Get thumbnails of the documents as the featured image for the post, as an alternative to Google Preview.
 * *Feature* - Give other user types the ability to upload files.
 * *Feature* - Short-code to add a download link to a post or page.
@@ -281,5 +284,5 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 * *Feature* - Batch upload choose a category for all file before uploading them.
 * *Feature* - Add a pdf preview on the description page
 * *Feature* - Add a tag editor to the add/update document page.
-* *Feature* - Create a separate area to store all posts related to Memphis Documents.
 * *Feature* - In the Media tab find a way to display the category of the documents created by Memphis Documents.
+* *Feature* - Connect to Cloud Services (DropBox, SkyDrive, MediaFire, etc.)

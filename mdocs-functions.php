@@ -61,12 +61,7 @@ function  mdocs_des_preview_tabs($the_mdoc) {
 
 function mdocs_post_page($att=null) {
 	global $post;
-	$found = false;
-	$post_category = get_the_category( $post->ID );
-	foreach($post_category as $index => $the_post_cat) {
-		if($the_post_cat->slug == 'mdocs-media') { $found = true; break; }
-	}
-	if($found == true) {
+	if($post->post_type = 'mdocs-posts') {
 		$mdocs = get_option('mdocs-list');
 		foreach($mdocs as $index => $value) {
 			if($value['parent'] == $post->ID) { $the_mdoc = $value; break; }
@@ -153,14 +148,12 @@ function mdocs_process_file($file, $import=false) {
 		$upload['name'] = $file['name'];
 	}
 	$wp_filetype = wp_check_filetype($upload['file'], null );
-	$mdocs_post_cat = get_category_by_slug( 'mdocs-media' );
 	if($mdocs_type == 'mdocs-add' || $import == true) {
 		$mdocs_post = array(
 			'post_title' => $upload['name'],
 			'post_status' => $post_status,
 			'post_content' => '[mdocs_post_page new=true]',
 			'post_author' => $current_user->ID,
-			'post_category' => array($mdocs_post_cat->cat_ID),
 			'post_excerpt' => $desc,
 			'post_date' => $modifed_date,
 			'post_type' => 'mdocs-posts',
@@ -189,7 +182,6 @@ function mdocs_process_file($file, $import=false) {
 			'post_status' =>$post_status,
 			'post_content' => '[mdocs_post_page]',
 			'post_author' => $current_user->ID,
-			'post_category' => array($mdocs_post_cat->cat_ID),
 			'post_excerpt' => $desc,
 			'post_date' => $modifed_date,
 		);
@@ -396,7 +388,7 @@ function mdocs_hide_show_toogle() {
 	
 	if($mdocs_hide_all_posts_non_members != $mdocs_hide_all_posts_non_members_default) {
 		if($mdocs_hide_all_posts_non_members) {
-			$query = new WP_Query('category_name=mdocs-media');
+			$query = new WP_Query('post_type=mdocs-posts&posts_per_page=-1');
 			foreach((array)$query->posts as $posts => $the_post) {
 				$update_post = array(
 					'ID' => $the_post->ID,
@@ -407,7 +399,7 @@ function mdocs_hide_show_toogle() {
 			update_option( 'mdocs-hide-all-posts-non-members-default', true );
 		} else {
 			$file_status = 'public';
-			$query = new WP_Query('category_name=mdocs-media');
+			$query = new WP_Query('post_type=mdocs-posts&posts_per_page=-1');
 			foreach((array)$query->posts as $posts => $the_post) {
 				foreach($mdocs as $mdoc => $the_doc) {
 					$q = new WP_Query('post_type=attachment&post_status=inherit&post_parent='.$the_post->ID);
@@ -436,7 +428,7 @@ function mdocs_hide_show_toogle() {
 		
 	if($mdocs_hide_all_posts != $mdocs_hide_all_posts_default) {
 		if($mdocs_hide_all_posts) {
-			$query = new WP_Query('category_name=mdocs-media');
+			$query = new WP_Query('post_type=mdocs-posts&posts_per_page=-1');
 			foreach((array)$query->posts as $posts => $the_post) {
 				$update_post = array(
 					'ID' => $the_post->ID,
@@ -447,7 +439,7 @@ function mdocs_hide_show_toogle() {
 			update_option( 'mdocs-hide-all-posts-default', true );
 		} elseif($mdocs_hide_all_posts_non_members == false) {
 			$file_status = 'public';
-			$query = new WP_Query('category_name=mdocs-media');
+			$query = new WP_Query('post_type=mdocs-posts&posts_per_page=-1');
 			foreach((array)$query->posts as $posts => $the_post) {
 				foreach($mdocs as $mdoc => $the_doc) {
 					$q = new WP_Query('post_type=attachment&post_status=inherit&post_parent='.$the_post->ID);
@@ -688,3 +680,43 @@ function mdocs_get_current_cat() {
 	elseif(!is_string($cats)) $current_cat = $cats[0]['slug'];
 	return $current_cat;
 }
+
+// GET ALL MDOCS POST AND DISPLAYS THEM ON THE MAIN PAGE.
+add_filter( 'pre_get_posts', 'mdocs_get_posts' );
+function mdocs_get_posts( $query ) { $query->set( 'post_type', array( 'post', 'mdocs-posts' ) ); }
+// CREATES THE CUSTOM POST TYPE mDocs Posts which handles all the Memphis Document Libaray posts.
+function mdocs_post_pages() {
+	$labels = array(
+		'name'               => __( 'Memphis Documents Posts', 'mdocs' ),
+		'singular_name'      => _x( 'mdocs', 'mdocs' ),
+		'add_new'            => __( 'Add New', 'mdocs' ),
+		'add_new_item'       => __( 'Add New Documents', 'mdocs' ),
+		'edit_item'          => __( 'Edit Documents', 'mdocs' ),
+		'new_item'           => __( 'New Documents', 'mdocs' ),
+		'all_items'          => __( 'All Documents', 'mdocs' ),
+		'view_item'          => __( 'View Documents', 'mdocs' ),
+		'search_items'       => __( 'Search Documents', 'mdocs' ),
+		'not_found'          => __( 'No documents found', 'mdocs' ),
+		'not_found_in_trash' => __( 'No documents found in the Trash', 'mdocs' ), 
+		'parent_item_colon'  => '',
+		'menu_name'          => 'mDocs Posts'
+	);
+	$supports = array( 'title', 'editor','author','comments','revisions','page-attributes','post-formats'  );
+	$args = array(
+		'labels'              		=> $labels,
+		'public'              		=> true,
+		'publicly_queryable'  => true,
+		'show_ui'             	=> true,
+		'show_in_menu' 		=> true,
+		'query_var'           	=> true,
+		'rewrite'             		=> array( 'slug' => $slug ),
+		'capability_type'     	=> 'post',
+		'has_archive'         	=> true,
+		'hierarchical'        	=> false,
+		'menu_position'       => 5,
+		'taxonomies' 			=> array('category','post_tag'),
+		'supports'            		=> $supports,
+	 );
+	register_post_type( 'mdocs-posts', $args );
+}
+add_action( 'init', 'mdocs_post_pages' );

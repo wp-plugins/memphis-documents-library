@@ -23,6 +23,22 @@ function mdocs_register_settings() {
 	$is_read_write = mdocs_check_read_write();
 	if($is_read_write) {
 		// PATCHES
+		// 2.6.6
+		register_setting('mdocs-patch-vars', 'mdocs-v2-6-6-patch-var-1');
+		add_action('mdocs-v2-6-6-patch-var-1',false && is_array(get_option('mdocs-list')));
+		if(get_option('mdocs-v2-6-6-patch-var-1') == false && is_array(get_option('mdocs-list'))) {
+			$this_query = new WP_Query('category_name=mdocs-media&posts_per_page=-1');	
+			foreach($this_query->posts as $index => $post) set_post_type($post->ID,'mdocs-posts');
+			update_option('mdocs-v2-6-6-patch-var-1',true);
+		}
+		// 2.6.7
+		register_setting('mdocs-patch-vars', 'mdocs-v2-6-7-patch-var-1');
+		add_action('mdocs-v2-6-7-patch-var-1',false);
+		if(get_option('mdocs-v2-6-7-patch-var-1') == false && is_array(get_option('mdocs-list'))) {
+			$mdocs_cat = get_category_by_slug('mdocs-media');
+			wp_delete_category($mdocs_cat->cat_ID);
+			update_option('mdocs-v2-6-7-patch-var-1',true);
+		} 
 		// 2.5
 		register_setting('mdocs-patch-vars', 'mdocs-v2-5-patch-var-1');
 		add_action('mdocs-v2-5-patch-var-1',false);
@@ -80,8 +96,6 @@ function mdocs_register_settings() {
 		// Creating File Structure
 		if(!is_dir($upload_dir['basedir'].'/mdocs/') && $upload_dir['error'] === false) mkdir($upload_dir['basedir'].'/mdocs/');
 		elseif(!is_dir($upload_dir['basedir'].'/mdocs/') && $upload_dir['error'] !== false) mdocs_errors(__('Unable to create the directory "mdocs" which is needed by Memphis Documents Library. Is its parent directory writable by the server?','mdocs'),'error');
-		//CREATE MDOCS POST CATEGORY
-		if(get_category_by_slug( 'mdocs_media' ) == false) wp_create_category('mdocs-media');
 		//CREATE MDOCS PAGE
 		$query = new WP_Query('pagename=mdocuments-library');	
 		if(empty($query->posts) && empty($query->queried_object) ) {
