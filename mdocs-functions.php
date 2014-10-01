@@ -163,6 +163,7 @@ function mdocs_process_file($file, $import=false) {
 			'post_category' => array($mdocs_post_cat->cat_ID),
 			'post_excerpt' => $desc,
 			'post_date' => $modifed_date,
+			'post_type' => 'mdocs-posts',
 		);
 		$mdocs_post_id = wp_insert_post( $mdocs_post );
 		$attachment = array(
