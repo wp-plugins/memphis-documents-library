@@ -134,7 +134,6 @@ function mdocs_update_revision() {
 			array_push($mdocs[$mdocs_index]['archived'], $old_doc_name);
 			$mdocs = mdocs_array_sort($mdocs, 'name', SORT_ASC);
 			update_option('mdocs-list', $mdocs);
-			$mdocs_post_cat = get_category_by_slug( 'mdocs-media' );
 			$wp_filetype = wp_check_filetype($upload_dir['basedir'].'/mdocs/'.$filename, null );
 			$mdocs_post = array(
 				'ID' => $the_mdoc['parent'],

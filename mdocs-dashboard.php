@@ -158,7 +158,6 @@ function mdocs_delete() {
 		$index = $_GET['mdocs-index'];
 		$upload_dir = wp_upload_dir();
 		$mdocs_file = $mdocs[$index];
-		$mdocs_post_cat = get_category_by_slug( 'mdocs-media' );
 		if(is_array($mdocs[$index]['archived'])) foreach($mdocs[$index]['archived'] as $key => $value) @unlink($upload_dir['basedir'].'/mdocs/'.$value);
 		wp_delete_attachment( intval($mdocs_file['id']), true );
 		wp_delete_post( intval($mdocs_file['parent']), true );

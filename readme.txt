@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 4.0
-Stable tag: 2.6.6
+Stable tag: 2.6.7
 
 A documents library for WordPress.
 
@@ -26,6 +26,8 @@ Memphis Documents Library version *2.6.3* is an important sercurity update.  Ple
 * *New* - The ability to allow/deny user types access to Private Posts. 
 * *New* - In the setting menu you can now choose the allowed file types.
 * *New* - A restore defaults option has been added this will restore Memphis Documents Library to its factory state, *WARNING all files and post will be deleted*.
+* *Update* - Removed the category mdocs-media.
+* *Update* - reduced the number of tags.
 * *Update* - Updated localization files.
 * *Update* - Uninstall will not remove all saved variables , posts, files, categories, and directories for a single WordPress Site and also WordPress Multisite.
 * *Update* - Change the way date modified is handle, was using an array value now using file date modifed attribute.
@@ -127,6 +129,10 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 7. screenshot-7.png
 
 == Changelog ==
+= 2.6.7 =
+* *Update* - Removed the category mdocs-media.
+* *Update* - reduced the number of tags.
+* *Update* - Minor fixes.
 = 2.6.6 =
 * *Feature* - Moved Memphis Document Library post into there own custom post type.
 * *Feature* - Ability to hide and show the share button.
@@ -287,6 +293,9 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 = 1.0 =
 * Initial Release of Memphis Documents Library
 == Feature Request ==
+* *Feature* - Bulk Delete/Hide
+* *Feature* - Bulk move
+* *Feature* - Allow downloads only for registered users with specific levels of user i.e. editor/author etc.
 * *Feature* - Get thumbnails of the documents as the featured image for the post, as an alternative to Google Preview.
 * *Feature* - Give other user types the ability to upload files.
 * *Feature* - Short-code to add a download link to a post or page.
@@ -295,5 +304,5 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 * *Feature* - Batch upload choose a category for all file before uploading them.
 * *Feature* - Add a pdf preview on the description page
 * *Feature* - Add a tag editor to the add/update document page.
-* *Feature* - Create a separate area to store all posts related to Memphis Documents.
 * *Feature* - In the Media tab find a way to display the category of the documents created by Memphis Documents.
+* *Feature* - Connect to Cloud Services (DropBox, SkyDrive, MediaFire, etc.)
