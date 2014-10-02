@@ -603,7 +603,7 @@ function mdocs_custom_mime_types($existing_mimes=array()) {
 
 // GET ALL MDOCS POST AND DISPLAYS THEM ON THE MAIN PAGE.
 add_filter( 'pre_get_posts', 'mdocs_get_posts' );
-function mdocs_get_posts( $query ) { $query->set( 'post_type', array( 'post', 'mdocs-posts' ) ); }
+function mdocs_get_posts( $query ) { if ( is_home() && $query->is_main_query() ) $query->set( 'post_type', array( 'post', 'mdocs-posts' ) ); }
 // CREATES THE CUSTOM POST TYPE mDocs Posts which handles all the Memphis Document Libaray posts.
 function mdocs_post_pages() {
 	$labels = array(

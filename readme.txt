@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 4.0
-Stable tag: 2.6.7
+Stable tag: 2.6.7.1
 
 A documents library for WordPress.
 
@@ -32,6 +32,7 @@ Memphis Documents Library version *2.6.3* is an important sercurity update.  Ple
 * *Update* - Uninstall will not remove all saved variables , posts, files, categories, and directories for a single WordPress Site and also WordPress Multisite.
 * *Update* - Change the way date modified is handle, was using an array value now using file date modifed attribute.
 * *Update* - Updated localization files.
+* *Bug* - Fixed bug that caused pages not to load.
 * *Bug* - Error with javascript loading, if using WordPress Multisite network admin.
 * *Bug* - Fixed issue where Post Status was not displaying any statuses.
 * *Bug* - Batch upload was cutting of filenames with dots in them.
@@ -129,6 +130,8 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 7. screenshot-7.png
 
 == Changelog ==
+= 2.6.7.1 =
+* *Bug* - Fixed bug that caused pages not to load.
 = 2.6.7 =
 * *Update* - Removed the category mdocs-media.
 * *Update* - reduced the number of tags.
