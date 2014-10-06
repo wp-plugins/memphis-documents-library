@@ -234,6 +234,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-mime-table, .mdocs-mime-table th, .mdocs-mime-table td { background: #fff; border: solid 1px; padding: 3px; margin: 0; border-collapse: collapse; text-align: center; max-width: }
 /* RATING STYLE */
 .mdocs-ratings-stars { text-align: center; }
+.mdocs-ratings-stars i { cursor: pointer; }
 .mdocs-rating-container-small { cursor: pointer; clear: both; float: right; padding: 0 10px 10px 10px; }
 .mdocs-rating-container-small div:first-child { font-size: 11px; margin: auto; text-align: center;}
 .mdocs-rating-container-small div:last-child { font-size: 20px; margin: auto; text-align: center; color: #9d9d9d;}

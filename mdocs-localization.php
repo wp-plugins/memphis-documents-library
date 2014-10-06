@@ -55,6 +55,12 @@ function mdocs_ajax_processing() {
 		case 'sort':
 			mdocs_sort();
 			break;
+		case 'rating':
+			mdocs_ratings();
+			break;
+		case 'rating-submit':
+			mdocs_set_rating(intval($_POST['mdocs_file_id']));
+			break;
 	}
 	exit;
 }

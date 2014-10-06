@@ -3,9 +3,7 @@ function mdocs_ratings() {
 	if(isset($_POST['type']) && $_POST['type'] == 'rating') {
 		$mdocs = get_option('mdocs-list');
 		$mdocs_show_ratings = get_option( 'mdocs-show-ratings' );
-		$is_admin = $_POST['is_admin'];
 		$found = false;
-		
 		foreach($mdocs as $index => $the_mdoc) {
 			if(intval($the_mdoc['id']) == intval($_POST['mdocs_file_id']) && $found == false) {
 				if($mdocs_show_ratings) {
@@ -17,9 +15,9 @@ function mdocs_ratings() {
 					echo '<div class="mdocs-ratings-stars" data-my-rating="'.$the_rating['your_rating'].'">';
 					echo '<p>'.$text,'</p>';
 					for($i=1;$i<=5;$i++) {
-						if($the_rating['average'] >= $i) echo '<i class="fa fa-star fa-5x mdocs-gold mdocs-big-star mdocs-my-rating" id="'.$i.'"></i>';
-						elseif(ceil($the_rating['average']) == $i ) echo '<i class="fa fa-star-half-full fa-5x mdocs-gold mdocs-big-star mdocs-my-rating" id="'.$i.'"></i>';
-						else echo '<i class="fa fa-star-o fa-5x mdocs-big-star mdocs-my-rating" id="'.$i.'"></i>';
+						if($the_rating['average'] >= $i) echo '<i class="fa fa-star fa-5x mdocs-gold  mdocs-my-rating" id="'.$i.'"></i>';
+						elseif(ceil($the_rating['average']) == $i ) echo '<i class="fa fa-star-half-full fa-5x mdocs-gold mdocs-my-rating" id="'.$i.'"></i>';
+						else echo '<i class="fa fa-star-o fa-5x mdocs-my-rating" id="'.$i.'"></i>';
 					}
 					echo '</div>';
 					echo '</div>';
@@ -29,5 +27,17 @@ function mdocs_ratings() {
 			}
 		}
 	}
+}
+function mdocs_set_rating($the_index) {
+	global $current_user;
+	$avg = 0;
+	if(isset($_GET['mdocs-rating'])) $the_rating = $_GET['mdocs-rating'];
+	elseif(isset($_POST['mdocs-rating'])) $the_rating = intval($_POST['mdocs-rating']);
+	$the_list = get_option('mdocs-list');
+	$the_list[$the_index]['ratings'][$current_user->user_email] = $the_rating;
+	foreach($the_list[$the_index]['ratings'] as $index => $rating) $avg += $rating;
+	$the_list[$the_index]['rating'] = floatval(number_format($avg/count($the_list[$the_index]['ratings']),1));
+	update_option('mdocs-list', $the_list);
+	return $the_list[$the_index];
 }
 ?>

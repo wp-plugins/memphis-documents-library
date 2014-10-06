@@ -310,18 +310,6 @@ function mdocs_errors($error, $type='updated') {
     <?php
 }
 
-function mdocs_set_rating($the_index) {
-	global $current_user;
-	$avg = 0;
-	$the_rating = $_GET['mdocs-rating'];
-	$the_list = get_option('mdocs-list');
-	$the_list[$the_index]['ratings'][$current_user->user_email] = $the_rating;
-	foreach($the_list[$the_index]['ratings'] as $index => $rating) $avg += $rating;
-	$the_list[$the_index]['rating'] = floatval(number_format($avg/count($the_list[$the_index]['ratings']),1));
-	update_option('mdocs-list', $the_list);
-	return $the_list[$the_index];
-}
-
 function mdocs_get_rating($the_mdoc) {
 	global $current_user;
 	$avg = 0;
@@ -683,7 +671,7 @@ function mdocs_get_current_cat() {
 
 // GET ALL MDOCS POST AND DISPLAYS THEM ON THE MAIN PAGE.
 add_filter( 'pre_get_posts', 'mdocs_get_posts' );
-function mdocs_get_posts( $query ) { if ( is_home() && $query->is_main_query() ) $query->set( 'post_type', array( 'post', 'mdocs-posts' ) ); }
+function mdocs_get_posts( $query ) { if ( is_home() && $query->is_main_query() ||  $query->is_search) $query->set( 'post_type', array( 'post', 'mdocs-posts' ) ); }
 // CREATES THE CUSTOM POST TYPE mDocs Posts which handles all the Memphis Document Libaray posts.
 function mdocs_post_pages() {
 	$labels = array(

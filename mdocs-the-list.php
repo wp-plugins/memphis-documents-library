@@ -38,11 +38,16 @@ function mdocs_the_list($att=null) {
 		?>
 		<tr class="hidden-sm hidden-xs">
 		<th class="mdocs-sort-option" data-sort-type="name" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Name','mdocs'); ?><?php if($mdocs_sort_type == 'name') echo $mdocs_sort_style_icon; ?></th>
-		<th class="mdocs-sort-option" data-sort-type="downloads" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Downloads','mdocs'); ?><?php if($mdocs_sort_type == 'downloads') echo $mdocs_sort_style_icon; ?></th>
-		<th class="mdocs-sort-option" data-sort-type="version" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Version','mdocs'); ?><?php if($mdocs_sort_type == 'version') echo $mdocs_sort_style_icon; ?></th>
-		<th class="mdocs-sort-option" data-sort-type="owner" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Owner','mdocs'); ?><?php if($mdocs_sort_type == 'owner') echo $mdocs_sort_style_icon; ?></th>
-		<th class="mdocs-sort-option" data-sort-type="modified" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Updated','mdocs'); ?><?php if($mdocs_sort_type == 'modified') echo $mdocs_sort_style_icon; ?></th>
-		<th class="mdocs-sort-option" data-sort-type="rating" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Stars','mdocs'); ?><?php if($mdocs_sort_type == 'rating') echo $mdocs_sort_style_icon; ?></th>
+		<?php if(get_option('mdocs-show-downloads')) { ?>
+		<th class="mdocs-sort-option" data-sort-type="downloads" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Downloads','mdocs'); ?><?php if($mdocs_sort_type == 'downloads') echo $mdocs_sort_style_icon; ?></th><?php } ?>
+		<?php if(get_option('mdocs-show-version')) { ?>
+		<th class="mdocs-sort-option" data-sort-type="version" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Version','mdocs'); ?><?php if($mdocs_sort_type == 'version') echo $mdocs_sort_style_icon; ?></th><?php } ?>
+		<?php if(get_option('mdocs-show-owner')) { ?>
+		<th class="mdocs-sort-option" data-sort-type="owner" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Owner','mdocs'); ?><?php if($mdocs_sort_type == 'owner') echo $mdocs_sort_style_icon; ?></th><?php } ?>
+		<?php if(get_option('mdocs-show-updated')) { ?>
+		<th class="mdocs-sort-option" data-sort-type="modified" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Updated','mdocs'); ?><?php if($mdocs_sort_type == 'modified') echo $mdocs_sort_style_icon; ?></th><?php } ?>
+		<?php if(get_option('mdocs-show-ratings')) { ?>
+		<th class="mdocs-sort-option" data-sort-type="rating" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Rating','mdocs'); ?><?php if($mdocs_sort_type == 'rating') echo $mdocs_sort_style_icon; ?></th><?php } ?>
 		</tr>
 		<?php
 		// SUB CATEGORIES

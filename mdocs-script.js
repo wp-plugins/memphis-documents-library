@@ -262,30 +262,36 @@ function mdocs_ratings() {
 	//event.preventDefault();
 	var mdocs_file_id = jQuery(this).data('mdocs-id');
 	var mdocs_is_admin = jQuery(this).data('is-admin');
-	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'rating',mdocs_file_id: mdocs_file_id, wp_root: mdocs_js.wp_root, is_admin: mdocs_is_admin},function(data) {
+	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'rating',mdocs_file_id: mdocs_file_id, wp_root: mdocs_js.wp_root},function(data) {
 		jQuery('.mdocs-ratings-body').empty();
 		jQuery('.mdocs-ratings-body').html(data);
-		mdocs_submit_rating('large');
+		mdocs_submit_rating('large',mdocs_file_id);
 	});
     });
 }
-function mdocs_submit_rating(size) {
+function mdocs_submit_rating(size,file_id) {
     if (size == 'large') size = 'fa-5x';
     else size = '';
     jQuery('.mdocs-my-rating').click(function() {
-	window.location.href = '?mdocs-rating='+this.id;
+	if(size != 'fa-5x') window.location.href = '?mdocs-rating='+this.id;
+	else {
+	    jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'rating-submit',mdocs_file_id: file_id, 'mdocs-rating': jQuery(this).prop('id'), wp_root: mdocs_js.wp_root},function(data) {
+		    jQuery('.mdocs-ratings-stars').empty();
+		    jQuery('.mdocs-ratings-stars').html(data);
+		});
+	}
     });
     jQuery('.mdocs-my-rating').mouseover(function() {
 	for (index = 1; index < 6; ++index) {
-	    if (this.id >= index) jQuery('#'+index).prop('class', 'fa fa-star '+size+' mdocs-gold mdocs-big-star mdocs-my-rating');
-	    else  jQuery('#'+index).prop('class', 'fa fa-star-o '+size+' mdocs-big-star mdocs-my-rating');
+	    if (this.id >= index) jQuery('#'+index).prop('class', 'fa fa-star '+size+' mdocs-gold mdocs-my-rating');
+	    else  jQuery('#'+index).prop('class', 'fa fa-star-o '+size+' mdocs-my-rating');
 	}
     });
     
     jQuery('.mdocs-rating-container-small, .mdocs-rating-container').mouseover(function() {
 	if (init_rating == false) {
 	    for (index = 1; index < 6; ++index) {
-		if (jQuery('#'+index).hasClass("fa fa-star "+size+" mdocs-big-star")) {
+		if (jQuery('#'+index).hasClass("fa fa-star "+size+" ")) {
 		    the_rating = index;
 		}  
 	    }
@@ -298,8 +304,8 @@ function mdocs_submit_rating(size) {
 	//alert(my_rating);
 	console.debug(my_rating);
 	for (index = 1; index < 6; ++index) {
-	    if (the_rating >= index) jQuery('#'+index).prop('class', 'fa fa-star '+size+'  mdocs-gold mdocs-big-star mdocs-my-rating');
-	    else  jQuery('#'+index).prop('class', 'fa fa-star-o '+size+' mdocs-big-star mdocs-my-rating');
+	    if (the_rating >= index) jQuery('#'+index).prop('class', 'fa fa-star '+size+'  mdocs-gold mdocs-my-rating');
+	    else  jQuery('#'+index).prop('class', 'fa fa-star-o '+size+' mdocs-my-rating');
 	}
     });
 }
