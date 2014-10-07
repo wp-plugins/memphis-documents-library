@@ -120,6 +120,7 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 = 3.0 =
 * *Feature* - Added Finnish language support, thanks to *sloworks* for their hard work.
 * *Feature* - Interface improvements
+* *Update* - Removed the choice of size of list.  Large size document list caused performance issues and had to bee removed.
 * *Bug* - Fixed the XSS (Cross Site Scripting) issues root cause was using $_REQUEST inside a form.
 * *Bug* - Fixed the security vulnerabilities known as LFI/RFI, which stands for Local or Remote File Inclusion.
 * *Bug* - Fixed mime type bug, where mime types where not being removed properly.

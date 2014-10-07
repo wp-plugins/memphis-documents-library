@@ -107,7 +107,7 @@ function mdocs_batch_upload($current_cat) {
 				'id'=>(string)$upload['attachment_id'],
 				'parent'=>(string)$upload['parent_id'],
 				'filename'=>$upload['filename'],
-				'name'=>$upload['name'],
+				'name'=>$_POST['mdocs']['name'][0],
 				'desc'=>$upload['desc'],
 				'type'=>$result['type'],
 				'cat'=>$_POST['mdocs']['cat'][$index],

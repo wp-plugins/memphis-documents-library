@@ -50,18 +50,6 @@ function mdocs_settings($cat) {
 
 <table class="table form-table mdocs-settings-table">
 	<tr>
-		<th><?php _e('Document List Size: (Site)','mdocs'); ?></th>
-		<td>
-			<input type="radio" name="mdocs-list-type" value="small"  <?php checked( $mdocs_list_type, 'small') ?>/> <?php _e('small','mdocs'); ?><br>
-			<input type="radio" name="mdocs-list-type" value="large" <?php checked( $mdocs_list_type, 'large') ?>/> <?php _e('large','mdocs'); ?>
-		</td>
-		<th><?php _e('Document List Size: (Dashboard)','mdocs'); ?></th>
-		<td>
-			<input type="radio" name="mdocs-list-type-dashboard" value="small"  <?php checked( $mdocs_list_type_dashboard, 'small') ?>/> <?php _e('small','mdocs'); ?><br>
-			<input type="radio" name="mdocs-list-type-dashboard" value="large" <?php checked( $mdocs_list_type_dashboard, 'large') ?>/> <?php _e('large','mdocs'); ?>
-		</td>
-	</tr>
-	<tr>
 		<th><?php _e('Private File Post Viewing','mdocs'); ?></th>
 		<td>
 			<?php
