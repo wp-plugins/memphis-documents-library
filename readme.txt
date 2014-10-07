@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 4.0
-Stable tag: 2.6.7.1
+Stable tag: 2.6.8
 
 A documents library for WordPress.
 
@@ -43,6 +43,9 @@ Memphis Documents Library version *2.6.3* is an important sercurity update.  Ple
 * *Bug* - Fixed the XSS (Cross Site Scripting) issues root cause was using $_REQUEST inside a form.
 * *Bug* - Fixed the sercuirty vulnerabilities known as LFI/RFI, which stands for Local or Remote File Inclusion.
 * *Bug* - Fixed bug which didn't allow for viewing sub categories when using mdocs short codes.  This short code currently only works on main categories you can't target a subcategory to display.
+* *Bug* - Fixed Bulk uploader not allowing for editing of name.
+* *Bug* - Fixed Event Manger issues when using Memphis Documents.
+* *Bug* - Fixed Dashboard Large View not working.
 
 = Memphis Documents Library Features =
 
@@ -130,6 +133,10 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 7. screenshot-7.png
 
 == Changelog ==
+= 2.6.8 =
+* *Bug* - Fixed Bulk uploader not allowing for editing of name.
+* *Bug* - Fixed Event Manger issues when using Memphis Documents.
+* *Bug* - Fixed Dashboard Large View not working.
 = 2.6.7.1 =
 * *Bug* - Fixed bug that caused pages not to load.
 = 2.6.7 =
@@ -298,7 +305,6 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 == Feature Request ==
 * *Feature* - Bulk Delete/Hide
 * *Feature* - Bulk move
-* *Feature* - Allow downloads only for registered users with specific levels of user i.e. editor/author etc.
 * *Feature* - Get thumbnails of the documents as the featured image for the post, as an alternative to Google Preview.
 * *Feature* - Give other user types the ability to upload files.
 * *Feature* - Short-code to add a download link to a post or page.

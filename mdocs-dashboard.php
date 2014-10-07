@@ -130,12 +130,12 @@ function mdoc_doc_list($current_cat) {
 				} else {			
 					?>
 						<div class="mdocs-post">
-							<?php mdocs_file_info_large($value, 'dashboard', $index, $current_cat); ?>
+							<?php  echo mdocs_file_info_large($value, 'dashboard', $index, $current_cat); ?>
 							<div class="mdocs-clear-both"></div>
-							<?php mdocs_social($value); ?>
+							<?php  echo mdocs_social($value); ?>
 						</div>
 						<div class="mdocs-clear-both"></div>
-						<?php mdocs_des_preview_tabs($mdocs[$index]); ?>
+						<?php  echo mdocs_des_preview_tabs($mdocs[$index]); ?>
 						<div class="mdocs-clear-both"></div>
 						<?php mdocs_edit_file($value, $index, $current_cat); ?>
 						

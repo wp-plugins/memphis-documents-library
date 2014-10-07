@@ -249,42 +249,47 @@ function mdocs_post_page_shortcode($att, $content=null) {
 }
 add_shortcode( 'mdocs_post_page', 'mdocs_post_page_shortcode' );
 function mdocs_admin_script() {
-	wp_enqueue_script("jquery");
-	//JQUERY UI
-	wp_register_style( 'mdocs-jquery-ui-style', '//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
-	wp_enqueue_style( 'mdocs-jquery-ui-style' );
-	wp_enqueue_script( 'mdocs-jquery-ui-script', '//code.jquery.com/ui/1.10.3/jquery-ui.js' );
-	//MEMPHIS DOCS
-	wp_register_style( 'mdocs-admin-style', MDOC_URL.'/style.css');
-	wp_enqueue_style( 'mdocs-admin-style' );
-	wp_register_script( 'mdocs-admin-script', MDOC_URL.'/mdocs-script.js');
-	wp_enqueue_script('mdocs-admin-script');
-	mdocs_inline_css('mdocs-admin-style');
-	//FONT-AWESOME STYLE
-	wp_register_style( 'mdocs-font-awesome2-style', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
-	wp_enqueue_style( 'mdocs-font-awesome2-style' );
-	//WORDPRESS IRIS COLOR PICKER
-	wp_enqueue_style( 'wp-color-picker' );
-    wp_enqueue_script( 'mdocs-color-picker', plugins_url('mdocs-script.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
-	mdocs_js_handle('mdocs-admin-script');
+	if($_GET['page'] == 'memphis-documents.php') {
+		wp_enqueue_script("jquery");
+		//JQUERY UI
+		wp_register_style( 'mdocs-jquery-ui-style', '//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
+		wp_enqueue_style( 'mdocs-jquery-ui-style' );
+		if($_GET['post_type'] != 'event')	wp_enqueue_script( 'mdocs-jquery-ui-script', '//code.jquery.com/ui/1.10.3/jquery-ui.js' );
+		//MEMPHIS DOCS
+		wp_register_style( 'mdocs-admin-style', MDOC_URL.'/style.css');
+		wp_enqueue_style( 'mdocs-admin-style' );
+		wp_register_script( 'mdocs-admin-script', MDOC_URL.'/mdocs-script.js');
+		wp_enqueue_script('mdocs-admin-script');
+		mdocs_inline_css('mdocs-admin-style');
+		//FONT-AWESOME STYLE
+		wp_register_style( 'mdocs-font-awesome2-style', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
+		wp_enqueue_style( 'mdocs-font-awesome2-style' );
+		//WORDPRESS IRIS COLOR PICKER
+		wp_enqueue_style( 'wp-color-picker' );
+		wp_enqueue_script( 'mdocs-color-picker', plugins_url('mdocs-script.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
+		mdocs_js_handle('mdocs-admin-script');
+	}
 }
 
 function mdocs_script() {
-	wp_enqueue_script("jquery");
-	//JQUERY UI
-	wp_register_style( 'mdocs-jquery-ui-style', '//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
-	wp_enqueue_style( 'mdocs-jquery-ui-style' );
-	wp_enqueue_script( 'mdocs-jquery-ui-script', '//code.jquery.com/ui/1.10.3/jquery-ui.js' );
-	//MEMPHIS DOCS 
-	wp_register_script( 'mdocs-script', MDOC_URL.'mdocs-script.js');
-	wp_enqueue_script('mdocs-script');
-	wp_register_style( 'mdocs-style', MDOC_URL.'style.css');
-	wp_enqueue_style( 'mdocs-style' );
-	mdocs_inline_css('mdocs-style');
-	//FONT-AWESOME STYLE
-	wp_register_style( 'mdocs-font-awesome2-style', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
-	wp_enqueue_style( 'mdocs-font-awesome2-style' );
-	mdocs_js_handle('mdocs-script');
+	global $post;
+	if(get_post_type($post) == 'mdocs-posts' || has_shortcode( $post->post_content, 'mdocs' )) {
+		wp_enqueue_script("jquery");
+		//JQUERY UI
+		wp_register_style( 'mdocs-jquery-ui-style', '//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
+		wp_enqueue_style( 'mdocs-jquery-ui-style' );
+		wp_enqueue_script( 'mdocs-jquery-ui-script', '//code.jquery.com/ui/1.10.3/jquery-ui.js' );
+		//MEMPHIS DOCS 
+		wp_register_script( 'mdocs-script', MDOC_URL.'mdocs-script.js');
+		wp_enqueue_script('mdocs-script');
+		wp_register_style( 'mdocs-style', MDOC_URL.'style.css');
+		wp_enqueue_style( 'mdocs-style' );
+		mdocs_inline_css('mdocs-style');
+		//FONT-AWESOME STYLE
+		wp_register_style( 'mdocs-font-awesome2-style', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
+		wp_enqueue_style( 'mdocs-font-awesome2-style' );
+		mdocs_js_handle('mdocs-script');
+	}
 }
 
 function mdocs_inline_css($style_name) {
@@ -292,6 +297,8 @@ function mdocs_inline_css($style_name) {
 	wp_add_inline_style( $style_name, $set_inline_style );
 }
 function mdocs_document_ready_wp() {
+	global $post;
+	if(get_post_type($post) == 'mdocs-posts' || has_shortcode( $post->post_content, 'mdocs' )) {
 ?>
 <script type="application/x-javascript">
 		jQuery( document ).ready(function() {
@@ -299,9 +306,10 @@ function mdocs_document_ready_wp() {
 		});	
 	</script>
 <?php
+	}
 }
 function mdocs_document_ready_admin() {
-	if(!is_network_admin()) {
+	if(!is_network_admin() && $_GET['page'] == 'memphis-documents.php') {
 ?>
 <script type="application/x-javascript">
 		jQuery( document ).ready(function() {

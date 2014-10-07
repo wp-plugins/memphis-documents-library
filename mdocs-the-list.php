@@ -67,12 +67,12 @@ function mdocs_the_list($att=null) {
 						if( $show_files) {
 							?>
 							<div class="mdocs-post">
-								<?php mdocs_file_info_large($the_mdoc, 'site', $index, $current_cat); ?>
+								<?php echo mdocs_file_info_large($the_mdoc, 'site', $index, $current_cat); ?>
 								<div class="mdocs-clear-both"></div>
-								<?php mdocs_social($the_mdoc); ?>
+								<?php echo mdocs_social($the_mdoc); ?>
 							</div>
 							<div class="mdocs-clear-both"></div>
-							<?php mdocs_des_preview_tabs($the_mdoc); ?>
+							<?php echo mdocs_des_preview_tabs($the_mdoc); ?>
 							<div class="mdocs-clear-both"></div>
 							</div>
 							<?php
