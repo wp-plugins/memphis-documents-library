@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
 $the_rating = array();
 function mdocs_edit_file($the_mdocs, $index, $current_cat) {
 	?>
