@@ -137,6 +137,8 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 7. screenshot-7.png
 
 == Changelog ==
+= 2.7 =
+
 = 2.6.8.1 =
 * *Bug* - Fixed notices errors.
 * *Bug* - Fixed extra tr error.
