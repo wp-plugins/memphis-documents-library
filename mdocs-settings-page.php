@@ -65,7 +65,7 @@ function mdocs_settings($cat) {
 		<td>
 			<?php
 			$wp_roles = get_editable_roles(); 
-			$mdocs_roles = get_option('mdocs-view-private');
+			$mdocs_roles = mdocs_init_view_private();
 			foreach($wp_roles as $index => $role) {
 			?>
 			<input type="checkbox" name="mdocs-view-private[<?php echo $index; ?>]" value="1"  <?php checked($mdocs_roles[$index] , 1) ?> /> <span><?php echo $role['name']; ?></span><br>
@@ -316,7 +316,7 @@ function mdocs_filesystem_cleanup_submit() {
 	$cleanup = mdocs_filesystem_cleanup_init();
 	$upload_dir = wp_upload_dir();
 	foreach($cleanup['files'] as $file) {
-		unlink($file);
+		if(is_file($file)) unlink($file);
 	}
 	foreach($cleanup['data'] as $data) {
 		if(isset($data['id'])) wp_delete_attachment( intval($data['id']), true );

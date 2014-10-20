@@ -211,7 +211,7 @@ function mdocs_init_settings() {
 	add_option('mdocs-removed-mime-types', array());
 	if(is_string(get_option('mdocs-removed-mime-types'))) update_option('mdocs-removed-mime-types',array());
 	register_setting('mdocs-global-settings', 'mdocs-view-private');
-	add_option('mdocs-view-private', mdocs_init_view_private());
+	add_option('mdocs-view-private', array());
 	//Update View Private Users
 	mdocs_update_view_private_users();
 }
@@ -219,7 +219,7 @@ function mdocs_update_view_private_users() {
 	$mdocs_roles = get_option('mdocs-view-private');
 	$wp_roles = get_editable_roles();
 	foreach($wp_roles as $index => $wp_role) {
-		if($mdocs_roles[$index] == 1) {
+		if(isset($mdocs_roles[$index])) {
 			$add_role = get_role( $index );
 			$add_role->add_cap( 'read_private_pages' );
 			$add_role->add_cap( 'read_private_posts' );
@@ -233,15 +233,17 @@ function mdocs_update_view_private_users() {
 function mdocs_init_view_private() {
 	$roles = get_editable_roles();
 	$view_private = array();
+	$mdocs_roles = get_option('mdocs-view-private');
 	foreach($roles as $index => $role) {
-		$view_private[$index] = $role['capabilities']['read_private_pages'];
+		if(isset($role['capabilities']['read_private_pages'])) $mdocs_roles[$index] = $role['capabilities']['read_private_pages'];
+		else $mdocs_roles[$index] = false;
 	}
-	return $view_private;
+	return $mdocs_roles;
 }
 
 //ADD CONTENT TO DOCUMENTS PAGE
 //[mdocs]
-function mdocs_shortcode($att, $content=null) { mdocs_the_list($att); }
+function mdocs_shortcode($att, $content=null) { return mdocs_the_list($att); }
 add_shortcode( 'mdocs', 'mdocs_shortcode' );
 //[mdocs_post_page]
 function mdocs_post_page_shortcode($att, $content=null) {
@@ -249,12 +251,12 @@ function mdocs_post_page_shortcode($att, $content=null) {
 }
 add_shortcode( 'mdocs_post_page', 'mdocs_post_page_shortcode' );
 function mdocs_admin_script() {
-	if($_GET['page'] == 'memphis-documents.php') {
+	if(isset($_GET['page']) && $_GET['page'] == 'memphis-documents.php') {
 		wp_enqueue_script("jquery");
 		//JQUERY UI
 		wp_register_style( 'mdocs-jquery-ui-style', '//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
 		wp_enqueue_style( 'mdocs-jquery-ui-style' );
-		if($_GET['post_type'] != 'event')	wp_enqueue_script( 'mdocs-jquery-ui-script', '//code.jquery.com/ui/1.10.3/jquery-ui.js' );
+		wp_enqueue_script( 'mdocs-jquery-ui-script', '//code.jquery.com/ui/1.10.3/jquery-ui.js' );
 		//MEMPHIS DOCS
 		wp_register_style( 'mdocs-admin-style', MDOC_URL.'/style.css');
 		wp_enqueue_style( 'mdocs-admin-style' );
@@ -309,7 +311,7 @@ function mdocs_document_ready_wp() {
 	}
 }
 function mdocs_document_ready_admin() {
-	if(!is_network_admin() && $_GET['page'] == 'memphis-documents.php') {
+	if(!is_network_admin() && isset($_GET['page']) && $_GET['page'] == 'memphis-documents.php') {
 ?>
 <script type="application/x-javascript">
 		jQuery( document ).ready(function() {

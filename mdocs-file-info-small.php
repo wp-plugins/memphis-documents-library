@@ -120,7 +120,6 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 				} ?>
 			</td>
 		</tr>
-		<tr>
 <?php
 	}
 }

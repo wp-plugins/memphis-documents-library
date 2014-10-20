@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL);
 $the_rating = array();
 function mdocs_edit_file($the_mdocs, $index, $current_cat) {
 	?>
@@ -172,7 +173,7 @@ function mdocs_process_file($file, $import=false) {
 		wp_update_attachment_metadata( $mdocs_attach_id, $mdocs_attach_data );
 		$upload['parent_id'] = $mdocs_post_id;
 		$upload['attachment_id'] = $mdocs_attach_id;
-		wp_set_post_tags( $mdocs_post_id, $upload['name'].', '.$file['cat'].', memphis documents library, '.$wp_filetype['type'] );
+		wp_set_post_tags( $mdocs_post_id, $upload['name'].', memphis documents library, '.$wp_filetype['type'] );
 	} elseif($mdocs_type == 'mdocs-update') {
 		$post_content = get_post($file['parent'])->post_content;
 		$post_content = str_replace('[mdocs_post_page new=true]','[mdocs_post_page]',$post_content);
@@ -201,7 +202,7 @@ function mdocs_process_file($file, $import=false) {
 		$mdocs_attach_id = wp_update_post( $attachment );
 		$mdocs_attach_data = wp_generate_attachment_metadata( $mdocs_attach_id, $upload['file'] );
 		wp_update_attachment_metadata( $mdocs_attach_id, $mdocs_attach_data );
-		wp_set_post_tags( $mdocs_post_id, $upload['name'].', '.$file['cat'].', memphis documents library, '.$wp_filetype['type'] );
+		wp_set_post_tags( $mdocs_post_id, $upload['name'].', memphis documents library, '.$wp_filetype['type'] );
 	}
 	$upload['desc'] = $desc;
 	return $upload;
@@ -220,7 +221,7 @@ function filter_post_edit_screen($query) {
 
 function mdocs_nonce() {
 	session_start();
-	$post_mdocs_nonce = sanitize_text_field($_REQUEST['mdocs-nonce']);
+	//$post_mdocs_nonce = sanitize_text_field($_REQUEST['mdocs-nonce']);
 	$session_mdocs_nonce = sanitize_text_field($_SESSION['mdocs-nonce']);
 	if(isset($_SESSION['mdocs-nonce'])) define('MDOCS_NONCE',$_SESSION['mdocs-nonce']);
 	if(!isset($_SESSION['mdocs-nonce']) || isset($_REQUEST['mdocs-nonce'])) $_SESSION['mdocs-nonce'] = md5(rand(0,1000000));
@@ -629,7 +630,7 @@ function mdocs_post_pages() {
 		'show_ui'             	=> true,
 		'show_in_menu' 		=> true,
 		'query_var'           	=> true,
-		'rewrite'             		=> array( 'slug' => $slug ),
+		'rewrite'             		=> array( 'slug' => '' ),
 		'capability_type'     	=> 'post',
 		'has_archive'         	=> true,
 		'hierarchical'        	=> false,
