@@ -128,6 +128,8 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 * *Bug* - Fixed bug which didn't allow for viewing sub categories when using mdocs short codes.  This short code currently only works on main categories you can't target a subcategory to display.
 * *Bug* - Fixed sercuirty issues using $_REQUEST inside a form.
 * *Bug* - Fixed sercuirty issue Local or Remote File Inclusion.
+* *Bug* - Fixed Batch Upload naming issue.
+* *Bug* - Added a missing div tag to list.
 * *Bug* - Fixed a bug when creating categories a nul category would be created that could not be delete.
 = 2.6.1 =
 * *Update* - Change the way date modified is handle, was using an array value now using file date modified attribute.
