@@ -87,6 +87,7 @@ function mdocs_the_list($att=null) {
 		}
 		if(get_option('mdocs-list-type') == 'small') echo '</table>';
 	} else mdocs_errors(__('Unable to create the directory "mdocs" which is needed by Memphis Documents Library. Its parent directory is not writable by the server?','mdocs'),'error');
+	echo '</div>';
 	$the_list = ob_get_clean();
 	return $the_list;
 }

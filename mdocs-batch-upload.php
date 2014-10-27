@@ -82,7 +82,6 @@ function mdocs_batch_upload($current_cat) {
 	$current_user = wp_get_current_user();
 	$batch_log = '';
 	foreach($_POST['mdocs']['tmp-file'] as $index => $tmp) {
-		var_dump($_POST['mdocs']['name']);
 		$valid_mime_type = false;
 		$file['name'] = $_POST['mdocs']['filename'][$index];
 		$result = wp_check_filetype($tmp);
@@ -107,7 +106,7 @@ function mdocs_batch_upload($current_cat) {
 				'id'=>(string)$upload['attachment_id'],
 				'parent'=>(string)$upload['parent_id'],
 				'filename'=>$upload['filename'],
-				'name'=>$_POST['mdocs']['name'][0],
+				'name'=>$_POST['mdocs']['name'][$index],
 				'desc'=>$upload['desc'],
 				'type'=>$result['type'],
 				'cat'=>$_POST['mdocs']['cat'][$index],

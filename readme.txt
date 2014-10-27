@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 4.0
-Stable tag: 2.6.8.1.1
+Stable tag: 2.6.9
 
 A documents library for WordPress.
 
@@ -50,6 +50,8 @@ Memphis Documents Library version *2.6.3* is an important sercurity update.  Ple
 * *Bug* - Fixed extra tr error.
 * *Bug* - Fixed issue where text was not being put in the right place on a mDocs list, now content will display as published on all mDocs lists.
 * *Bug* - Fixed error if file was not found.
+* *Bug* - Fixed Batch Upload naming issue.
+* *Bug* - Added a missing div tag to list.
 
 = Memphis Documents Library Features =
 
@@ -137,8 +139,9 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 7. screenshot-7.png
 
 == Changelog ==
-= 2.7 =
-
+= 2.6.9 =
+* *Bug* - Fixed Batch Upload naming issue.
+* *Bug* - Added a missing div tag to list.
 = 2.6.8.1 =
 * *Bug* - Fixed notices errors.
 * *Bug* - Fixed extra tr error.
