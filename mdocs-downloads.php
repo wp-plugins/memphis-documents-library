@@ -43,7 +43,7 @@ function mdocs_download_file($export_file='') {
 	$filetype = wp_check_filetype($file );
 	//if(mdocs_is_bot()) mdocs_send_bot_alert();
 	
-	if($login_denied == false ) {
+	if($login_denied == false || is_modcs_google_doc_viewer()) {
 		if (file_exists($file) && mdocs_is_bot() == false  ) {		
 			header('Content-Description: File Transfer');
 			header('Content-Type: '.$filetype['type']);

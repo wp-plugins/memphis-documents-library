@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 4.0
-Stable tag: 2.6.9
+Stable tag: 2.6.10
 
 A documents library for WordPress.
 
@@ -32,6 +32,7 @@ Memphis Documents Library version *2.6.3* is an important sercurity update.  Ple
 * *Update* - Uninstall will not remove all saved variables , posts, files, categories, and directories for a single WordPress Site and also WordPress Multisite.
 * *Update* - Change the way date modified is handle, was using an array value now using file date modifed attribute.
 * *Update* - Updated localization files.
+* *Update* - Added a slug name to the custom post recreating function.
 * *Bug* - Fixed bug that caused pages not to load.
 * *Bug* - Error with javascript loading, if using WordPress Multisite network admin.
 * *Bug* - Fixed issue where Post Status was not displaying any statuses.
@@ -52,6 +53,7 @@ Memphis Documents Library version *2.6.3* is an important sercurity update.  Ple
 * *Bug* - Fixed error if file was not found.
 * *Bug* - Fixed Batch Upload naming issue.
 * *Bug* - Added a missing div tag to list.
+* *Bug* - Added the ability to see document previews when logged in.
 
 = Memphis Documents Library Features =
 
@@ -69,6 +71,10 @@ Memphis Documents Library version *2.6.3* is an important sercurity update.  Ple
 * Customization of download button
 
 == Frequently Asked Questions ==
+
+= 404 Error when trying to access document page =
+
+If you get a 404 error when trying to access your Memphis documents pages try going to Setting>Permalinks and pressing Save.  This may solve the issue, if it doesn't please contact me for more support.
 
 = Mempihs Documents Library look wrong in IE =
 
@@ -139,6 +145,9 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 7. screenshot-7.png
 
 == Changelog ==
+= 2.6.10 =
+* *Update* - Added a slug name to the custom post recreating function.
+* *Bug* - Added the ability to see document previews when logged in.
 = 2.6.9 =
 * *Bug* - Fixed Batch Upload naming issue.
 * *Bug* - Added a missing div tag to list.

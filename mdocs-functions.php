@@ -630,7 +630,7 @@ function mdocs_post_pages() {
 		'show_ui'             	=> true,
 		'show_in_menu' 		=> true,
 		'query_var'           	=> true,
-		'rewrite'             		=> array( 'slug' => '' ),
+		'rewrite'             		=> array( 'slug' => 'mdocs-posts' ),
 		'capability_type'     	=> 'post',
 		'has_archive'         	=> true,
 		'hierarchical'        	=> false,
