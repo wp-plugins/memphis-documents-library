@@ -126,7 +126,7 @@ function mdocs_batch_upload($current_cat) {
 				'rating'=>0
 			));
 			$mdocs = mdocs_array_sort($mdocs, 'name', SORT_ASC);
-			update_option('mdocs-list', $mdocs);
+			mdocs_save_list($mdocs);
 			$batch_log .= _('Mime Type Allowed => ').$result['type']."<br>";
 			$batch_log .= _('File Uploaded with No Errors.')."<br><br>";
 		} else {

@@ -29,7 +29,7 @@ function mdocs_social($the_mdoc, $page_type='site') {
 	} else {
 		?>
 		<div class="mdocs-social"  >
-			<h2><?php _e('This page is hidden to all users accepts admins.','mdocs'); ?></h2>
+			<!--<h2><?php _e('This page is hidden to all users accepts admins.','mdocs'); ?></h2>-->
 		<?php
 	}
 	$the_social = ob_get_clean();
