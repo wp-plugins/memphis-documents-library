@@ -20,11 +20,6 @@ function mdocs_dashboard_menu() {
 
 function mdocs_dashboard() {
 	global $add_error;
-	//update_option('mdocs-list',array());
-	//$list = get_option('mdocs-list');
-	//var_dump($list);
-	//$cats = get_option('mdocs-cats');
-	//var_dump($cats[0]['children']);
 	if(isset($_FILES['mdocs']) && $_FILES['mdocs']['name'] != '' && $_POST['mdocs-type'] == 'mdocs-add') mdocs_file_upload();
 	if(isset($_FILES['mdocs']) && $_POST['mdocs-type'] == 'mdocs-update') mdocs_file_upload();
 	elseif(isset($_GET['action']) && $_GET['action'] == 'add-doc' && MDOCS_NONCE == $_SESSION['mdocs-nonce'] && !isset($_GET['mdocs-sort'])) mdocs_uploader(__('Add Document','mdocs'));
@@ -164,7 +159,7 @@ function mdocs_delete() {
 		if(file_exists($upload_dir['basedir'].'/mdocs/'.$mdocs_file['filename'])) @unlink($upload_dir['basedir'].'/mdocs/'.$mdocs_file['filename']);
 		unset($mdocs[$index]);
 		$mdocs = array_values($mdocs);
-		update_option('mdocs-list', $mdocs);
+		mdocs_save_list($mdocs);
 	} else mdocs_errors(MDOCS_ERROR_4,'error');
 }
 

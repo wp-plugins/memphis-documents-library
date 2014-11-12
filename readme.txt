@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 4.0
-Stable tag: 2.6.10
+Stable tag: 2.6.11
 
 A documents library for WordPress.
 
@@ -20,6 +20,7 @@ Memphis Documents Library version *2.6.3* is an important sercurity update.  Ple
 
 = What's New With Version 2.6 =
 
+* *New* - Added more safety check for lost of data.
 * *New* - Moved Memphis Document Library post into there own custom post type.
 * *New* - Ability to hide and show the share button.
 * *New* - Added Finnish language support, thanks to *sloworks* for their hard work.
@@ -33,6 +34,7 @@ Memphis Documents Library version *2.6.3* is an important sercurity update.  Ple
 * *Update* - Change the way date modified is handle, was using an array value now using file date modifed attribute.
 * *Update* - Updated localization files.
 * *Update* - Added a slug name to the custom post recreating function.
+* *Update* - Changed the google docs link to google drive.
 * *Bug* - Fixed bug that caused pages not to load.
 * *Bug* - Error with javascript loading, if using WordPress Multisite network admin.
 * *Bug* - Fixed issue where Post Status was not displaying any statuses.
@@ -145,6 +147,9 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 7. screenshot-7.png
 
 == Changelog ==
+= 2.6.11 =
+* *Feature* - Added more safety check for lost of data.
+* *Update* - Changed the google docs link to google drive.
 = 2.6.10 =
 * *Update* - Added a slug name to the custom post recreating function.
 * *Bug* - Added the ability to see document previews when logged in.

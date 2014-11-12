@@ -316,14 +316,14 @@ function mdocs_filesystem_cleanup_submit() {
 	$cleanup = mdocs_filesystem_cleanup_init();
 	$upload_dir = wp_upload_dir();
 	foreach($cleanup['files'] as $file) {
-		if(is_file($file)) unlink($file);
+		if(is_file($upload_dir['basedir'].MDOCS_DIR.$file)) unlink($upload_dir['basedir'].MDOCS_DIR.$file);
 	}
 	foreach($cleanup['data'] as $data) {
 		if(isset($data['id'])) wp_delete_attachment( intval($data['id']), true );
 		if(isset($data['parent'])) wp_delete_post( intval($data['parent']), true );
 		unset($mdocs[$data['index']]);
 		$mdocs = array_values($mdocs);
-		update_option('mdocs-list',$mdocs);
+		mdocs_save_list($mdocs);
 	}
 	
 	//wp_delete_attachment( intval($mdocs[$key]['id']), true );
@@ -349,6 +349,10 @@ function mdocs_filesystem_cleanup_init() {
 				break;
 			}
 			if($the_file == $mdocs_zip_file) {
+				$valid_file = true;
+				break;
+			}
+			if($the_file == 'mdocs-files.bak') {
 				$valid_file = true;
 				break;
 			}

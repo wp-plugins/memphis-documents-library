@@ -94,5 +94,6 @@ function mdocs_localize() {
 	define('MDOCS_ERROR_4',__('Data was not submitted.  The submit process is out of sync, please refresh your browser and try again.','mdocs'));
 	define('MDOCS_ERROR_5', __('File Upload Error.  Please try again.','mdocs'));
 	define('MDOCS_ERROR_6', __('You are already at the most recent version of this document.','mdocs'));
+	define('MDOCS_ERROR_7', __('An error has occured please try again.','mdocs'));
 }
 ?>

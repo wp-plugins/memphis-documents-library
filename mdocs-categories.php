@@ -181,7 +181,6 @@ function mdocs_cleanup_cats($value) {
 			}
 		}
 	}
-
-	update_option('mdocs-list',$mdocs);
+	mdocs_save_list($mdocs);
 }
 ?>

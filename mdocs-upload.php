@@ -73,7 +73,7 @@ function mdocs_file_upload() {
 							'rating'=>0
 						));
 						$mdocs = mdocs_array_sort($mdocs, 'name', SORT_ASC);
-						update_option('mdocs-list', $mdocs);
+						mdocs_save_list($mdocs);
 					} else mdocs_errors(MDOCS_ERROR_5,'error');
 				} else mdocs_errors(MDOCS_ERROR_2 , 'error');
 			} elseif($mdocs_type == 'mdocs-update') {
@@ -112,7 +112,7 @@ function mdocs_file_upload() {
 							$mdocs[$mdocs_index]['doc_preview'] =(string)$mdocs_doc_preview;
 							array_push($mdocs[$mdocs_index]['archived'], $old_doc_name);
 							$mdocs = mdocs_array_sort($mdocs, 'name', SORT_ASC);
-							update_option('mdocs-list', $mdocs);
+							mdocs_save_list($mdocs); 
 						} else mdocs_errors(MDOCS_ERROR_5,'error');
 					} else mdocs_errors(MDOCS_ERROR_2 , 'error');
 				} else {
@@ -150,7 +150,7 @@ function mdocs_file_upload() {
 					);
 					wp_update_post( $mdocs_attachment );
 					$mdocs = mdocs_array_sort($mdocs, 'name', SORT_ASC);
-					update_option('mdocs-list', $mdocs);
+					mdocs_save_list($mdocs); 
 				}
 			}
 		} else mdocs_errors(MDOCS_ERROR_3,'error');
