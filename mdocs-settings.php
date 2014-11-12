@@ -22,6 +22,15 @@ function mdocs_register_settings() {
 	$upload_dir = wp_upload_dir();
 	$is_read_write = mdocs_check_read_write();
 	if($is_read_write) {
+		//BACKUP FILE CREATE
+		$backup_list = json_encode(get_option('mdocs-list'));
+		$current_list = get_option('mdocs-list');
+		if($current_list != null) file_put_contents($upload_dir['basedir'].MDOCS_DIR.'mdocs-files.bak', $backup_list);
+		elseif(file_exists($upload_dir['basedir'].MDOCS_DIR.'mdocs-files.bak')) {
+			$backup_list = json_decode(file_get_contents($upload_dir['basedir'].MDOCS_DIR.'mdocs-files.bak'),true);
+			update_option('mdocs-list', $backup_list);
+			mdocs_errors(MDOCS_ERROR_7,'error'); 
+		} 
 		// PATCHES
 		// 2.6.6
 		register_setting('mdocs-patch-vars', 'mdocs-v2-6-6-patch-var-1');
@@ -78,19 +87,19 @@ function mdocs_register_settings() {
 		register_setting('mdocs-settings', 'mdocs-2-1-patch-1');
 		add_option('mdocs-2-1-patch-1',false);
 		if(get_option('mdocs-2-1-patch-1') == false  && is_array(get_option('mdocs-list'))) {
-			$the_list = get_option('mdocs-list');
+			$mdocs = get_option('mdocs-list');
 			foreach(get_option('mdocs-list') as $index => $the_mdoc) {
 				if(!is_array($the_mdoc['ratings'])) {
 					$the_mdoc['ratings'] = array();
 					$the_mdoc['rating'] = 0;
-					$the_list[$index] = $the_mdoc;
+					$mdocs[$index] = $the_mdoc;
 				}
-				if(!key_exists('rating', $the_list)) {
+				if(!key_exists('rating', $mdocs)) {
 					$the_mdoc['rating'] = 0;
-					$the_list[$index] = $the_mdoc;
+					$mdocs[$index] = $the_mdoc;
 				}
 			}
-			update_option('mdocs-list', $the_list);
+			mdocs_save_list($mdocs);
 			update_option('mdocs-2-1-patch-1', true);
 		} else update_option('mdocs-2-1-patch-1', true);
 		// Creating File Structure

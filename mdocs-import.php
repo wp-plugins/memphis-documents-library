@@ -74,8 +74,10 @@ function mdocs_import_zip() {
 				foreach($zip_result['file'] as $file) { 
 					if(is_file($file)) unlink($file);
 				}
+				if(isset($zip_result['dir'])) {
 				foreach($zip_result['dir'] as $dir) { 
 					rmdir($dir);
+				}
 				}
 				$files = glob($upload_dir['basedir'].'/mdocs-backup/*'); 
 				foreach($files as $file) { 
@@ -96,7 +98,7 @@ function mdocs_import_zip() {
 						wp_delete_post( intval($mdocs[$key]['parent']), true );
 						mdocs_unzip($mdocs_zip_file, $upload_dir['basedir']);
 					}
-					update_option('mdocs-list', $mdocs_list_file);
+					mdocs_save_list($mdocs_list_file);
 					update_option('mdocs-cats', $mdocs_cats_file);
 					$cats = get_option('mdocs-cats');
 					$mdocs = array();
@@ -194,7 +196,7 @@ function mdocs_import_zip() {
 						'doc_preview'=>$mdocs_list_file[$key]['doc_preview'],
 					));
 					//$mdocs = mdocs_array_sort($mdocs, 'name', SORT_ASC);
-					update_option('mdocs-list', $mdocs);
+					mdocs_save_list($mdocs);
 				}
 				$files = glob($upload_dir['basedir'].'/mdocs-backup/*'); 
 				foreach($files as $file){ 

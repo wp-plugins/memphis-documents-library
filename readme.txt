@@ -122,11 +122,13 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 
 == Change-log ==
 = 3.0 =
+* *Feature* - Added more safety check for lost of data.
 * *Feature* - Added Finnish language support, thanks to *sloworks* for their hard work.
 * *Feature* - Interface improvements
 * *Update* - Removed the choice of size of list.  Large size document list caused performance issues and had to bee removed.
 * *Update* - Added a slug name to the custom post recreating function.
 * *Update* - Added the ability to see document previews when logged in.
+* *Update* - Changed the google docs link to google drive.
 * *Bug* - Fixed the XSS (Cross Site Scripting) issues root cause was using $_REQUEST inside a form.
 * *Bug* - Fixed the security vulnerabilities known as LFI/RFI, which stands for Local or Remote File Inclusion.
 * *Bug* - Fixed mime type bug, where mime types where not being removed properly.

@@ -331,7 +331,7 @@ function mdocs_get_rating($the_mdoc) {
 }
 
 function is_modcs_google_doc_viewer() {
-	if(stripos($_SERVER['HTTP_USER_AGENT'], 'via docs.google.com' )) return true;
+	if(stripos($_SERVER['HTTP_USER_AGENT'], 'AppsViewer; http://drive.google.com' )) return true;
 	else return false;
 }
 
@@ -409,7 +409,7 @@ function mdocs_hide_show_toogle() {
 				wp_update_post( $update_post );
 				$mdocs[$mdoc]['post_status'] = $post_status;
 			}
-			update_option('mdocs-list', $mdocs);
+			mdocs_save_list($mdocs);
 			update_option( 'mdocs-hide-all-posts-non-members-default', false );
 		}
 	}
@@ -708,3 +708,8 @@ function mdocs_post_pages() {
 	register_post_type( 'mdocs-posts', $args );
 }
 add_action( 'init', 'mdocs_post_pages' );
+
+function mdocs_save_list($mdocs_list) {
+	if($mdocs_list != null) update_option('mdocs-list', $mdocs_list);
+	else mdocs_errors(MDOCS_ERROR_7,'error'); 
+}

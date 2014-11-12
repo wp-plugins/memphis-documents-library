@@ -33,11 +33,11 @@ function mdocs_set_rating($the_index) {
 	$avg = 0;
 	if(isset($_GET['mdocs-rating'])) $the_rating = $_GET['mdocs-rating'];
 	elseif(isset($_POST['mdocs-rating'])) $the_rating = intval($_POST['mdocs-rating']);
-	$the_list = get_option('mdocs-list');
-	$the_list[$the_index]['ratings'][$current_user->user_email] = $the_rating;
-	foreach($the_list[$the_index]['ratings'] as $index => $rating) $avg += $rating;
-	$the_list[$the_index]['rating'] = floatval(number_format($avg/count($the_list[$the_index]['ratings']),1));
-	update_option('mdocs-list', $the_list);
-	return $the_list[$the_index];
+	$mdocs = get_option('mdocs-list');
+	$mdocs[$the_index]['ratings'][$current_user->user_email] = $the_rating;
+	foreach($mdocs[$the_index]['ratings'] as $index => $rating) $avg += $rating;
+	$mdocs[$the_index]['rating'] = floatval(number_format($avg/count($mdocs[$the_index]['ratings']),1));
+	mdocs_save_list($mdocs);
+	return $mdocs[$the_index];
 }
 ?>

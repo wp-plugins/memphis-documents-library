@@ -122,7 +122,7 @@ function mdocs_delete() {
 		if(file_exists($upload_dir['basedir'].'/mdocs/'.$mdocs_file['filename'])) @unlink($upload_dir['basedir'].'/mdocs/'.$mdocs_file['filename']);
 		unset($mdocs[$index]);
 		$mdocs = array_values($mdocs);
-		update_option('mdocs-list', $mdocs);
+		mdocs_save_list($mdocs);
 	} else mdocs_errors(MDOCS_ERROR_4,'error');
 }
 

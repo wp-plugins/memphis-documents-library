@@ -99,7 +99,7 @@ function mdocs_delete_version() {
 		unset($the_mdoc['archived'][$archive_index]);
 		$the_mdoc['archived'] = array_values($the_mdoc['archived']);
 		$mdocs[$index] = $the_mdoc;
-		update_option('mdocs-list',$mdocs);
+		mdocs_save_list($mdocs);
 		unlink($upload_dir['basedir'].'/mdocs/'.$version_file);
 	} else mdocs_errors(MDOCS_ERROR_4,'error');
 }
@@ -135,7 +135,7 @@ function mdocs_update_revision() {
 			$mdocs[$mdocs_index]['modified'] = (string)time();
 			array_push($mdocs[$mdocs_index]['archived'], $old_doc_name);
 			$mdocs = mdocs_array_sort($mdocs, 'name', SORT_ASC);
-			update_option('mdocs-list', $mdocs);
+			mdocs_save_list($mdocs);
 			$wp_filetype = wp_check_filetype($upload_dir['basedir'].'/mdocs/'.$filename, null );
 			$mdocs_post = array(
 				'ID' => $the_mdoc['parent'],

@@ -37,7 +37,7 @@ function mdocs_download_file($export_file='') {
 	
 	if(mdocs_is_bot() == false && $login_denied == false && !isset($_GET['mdocs-export-file']) &&  is_modcs_google_doc_viewer() === false && !isset($_GET['mdocs-version'])) {
 		$mdocs[$index]['downloads'] = (string)(intval($mdocs[$index]['downloads'])+1);
-		update_option('mdocs-list', $mdocs);
+		mdocs_save_list($mdocs);
 	}
 	
 	if(isset($_GET['mdocs-export-file'])) mdocs_export_zip();
