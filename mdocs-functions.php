@@ -462,9 +462,9 @@ function mdocs_check_read_write() {
 function mdocs_doc_preview($file,$echo=true) {
 	if($echo) {
 	?>
-	<iframe class="mdocs-google-doc" src="https://docs.google.com/viewer?url=<?php echo $file; ?>&embedded=true" style="border: none;"></iframe>
+	<iframe class="mdocs-google-doc" src="//drive.google.com/viewer?url=<?php echo $file; ?>&embedded=true" style="border: none;"></iframe>
 	<?php
-	} else  return '<iframe class="mdocs-google-doc" src="https://docs.google.com/viewer?url='.$file.'&embedded=true" style="border: none;"></iframe>';
+	} else  return '<iframe class="mdocs-google-doc" src="//drive.google.com/viewer?url='.$file.'&embedded=true" style="border: none;"></iframe>';
 }
 
 function mdocs_file_access($the_mdoc) {
