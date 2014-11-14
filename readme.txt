@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 4.0
-Stable tag: 2.6.11
+Stable tag: 2.6.12
 
 A documents library for WordPress.
 
@@ -147,6 +147,8 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 7. screenshot-7.png
 
 == Changelog ==
+= 2.6.12 =
+* minor update to google preview.
 = 2.6.11 =
 * *Feature* - Added more safety check for lost of data.
 * *Update* - Changed the google docs link to google drive.
@@ -342,3 +344,4 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 * *Feature* - Add a tag editor to the add/update document page.
 * *Feature* - In the Media tab find a way to display the category of the documents created by Memphis Documents.
 * *Feature* - Connect to Cloud Services (DropBox, SkyDrive, MediaFire, etc.)
+* *Feature* - Add an option in the Settings to change the date format from default European (dd-mm-yy) to American (mm-dd-yy)

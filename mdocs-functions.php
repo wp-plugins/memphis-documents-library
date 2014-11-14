@@ -483,9 +483,9 @@ function mdocs_doc_preview($file,$echo=true) {
 	if($echo) {
 	?>
 	<!--<iframe id="viewer" src = "<?php echo $view_js_url.'/#'.$file; ?>" width='100%' height='100%' style="text-align:center;" allowfullscreen webkitallowfullscreen></iframe>-->
-	<iframe class="mdocs-google-doc" src="https://docs.google.com/viewer?url=<?php echo $file; ?>&embedded=true" style="border: none;"></iframe>
+	<iframe class="mdocs-google-doc" src="//drive.google.com/viewer?url=<?php echo $file; ?>&embedded=true" style="border: none;"></iframe>
 	<?php
-	} else  return '<iframe class="mdocs-google-doc" src="https://docs.google.com/viewer?url='.$file.'&embedded=true" style="border: none;"></iframe>';
+	} else  return '<iframe class="mdocs-google-doc" src="//drive.google.com/viewer?url='.$file.'&embedded=true" style="border: none;"></iframe>';
 }
 
 function mdocs_file_access($the_mdoc) {
