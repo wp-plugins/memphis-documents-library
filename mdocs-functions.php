@@ -24,7 +24,7 @@ function  mdocs_des_preview_tabs($the_mdoc) {
 	$mdocs_show_preview = get_option('mdocs-show-preview');
 	$upload_dir = wp_upload_dir();
 	//$file_url = $upload_dir['baseurl'].MDOCS_DIR.$the_mdoc['filename'];
-	$file_url = get_site_url().'?mdocs-file='.$the_mdoc['id'].'&mdocs-url='.$the_mdoc['parent'];
+	$file_url = get_site_url().'/?mdocs-file='.$the_mdoc['id'].'&mdocs-url='.$the_mdoc['parent'];
 	ob_start();
 	?>
 	<?php if($mdocs_show_description && $mdocs_show_preview) { ?><a class="mdocs-nav-tab" id="mdoc-show-desc-<?php echo $the_mdoc['id']; ?>">Description</a><?php } ?>
@@ -479,13 +479,11 @@ function mdocs_check_read_write() {
 }
 
 function mdocs_doc_preview($file,$echo=true) {
-	//$view_js_url = plugins_url().'/memphis-documents-library'.'/ViewerJS';
 	if($echo) {
 	?>
-	<!--<iframe id="viewer" src = "<?php echo $view_js_url.'/#'.$file; ?>" width='100%' height='100%' style="text-align:center;" allowfullscreen webkitallowfullscreen></iframe>-->
-	<iframe class="mdocs-google-doc" src="//drive.google.com/viewer?url=<?php echo $file; ?>&embedded=true" style="border: none;"></iframe>
+	<iframe class="mdocs-google-doc" src="//drive.google.com/viewerng/viewer?url=<?php echo  $file; ?>&embedded=true" style="border: none;"></iframe>
 	<?php
-	} else  return '<iframe class="mdocs-google-doc" src="//drive.google.com/viewer?url='.$file.'&embedded=true" style="border: none;"></iframe>';
+	} else  return '<iframe class="mdocs-google-doc" src="//drive.google.com/viewerng/viewer?url='.$file.'&embedded=true" style="border: none;"></iframe>';
 }
 
 function mdocs_file_access($the_mdoc) {

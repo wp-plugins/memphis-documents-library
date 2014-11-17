@@ -20,7 +20,7 @@ function mdocs_load_preview() {
 			if(intval($the_mdoc['id']) == intval($_POST['mdocs_file_id']) && $found == false) {
 				$upload_dir = wp_upload_dir();
 				//$file_url = $upload_dir['baseurl'].MDOCS_DIR.$the_mdoc['filename'];
-				$file_url = get_site_url().'?mdocs-file='.$the_mdoc['id'].'&mdocs-url='.$the_mdoc['parent'];
+				$file_url = get_site_url().'/?mdocs-file='.$the_mdoc['id'].'&mdocs-url='.$the_mdoc['parent'];
 				?>
 				<h1><?php echo $the_mdoc['filename']; ?></h1>
 				<?php
@@ -75,7 +75,7 @@ function mdocs_load_preview() {
 				if($_POST['show_type'] == 'preview') {
 					$upload_dir = wp_upload_dir();
 					//$file_url = $upload_dir['baseurl'].MDOCS_DIR.$the_mdoc['filename'];
-					$file_url = get_site_url().'?mdocs-file='.$the_mdoc['id'].'&mdocs-url='.$the_mdoc['parent'];
+					$file_url = get_site_url().'/?mdocs-file='.$the_mdoc['id'].'&mdocs-url='.$the_mdoc['parent'];
 					if(in_array($the_mdoc['type'], $mdocs_img_types)) { ?><iframe class="mdocs-img-preview" src="?mdocs-img-preview=<?php echo $the_mdoc['filename']; ?>"></iframe><?php }
 					else mdocs_doc_preview($file_url);
 				} else {
