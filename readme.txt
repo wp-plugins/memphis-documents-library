@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 4.0
-Stable tag: 2.6.12
+Stable tag: 2.6.13
 
 A documents library for WordPress.
 
@@ -35,6 +35,7 @@ Memphis Documents Library version *2.6.3* is an important sercurity update.  Ple
 * *Update* - Updated localization files.
 * *Update* - Added a slug name to the custom post recreating function.
 * *Update* - Changed the google docs link to google drive.
+* *Update* - Fixed the SAMEORIGIN error when using google doc preview.  Now should work for http and https.
 * *Bug* - Fixed bug that caused pages not to load.
 * *Bug* - Error with javascript loading, if using WordPress Multisite network admin.
 * *Bug* - Fixed issue where Post Status was not displaying any statuses.
@@ -147,6 +148,8 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 7. screenshot-7.png
 
 == Changelog ==
+= 2.6.13 =
+* *Update* - Fixed the SAMEORIGIN error when using google doc preview.  Now should work for http and https.
 = 2.6.12 =
 * minor update to google preview.
 = 2.6.11 =
@@ -345,3 +348,4 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 * *Feature* - In the Media tab find a way to display the category of the documents created by Memphis Documents.
 * *Feature* - Connect to Cloud Services (DropBox, SkyDrive, MediaFire, etc.)
 * *Feature* - Add an option in the Settings to change the date format from default European (dd-mm-yy) to American (mm-dd-yy)
+* *Feature* - Add the ability to change the path name and breadcrumb name.
