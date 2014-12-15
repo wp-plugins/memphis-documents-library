@@ -335,6 +335,7 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 = 1.0 =
 * Initial Release of Memphis Documents Library
 == Feature Request ==
+* *Feature* - The ability to change the Last Modified category of a file.
 * *Feature* - Bulk Delete/Hide
 * *Feature* - Bulk move
 * *Feature* - Get thumbnails of the documents as the featured image for the post, as an alternative to Google Preview.
