@@ -284,9 +284,10 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 = 1.0 =
 * Initial Release of Memphis Documents Library
 == Feature Request ==
+* *Bug* - When there are multiple categories on a page the get request fails to recognize each individual category.
+* *Feature* - The ability to change the Last Modified category of a file.
 * *Feature* - Bulk Delete/Hide
 * *Feature* - Bulk move
-* *Feature* - Allow downloads only for registered users with specific levels of user i.e. editor/author etc.
 * *Feature* - Get thumbnails of the documents as the featured image for the post, as an alternative to Google Preview.
 * *Feature* - Give other user types the ability to upload files.
 * *Feature* - Short-code to add a download link to a post or page.
@@ -297,3 +298,5 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 * *Feature* - Add a tag editor to the add/update document page.
 * *Feature* - In the Media tab find a way to display the category of the documents created by Memphis Documents.
 * *Feature* - Connect to Cloud Services (DropBox, SkyDrive, MediaFire, etc.)
+* *Feature* - Add an option in the Settings to change the date format from default European (dd-mm-yy) to American (mm-dd-yy)
+* *Feature* - Add the ability to change the path name and breadcrumb name.

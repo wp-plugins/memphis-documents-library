@@ -63,7 +63,7 @@ function mdocs_import_zip() {
 						array_push($new_mdocs_cats, array('slug' => $index,'name' => $cat, 'parent' => '', 'children' => array(), 'depth' => 0));
 					}
 					$mdocs_cats_file = $new_mdocs_cats;
-					mdocs_errors(__('Old category structure found, updated to the new category structure.  It is recommened that you re-export you files again.  The process did finish.','mdocs'), 'error');
+					mdocs_errors(__('Old folder structure found, updated to the new folder structure.  It is recommened that you re-export you files again.  The process did finish.','mdocs'), 'error');
 				}
 			} else $error = true;
 			//var_dump($mdocs_list_file);

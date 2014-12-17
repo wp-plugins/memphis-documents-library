@@ -59,13 +59,8 @@ function mdocs_admin() {
 	    }
 	    
     });
-    // ADD ROOT CATEGORY
-    jQuery('#mdocs-add-cat').click(function(event) {
-	event.preventDefault();
-	var num_main_cats = 0;
-	jQuery('input[name$="[parent]"]').each(function() { if (jQuery(this).val() == '') num_main_cats++; });
-	mdocs_add_sub_cat(num_main_cats, '', 0, jQuery('#the-list'), true); 
-    });
+   // ADD ROOT CATEGORY
+    jQuery('#mdocs-add-cat').click(function(event) { event.preventDefault(); });
     jQuery('input[id="mdocs-cat-remove"]').click(function() {
 	    var confirm = window.confirm(mdocs_js.category_delete);
 	    var cat = jQuery(this).prop('name');
@@ -78,6 +73,10 @@ function mdocs_admin() {
 	    if (jQuery(this).val() == 'hidden') jQuery('#mdocs-post-status').prop('disabled','true');
 	    else if (jQuery(this).val() == 'public') jQuery('#mdocs-post-status').removeAttr('disabled');
     });
+}
+// ADD ROOT CATEGORY
+function add_main_category(total_cats) {
+    mdocs_add_sub_cat(total_cats, '', 0, jQuery('#the-list'), true); 
 }
 // === COLOR PICKERS === //
 //INITIALIZE IRIS COLOR PICKER
@@ -153,6 +152,7 @@ var add_button_clicks = 1;
 function mdocs_add_sub_cat(total_cats, parent, parent_depth, object, is_parent) {
     //mdocs_set_onleave();
     var child_depth = parseInt(parent_depth)+1;
+    var parent_id = '';
     if (child_depth <= mdocs_js.levels) {
 	jQuery('input[name="mdocs-update-cat-index"]').val(add_button_clicks++);
 	var padding = 'style="padding-left: '+(40*child_depth)+'px; "';
@@ -163,20 +163,17 @@ function mdocs_add_sub_cat(total_cats, parent, parent_depth, object, is_parent) 
 	jQuery('input[name="mdocs-cats['+parent+'][num_children]"]').val(order);
 	if (is_parent) {
 	    padding = 0;
-	    //order = subcat_index;
-	    //disabled = '';
-	    order = 1;
-	    jQuery('input[name$="[parent]"]').each(function() {
-		if(jQuery(this).val() == '') order++;
-	    });
+	    order = jQuery('.wp-list-table > tbody > tr').size()+1;
+	    disabled = '';
 	    child_depth = 0;
+	    parent_id = 'class="parent-cat"';
 	}
 	if (jQuery('input[name="mdocs-cats['+parent+'][index]"]').val() != undefined) {
 	    var parent_index = jQuery('input[name="mdocs-cats['+parent+'][index]"]').val();
 	} else var parent_index = 0;
 	subcat_index = jQuery('#mdocs-cats').data('cat-index');
 	var html = '\
-	    <tr>\
+	    <tr '+parent_id+'>\
 		<td  id="name" '+padding+' >\
 		   <input type="hidden" name="mdocs-cats[mdocs-cat-'+subcat_index+'][index]" value="'+subcat_index+'"/>\
 		    <input type="hidden" name="mdocs-cats[mdocs-cat-'+subcat_index+'][parent_index]" value="'+parent_index+'"/>\
@@ -194,7 +191,7 @@ function mdocs_add_sub_cat(total_cats, parent, parent_depth, object, is_parent) 
 			<input type="button" id="mdocs-sub-cats-remove-new-'+subcat_index+'" class="button button-primary" value="Remove"  />\
 		</td>\
 		<td id="add-cat">\
-		    <input type="button" class="mdocs-add-sub-cat button button-primary" id="mdocs-sub-cats-add-new-'+subcat_index+'" value="Add Category"   />\
+		    <input type="button" class="mdocs-add-sub-cat button button-primary" id="mdocs-sub-cats-add-new-'+subcat_index+'" value="'+mdocs_js.add_folder+'""   />\
 		</td>\
 	    </tr>\
 	    ';
@@ -313,7 +310,7 @@ function mdocs_submit_rating(size,file_id) {
 function mdocs_restore_default() {
    if (confirm(mdocs_js.restore_warning)) {
 	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type:'restore', blog_id: mdocs_js.blog_id, is_admin: true},function(data) {
-	    window.location.href = "admin.php?page=memphis-documents.php&mdocs-cat=mdocuments"; 
+	    window.location.href = "admin.php?page=memphis-documents.php&mdocs-cat=mdocuments&restore-default=true"; 
 	});
     } 
    

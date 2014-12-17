@@ -26,82 +26,92 @@ function mdocs_register_settings() {
 		$backup_list = json_encode(get_option('mdocs-list'));
 		$current_list = get_option('mdocs-list');
 		if($current_list != null) file_put_contents($upload_dir['basedir'].MDOCS_DIR.'mdocs-files.bak', $backup_list);
-		elseif(file_exists($upload_dir['basedir'].MDOCS_DIR.'mdocs-files.bak')) {
+		elseif(file_exists($upload_dir['basedir'].MDOCS_DIR.'mdocs-files.bak') && !isset($_GET['restore-default'])) {
 			$backup_list = json_decode(file_get_contents($upload_dir['basedir'].MDOCS_DIR.'mdocs-files.bak'),true);
 			update_option('mdocs-list', $backup_list);
-			mdocs_errors(MDOCS_ERROR_7,'error'); 
-		} 
-		// PATCHES
-		// 2.6.6
-		register_setting('mdocs-patch-vars', 'mdocs-v2-6-6-patch-var-1');
-		add_action('mdocs-v2-6-6-patch-var-1',false && is_array(get_option('mdocs-list')));
-		if(get_option('mdocs-v2-6-6-patch-var-1') == false && is_array(get_option('mdocs-list'))) {
-			$this_query = new WP_Query('category_name=mdocs-media&posts_per_page=-1');	
-			foreach($this_query->posts as $index => $post) set_post_type($post->ID,'mdocs-posts');
-			update_option('mdocs-v2-6-6-patch-var-1',true);
+			//mdocs_errors(MDOCS_ERROR_7,'error'); 
 		}
-		// 2.6.7
-		register_setting('mdocs-patch-vars', 'mdocs-v2-6-7-patch-var-1');
-		add_action('mdocs-v2-6-7-patch-var-1',false);
-		if(get_option('mdocs-v2-6-7-patch-var-1') == false && is_array(get_option('mdocs-list'))) {
-			$mdocs_cat = get_category_by_slug('mdocs-media');
-			wp_delete_category($mdocs_cat->cat_ID);
-			update_option('mdocs-v2-6-7-patch-var-1',true);
-		} 
-		// 2.5
-		register_setting('mdocs-patch-vars', 'mdocs-v2-5-patch-var-1');
-		add_action('mdocs-v2-5-patch-var-1',false);
-		if(get_option('mdocs-v2-5-patch-var-1') == false && is_array(get_option('mdocs-list'))) {
-			$num_cats = 0;
-			foreach( get_option('mdocs-cats') as $index => $cat ){ $num_cats++;}
-			update_option('mdocs-num-cats',$num_cats);
-			add_action( 'admin_notices', 'mdocs_v2_5_admin_notice_v1' );
-			update_option('mdocs-v2-5-patch-var-1',true);
-		} else update_option('mdocs-v2-5-patch-var-1',true);
-		// 2.4
-		register_setting('mdocs-patch-vars', 'mdocs-v2-4-patch-var-1');
-		add_option('mdocs-v2-4-patch-var-1',false);
-		if(get_option('mdocs-v2-4-patch-var-1') == false  && is_array(get_option('mdocs-list'))) {
-			$mdocs_cats = get_option('mdocs-cats');
-			$new_mdocs_cats = array();
-			foreach($mdocs_cats as $index => $cat) array_push($new_mdocs_cats, array('slug' => $index,'name' => $cat, 'parent' => '', 'children' => array(), 'depth' => 0));
-			update_option('mdocs-cats', $new_mdocs_cats);
-			update_option('mdocs-v2-4-patch-var-1', true);
-			add_action( 'admin_notices', 'mdocs_v2_4_admin_notice_v1' );
-		} else update_option('mdocs-v2-4-patch-var-1', true);
-		// 2.3
-		register_setting('mdocs-patch-vars', 'mdocs-v2-3-1-patch-var-1');
-		add_option('mdocs-v2-3-1-patch-var-1',false);
-		if(get_option('mdocs-v2-3-1-patch-var-1') == false  && is_array(get_option('mdocs-list'))) {
-			$htaccess = $upload_dir['basedir'].'/mdocs/.htaccess';
-			$fh = fopen($htaccess, 'w');
-			update_option('mdocs-htaccess', "Deny from all\nOptions +Indexes\nAllow from .google.com");
-			$mdocs_htaccess = get_option('mdocs-htaccess');
-			fwrite($fh, $mdocs_htaccess);
-			fclose($fh);
-			chmod($htaccess, 0660);
-			update_option('mdocs-v2-3-1-patch-var-1', true);
-			add_action( 'admin_notices', 'mdocs_v2_2_1_admin_notice_v1' );
-		} else update_option('mdocs-v2-3-1-patch-var-1', true);
-		//2.1 
-		register_setting('mdocs-settings', 'mdocs-2-1-patch-1');
-		add_option('mdocs-2-1-patch-1',false);
-		if(get_option('mdocs-2-1-patch-1') == false  && is_array(get_option('mdocs-list'))) {
-			$mdocs = get_option('mdocs-list');
-			foreach(get_option('mdocs-list') as $index => $the_mdoc) {
-				if(!is_array($the_mdoc['ratings'])) {
-					$the_mdoc['ratings'] = array();
-					$the_mdoc['rating'] = 0;
-					$mdocs[$index] = $the_mdoc;
-				}
-				if(!key_exists('rating', $mdocs)) {
-					$the_mdoc['rating'] = 0;
-					$mdocs[$index] = $the_mdoc;
-				}
+		if(!isset($_GET['restore-default'])) {  
+			// PATCHES
+			// 2.6.6
+			register_setting('mdocs-patch-vars', 'mdocs-v2-6-6-patch-var-1');
+			add_action('mdocs-v2-6-6-patch-var-1',false && is_array(get_option('mdocs-list')));
+			if(get_option('mdocs-v2-6-6-patch-var-1') == false && is_array(get_option('mdocs-list'))) {
+				$this_query = new WP_Query('category_name=mdocs-media&posts_per_page=-1');	
+				foreach($this_query->posts as $index => $post) set_post_type($post->ID,'mdocs-posts');
+				update_option('mdocs-v2-6-6-patch-var-1',true);
 			}
-			mdocs_save_list($mdocs);
+			// 2.6.7
+			register_setting('mdocs-patch-vars', 'mdocs-v2-6-7-patch-var-1');
+			add_action('mdocs-v2-6-7-patch-var-1',false);
+			if(get_option('mdocs-v2-6-7-patch-var-1') == false && is_array(get_option('mdocs-list'))) {
+				$mdocs_cat = get_category_by_slug('mdocs-media');
+				wp_delete_category($mdocs_cat->cat_ID);
+				update_option('mdocs-v2-6-7-patch-var-1',true);
+			} 
+			// 2.5
+			register_setting('mdocs-patch-vars', 'mdocs-v2-5-patch-var-1');
+			add_action('mdocs-v2-5-patch-var-1',false);
+			if(get_option('mdocs-v2-5-patch-var-1') == false && is_array(get_option('mdocs-list'))) {
+				$num_cats = 1;
+				foreach( get_option('mdocs-cats') as $index => $cat ){ $num_cats++;}
+				update_option('mdocs-num-cats',$num_cats);
+				add_action( 'admin_notices', 'mdocs_v2_5_admin_notice_v1' );
+				update_option('mdocs-v2-5-patch-var-1',true);
+			} else update_option('mdocs-v2-5-patch-var-1',true);
+			// 2.4
+			register_setting('mdocs-patch-vars', 'mdocs-v2-4-patch-var-1');
+			add_option('mdocs-v2-4-patch-var-1',false);
+			if(get_option('mdocs-v2-4-patch-var-1') == false  && is_array(get_option('mdocs-list'))) {
+				$mdocs_cats = get_option('mdocs-cats');
+				$new_mdocs_cats = array();
+				foreach($mdocs_cats as $index => $cat) array_push($new_mdocs_cats, array('slug' => $index,'name' => $cat, 'parent' => '', 'children' => array(), 'depth' => 0));
+				update_option('mdocs-cats', $new_mdocs_cats);
+				update_option('mdocs-v2-4-patch-var-1', true);
+				add_action( 'admin_notices', 'mdocs_v2_4_admin_notice_v1' );
+			} else update_option('mdocs-v2-4-patch-var-1', true);
+			// 2.3
+			register_setting('mdocs-patch-vars', 'mdocs-v2-3-1-patch-var-1');
+			add_option('mdocs-v2-3-1-patch-var-1',false);
+			if(get_option('mdocs-v2-3-1-patch-var-1') == false  && is_array(get_option('mdocs-list'))) {
+				$htaccess = $upload_dir['basedir'].'/mdocs/.htaccess';
+				$fh = fopen($htaccess, 'w');
+				update_option('mdocs-htaccess', "Deny from all\nOptions +Indexes\nAllow from .google.com");
+				$mdocs_htaccess = get_option('mdocs-htaccess');
+				fwrite($fh, $mdocs_htaccess);
+				fclose($fh);
+				chmod($htaccess, 0660);
+				update_option('mdocs-v2-3-1-patch-var-1', true);
+				add_action( 'admin_notices', 'mdocs_v2_2_1_admin_notice_v1' );
+			} else update_option('mdocs-v2-3-1-patch-var-1', true);
+			//2.1 
+			register_setting('mdocs-settings', 'mdocs-2-1-patch-1');
+			add_option('mdocs-2-1-patch-1',false);
+			if(get_option('mdocs-2-1-patch-1') == false  && is_array(get_option('mdocs-list'))) {
+				$mdocs = get_option('mdocs-list');
+				foreach(get_option('mdocs-list') as $index => $the_mdoc) {
+					if(!is_array($the_mdoc['ratings'])) {
+						$the_mdoc['ratings'] = array();
+						$the_mdoc['rating'] = 0;
+						$mdocs[$index] = $the_mdoc;
+					}
+					if(!key_exists('rating', $mdocs)) {
+						$the_mdoc['rating'] = 0;
+						$mdocs[$index] = $the_mdoc;
+					}
+				}
+				mdocs_save_list($mdocs);
+				update_option('mdocs-2-1-patch-1', true);
+			} else update_option('mdocs-2-1-patch-1', true);
+		} else {
+			update_option('mdocs-v2-6-6-patch-var-1',true);
+			update_option('mdocs-v2-6-7-patch-var-1',true);
+			update_option('mdocs-v2-5-patch-var-1',true);
+			update_option('mdocs-v2-4-patch-var-1', true);
+			update_option('mdocs-v2-3-1-patch-var-1', true);
 			update_option('mdocs-2-1-patch-1', true);
-		} else update_option('mdocs-2-1-patch-1', true);
+			@unlink($upload_dir['basedir'].MDOCS_DIR.'mdocs-files.bak');
+		}
 		// Creating File Structure
 		if(!is_dir($upload_dir['basedir'].'/mdocs/') && $upload_dir['error'] === false) mkdir($upload_dir['basedir'].'/mdocs/');
 		elseif(!is_dir($upload_dir['basedir'].'/mdocs/') && $upload_dir['error'] !== false) mdocs_errors(__('Unable to create the directory "mdocs" which is needed by Memphis Documents Library. Is its parent directory writable by the server?','mdocs'),'error');
@@ -138,12 +148,14 @@ function mdocs_register_settings() {
 function mdocs_init_settings() {
 	add_filter('upload_mimes', 'mdocs_custom_mime_types');
 	$temp_cats = array();
-	$temp_cats[0] = array('slug' => 'mdocuments','name' => 'Documents', 'parent' => '', 'children' => array(), 'depth' => 0);
+	$temp_cats[0] = array('base_parent' => '', 'index' => 0, 'parent_index' => 0, 'slug' => 'mdocuments', 'name' => 'Documents', 'parent' => '', 'children' => array(), 'depth' => 0,);
 	register_setting('mdocs-settings', 'mdocs-cats');
 	add_option('mdocs-cats',$temp_cats);
 	if(is_string(get_option('mdocs-cats'))) update_option('mdocs-cats',$temp_cats);
 	register_setting('mdocs-settings', 'mdocs-list');
 	add_option('mdocs-list',array());
+	register_setting('mdocs-settings', 'mdocs-num-cats');
+	add_option('mdocs-num-cats',1);
 	register_setting('mdocs-settings', 'mdocs-num-cats');
 	add_option('mdocs-num-cats',1);
 	register_setting('mdocs-settings', 'mdocs-zip');

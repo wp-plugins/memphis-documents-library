@@ -103,7 +103,7 @@ function mdoc_doc_list($current_cat) {
 				
 			}
 		}
-		if($count == 0) { ?><tr><td colspan="<?php echo $num_cols; ?>"><p class="mdocs-nofiles" ><?php _e('No files found in this category.','mdocs'); ?></p></td></tr><?php }
+		if($count == 0) { ?><tr><td colspan="<?php echo $num_cols; ?>"><p class="mdocs-nofiles" ><?php _e('No files found in this folder.','mdocs'); ?></p></td></tr><?php }
 		if(get_option('mdocs-list-type') == 'small') echo '</table>';
 	}
 }
@@ -169,7 +169,7 @@ function mdocs_uploader($edit_type='Add Document') {
 				<label><?php _e('File Name','mdocs'); ?>:
 				<input type="text" name="mdocs-name" <?php if($edit_type=='Update Document') echo 'value="'. $mdocs[$mdoc_index]['name'].'"'; ?> />
 				</label>
-				<label><?php _e('Category','mdocs'); ?>:
+				<label><?php _e('Folder','mdocs'); ?>:
 				<select name="mdocs-cat">
 				<?php mdocs_get_cats($cats, $current_cat); ?>
 				</select>

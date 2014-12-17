@@ -15,7 +15,7 @@ function mdocs_shortcodes($current_cat) {
 			</tr>
 			<tr>
 				<td>[mdocs cat="<?php _e('The Category Name','mdocs');?>"]</td>
-				<td><?php _e('Adds files from  a specific category of the Memphis Documents Library on any page, post or widget.','mdocs');?></td>
+				<td><?php _e('Adds files from  a specific folder of the Memphis Documents Library on any page, post or widget.','mdocs');?></td>
 			</tr>
 			<tr>
 				<td>[mdocs cat="All Files"]</td>
