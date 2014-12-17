@@ -1,30 +1,31 @@
 <?php
 function mdocs_edit_cats() {
 	$mdocs_cats = get_option('mdocs-cats');
-	//var_dump($mdocs_cats[0]);
+	//var_dump($mdocs_cats);
 	//var_dump('Number of Categories: '.get_option('mdocs-num-cats'));
 	//var_dump($mdocs_cats[1]['children']);
+	//var_dump(get_option('mdocs-num-cats'));
 	?>
 	<div class="mdocs-ds-container">
-		<h2>Category Editor <a href="" id="mdocs-add-cat" class="mdocs-grey-btn"><?php _e('Add Main Category','mdocs'); ?></a></h2>
+		<h2>Folder Editor <a href="" id="mdocs-add-cat" onclick="add_main_category('<?php echo intval(get_option('mdocs-num-cats')); ?>')"class="mdocs-grey-btn"><?php _e('Add Main Folder','mdocs'); ?></a></h2>
 		<form  id="mdocs-cats" method="post" action="admin.php?page=memphis-documents.php&cat=cats" >
 			<input type="hidden" value="mdocs-update-cats" name="action"/>
 			<input type="hidden" name="mdocs-update-cat-index" value="0"/>
 			<table class="wp-list-table widefat plugins">
 				<thead>
 					<tr>
-						<th scope="col" class="manage-column column-name" ><?php _e('Category','mdocs'); ?></th>
+						<th scope="col" class="manage-column column-name" ><?php _e('Folder','mdocs'); ?></th>
 						<th scope="col"  class="manage-column column-name" ><?php _e('Order','mdocs'); ?></th>
 						<th scope="col"  class="manage-column column-name" ><?php _e('Remove','mdocs'); ?></th>
-						<th scope="col" class="manage-column column-name" ><?php _e('Add Category','mdocs'); ?></th>
+						<th scope="col" class="manage-column column-name" ><?php _e('Add Folder','mdocs'); ?></th>
 					</tr>
 				</thead>
 				<tfoot>
 					<tr>
-						<th scope="col" class="manage-column column-name" ><?php _e('Category','mdocs'); ?></th>
+						<th scope="col" class="manage-column column-name" ><?php _e('Folder','mdocs'); ?></th>
 						<th scope="col" class="manage-column column-name" ><?php _e('Order','mdocs'); ?></th>
 						<th scope="col" class="manage-column column-name" ><?php _e('Remove','mdocs'); ?></th>
-						<th scope="col" class="manage-column column-name" ><?php _e('Add Category','mdocs'); ?></th>
+						<th scope="col" class="manage-column column-name" ><?php _e('Add Folder','mdocs'); ?></th>
 					</tr>
 				</tfoot>
 				<tbody id="the-list">
@@ -37,7 +38,7 @@ function mdocs_edit_cats() {
 				?>
 				<tr>
 					<td class="mdocs-nofiles" colspan="3">
-						<p><?php _e('No categories created.','mdocs'); ?></p>
+						<p><?php _e('No folders created.','mdocs'); ?></p>
 					</td>
 				</tr>
 			<?php 
@@ -55,13 +56,14 @@ function mdocs_build_cat_td($mdocs_cat,$parent_index=0) {
 	global $mdocs_input_text_bg_colors;
 	$padding = '';
 	foreach($mdocs_cat as $index => $cat) {
-		if($cat['depth'] > 0) {
+		$parent_id = '';
+		if($cat['depth'] == 0) $parent_id = 'class="parent-cat"';
+		elseif($cat['depth'] > 0) {
 			$padding = 'style="padding-left: '.(40*$cat['depth']).'px; "';
-			
 		}
 		$color_scheme = 'style="background: '.$mdocs_input_text_bg_colors[($cat['depth'])].'"';
 		?>
-		<tr>
+		<tr <?php echo $parent_id; ?>>
 			<td  id="name" <?php echo $padding; ?>>
 				<input type="hidden" name="mdocs-cats[<?php echo $cat['slug']; ?>][index]" value="<?php echo $index; ?>"/>
 				<input type="hidden" name="mdocs-cats[<?php echo $cat['slug']; ?>][parent_index]" value="<?php echo $parent_index; ?>"/>
@@ -82,7 +84,7 @@ function mdocs_build_cat_td($mdocs_cat,$parent_index=0) {
 				<?php } ?>
 			</td>
 			<td id="add-cat">
-				<input  type="button" class="mdocs-add-sub-cat button button-primary" value="Add Category" onclick="mdocs_add_sub_cat( '<?php echo intval(get_option('mdocs-num-cats')); ?>', '<?php echo $cat['slug']; ?>','<?php echo $cat['depth']; ?>', this);"  />
+				<input  type="button" class="mdocs-add-sub-cat button button-primary" value="<?php _e('Add Folder', 'mdocs'); ?>" onclick="mdocs_add_sub_cat( '<?php echo intval(get_option('mdocs-num-cats')); ?>', '<?php echo $cat['slug']; ?>','<?php echo $cat['depth']; ?>', this);"  />
 			</td>
 		</tr>
 		<?php

@@ -11,12 +11,13 @@ add_action('init', 'mdocs_localization');
 function mdocs_js_handle($handle) {
 	wp_localize_script( $handle, 'mdocs_js', array(
 		'version_delete' => __("You are about to delete this version.  Once deleted you will lost this version of the file!\n\n'Cancel' to stop, 'OK' to delete.",'mdocs'),
-		'category_delete' => __("You are about to delete this category.  Any file in this category will be lost!\n\n'Cancel' to stop, 'OK' to delete.",'mdocs'),
+		'category_delete' => __("You are about to delete this folder.  Any file in this category will be lost!\n\n'Cancel' to stop, 'OK' to delete.",'mdocs'),
 		'remove' => __('Remove','mdocs'),
-		'new_category' => __('New Category','mdocs'),
+		'new_category' => __('New Folder','mdocs'),
 		'leave_page' => __('Are you sure you want to navigate away from this page?','mdocs'),
-		'category_support' => __('Currently Memphis Documents Library only supports two sub categories.','mdocs'),
+		'category_support' => __('Currently Memphis Documents Library only supports two sub folders.','mdocs'),
 		'restore_warning' => __('Are you sure you want continue.  All you files, posts and directories will be delete.','mdocs'),
+		'add_folder' => __('Add Folder', 'mdocs'),
 		'levels'=> 2,
 		'blog_id' => get_current_blog_id(),
 		'plugin_url' => plugins_url().'/memphis-documents-library/',

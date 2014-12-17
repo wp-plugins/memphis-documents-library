@@ -83,7 +83,7 @@ function mdocs_the_list($att=null) {
 			} 
 		}
 		if($count == 0) {
-			?><tr><td colspan="<?php echo $num_cols; ?>"><p class="mdocs-nofiles" ><?php _e('No files found in this category.','mdocs'); ?></p></td></tr><?php
+			?><tr><td colspan="<?php echo $num_cols; ?>"><p class="mdocs-nofiles" ><?php _e('No files found in this folder.','mdocs'); ?></p></td></tr><?php
 		}
 		if(get_option('mdocs-list-type') == 'small') echo '</table>';
 	} else mdocs_errors(__('Unable to create the directory "mdocs" which is needed by Memphis Documents Library. Its parent directory is not writable by the server?','mdocs'),'error');

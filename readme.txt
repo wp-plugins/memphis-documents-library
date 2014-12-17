@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 4.0
-Stable tag: 2.6.13
+Stable tag: 2.6.14
 
 A documents library for WordPress.
 
@@ -36,6 +36,8 @@ Memphis Documents Library version *2.6.3* is an important sercurity update.  Ple
 * *Update* - Added a slug name to the custom post recreating function.
 * *Update* - Changed the google docs link to google drive.
 * *Update* - Fixed the SAMEORIGIN error when using google doc preview.  Now should work for http and https.
+* *Update* - English loc file has been updated with new language.
+* *Update* - Categories are now called Folder, no functionality change just name change.
 * *Bug* - Fixed bug that caused pages not to load.
 * *Bug* - Error with javascript loading, if using WordPress Multisite network admin.
 * *Bug* - Fixed issue where Post Status was not displaying any statuses.
@@ -57,6 +59,7 @@ Memphis Documents Library version *2.6.3* is an important sercurity update.  Ple
 * *Bug* - Fixed Batch Upload naming issue.
 * *Bug* - Added a missing div tag to list.
 * *Bug* - Added the ability to see document previews when logged in.
+* *Bug* - Fixed some category issues.
 
 = Memphis Documents Library Features =
 
@@ -148,6 +151,10 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 7. screenshot-7.png
 
 == Changelog ==
+= 2.6.14 =
+* *Update* - English loc file has been updated with new language.
+* *Update* - Categories are now called Folder, no functionality change just name change.
+* *Bug* - Fixed some category issues.
 = 2.6.13 =
 * *Update* - Fixed the SAMEORIGIN error when using google doc preview.  Now should work for http and https.
 = 2.6.12 =
@@ -335,6 +342,7 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 = 1.0 =
 * Initial Release of Memphis Documents Library
 == Feature Request ==
+* *Bug* - When there are multiple categories on a page the get request fails to recognize each individual category.
 * *Feature* - The ability to change the Last Modified category of a file.
 * *Feature* - Bulk Delete/Hide
 * *Feature* - Bulk move

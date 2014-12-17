@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Memphis Documents Library\n"
-"POT-Creation-Date: 2014-09-24 16:38-0500\n"
-"PO-Revision-Date: 2014-09-24 16:38-0500\n"
+"POT-Creation-Date: 2014-12-17 15:24-0500\n"
+"PO-Revision-Date: 2014-12-17 15:24-0500\n"
 "Last-Translator: Ian Howatson <ian@howatson.net>\n"
 "Language-Team: \n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.7.1\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -44,19 +44,18 @@ msgstr ""
 msgid "Upload Zip File"
 msgstr ""
 
-#: ../mdocs-batch-upload.php:59 ../mdocs-dashboard.php:209
-#: ../mdocs-functions.php:251 ../mdocs-settings-page.php:120
+#: ../mdocs-batch-upload.php:59 ../mdocs-dashboard.php:204
+#: ../mdocs-functions.php:260 ../mdocs-settings-page.php:122
 msgid "File Name"
 msgstr ""
 
-#: ../mdocs-batch-upload.php:62 ../mdocs-categories.php:16
-#: ../mdocs-categories.php:24 ../mdocs-dashboard.php:212
+#: ../mdocs-batch-upload.php:62 ../mdocs-dashboard.php:207
 msgid "Category"
 msgstr ""
 
-#: ../mdocs-batch-upload.php:68 ../mdocs-dashboard.php:218
-#: ../mdocs-file-info-large.php:81 ../mdocs-functions.php:253
-#: ../mdocs-settings-page.php:96 ../mdocs-settings-page.php:122
+#: ../mdocs-batch-upload.php:68 ../mdocs-dashboard.php:213
+#: ../mdocs-file-info-large.php:84 ../mdocs-functions.php:262
+#: ../mdocs-settings-page.php:97 ../mdocs-settings-page.php:124
 #: ../mdocs-versions.php:29 ../mdocs-versions.php:39
 msgid "Version"
 msgstr ""
@@ -101,28 +100,33 @@ msgstr ""
 msgid "The batch process has completed, below is a log of results:"
 msgstr ""
 
-#: ../mdocs-categories.php:9
-msgid "Add Main Category"
+#: ../mdocs-categories.php:10
+msgid "Add Main Folder"
 msgstr ""
 
 #: ../mdocs-categories.php:17 ../mdocs-categories.php:25
-msgid "Order"
+msgid "Folder"
 msgstr ""
 
 #: ../mdocs-categories.php:18 ../mdocs-categories.php:26
+msgid "Order"
+msgstr ""
+
+#: ../mdocs-categories.php:19 ../mdocs-categories.php:27
 #: ../mdocs-localization.php:15
 msgid "Remove"
 msgstr ""
 
-#: ../mdocs-categories.php:19 ../mdocs-categories.php:27
-msgid "Add Category"
+#: ../mdocs-categories.php:20 ../mdocs-categories.php:28
+#: ../mdocs-categories.php:87 ../mdocs-localization.php:20
+msgid "Add Folder"
 msgstr ""
 
-#: ../mdocs-categories.php:40
-msgid "No categories created."
+#: ../mdocs-categories.php:41
+msgid "No folders created."
 msgstr ""
 
-#: ../mdocs-categories.php:48
+#: ../mdocs-categories.php:49
 msgid "Save Categories"
 msgstr ""
 
@@ -134,122 +138,122 @@ msgstr ""
 msgid "Memphis Docs"
 msgstr ""
 
-#: ../mdocs-dashboard.php:29 ../mdocs-dashboard.php:261
+#: ../mdocs-dashboard.php:25 ../mdocs-dashboard.php:256
 msgid "Add Document"
 msgstr ""
 
-#: ../mdocs-dashboard.php:30 ../mdocs-dashboard.php:260
+#: ../mdocs-dashboard.php:26 ../mdocs-dashboard.php:255
 msgid "Update Document"
 msgstr ""
 
-#: ../mdocs-dashboard.php:55
+#: ../mdocs-dashboard.php:51
 msgid "Documents Library"
 msgstr ""
 
-#: ../mdocs-dashboard.php:56
+#: ../mdocs-dashboard.php:52
 msgid "Add New Document"
 msgstr ""
 
-#: ../mdocs-dashboard.php:57
-msgid "Edit Categories"
+#: ../mdocs-dashboard.php:53
+msgid "Edit Folders"
 msgstr ""
 
-#: ../mdocs-dashboard.php:58
+#: ../mdocs-dashboard.php:54
 msgid "Settings"
 msgstr ""
 
-#: ../mdocs-dashboard.php:59
+#: ../mdocs-dashboard.php:55
 msgid "Batch Upload (Beta)"
 msgstr ""
 
-#: ../mdocs-dashboard.php:60 ../mdocs-shortcodes.php:9
+#: ../mdocs-dashboard.php:56 ../mdocs-shortcodes.php:9
 msgid "Short Codes"
 msgstr ""
 
-#: ../mdocs-dashboard.php:77
+#: ../mdocs-dashboard.php:73
 msgid "Import"
 msgstr ""
 
-#: ../mdocs-dashboard.php:79
+#: ../mdocs-dashboard.php:75
 msgid "Export"
 msgstr ""
 
-#: ../mdocs-dashboard.php:147 ../mdocs-the-list.php:85
-msgid "No files found in this category."
+#: ../mdocs-dashboard.php:143 ../mdocs-the-list.php:86
+msgid "No files found in this folder."
 msgstr ""
 
-#: ../mdocs-dashboard.php:201
+#: ../mdocs-dashboard.php:196
 msgid "File Configuration"
 msgstr ""
 
-#: ../mdocs-dashboard.php:203
+#: ../mdocs-dashboard.php:198
 msgid "File Uploader"
 msgstr ""
 
-#: ../mdocs-dashboard.php:205
+#: ../mdocs-dashboard.php:200
 msgid "Current File"
 msgstr ""
 
-#: ../mdocs-dashboard.php:223
+#: ../mdocs-dashboard.php:218
 msgid "Show Social Apps"
 msgstr ""
 
-#: ../mdocs-dashboard.php:230
+#: ../mdocs-dashboard.php:225
 msgid "Downloadable by Non Members"
 msgstr ""
 
-#: ../mdocs-dashboard.php:237 ../mdocs-file-info-large.php:88
+#: ../mdocs-dashboard.php:232 ../mdocs-file-info-large.php:91
 #: ../mdocs-file-info-small.php:36
 msgid "File Status"
 msgstr ""
 
-#: ../mdocs-dashboard.php:239
+#: ../mdocs-dashboard.php:234
 msgid "Public"
 msgstr ""
 
-#: ../mdocs-dashboard.php:240
+#: ../mdocs-dashboard.php:235
 msgid "Hidden"
 msgstr ""
 
-#: ../mdocs-dashboard.php:243 ../mdocs-file-info-large.php:89
+#: ../mdocs-dashboard.php:238 ../mdocs-file-info-large.php:92
 #: ../mdocs-file-info-small.php:37
 msgid "Post Status"
 msgstr ""
 
-#: ../mdocs-dashboard.php:245
+#: ../mdocs-dashboard.php:240
 msgid "Published"
 msgstr ""
 
-#: ../mdocs-dashboard.php:246
+#: ../mdocs-dashboard.php:241
 msgid "Private"
 msgstr ""
 
-#: ../mdocs-dashboard.php:247
+#: ../mdocs-dashboard.php:242
 msgid "Pending Review"
 msgstr ""
 
-#: ../mdocs-dashboard.php:248
+#: ../mdocs-dashboard.php:243
 msgid "Draft"
 msgstr ""
 
-#: ../mdocs-dashboard.php:254 ../mdocs-settings-page.php:141
+#: ../mdocs-dashboard.php:249 ../mdocs-settings-page.php:143
 #: ../mdocs-shortcodes.php:10
 msgid "Description"
 msgstr ""
 
-#: ../mdocs-downloads.php:62
+#: ../mdocs-downloads.php:61
 msgid "Check this file out"
 msgstr ""
 
-#: ../mdocs-downloads.php:62
+#: ../mdocs-downloads.php:61
 msgid "Download it from"
 msgstr ""
 
-#: ../mdocs-downloads.php:62
+#: ../mdocs-downloads.php:61
 msgid "powered by Memphis Documents Library"
 msgstr ""
 
-#: ../mdocs-downloads.php:63
+#: ../mdocs-downloads.php:62
 msgid "Sorry you are unauthorized to download this file."
 msgstr ""
 
@@ -257,36 +261,36 @@ msgstr ""
 msgid "Export Memphis Documents Library"
 msgstr ""
 
-#: ../mdocs-file-info-large.php:55 ../mdocs-file-info-large.php:60
+#: ../mdocs-file-info-large.php:58 ../mdocs-file-info-large.php:63
 msgid "Please login<br>to download this file"
 msgstr ""
 
-#: ../mdocs-file-info-large.php:57 ../mdocs-settings-page.php:88
-#: ../mdocs-social.php:12 ../mdocs-versions.php:31 ../mdocs-versions.php:41
+#: ../mdocs-file-info-large.php:60 ../mdocs-settings-page.php:89
+#: ../mdocs-social.php:15 ../mdocs-versions.php:31 ../mdocs-versions.php:41
 #: ../mdocs-versions.php:51 ../mdocs-versions.php:68
 msgid "Download"
 msgstr ""
 
-#: ../mdocs-file-info-large.php:66
+#: ../mdocs-file-info-large.php:69
 msgid "Rate Me!"
 msgstr ""
 
-#: ../mdocs-file-info-large.php:67
+#: ../mdocs-file-info-large.php:70
 msgid "Your Rating"
 msgstr ""
 
-#: ../mdocs-file-info-large.php:79 ../mdocs-file-info-small.php:90
-#: ../mdocs-settings-page.php:94
+#: ../mdocs-file-info-large.php:82 ../mdocs-file-info-small.php:90
+#: ../mdocs-settings-page.php:95
 msgid "Downloads"
 msgstr ""
 
-#: ../mdocs-file-info-large.php:80 ../mdocs-functions.php:254
-#: ../mdocs-settings-page.php:95 ../mdocs-settings-page.php:123
+#: ../mdocs-file-info-large.php:83 ../mdocs-functions.php:263
+#: ../mdocs-settings-page.php:96 ../mdocs-settings-page.php:125
 msgid "Author"
 msgstr ""
 
-#: ../mdocs-file-info-large.php:86 ../mdocs-functions.php:255
-#: ../mdocs-settings-page.php:124
+#: ../mdocs-file-info-large.php:89 ../mdocs-functions.php:264
+#: ../mdocs-settings-page.php:126
 msgid "Last Updated"
 msgstr ""
 
@@ -302,62 +306,102 @@ msgstr ""
 msgid "Visit"
 msgstr ""
 
-#: ../mdocs-file-info-small.php:117 ../mdocs-functions.php:10
+#: ../mdocs-file-info-small.php:117 ../mdocs-functions.php:11
 #: ../mdocs-versions.php:32 ../mdocs-versions.php:42 ../mdocs-versions.php:69
 msgid "Delete"
 msgstr ""
 
-#: ../mdocs-file-info-small.php:118 ../mdocs-functions.php:13
+#: ../mdocs-file-info-small.php:118 ../mdocs-functions.php:14
 #: ../mdocs-versions.php:17
 msgid "Versions"
 msgstr ""
 
-#: ../mdocs-functions.php:7
+#: ../mdocs-functions.php:8
 msgid "Update"
 msgstr ""
 
-#: ../mdocs-functions.php:52
+#: ../mdocs-functions.php:54
 msgid "Please login to access the preview."
 msgstr ""
 
-#: ../mdocs-functions.php:239
+#: ../mdocs-functions.php:248
 msgid "List Size"
 msgstr ""
 
-#: ../mdocs-functions.php:240
+#: ../mdocs-functions.php:249
 msgid "Large"
 msgstr ""
 
-#: ../mdocs-functions.php:241
+#: ../mdocs-functions.php:250
 msgid "Small"
 msgstr ""
 
-#: ../mdocs-functions.php:245
+#: ../mdocs-functions.php:254
 msgid "Descending"
 msgstr ""
 
-#: ../mdocs-functions.php:246
+#: ../mdocs-functions.php:255
 msgid "Ascending"
 msgstr ""
 
-#: ../mdocs-functions.php:249
+#: ../mdocs-functions.php:258
 msgid "Sort By"
 msgstr ""
 
-#: ../mdocs-functions.php:252 ../mdocs-settings-page.php:121
+#: ../mdocs-functions.php:261 ../mdocs-settings-page.php:123
 msgid "Number of Downloads"
 msgstr ""
 
-#: ../mdocs-functions.php:256 ../mdocs-settings-page.php:125
+#: ../mdocs-functions.php:265 ../mdocs-settings-page.php:127
 msgid "Rating"
 msgstr ""
 
-#: ../mdocs-functions.php:300
+#: ../mdocs-functions.php:309
 msgid "Memphis Error"
 msgstr ""
 
-#: ../mdocs-functions.php:301
+#: ../mdocs-functions.php:310
 msgid "Memphis Info"
+msgstr ""
+
+#: ../mdocs-functions.php:609
+msgid "Memphis Documents Posts"
+msgstr ""
+
+#: ../mdocs-functions.php:611
+msgid "Add New"
+msgstr ""
+
+#: ../mdocs-functions.php:612
+msgid "Add New Documents"
+msgstr ""
+
+#: ../mdocs-functions.php:613
+msgid "Edit Documents"
+msgstr ""
+
+#: ../mdocs-functions.php:614
+msgid "New Documents"
+msgstr ""
+
+#: ../mdocs-functions.php:615
+msgid "All Documents"
+msgstr ""
+
+#: ../mdocs-functions.php:616
+msgid "View Documents"
+msgstr ""
+
+#: ../mdocs-functions.php:617
+msgid "Search Documents"
+msgstr ""
+
+#: ../mdocs-functions.php:618
+msgid "No documents found"
+msgstr ""
+
+#: ../mdocs-functions.php:619
+msgid "No documents found in the Trash"
 msgstr ""
 
 #: ../mdocs-import.php:5
@@ -414,7 +458,7 @@ msgstr ""
 
 #: ../mdocs-import.php:65
 msgid ""
-"Old category structure found, updated to the new category structure.  It is "
+"Old folder structure found, updated to the new folder structure.  It is "
 "recommened that you re-export you files again.  The process did finish."
 msgstr ""
 
@@ -428,14 +472,14 @@ msgstr ""
 
 #: ../mdocs-localization.php:14
 msgid ""
-"You are about to delete this category.  Any file in this category will be "
+"You are about to delete this folder.  Any file in this category will be "
 "lost!\n"
 "\n"
 "'Cancel' to stop, 'OK' to delete."
 msgstr ""
 
 #: ../mdocs-localization.php:16
-msgid "New Category"
+msgid "New Folder"
 msgstr ""
 
 #: ../mdocs-localization.php:17
@@ -443,7 +487,7 @@ msgid "Are you sure you want to navigate away from this page?"
 msgstr ""
 
 #: ../mdocs-localization.php:18
-msgid "Currently Memphis Documents Library only supports two sub categories."
+msgid "Currently Memphis Documents Library only supports two sub folders."
 msgstr ""
 
 #: ../mdocs-localization.php:19
@@ -452,256 +496,268 @@ msgid ""
 "be delete."
 msgstr ""
 
-#: ../mdocs-localization.php:87
+#: ../mdocs-localization.php:88
 msgid ""
 "Memphis Documents Library has an export file on this WordPress instance it "
 "was created on "
 msgstr ""
 
-#: ../mdocs-localization.php:88
+#: ../mdocs-localization.php:89
 msgid ""
 "Memphis Documents Library has no export file on this WordPress instance.  "
 "You may want to create an export file now."
 msgstr ""
 
-#: ../mdocs-localization.php:89
+#: ../mdocs-localization.php:90
 msgid "This file is part of the Documents Library."
 msgstr ""
 
-#: ../mdocs-localization.php:91
+#: ../mdocs-localization.php:92
 msgid "No file was uploaded, please try again."
 msgstr ""
 
-#: ../mdocs-localization.php:92
-msgid ""
-"Sorry, this file type is not permitted for security reasons, contact your "
-"administrator for more details.<br>If you are running Multisite you can add "
-"this file type from the Settings menu of the Network Admin."
-msgstr ""
-
 #: ../mdocs-localization.php:93
-msgid "No categories found.  The upload process can not proceed."
+msgid ""
+"Sorry, this file type is not permitted for security reasons.  If you want to "
+"add this file type please goto the setting page of Memphis Documents Library "
+"and add it to the Allowed File Type menu."
 msgstr ""
 
 #: ../mdocs-localization.php:94
+msgid "No categories found.  The upload process can not proceed."
+msgstr ""
+
+#: ../mdocs-localization.php:95
 msgid ""
 "Data was not submitted.  The submit process is out of sync, please refresh "
 "your browser and try again."
 msgstr ""
 
-#: ../mdocs-localization.php:95
+#: ../mdocs-localization.php:96
 msgid "File Upload Error.  Please try again."
 msgstr ""
 
-#: ../mdocs-localization.php:96
+#: ../mdocs-localization.php:97
 msgid "You are already at the most recent version of this document."
 msgstr ""
 
-#: ../mdocs-settings-page.php:41
+#: ../mdocs-localization.php:98
+msgid "An error has occured please try again."
+msgstr ""
+
+#: ../mdocs-settings-page.php:42
 msgid "Global Documents Library Settings"
 msgstr ""
 
-#: ../mdocs-settings-page.php:51
+#: ../mdocs-settings-page.php:52
 msgid "Document List Size: (Site)"
 msgstr ""
 
-#: ../mdocs-settings-page.php:53 ../mdocs-settings-page.php:58
+#: ../mdocs-settings-page.php:54 ../mdocs-settings-page.php:59
 msgid "small"
 msgstr ""
 
-#: ../mdocs-settings-page.php:54 ../mdocs-settings-page.php:59
+#: ../mdocs-settings-page.php:55 ../mdocs-settings-page.php:60
 msgid "large"
 msgstr ""
 
-#: ../mdocs-settings-page.php:56
+#: ../mdocs-settings-page.php:57
 msgid "Document List Size: (Dashboard)"
 msgstr ""
 
-#: ../mdocs-settings-page.php:63
+#: ../mdocs-settings-page.php:64
 msgid "Private File Post Viewing"
 msgstr ""
 
-#: ../mdocs-settings-page.php:75
+#: ../mdocs-settings-page.php:76
 msgid "Style Settings"
 msgstr ""
 
-#: ../mdocs-settings-page.php:77
+#: ../mdocs-settings-page.php:78
 msgid "Download Button Options"
 msgstr ""
 
-#: ../mdocs-settings-page.php:78
+#: ../mdocs-settings-page.php:79
 msgid "Background Options"
 msgstr ""
 
-#: ../mdocs-settings-page.php:79
+#: ../mdocs-settings-page.php:80
 msgid "Background Color"
 msgstr ""
 
-#: ../mdocs-settings-page.php:81
+#: ../mdocs-settings-page.php:82
 msgid "Background Hover Color"
 msgstr ""
 
-#: ../mdocs-settings-page.php:83
+#: ../mdocs-settings-page.php:84
 msgid "Text Color"
 msgstr ""
 
-#: ../mdocs-settings-page.php:85
+#: ../mdocs-settings-page.php:86
 msgid "Text Hover Color"
 msgstr ""
 
-#: ../mdocs-settings-page.php:87
+#: ../mdocs-settings-page.php:88
 msgid "Download Button Preview"
 msgstr ""
 
-#: ../mdocs-settings-page.php:92
+#: ../mdocs-settings-page.php:93
 msgid "Displayed File Information"
 msgstr ""
 
-#: ../mdocs-settings-page.php:97 ../mdocs-settings.php:9
+#: ../mdocs-settings-page.php:98 ../mdocs-settings.php:9
 #: ../mdocs-settings.php:11
 msgid "Updated"
 msgstr ""
 
-#: ../mdocs-settings-page.php:98
+#: ../mdocs-settings-page.php:99
 msgid "Ratings"
 msgstr ""
 
-#: ../mdocs-settings-page.php:99
+#: ../mdocs-settings-page.php:100
 msgid "Social"
 msgstr ""
 
-#: ../mdocs-settings-page.php:102
-msgid "Hide Things"
+#: ../mdocs-settings-page.php:101
+msgid "Share"
 msgstr ""
 
 #: ../mdocs-settings-page.php:104
-msgid "All Files"
-msgstr ""
-
-#: ../mdocs-settings-page.php:105
-msgid "All Posts (May take awhile)"
+msgid "Hide Things"
 msgstr ""
 
 #: ../mdocs-settings-page.php:106
-msgid "All Files: (Non Members)"
+msgid "All Files"
 msgstr ""
 
 #: ../mdocs-settings-page.php:107
+msgid "All Posts (May take awhile)"
+msgstr ""
+
+#: ../mdocs-settings-page.php:108
+msgid "All Files: (Non Members)"
+msgstr ""
+
+#: ../mdocs-settings-page.php:109
 msgid "All Posts: (Non Members)"
 msgstr ""
 
-#: ../mdocs-settings-page.php:111
+#: ../mdocs-settings-page.php:113
 msgid "New & Updated Banner"
 msgstr ""
 
-#: ../mdocs-settings-page.php:113
+#: ../mdocs-settings-page.php:115
 msgid "Show New & Updated Banner"
 msgstr ""
 
-#: ../mdocs-settings-page.php:114
+#: ../mdocs-settings-page.php:116
 msgid "days - Time to Displayed"
 msgstr ""
 
-#: ../mdocs-settings-page.php:116
+#: ../mdocs-settings-page.php:118
 msgid "Default Sort Options"
 msgstr ""
 
-#: ../mdocs-settings-page.php:118
+#: ../mdocs-settings-page.php:120
 msgid "Order Types:"
 msgstr ""
 
-#: ../mdocs-settings-page.php:128
+#: ../mdocs-settings-page.php:130
 msgid "Order Style:"
 msgstr ""
 
-#: ../mdocs-settings-page.php:130
+#: ../mdocs-settings-page.php:132
 msgid "Sort Descending"
 msgstr ""
 
-#: ../mdocs-settings-page.php:131
+#: ../mdocs-settings-page.php:133
 msgid "Sort Ascending"
 msgstr ""
 
-#: ../mdocs-settings-page.php:137
+#: ../mdocs-settings-page.php:139
 msgid "Document Page Settings"
 msgstr ""
 
-#: ../mdocs-settings-page.php:139
+#: ../mdocs-settings-page.php:141
 msgid "Default Content:"
 msgstr ""
 
-#: ../mdocs-settings-page.php:142
+#: ../mdocs-settings-page.php:144
 msgid "Preview"
 msgstr ""
 
-#: ../mdocs-settings-page.php:145
+#: ../mdocs-settings-page.php:147
 msgid "Show Description"
 msgstr ""
 
-#: ../mdocs-settings-page.php:146
+#: ../mdocs-settings-page.php:148
 msgid "Show Preview"
 msgstr ""
 
-#: ../mdocs-settings-page.php:148
+#: ../mdocs-settings-page.php:150
 msgid ".htaccess File Editor"
 msgstr ""
 
-#: ../mdocs-settings-page.php:163
+#: ../mdocs-settings-page.php:165
 msgid "Roles & Permissions"
 msgstr ""
 
-#: ../mdocs-settings-page.php:189
+#: ../mdocs-settings-page.php:191
 msgid "Allowed File Types"
 msgstr ""
 
-#: ../mdocs-settings-page.php:196 ../mdocs-update-mime.php:27
+#: ../mdocs-settings-page.php:198 ../mdocs-update-mime.php:27
 msgid "Extension"
 msgstr ""
 
-#: ../mdocs-settings-page.php:197 ../mdocs-update-mime.php:28
+#: ../mdocs-settings-page.php:199 ../mdocs-update-mime.php:28
 msgid "Mime Type"
 msgstr ""
 
-#: ../mdocs-settings-page.php:202
+#: ../mdocs-settings-page.php:200 ../mdocs-update-mime.php:29
+msgid "Options"
+msgstr ""
+
+#: ../mdocs-settings-page.php:205
 msgid "remove"
 msgstr ""
 
-#: ../mdocs-settings-page.php:209 ../mdocs-update-mime.php:40
+#: ../mdocs-settings-page.php:212 ../mdocs-update-mime.php:41
 msgid "add"
 msgstr ""
 
-#: ../mdocs-settings-page.php:212
+#: ../mdocs-settings-page.php:215
 msgid "List of Files and Their Mime Types"
 msgstr ""
 
-#: ../mdocs-settings-page.php:213
+#: ../mdocs-settings-page.php:216
 msgid "Restore Default File Types"
 msgstr ""
 
-#: ../mdocs-settings-page.php:217
+#: ../mdocs-settings-page.php:220
 msgid "Save Changes"
 msgstr ""
 
-#: ../mdocs-settings-page.php:224
+#: ../mdocs-settings-page.php:227
 msgid "Filesystem Cleanup"
 msgstr ""
 
-#: ../mdocs-settings-page.php:225
+#: ../mdocs-settings-page.php:228
 msgid ""
 "Use this functionality to run a system check to locate and remove any broken "
 "files/data links inside Memphis Documents Library.<br>Be sure to make a "
 "backup copy before running this check."
 msgstr ""
 
-#: ../mdocs-settings-page.php:227
+#: ../mdocs-settings-page.php:230
 msgid "Run Filesystem Cleanup"
 msgstr ""
 
-#: ../mdocs-settings-page.php:242
+#: ../mdocs-settings-page.php:245
 msgid "Restore Memphis Document Library's to Defaults"
 msgstr ""
 
-#: ../mdocs-settings-page.php:243
+#: ../mdocs-settings-page.php:246
 msgid ""
 "This will return Memphis Documents Library to its post install state.  This "
 "means that all you files, post, and categories will be remove and all "
@@ -709,49 +765,49 @@ msgid ""
 "before continuing.</b>"
 msgstr ""
 
-#: ../mdocs-settings-page.php:247
+#: ../mdocs-settings-page.php:250
 msgid "Restore To Default"
 msgstr ""
 
-#: ../mdocs-settings-page.php:257
+#: ../mdocs-settings-page.php:260
 msgid "Filesystem Cleanup Complete"
 msgstr ""
 
-#: ../mdocs-settings-page.php:258
+#: ../mdocs-settings-page.php:261
 msgid ""
 "Your file system has been cleaned.  Remember if you encounter any issues "
 "revert back to your previous version using the import tool."
 msgstr ""
 
-#: ../mdocs-settings-page.php:260 ../mdocs-settings-page.php:289
+#: ../mdocs-settings-page.php:263 ../mdocs-settings-page.php:292
 msgid "Unlinked Files"
 msgstr ""
 
-#: ../mdocs-settings-page.php:264 ../mdocs-settings-page.php:292
+#: ../mdocs-settings-page.php:267 ../mdocs-settings-page.php:295
 msgid "There are no unlinked files."
 msgstr ""
 
-#: ../mdocs-settings-page.php:268 ../mdocs-settings-page.php:296
+#: ../mdocs-settings-page.php:271 ../mdocs-settings-page.php:299
 msgid "Unlinked Data"
 msgstr ""
 
-#: ../mdocs-settings-page.php:270 ../mdocs-settings-page.php:298
+#: ../mdocs-settings-page.php:273 ../mdocs-settings-page.php:301
 msgid "Element ID"
 msgstr ""
 
-#: ../mdocs-settings-page.php:271 ../mdocs-settings-page.php:299
+#: ../mdocs-settings-page.php:274 ../mdocs-settings-page.php:302
 msgid "There is no unlinked data."
 msgstr ""
 
-#: ../mdocs-settings-page.php:277
+#: ../mdocs-settings-page.php:280
 msgid "Run File System Cleanup Again"
 msgstr ""
 
-#: ../mdocs-settings-page.php:286
+#: ../mdocs-settings-page.php:289
 msgid "Filesystem Analyzed"
 msgstr ""
 
-#: ../mdocs-settings-page.php:287
+#: ../mdocs-settings-page.php:290
 msgid ""
 "Below is a list of files and data that look to be broken and or unused by "
 "Memphis Documents Library.  The next phase of the process will try and "
@@ -760,7 +816,7 @@ msgid ""
 "your export file to revert all changes."
 msgstr ""
 
-#: ../mdocs-settings-page.php:305
+#: ../mdocs-settings-page.php:308
 msgid "Cleanup The File System"
 msgstr ""
 
@@ -768,31 +824,31 @@ msgstr ""
 msgid "New"
 msgstr ""
 
-#: ../mdocs-settings.php:82
+#: ../mdocs-settings.php:117
 msgid ""
 "Unable to create the directory \"mdocs\" which is needed by Memphis "
 "Documents Library. Is its parent directory writable by the server?"
 msgstr ""
 
-#: ../mdocs-settings.php:89
+#: ../mdocs-settings.php:124
 msgid "Documents"
 msgstr ""
 
-#: ../mdocs-settings.php:111
+#: ../mdocs-settings.php:146
 msgid ""
 "Unable to create the directory \"mdocs\" which is needed by Memphis "
 "Documents Library. Its parent directory is not readable/writable by the "
 "server?"
 msgstr ""
 
-#: ../mdocs-settings.php:314
+#: ../mdocs-settings.php:363
 msgid ""
 "Your Memphis <b>.htaccess</b> file has been updated to allow google.com "
 "access to the system.   This step is necessary to allow documents to be "
 "previewed."
 msgstr ""
 
-#: ../mdocs-settings.php:321
+#: ../mdocs-settings.php:370
 msgid ""
 "Your Memphis <b>Categories</b> have been updated to handle subcategories "
 "this should not effect your current file system in anyway.  If there is any "
@@ -801,7 +857,7 @@ msgid ""
 "structured."
 msgstr ""
 
-#: ../mdocs-settings.php:328
+#: ../mdocs-settings.php:377
 msgid ""
 "Your Memphis <b>Categories</b> have been counted to handle subcategories "
 "this should not effect your current file system in anyway.  If there is any "
@@ -822,8 +878,8 @@ msgstr ""
 
 #: ../mdocs-shortcodes.php:18
 msgid ""
-"Adds files from  a specific main category of the Memphis Documents Library "
-"on any page, post or widget."
+"Adds files from  a specific main folder of the Memphis Documents Library on "
+"any page, post or widget."
 msgstr ""
 
 #: ../mdocs-shortcodes.php:22
@@ -841,11 +897,11 @@ msgid ""
 "Adds a header to the Memphis Documents LIbrary on ay page, post or widget."
 msgstr ""
 
-#: ../mdocs-social.php:29
+#: ../mdocs-social.php:32
 msgid "This page is hidden to all users accepts admins."
 msgstr ""
 
-#: ../mdocs-the-list.php:88
+#: ../mdocs-the-list.php:89
 msgid ""
 "Unable to create the directory \"mdocs\" which is needed by Memphis "
 "Documents Library. Its parent directory is not writable by the server?"

@@ -50,7 +50,7 @@ function mdocs_dashboard_view() {
 		<?php if($message != "" && $type != 'update') { ?> <div id="message" class="error" ><p><?php echo $message; ?></p></div> <?php }?>
 		<div id="icon-mdocs" class="icon32"><br></div><h2><?php _e("Documents Library",'mdocs'); ?>
 		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=<?php echo $current_cat; ?>&action=add-doc" class="mdocs-grey-btn"><?php _e('Add New Document','mdocs'); ?></a><?php } ?>
-		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=cats" class="mdocs-grey-btn"><?php _e('Edit Categories','mdocs'); ?></a><?php } ?>
+		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=cats" class="mdocs-grey-btn"><?php _e('Edit Folders','mdocs'); ?></a><?php } ?>
 		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=settings" class="mdocs-grey-btn"><?php _e('Settings','mdocs'); ?></a><?php } ?>
 		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=batch" class="mdocs-grey-btn"><?php _e('Batch Upload (Beta)','mdocs'); ?></a><?php } ?>
 		<?php if(is_dir($upload_dir['basedir'].'/mdocs/')) { ?><a href="?page=memphis-documents.php&cat=short-codes" class="mdocs-grey-btn"><?php _e('Short Codes','mdocs'); ?></a><?php } ?>
@@ -140,7 +140,7 @@ function mdoc_doc_list($current_cat) {
 				
 			}
 		}
-		if($count == 0) { ?><tr><td colspan="<?php echo $num_cols; ?>"><p class="mdocs-nofiles" ><?php _e('No files found in this category.','mdocs'); ?></p></td></tr><?php }
+		if($count == 0) { ?><tr><td colspan="<?php echo $num_cols; ?>"><p class="mdocs-nofiles" ><?php _e('No files found in this folder.','mdocs'); ?></p></td></tr><?php }
 		if(get_option('mdocs-list-type') == 'small') echo '</table>';
 	}
 }

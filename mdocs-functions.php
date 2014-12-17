@@ -642,5 +642,5 @@ add_action( 'init', 'mdocs_post_pages' );
 
 function mdocs_save_list($mdocs_list) {
 	if($mdocs_list != null) update_option('mdocs-list', $mdocs_list);
-	else mdocs_errors(MDOCS_ERROR_7,'error'); 
+	//else mdocs_errors(MDOCS_ERROR_7,'error'); 
 }
