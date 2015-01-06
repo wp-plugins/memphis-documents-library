@@ -1,0 +1,1009 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Memphis Documents Library\n"
+"POT-Creation-Date: 2014-12-17 15:24-0500\n"
+"PO-Revision-Date: 2015-01-03 00:45+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.1\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: nl_NL\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../mdocs-batch-upload.php:14
+msgid "Please upload a zip file."
+msgstr "Upload een zip-bestand."
+
+#: ../mdocs-batch-upload.php:26
+msgid "Batch Library Upload"
+msgstr "Batch Bibliotheek Uploaden"
+
+#: ../mdocs-batch-upload.php:29
+msgid ""
+"Batch Upload  is still in beta.  Be sure to backup your library before "
+"running this process.  If anything should go wrong, just import the backup "
+"using the\"Overwrite Saved Variables\" option, and then run the \"File "
+"System Cleanup\" process to revert to the original state."
+msgstr ""
+"Batch Upload is nog in Bèta.  Zorg dat u een back-up heeft van uw "
+"bibliotheek voordat u dit process uitvoert.  Als er iets misgaat, back-up "
+"importeren met behulp van de  \"Overschrijven Opgeslagen Variabelen\" optie "
+"en voer vervolgens de \"Bestandssysteem Opruimen\" proces om terug te keren "
+"naar originele staat."
+
+#: ../mdocs-batch-upload.php:31
+msgid ""
+"Create a zip file of all the documents you want to upload.  You may name it "
+"whatever you want, naming doesn't matter.  Once you have created the file, "
+"simply upload it, then use the quick select form to place the files in the "
+"proper directory.  Once satisfied press the 'Complete' button to finsh the "
+"process."
+msgstr ""
+"Maak een zipbestand van alle documenten die u wilt uploaden.  Naam is "
+"onbelangrijk.  Zodra u het bestand hebt gemaakt, uploaden en vervolgens "
+"snelle selectie gebruiken om de bestanden in de juiste folder te plaatsen.  "
+"Eenmaal tevreden druk op de knop 'Voltooien' om het process te beeindigen."
+
+#: ../mdocs-batch-upload.php:36 ../mdocs-batch-upload.php:152
+msgid "Upload Zip File"
+msgstr "Upload Zip-bestand"
+
+#: ../mdocs-batch-upload.php:59 ../mdocs-dashboard.php:204
+#: ../mdocs-functions.php:260 ../mdocs-settings-page.php:122
+msgid "File Name"
+msgstr "Bestandsnaam"
+
+#: ../mdocs-batch-upload.php:62 ../mdocs-dashboard.php:207
+msgid "Category"
+msgstr "Categorie"
+
+#: ../mdocs-batch-upload.php:68 ../mdocs-dashboard.php:213
+#: ../mdocs-file-info-large.php:84 ../mdocs-functions.php:262
+#: ../mdocs-settings-page.php:97 ../mdocs-settings-page.php:124
+#: ../mdocs-versions.php:29 ../mdocs-versions.php:39
+msgid "Version"
+msgstr "Versie"
+
+#: ../mdocs-batch-upload.php:76
+msgid "Complete"
+msgstr "Klaar"
+
+#: ../mdocs-batch-upload.php:101
+msgid "Processed File => "
+msgstr "Verwerkt Bestand =>"
+
+#: ../mdocs-batch-upload.php:130
+msgid "Mime Type Allowed => "
+msgstr "Mime Type Toegestaan =>"
+
+#: ../mdocs-batch-upload.php:131
+msgid "File Uploaded with No Errors."
+msgstr "Bestand geupload Zonder Fouten."
+
+#: ../mdocs-batch-upload.php:133
+msgid "Invalid Mime Type => "
+msgstr "Ongeldige Mime Type =>"
+
+#: ../mdocs-batch-upload.php:133
+msgid " Unable to process file."
+msgstr "Niet mogelijk om bestand te verwerken."
+
+#: ../mdocs-batch-upload.php:134
+msgid "File Was Not Uploaded because an Error occured."
+msgstr "Bestand was niet geupload, er is een fout opgetreden"
+
+#: ../mdocs-batch-upload.php:138
+msgid "Cleaning up tmp folder and files"
+msgstr "Opruimen tmp folder en bestanden"
+
+#: ../mdocs-batch-upload.php:144
+msgid "Batch Process Complete."
+msgstr "Batch Proces Klaar."
+
+#: ../mdocs-batch-upload.php:147
+msgid "The batch process has completed, below is a log of results:"
+msgstr "Het Batch Proces is klaar. Hieronder een log met resultaten:"
+
+#: ../mdocs-categories.php:10
+msgid "Add Main Folder"
+msgstr "Voeg Hoofd Folder Toe"
+
+#: ../mdocs-categories.php:17 ../mdocs-categories.php:25
+msgid "Folder"
+msgstr "Folder"
+
+#: ../mdocs-categories.php:18 ../mdocs-categories.php:26
+msgid "Order"
+msgstr "Volgorde"
+
+#: ../mdocs-categories.php:19 ../mdocs-categories.php:27
+#: ../mdocs-localization.php:15
+msgid "Remove"
+msgstr "Verwijder"
+
+#: ../mdocs-categories.php:20 ../mdocs-categories.php:28
+#: ../mdocs-categories.php:87 ../mdocs-localization.php:20
+msgid "Add Folder"
+msgstr "Toevoegen Folder "
+
+#: ../mdocs-categories.php:41
+msgid "No folders created."
+msgstr "Geen Folders Aangemaakt"
+
+#: ../mdocs-categories.php:49
+msgid "Save Categories"
+msgstr "Opslaan Categorieën"
+
+#: ../mdocs-dashboard.php:10
+msgid "Memphis Documents Library"
+msgstr "Memphis Documents Library"
+
+#: ../mdocs-dashboard.php:10
+msgid "Memphis Docs"
+msgstr "Memphis Docs"
+
+#: ../mdocs-dashboard.php:25 ../mdocs-dashboard.php:256
+msgid "Add Document"
+msgstr "Toevoegen Document"
+
+#: ../mdocs-dashboard.php:26 ../mdocs-dashboard.php:255
+msgid "Update Document"
+msgstr "Bijwerken Document"
+
+#: ../mdocs-dashboard.php:51
+msgid "Documents Library"
+msgstr "Documenten Bibliotheek"
+
+#: ../mdocs-dashboard.php:52
+msgid "Add New Document"
+msgstr "Toevoegen Nieuw Document"
+
+#: ../mdocs-dashboard.php:53
+msgid "Edit Folders"
+msgstr "Aanpassen Folders"
+
+#: ../mdocs-dashboard.php:54
+msgid "Settings"
+msgstr "Instellingen"
+
+#: ../mdocs-dashboard.php:55
+msgid "Batch Upload (Beta)"
+msgstr "Batch Upload (Beta)"
+
+#: ../mdocs-dashboard.php:56 ../mdocs-shortcodes.php:9
+msgid "Short Codes"
+msgstr "Short Codes"
+
+#: ../mdocs-dashboard.php:73
+msgid "Import"
+msgstr "Importeren"
+
+#: ../mdocs-dashboard.php:75
+msgid "Export"
+msgstr "Exporteren"
+
+#: ../mdocs-dashboard.php:143 ../mdocs-the-list.php:86
+msgid "No files found in this folder."
+msgstr "Geen bestanden gevonden in deze Folder."
+
+#: ../mdocs-dashboard.php:196
+msgid "File Configuration"
+msgstr "Bestands Configuratie"
+
+#: ../mdocs-dashboard.php:198
+msgid "File Uploader"
+msgstr "Bestands Uploader"
+
+#: ../mdocs-dashboard.php:200
+msgid "Current File"
+msgstr "Huidig Bestand"
+
+#: ../mdocs-dashboard.php:218
+msgid "Show Social Apps"
+msgstr "Laat Sociale Apps Zien"
+
+#: ../mdocs-dashboard.php:225
+msgid "Downloadable by Non Members"
+msgstr "Te Downloaden door Niet-Leden"
+
+#: ../mdocs-dashboard.php:232 ../mdocs-file-info-large.php:91
+#: ../mdocs-file-info-small.php:36
+msgid "File Status"
+msgstr "Bestands Status"
+
+#: ../mdocs-dashboard.php:234
+msgid "Public"
+msgstr "Publiek"
+
+#: ../mdocs-dashboard.php:235
+msgid "Hidden"
+msgstr "Verborgen"
+
+#: ../mdocs-dashboard.php:238 ../mdocs-file-info-large.php:92
+#: ../mdocs-file-info-small.php:37
+msgid "Post Status"
+msgstr "Bericht Status"
+
+#: ../mdocs-dashboard.php:240
+msgid "Published"
+msgstr "Gepubliceerd"
+
+#: ../mdocs-dashboard.php:241
+msgid "Private"
+msgstr "Prive"
+
+#: ../mdocs-dashboard.php:242
+msgid "Pending Review"
+msgstr "Wachtend op Beoordeling"
+
+#: ../mdocs-dashboard.php:243
+msgid "Draft"
+msgstr "Concept"
+
+#: ../mdocs-dashboard.php:249 ../mdocs-settings-page.php:143
+#: ../mdocs-shortcodes.php:10
+msgid "Description"
+msgstr "Omschrijving"
+
+#: ../mdocs-downloads.php:61
+msgid "Check this file out"
+msgstr "Bekijk dit bestand"
+
+#: ../mdocs-downloads.php:61
+msgid "Download it from"
+msgstr "Download het van"
+
+#: ../mdocs-downloads.php:61
+msgid "powered by Memphis Documents Library"
+msgstr "mogelijk gemaakt door Memphis Documents Library"
+
+#: ../mdocs-downloads.php:62
+msgid "Sorry you are unauthorized to download this file."
+msgstr "Sorry, je hebt geen toestemming om dit bestand te downloaden"
+
+#: ../mdocs-export.php:17
+msgid "Export Memphis Documents Library"
+msgstr "Exporteer Memphis Documents Library"
+
+#: ../mdocs-file-info-large.php:58 ../mdocs-file-info-large.php:63
+msgid "Please login<br>to download this file"
+msgstr "Login<br>om dit bestand te downloaden"
+
+#: ../mdocs-file-info-large.php:60 ../mdocs-settings-page.php:89
+#: ../mdocs-social.php:15 ../mdocs-versions.php:31 ../mdocs-versions.php:41
+#: ../mdocs-versions.php:51 ../mdocs-versions.php:68
+msgid "Download"
+msgstr "Download"
+
+#: ../mdocs-file-info-large.php:69
+msgid "Rate Me!"
+msgstr "Beoordeel Mij!"
+
+#: ../mdocs-file-info-large.php:70
+msgid "Your Rating"
+msgstr "Jouw Beoordeling"
+
+#: ../mdocs-file-info-large.php:82 ../mdocs-file-info-small.php:90
+#: ../mdocs-settings-page.php:95
+msgid "Downloads"
+msgstr "Downloads"
+
+#: ../mdocs-file-info-large.php:83 ../mdocs-functions.php:263
+#: ../mdocs-settings-page.php:96 ../mdocs-settings-page.php:125
+msgid "Author"
+msgstr "Schrijver"
+
+#: ../mdocs-file-info-large.php:89 ../mdocs-functions.php:264
+#: ../mdocs-settings-page.php:126
+msgid "Last Updated"
+msgstr "Laatst Bijgewerkt"
+
+#: ../mdocs-file-info-small.php:38
+msgid "All Files Are Hidden"
+msgstr "Alle Bestanden Zijn Verborgen"
+
+#: ../mdocs-file-info-small.php:39
+msgid "All Posts Are Hidden"
+msgstr "Alle Berichten Zijn Verborgen"
+
+#: ../mdocs-file-info-small.php:116
+msgid "Visit"
+msgstr "Bezoek"
+
+#: ../mdocs-file-info-small.php:117 ../mdocs-functions.php:11
+#: ../mdocs-versions.php:32 ../mdocs-versions.php:42 ../mdocs-versions.php:69
+msgid "Delete"
+msgstr "Verwijder"
+
+#: ../mdocs-file-info-small.php:118 ../mdocs-functions.php:14
+#: ../mdocs-versions.php:17
+msgid "Versions"
+msgstr "Versies"
+
+#: ../mdocs-functions.php:8
+msgid "Update"
+msgstr "Bijwerken"
+
+#: ../mdocs-functions.php:54
+msgid "Please login to access the preview."
+msgstr "Altublieft inloggen om voorbeeld te zien"
+
+#: ../mdocs-functions.php:248
+msgid "List Size"
+msgstr "Lijst grootte"
+
+#: ../mdocs-functions.php:249
+msgid "Large"
+msgstr "Groot"
+
+#: ../mdocs-functions.php:250
+msgid "Small"
+msgstr "Klein"
+
+#: ../mdocs-functions.php:254
+msgid "Descending"
+msgstr "Aflopend"
+
+#: ../mdocs-functions.php:255
+msgid "Ascending"
+msgstr "Oplopend"
+
+#: ../mdocs-functions.php:258
+msgid "Sort By"
+msgstr "Sorteer op "
+
+#: ../mdocs-functions.php:261 ../mdocs-settings-page.php:123
+msgid "Number of Downloads"
+msgstr "Aantal Downloads"
+
+#: ../mdocs-functions.php:265 ../mdocs-settings-page.php:127
+msgid "Rating"
+msgstr "Beoordeling"
+
+#: ../mdocs-functions.php:309
+msgid "Memphis Error"
+msgstr "Memphis Fout"
+
+#: ../mdocs-functions.php:310
+msgid "Memphis Info"
+msgstr "Memphis Informatie"
+
+#: ../mdocs-functions.php:609
+msgid "Memphis Documents Posts"
+msgstr "Memphis Document Berichten"
+
+#: ../mdocs-functions.php:611
+msgid "Add New"
+msgstr "Toevoegen Nieuw"
+
+#: ../mdocs-functions.php:612
+msgid "Add New Documents"
+msgstr "Toevoegen Nieuwe Documenten"
+
+#: ../mdocs-functions.php:613
+msgid "Edit Documents"
+msgstr "Aanpassen Documenten"
+
+#: ../mdocs-functions.php:614
+msgid "New Documents"
+msgstr "Nieuwe Documenten"
+
+#: ../mdocs-functions.php:615
+msgid "All Documents"
+msgstr "Alle Documenten"
+
+#: ../mdocs-functions.php:616
+msgid "View Documents"
+msgstr "Bekijk Documenten"
+
+#: ../mdocs-functions.php:617
+msgid "Search Documents"
+msgstr "Zoek Documenten"
+
+#: ../mdocs-functions.php:618
+msgid "No documents found"
+msgstr "Geen documenten gevonden"
+
+#: ../mdocs-functions.php:619
+msgid "No documents found in the Trash"
+msgstr "Geen documenten gevonden in vuilnisbak"
+
+#: ../mdocs-import.php:5
+msgid "There are two type of imports you can choose from."
+msgstr "Er zijn twee soorten imports waaruit kan worden gekozen."
+
+#: ../mdocs-import.php:8 ../mdocs-import.php:25
+msgid "Keep Existing Saved Variables"
+msgstr "Behoud bestaande opgeslagen variabelen"
+
+#: ../mdocs-import.php:9
+msgid ""
+"Is the safest way to import.  This option keeps all your current files and "
+"only imports new ones. \n"
+"\t\t\t<br>If a file that is being imported matches one on the current "
+"system, the one on the current system will be left untouched,\n"
+"\t\t\t<br>and you will have to manually import these files."
+msgstr ""
+"Is de veiligste manier van importeren.  Deze optie behoudt al je bestanden "
+"en importeert alleen de nieuwe. \n"
+"\t\t\t<br>Als een bestand dat wordt geimporteerd overeenkomt met degene in "
+"het huidige systeem, dan wordt degene in het huidige system niet aangepast,\n"
+"\t\t\t<br>en je moet die bestanden handmatig importeren"
+
+#: ../mdocs-import.php:13 ../mdocs-import.php:26
+msgid "Overwrite Saved Variables"
+msgstr "Overschrijf Opgeslagen Variabelen"
+
+#: ../mdocs-import.php:14
+msgid ""
+"Is a good when you have a empty documents library or you at looking to "
+"refresh your current library."
+msgstr ""
+"Is goed wanneer je een lege bestands bibliotheek hebt of je huidge "
+"bibliotheek wilt verversen."
+
+#: ../mdocs-import.php:15
+msgid ""
+"This method deletes all files, posted and version on the current system. "
+"After the method has completed you will\n"
+"\t\t\t<br>get a list of all the conflicts that have occured make note of "
+"them."
+msgstr ""
+"Deze method verwijderd alle bestanden, berichten en versies van het huidige "
+"system. Wanneer deze methode klaar is\n"
+"\t\t\t<br>krijg je een lijst met alle conflicten die zijn opgetreden, maak "
+"hiervan een notitie."
+
+#: ../mdocs-import.php:17
+msgid ""
+"Please take great care in using this method as there is little to no return."
+msgstr "Pas op met deze methode. Terugdraaien is niet mogelijk."
+
+#: ../mdocs-import.php:22
+msgid "Add the Zip File"
+msgstr "Voeg Zip bestand toe"
+
+#: ../mdocs-import.php:23
+msgid "Remember to always export any valuable data before doing an import."
+msgstr ""
+"Onthoud om altijd belangrijke data te exporteren voordat je een import doet."
+
+#: ../mdocs-import.php:28
+msgid "Import Memphis Documents Library"
+msgstr "Importeer Memphis Documents Library"
+
+#: ../mdocs-import.php:65
+msgid ""
+"Old folder structure found, updated to the new folder structure.  It is "
+"recommened that you re-export you files again.  The process did finish."
+msgstr ""
+"Oude folder structuur, bijgewerkt naar nieuwe folder structuur. Het is aan "
+"te bevelen om je bestanden opnieuw te exporteren. Het process is beeindigd."
+
+#: ../mdocs-localization.php:13
+msgid ""
+"You are about to delete this version.  Once deleted you will lost this "
+"version of the file!\n"
+"\n"
+"'Cancel' to stop, 'OK' to delete."
+msgstr ""
+"Je staat op het punt deze versie te verwijderen. Eenmaal verwijderd ben je "
+"deze versie van het bestand kwijt!\n"
+"\n"
+"'Cancel' om te stoppen, 'OK' om te verwijderen."
+
+#: ../mdocs-localization.php:14
+msgid ""
+"You are about to delete this folder.  Any file in this category will be "
+"lost!\n"
+"\n"
+"'Cancel' to stop, 'OK' to delete."
+msgstr ""
+"Je staat op het punt deze folder te verwijderen. Elk bestand in deze "
+"categorie raakje kwijt!\n"
+"\n"
+"'Cancel' om te stoppen, 'OK' om te verwijderen."
+
+#: ../mdocs-localization.php:16
+msgid "New Folder"
+msgstr "Nieuwe Folder"
+
+#: ../mdocs-localization.php:17
+msgid "Are you sure you want to navigate away from this page?"
+msgstr "Weet je zeker dat je van deze pagina weg wilt navigeren?"
+
+#: ../mdocs-localization.php:18
+msgid "Currently Memphis Documents Library only supports two sub folders."
+msgstr "Momenteel staat Memphis Documents Library maar twee sub-folders toe."
+
+#: ../mdocs-localization.php:19
+msgid ""
+"Are you sure you want continue.  All you files, posts and directories will "
+"be delete."
+msgstr ""
+"Weet je zeker dat je door wilt gaan. Al je bestanden, berichten en folders "
+"worden verwijderd."
+
+#: ../mdocs-localization.php:88
+msgid ""
+"Memphis Documents Library has an export file on this WordPress instance it "
+"was created on "
+msgstr ""
+"Memphis Documents Library heeft een export bestand die op deze Wordpress "
+"instantie is aangemaakt"
+
+#: ../mdocs-localization.php:89
+msgid ""
+"Memphis Documents Library has no export file on this WordPress instance.  "
+"You may want to create an export file now."
+msgstr ""
+"Memphis Documents Library heeft geen export bestand op deze Wordpress "
+"installatie. Je zou nu een export bestand kunnen aanmaken"
+
+#: ../mdocs-localization.php:90
+msgid "This file is part of the Documents Library."
+msgstr "Dit bestand is onderdeel van Memphis Documents Library."
+
+#: ../mdocs-localization.php:92
+msgid "No file was uploaded, please try again."
+msgstr "Geen bestanden geupload, prober aub opnieuw."
+
+#: ../mdocs-localization.php:93
+msgid ""
+"Sorry, this file type is not permitted for security reasons.  If you want to "
+"add this file type please goto the setting page of Memphis Documents Library "
+"and add it to the Allowed File Type menu."
+msgstr ""
+"Sorry, deze bestandstype is niet toegestaan om veiligheidsredenen. ALs je "
+"deze bestanden wil toeveogen g dan naar de instellings pagina van Memphis "
+"Documents Library en voeg het toe aan de lijst met toegestane bestands types."
+
+#: ../mdocs-localization.php:94
+msgid "No categories found.  The upload process can not proceed."
+msgstr "Gene categorien gevonden, Het upload process kan niet verder gaan"
+
+#: ../mdocs-localization.php:95
+msgid ""
+"Data was not submitted.  The submit process is out of sync, please refresh "
+"your browser and try again."
+msgstr ""
+"Data was niet ingediend. Het indien process loopt niet synchroon. Ververs je "
+"brower en prober opnieuw."
+
+#: ../mdocs-localization.php:96
+msgid "File Upload Error.  Please try again."
+msgstr "Bestand Upload Fout, Probeer aub opnieuw."
+
+#: ../mdocs-localization.php:97
+msgid "You are already at the most recent version of this document."
+msgstr "Je bent al bij de meest recente versie van dit document."
+
+#: ../mdocs-localization.php:98
+msgid "An error has occured please try again."
+msgstr "Er is een fout opgetreden, prober aub opnieuw."
+
+#: ../mdocs-settings-page.php:42
+msgid "Global Documents Library Settings"
+msgstr "Globale Documenten Bibliotheek Instellingen"
+
+#: ../mdocs-settings-page.php:52
+msgid "Document List Size: (Site)"
+msgstr "Document Lijst Grootte; (Site)"
+
+#: ../mdocs-settings-page.php:54 ../mdocs-settings-page.php:59
+msgid "small"
+msgstr "klein"
+
+#: ../mdocs-settings-page.php:55 ../mdocs-settings-page.php:60
+msgid "large"
+msgstr "groot"
+
+#: ../mdocs-settings-page.php:57
+msgid "Document List Size: (Dashboard)"
+msgstr "Document Lijst Grootte; (Dashboard)"
+
+#: ../mdocs-settings-page.php:64
+msgid "Private File Post Viewing"
+msgstr "Prive Bericht Bekijken"
+
+#: ../mdocs-settings-page.php:76
+msgid "Style Settings"
+msgstr "Stijl Instellingen"
+
+#: ../mdocs-settings-page.php:78
+msgid "Download Button Options"
+msgstr "Download Knop Opties"
+
+#: ../mdocs-settings-page.php:79
+msgid "Background Options"
+msgstr "Achtergrond Opties"
+
+#: ../mdocs-settings-page.php:80
+msgid "Background Color"
+msgstr "Achtergrond Kleur"
+
+#: ../mdocs-settings-page.php:82
+msgid "Background Hover Color"
+msgstr "Achtergrond Zweef Kleur"
+
+#: ../mdocs-settings-page.php:84
+msgid "Text Color"
+msgstr "Tekst Kleur"
+
+#: ../mdocs-settings-page.php:86
+msgid "Text Hover Color"
+msgstr "Tekst Zweef Kleur"
+
+#: ../mdocs-settings-page.php:88
+msgid "Download Button Preview"
+msgstr "Download Knop Voorbeeld"
+
+#: ../mdocs-settings-page.php:93
+msgid "Displayed File Information"
+msgstr "Getoonde Bestands Informatie"
+
+#: ../mdocs-settings-page.php:98 ../mdocs-settings.php:9
+#: ../mdocs-settings.php:11
+msgid "Updated"
+msgstr "Bijgewerkt"
+
+#: ../mdocs-settings-page.php:99
+msgid "Ratings"
+msgstr "Beoordelingen"
+
+#: ../mdocs-settings-page.php:100
+msgid "Social"
+msgstr "Sociaal"
+
+#: ../mdocs-settings-page.php:101
+msgid "Share"
+msgstr "Deel"
+
+#: ../mdocs-settings-page.php:104
+msgid "Hide Things"
+msgstr "Verberg Dingen"
+
+#: ../mdocs-settings-page.php:106
+msgid "All Files"
+msgstr "All Bestanden"
+
+#: ../mdocs-settings-page.php:107
+msgid "All Posts (May take awhile)"
+msgstr "Alle Berichten: (Kan even duren)"
+
+#: ../mdocs-settings-page.php:108
+msgid "All Files: (Non Members)"
+msgstr "Alle Bestanden: (Niet Leden)"
+
+#: ../mdocs-settings-page.php:109
+msgid "All Posts: (Non Members)"
+msgstr "Alle Berichten: (Niet Leden)"
+
+#: ../mdocs-settings-page.php:113
+msgid "New & Updated Banner"
+msgstr "Nieuw & Bijgewerkt Banner"
+
+#: ../mdocs-settings-page.php:115
+msgid "Show New & Updated Banner"
+msgstr "Laat Nieuw & Bijgewerkt Banner Zien"
+
+#: ../mdocs-settings-page.php:116
+msgid "days - Time to Displayed"
+msgstr "dagen - Tijd tot Laten Zien"
+
+#: ../mdocs-settings-page.php:118
+msgid "Default Sort Options"
+msgstr "Standaard Sorteer Opties"
+
+#: ../mdocs-settings-page.php:120
+msgid "Order Types:"
+msgstr "Volgorde Types:"
+
+#: ../mdocs-settings-page.php:130
+msgid "Order Style:"
+msgstr "Volgorde Stijl:"
+
+#: ../mdocs-settings-page.php:132
+msgid "Sort Descending"
+msgstr "Sorteer Aflopend"
+
+#: ../mdocs-settings-page.php:133
+msgid "Sort Ascending"
+msgstr "Sorteer Oplopend"
+
+#: ../mdocs-settings-page.php:139
+msgid "Document Page Settings"
+msgstr "Document Pagina Instellingen"
+
+#: ../mdocs-settings-page.php:141
+msgid "Default Content:"
+msgstr "Standaard Inhoud:"
+
+#: ../mdocs-settings-page.php:144
+msgid "Preview"
+msgstr "Voorbeeld"
+
+#: ../mdocs-settings-page.php:147
+msgid "Show Description"
+msgstr "Bekijk Omschrijving"
+
+#: ../mdocs-settings-page.php:148
+msgid "Show Preview"
+msgstr "Bekijk Voorbeeld"
+
+#: ../mdocs-settings-page.php:150
+msgid ".htaccess File Editor"
+msgstr ".htaccess Bestands Editor"
+
+#: ../mdocs-settings-page.php:165
+msgid "Roles & Permissions"
+msgstr "Rollen & Bevoegdheden"
+
+#: ../mdocs-settings-page.php:191
+msgid "Allowed File Types"
+msgstr "Toegestane Bestands Types"
+
+#: ../mdocs-settings-page.php:198 ../mdocs-update-mime.php:27
+msgid "Extension"
+msgstr "Extensie"
+
+#: ../mdocs-settings-page.php:199 ../mdocs-update-mime.php:28
+msgid "Mime Type"
+msgstr "Mime Type"
+
+#: ../mdocs-settings-page.php:200 ../mdocs-update-mime.php:29
+msgid "Options"
+msgstr "Opties"
+
+#: ../mdocs-settings-page.php:205
+msgid "remove"
+msgstr "verwijder"
+
+#: ../mdocs-settings-page.php:212 ../mdocs-update-mime.php:41
+msgid "add"
+msgstr "toevoegen"
+
+#: ../mdocs-settings-page.php:215
+msgid "List of Files and Their Mime Types"
+msgstr "Lijst van Bestanden en Hun Mime Types"
+
+#: ../mdocs-settings-page.php:216
+msgid "Restore Default File Types"
+msgstr "Herstel Standaard Bestands Types"
+
+#: ../mdocs-settings-page.php:220
+msgid "Save Changes"
+msgstr "Opslaan Wijzigingen"
+
+#: ../mdocs-settings-page.php:227
+msgid "Filesystem Cleanup"
+msgstr "Bestandssysteem Opruimen"
+
+#: ../mdocs-settings-page.php:228
+msgid ""
+"Use this functionality to run a system check to locate and remove any broken "
+"files/data links inside Memphis Documents Library.<br>Be sure to make a "
+"backup copy before running this check."
+msgstr ""
+"Gebruik deze functionalitiet om een systeem check uit te voeren, vinden en "
+"verwijderen van beschadigde bestanden/links binnen Memphis Documents Library."
+"<br>Zorg ervoor dat je een kopie hebt gemaakt voor dat je deze check "
+"uitvoerd."
+
+#: ../mdocs-settings-page.php:230
+msgid "Run Filesystem Cleanup"
+msgstr "Uitvoeren Opruimen Bestandssysteem"
+
+#: ../mdocs-settings-page.php:245
+msgid "Restore Memphis Document Library's to Defaults"
+msgstr "Herstel Memphis Document Library's naar Oorspronkeliike Instellingen."
+
+#: ../mdocs-settings-page.php:246
+msgid ""
+"This will return Memphis Documents Library to its post install state.  This "
+"means that all you files, post, and categories will be remove and all "
+"setting will return to their default state. <b>Please backup your files "
+"before continuing.</b>"
+msgstr ""
+"Dit brengt Memphis Documents Library terug naar de staat vlak na "
+"installatie. Dit betekent dat al je bestanden, berichten en categorieën "
+"worden verwijderd en alle instellingen worden teruggebracht naar hun "
+"oorspronkelijke waardes. <b>Maak aub een Backup van je bestanden voordat je "
+"verder gaat.</b>"
+
+#: ../mdocs-settings-page.php:250
+msgid "Restore To Default"
+msgstr "Herstellen naar Standaard"
+
+#: ../mdocs-settings-page.php:260
+msgid "Filesystem Cleanup Complete"
+msgstr "Bestandssysteem Opruimen Voltooid"
+
+#: ../mdocs-settings-page.php:261
+msgid ""
+"Your file system has been cleaned.  Remember if you encounter any issues "
+"revert back to your previous version using the import tool."
+msgstr ""
+"Het bestandssysteem is opgeruimd. Onthoud data als je problemen ondervind je "
+"terug kunt keren naar een vorige versie mbv de importeer functie."
+
+#: ../mdocs-settings-page.php:263 ../mdocs-settings-page.php:292
+msgid "Unlinked Files"
+msgstr "Bestanden zonder Link"
+
+#: ../mdocs-settings-page.php:267 ../mdocs-settings-page.php:295
+msgid "There are no unlinked files."
+msgstr "Er zijn geen bestanden zonder link."
+
+#: ../mdocs-settings-page.php:271 ../mdocs-settings-page.php:299
+msgid "Unlinked Data"
+msgstr "Data zonder Link"
+
+#: ../mdocs-settings-page.php:273 ../mdocs-settings-page.php:301
+msgid "Element ID"
+msgstr "Element ID"
+
+#: ../mdocs-settings-page.php:274 ../mdocs-settings-page.php:302
+msgid "There is no unlinked data."
+msgstr "Er is geen data zonder link."
+
+#: ../mdocs-settings-page.php:280
+msgid "Run File System Cleanup Again"
+msgstr "Opnieuw Bestandssysteem Opruimen Uitvoeren"
+
+#: ../mdocs-settings-page.php:289
+msgid "Filesystem Analyzed"
+msgstr "Bestandssysteem Geanalyseerd"
+
+#: ../mdocs-settings-page.php:290
+msgid ""
+"Below is a list of files and data that look to be broken and or unused by "
+"Memphis Documents Library.  The next phase of the process will try and "
+"remove all this unlinked information.<br>Please make sure you have made an "
+"export of the files before continuing.  If anything goes wrong just import "
+"your export file to revert all changes."
+msgstr ""
+"Hieronder een lijst met bestanden en data dat bechadigd lijkt en/of "
+"ongebruikt door Memphis Documents Library. De volgende fase van het proces "
+"tracht deze ongelinkte informatie te verwijderen.<br>Zorg ervoor dat je een "
+"export hebt van alle bestanden voordat je verder gaat.  Mocht er iets fout "
+"gaan dan kan je met importeren alle veranderingen ongedaan maken."
+
+#: ../mdocs-settings-page.php:308
+msgid "Cleanup The File System"
+msgstr "Opruimen Bestandssysteem"
+
+#: ../mdocs-settings.php:10 ../mdocs-settings.php:12
+msgid "New"
+msgstr "Nieuw"
+
+#: ../mdocs-settings.php:117
+msgid ""
+"Unable to create the directory \"mdocs\" which is needed by Memphis "
+"Documents Library. Is its parent directory writable by the server?"
+msgstr ""
+"Kan de folder \"mdocs\" niet aanmaken, die nodig is voor Memphis Document "
+"Library. Is bovenliggende folder beschrijfbaar voor de server?"
+
+#: ../mdocs-settings.php:124
+msgid "Documents"
+msgstr "Dcoumenten"
+
+#: ../mdocs-settings.php:146
+msgid ""
+"Unable to create the directory \"mdocs\" which is needed by Memphis "
+"Documents Library. Its parent directory is not readable/writable by the "
+"server?"
+msgstr ""
+"Kan de folder \"mdocs\" niet aanmaken, die nodig is voor Memphis Document "
+"Library. Is bovenliggende folder lees/beschrijfbaar voor de server?"
+
+#: ../mdocs-settings.php:363
+msgid ""
+"Your Memphis <b>.htaccess</b> file has been updated to allow google.com "
+"access to the system.   This step is necessary to allow documents to be "
+"previewed."
+msgstr ""
+"Je Memphis  <b>.htaccess</b> is bijgewerkt om google.com toegang te verlenen "
+"tot het syseem. Deze stap is noodzakelijk om document  voorbeelden te kunnen "
+"tonen."
+
+#: ../mdocs-settings.php:370
+msgid ""
+"Your Memphis <b>Categories</b> have been updated to handle subcategories "
+"this should not effect your current file system in anyway.  If there is any "
+"issues please post a comment in the support forum of this plugin.  It is "
+"recommended to re-export your files again due to the new way categories are "
+"structured."
+msgstr ""
+"Je Memphis  <b>Categorien</b> zijn geupdate om sub-categorien te verwerken. "
+"Dit zou geen effect mogen hebben op het huidge bestands-systeem. Als er  "
+"problemen zijn, zet dan een bericht op het support forum van deze plugin. "
+"Het is aanbevolen om je bestanden opnieuw te exporteren omdat de categorien "
+"zijn geherstructureerd."
+
+#: ../mdocs-settings.php:377
+msgid ""
+"Your Memphis <b>Categories</b> have been counted to handle subcategories "
+"this should not effect your current file system in anyway.  If there is any "
+"issues please post a comment in the support forum of this plugin.  It is "
+"recommended to re-export your files again due to the new way categories are "
+"structured."
+msgstr ""
+"Je Memphis  <b>Categorien</b> zijn berekend om sub-categorien te verwerken. "
+"Dit zou geen effect mogen hebben op het huidge bestands-systeem. Als er  "
+"problemen zijn, zet dan een bericht op het support forum van deze plugin. "
+"Het is aanbevolen om je bestanden opnieuw te exporteren omdat de categorien "
+"zijn geherstructureerd."
+
+#: ../mdocs-shortcodes.php:14
+msgid ""
+"Adds the default Memphis Documents Library file list to any page, post or "
+"widget."
+msgstr ""
+"Voegt de standaard Memphis Documents Library bestandslijst toe op elke "
+"pagina, bericht of widget."
+
+#: ../mdocs-shortcodes.php:17
+msgid "The Category Name"
+msgstr "De Categorie Naam"
+
+#: ../mdocs-shortcodes.php:18
+msgid ""
+"Adds files from  a specific main folder of the Memphis Documents Library on "
+"any page, post or widget."
+msgstr ""
+"Voegt bestanden van een specifieke hoofd folder toe van de Memphis Documents "
+"Library op elke pagina, bericht of widget."
+
+#: ../mdocs-shortcodes.php:22
+msgid ""
+"Adds a list of all files of the Memphis Documents Library on any page, post "
+"or widget."
+msgstr ""
+"Voegt een lijst met alle bestanden van de Memphis Documents Library op elke "
+"pagina, bericht of widget."
+
+#: ../mdocs-shortcodes.php:25
+msgid "This text will show up above the documents list."
+msgstr "Deze tekst wordt zichtbaar boven de document lijst."
+
+#: ../mdocs-shortcodes.php:26
+msgid ""
+"Adds a header to the Memphis Documents LIbrary on ay page, post or widget."
+msgstr ""
+"Voegt kop toe aan de Memphis Documents Library op elke pagina, bericht of "
+"widget."
+
+#: ../mdocs-social.php:32
+msgid "This page is hidden to all users accepts admins."
+msgstr "Deze pagina is verborgen voor alle gebruikers m.u.v. admins."
+
+#: ../mdocs-the-list.php:89
+msgid ""
+"Unable to create the directory \"mdocs\" which is needed by Memphis "
+"Documents Library. Its parent directory is not writable by the server?"
+msgstr ""
+"Kan de folder \"mdocs\" niet aanmaken, die nodig is voor Memphis Document "
+"Library. Is bovenliggende folder beschrijfbaar voor de server?"
+
+#: ../mdocs-versions.php:28 ../mdocs-versions.php:38
+msgid "File"
+msgstr "Bestand"
+
+#: ../mdocs-versions.php:30 ../mdocs-versions.php:40
+msgid "Date Modified"
+msgstr "Datum Aangepast"
+
+#: ../mdocs-versions.php:33 ../mdocs-versions.php:43
+msgid "Current"
+msgstr "Huidig"
+
+#: ../mdocs-versions.php:80
+msgid "Update To Revision"
+msgstr "Update naar Revisie"
