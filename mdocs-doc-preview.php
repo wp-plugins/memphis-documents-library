@@ -28,7 +28,7 @@ function mdocs_load_preview() {
 							$mdocs_desc = apply_filters('the_content', $the_mdoc['desc']);
 							$mdocs_desc = str_replace('\\','',$mdocs_desc);
 							?>
-							<h3>Description</h3>
+							<h3><?php _e('Description', 'mdocs'); ?></h3>
 							<div class="mdoc-desc">
 							<p><?php echo $mdocs_desc; ?></p>
 							</div>

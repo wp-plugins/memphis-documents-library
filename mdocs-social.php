@@ -9,7 +9,7 @@ function mdocs_social($the_mdoc, $page_type='site') {
 		?>
 		<div class="mdocs-social <?php if($page_type == 'dashboard') echo 'mdocs-socail-dashboard'; ?>"  id="mdocs-social-<?php echo $the_mdoc['id']; ?>" >
 			<?php if(get_option('mdocs-show-share')) { ?>
-			<div class="mdocs-share" onclick="mdocs_share('<?php echo $the_permalink; ?>','<?php echo $the_direct_download; ?>', 'mdocs-social-<?php echo $the_mdoc['id']; ?>');"><p><i class="fa fa-share mdocs-green"></i> Share</p></div>
+			<div class="mdocs-share" onclick="mdocs_share('<?php echo $the_permalink; ?>','<?php echo $the_direct_download; ?>', 'mdocs-social-<?php echo $the_mdoc['id']; ?>');"><p><i class="fa fa-share mdocs-green"></i> <?php _e('Share', 'mdocs'); ?></p></div>
 			<?php } ?>
 		<?php if($the_mdoc['show_social'] ==='on' && get_option('mdocs-show-social') ) { ?>
 			<div class="mdocs-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo $the_permalink;?>" data-counturl="<?php echo $the_permalink;?>" data-text="<?php echo __('Download','mdocs').' #'.strtolower(preg_replace('/-| /','_',$the_mdoc['name'])).' #MemphisDocumentsLibrary'; ?>" width="50">Tweet</a></div>

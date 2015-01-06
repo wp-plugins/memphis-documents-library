@@ -6,9 +6,9 @@ Description: A documents repository for WordPress.
 Author: Ian Howatson
 Version: 3.0
 Author URI: http://www.kingofnothing.net/
-Date: 07/15/2014
+Date: 01/06/2015
 
-Copyright 2014 Ian Howatson  (email : ian@howatson.net)
+Copyright 2015 Ian Howatson  (email : ian@howatson.net)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as 

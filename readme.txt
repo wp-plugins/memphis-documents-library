@@ -122,6 +122,7 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 
 == Change-log ==
 = 3.0 =
+* *New* - Added a Dutch Translation thanks to DK for all the hard work.
 * *Feature* - Added more safety check for lost of data.
 * *Feature* - Added Finnish language support, thanks to *sloworks* for their hard work.
 * *Feature* - Interface improvements
