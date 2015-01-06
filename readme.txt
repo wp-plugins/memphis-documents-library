@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 4.0
-Stable tag: 2.6.14
+Stable tag: 2.6.15
 
 A documents library for WordPress.
 
@@ -20,6 +20,7 @@ Memphis Documents Library version *2.6.3* is an important sercurity update.  Ple
 
 = What's New With Version 2.6 =
 
+* *New* - Added a Dutch Translation thanks to DK for all the hard work.
 * *New* - Added more safety check for lost of data.
 * *New* - Moved Memphis Document Library post into there own custom post type.
 * *New* - Ability to hide and show the share button.
@@ -151,6 +152,8 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 7. screenshot-7.png
 
 == Changelog ==
+= 2.6.15 =
+* *New* - Added a Dutch Translation thanks to DK for all the hard work.
 = 2.6.14 =
 * *Update* - English loc file has been updated with new language.
 * *Update* - Categories are now called Folder, no functionality change just name change.

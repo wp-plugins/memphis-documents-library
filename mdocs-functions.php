@@ -1,5 +1,6 @@
 <?php
 //error_reporting(E_ALL);
+setlocale(LC_ALL, 'Dutch');
 $the_rating = array();
 function mdocs_edit_file($the_mdocs, $index, $current_cat) {
 	?>
@@ -27,13 +28,13 @@ function  mdocs_des_preview_tabs($the_mdoc) {
 	$file_url = get_site_url().'/?mdocs-file='.$the_mdoc['id'].'&mdocs-url='.$the_mdoc['parent'];
 	ob_start();
 	?>
-	<?php if($mdocs_show_description && $mdocs_show_preview) { ?><a class="mdocs-nav-tab" id="mdoc-show-desc-<?php echo $the_mdoc['id']; ?>">Description</a><?php } ?>
-	<?php if($mdocs_show_preview && $mdocs_show_description) { ?><a class="mdocs-nav-tab" id="mdoc-show-preview-<?php echo $the_mdoc['id']; ?>">Preview</a><?php } ?>
+	<?php if($mdocs_show_description && $mdocs_show_preview) { ?><a class="mdocs-nav-tab" id="mdoc-show-desc-<?php echo $the_mdoc['id']; ?>"><?php _e('Description', 'mdocs'); ?></a><?php } ?>
+	<?php if($mdocs_show_preview && $mdocs_show_description) { ?><a class="mdocs-nav-tab" id="mdoc-show-preview-<?php echo $the_mdoc['id']; ?>"><?php _e('Preview', 'mdocs'); ?></a><?php } ?>
 	<div class="mdocs-show-container" id="mdocs-show-container-<?php echo $the_mdoc['id']; ?>">
 		<?php
 		if(!isset($_POST['show_type']) && $mdocs_show_description && $mdocs_default_content == 'description') {
 			?>
-			<h3>Description</h3>
+			<h3><?php _e('Description', 'mdocs'); ?></h3>
 			<div class="mdoc-desc">
 			<p><?php echo $mdocs_desc; ?></p>
 			</div>

@@ -3,7 +3,7 @@ $upload_dir = wp_upload_dir();
 $mdocs_zip = get_option('mdocs-zip');
 function mdocs_localization() {
 	//FOR TESTING LANG FILES
-	//global $locale; $locale = 'fi_FI';
+	//global $locale; $locale = 'nl_NL';
 	$loaded = load_plugin_textdomain('mdocs', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 }
 add_action('init', 'mdocs_localization');

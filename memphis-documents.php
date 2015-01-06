@@ -4,11 +4,11 @@ Plugin Name: Memphis Documents Library
 Plugin URI: http://www.kingofnothing.net/memphis-documents-library/
 Description: A documents repository for WordPress. 
 Author: Ian Howatson
-Version: 2.6.14
+Version: 2.6.15
 Author URI: http://www.kingofnothing.net/
-Date: 12/17/2014
+Date: 01/06/2015
 
-Copyright 2014 Ian Howatson  (email : ian@howatson.net)
+Copyright 2015 Ian Howatson  (email : ian@howatson.net)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as 
