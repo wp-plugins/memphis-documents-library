@@ -1,6 +1,6 @@
 <?php
 //error_reporting(E_ALL);
-setlocale(LC_ALL, 'Dutch');
+//setlocale(LC_ALL, 'Dutch');
 $the_rating = array();
 function mdocs_edit_file($the_mdocs, $index, $current_cat) {
 	?>
@@ -433,7 +433,8 @@ function mdocs_hide_show_toogle() {
 			update_option( 'mdocs-hide-all-posts-non-members-default', false );
 		}
 	}
-		
+	
+	/*
 	if($mdocs_hide_all_posts != $mdocs_hide_all_posts_default) {
 		if($mdocs_hide_all_posts) {
 			$query = new WP_Query('post_type=mdocs-posts&posts_per_page=-1');
@@ -469,7 +470,7 @@ function mdocs_hide_show_toogle() {
 			update_option( 'mdocs-hide-all-posts-default', false );
 		}
 		
-	}
+	}*/
 }
 
 function mdocs_check_read_write() {
