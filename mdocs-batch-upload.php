@@ -8,13 +8,15 @@ function mdocs_batch_upload($current_cat) {
 	$cats = get_option('mdocs-cats');
 	//var_dump($cats);
 	$do_complte = false;
+	/*
 	if(isset($_FILES['mdocs-batch']) && strpos($_FILES['mdocs-batch']['type'],'zip') == false) {
 		?>
 		<div class="error">
 			<p><?php _e('Please upload a zip file.','mdocs'); ?></p>
 		</div>
 		<?php
-	} elseif(isset($_FILES['mdocs-batch']) && strpos($_FILES['mdocs-batch']['type'],'zip') >= 0) {
+		*/
+	if(isset($_FILES['mdocs-batch']) && strpos($_FILES['mdocs-batch']['type'],'zip') >= 0) {
 		if(!file_exists('/tmp/')) mkdir('/tmp/');
 		if(!file_exists('/tmp/mdocs/')) mkdir('/tmp/mdocs/');
 		$zip_result = mdocs_unzip($_FILES['mdocs-batch']['tmp_name'], '/tmp');
@@ -43,38 +45,39 @@ function mdocs_batch_upload($current_cat) {
 		<input type="hidden" name="mdocs-batch-complete" value="1" />
 		<input type="hidden" name="mdocs-type" value="mdocs-add" />
 		<?php
-		foreach($zip_result['file'] as $index => $zip_file) {
-			$file = explode('/',$zip_file);
-			if(count($file) == 1) $file = explode('\\',$zip_file);
-			$file = $file[count($file)-1];
-			$file = preg_replace('/[^A-Za-z0-9\-._]/', '', $file);
-			$file = str_replace(' ','-', $file);
-			$filename = $file;
-			$ext = strrchr($file,'.');
-			$file = str_replace($ext, '', $file);
-			?>
-			<div class="mdocs-batch-container">
-				<input type="hidden" name="mdocs[filename][<?php echo $index; ?>]" value="<?php echo $filename; ?>" />
-				<input type="hidden" name="mdocs[tmp-file][<?php echo $index; ?>]" value="<?php echo $zip_file; ?>" />
-				<label><?php _e('File Name','mdocs'); ?>:
-					<input type="text" name="mdocs[name][<?php echo $index; ?>]" value="<?php echo $file; ?>"/>
-				</label>
-				<label><?php _e('Category','mdocs'); ?>:
-					<select name="mdocs[cat][<?php echo $index; ?>]">
-						<?php mdocs_get_cats($cats, $current_cat); ?>
-					</select>
-				</label>
-				<label>
-						<?php _e('Version','mdocs'); ?>: 
-					<input type="text" name="mdocs[version][<?php echo $index; ?>]" value="1.0" />
-				</label>
-			</div>
-			<?php
-		}
-		?>
+		if($zip_result) {
+			foreach($zip_result['file'] as $index => $zip_file) {
+				$file = explode('/',$zip_file);
+				if(count($file) == 1) $file = explode('\\',$zip_file);
+				$file = $file[count($file)-1];
+				$file = preg_replace('/[^A-Za-z0-9\-._]/', '', $file);
+				$file = str_replace(' ','-', $file);
+				$filename = $file;
+				$ext = strrchr($file,'.');
+				$file = str_replace($ext, '', $file);
+				?>
+				<div class="mdocs-batch-container">
+					<input type="hidden" name="mdocs[filename][<?php echo $index; ?>]" value="<?php echo $filename; ?>" />
+					<input type="hidden" name="mdocs[tmp-file][<?php echo $index; ?>]" value="<?php echo $zip_file; ?>" />
+					<label><?php _e('File Name','mdocs'); ?>:
+						<input type="text" name="mdocs[name][<?php echo $index; ?>]" value="<?php echo $file; ?>"/>
+					</label>
+					<label><?php _e('Category','mdocs'); ?>:
+						<select name="mdocs[cat][<?php echo $index; ?>]">
+							<?php mdocs_get_cats($cats, $current_cat); ?>
+						</select>
+					</label>
+					<label>
+							<?php _e('Version','mdocs'); ?>: 
+						<input type="text" name="mdocs[version][<?php echo $index; ?>]" value="1.0" />
+					</label>
+				</div>
+				<?php
+			}?>
 		<br>
 		<input type="submit" class="button button-primary" value="<?php _e('Complete','mdocs') ?>" />
 		<br/>
+		<?php } ?>
 	</form>
 	<?php
 } elseif ($_POST['mdocs-batch-complete'] ) {
