@@ -8,8 +8,8 @@ define('MDOCS_TIME_OFFSET', get_option('gmt_offset')*60*60);
 define('MDOCS_ROBOTS','http://www.kingofnothing.net/memphis/robots/memphis-robots.txt');
 define('MDOCS_UPDATE', '<div class="mdocs-updated">'.__('Updated','mdocs').'</div>');
 define('MDOCS_NEW', '<div class="mdocs-new">'.__('New','mdocs').'</div>');
-define('MDOCS_UPDATE_SMALL', '<span class="mdocs-new-updated-small badge pull-right alert-info ">'.__('Updated','mdocs').'</span>');
-define('MDOCS_NEW_SMALL', '<span class="mdocs-new-updated-small badge pull-right alert-success ">'.__('New','mdocs').'</span>');
+define('MDOCS_UPDATE_SMALL', '<span class="mdocs-new-updated-small badge pull-left alert-info ">'.__('Updated','mdocs').'</span>');
+define('MDOCS_NEW_SMALL', '<span class="mdocs-new-updated-small badge pull-left alert-success ">'.__('New','mdocs').'</span>');
 define('MDOCS_CURRENT_TIME', date('Y-m-d H:i:s', time()+MDOCS_TIME_OFFSET));
 //define('MDOCS_VERSION', );
 $add_error = false;
@@ -170,7 +170,7 @@ function mdocs_init_settings() {
 	add_option('mdocs-last-updated',10);
 	//GLOBAL VARIABLES
 	register_setting('mdocs-global-settings', 'mdocs-list-type');
-	add_option('mdocs-list-type','small');
+	update_option('mdocs-list-type','small');
 	register_setting('mdocs-global-settings', 'mdocs-list-type-dashboard');
 	add_option('mdocs-list-type-dashboard','small');
 	register_setting('mdocs-global-settings', 'mdocs-hide-all-files-non-members');
@@ -263,7 +263,7 @@ function mdocs_init_view_private() {
 
 //ADD CONTENT TO DOCUMENTS PAGE
 //[mdocs]
-function mdocs_shortcode($att, $content=null) { mdocs_the_list($att); }
+function mdocs_shortcode($att, $content=null) { echo mdocs_the_list($att); }
 add_shortcode( 'mdocs', 'mdocs_shortcode' );
 //[mdocs_post_page]
 function mdocs_post_page_shortcode($att, $content=null) {
@@ -305,7 +305,7 @@ function mdocs_admin_script() {
 
 function mdocs_script() {
 	global $post;
-	if(get_post_type($post) == 'mdocs-posts' || has_shortcode( $post->post_content, 'mdocs' )) {
+	if(get_post_type($post) == 'mdocs-posts' || has_shortcode( $post->post_content, 'mdocs' ) || is_home()) {
 		//JQUERY
 		wp_enqueue_script("jquery");
 		//BOOTSTRAP

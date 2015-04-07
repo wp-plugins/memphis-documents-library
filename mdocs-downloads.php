@@ -9,6 +9,7 @@ function mdocs_download_file($export_file='') {
 	$upload_dir = wp_upload_dir();
 	$mdocs = get_option('mdocs-list');
 	$mdocs_hide_all_files = get_option( 'mdocs-hide-all-files' );
+	$mdocs_hide_all_files_non_members = get_option( 'mdocs-hide-all-files-non-members' );
 	$is_logged_in = is_user_logged_in();
 	$login_denied = false;
 	$non_member = '';
@@ -30,8 +31,7 @@ function mdocs_download_file($export_file='') {
 			} //else $filename = 'mdocs-empty';
 		}
 	}
-	var_dump($is_logged_in);
-	if($non_member == '' && $is_logged_in == false || $file_status == 'hidden' && !is_admin() || $mdocs_hide_all_files  ) $login_denied = true;
+	if($non_member == '' && $is_logged_in == false || $file_status == 'hidden' && !is_admin() || $mdocs_hide_all_files  || $mdocs_hide_all_files_non_members && is_user_logged_in() == false) $login_denied = true;
 	else $login_denied = false;
 	
 	

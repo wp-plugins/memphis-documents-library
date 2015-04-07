@@ -4,6 +4,8 @@ function mdocs_load_preview() {
 		global $mdocs_img_types;
 		$mdocs = get_option('mdocs-list');
 		$mdocs_show_preview = get_option('mdocs-show-preview');
+		$mdocs_hide_all_files = get_option( 'mdocs-hide-all-files' );
+		$mdocs_hide_all_files_non_members = get_option( 'mdocs-hide-all-files-non-members' );
 		$found = false;
 		$is_admin = $_POST['is_admin'];
 		foreach($mdocs as $index => $the_mdoc) {
@@ -14,16 +16,32 @@ function mdocs_load_preview() {
 						echo '<h1>'.$the_mdoc['filename'].'</h1>';
 						$upload_dir = wp_upload_dir();
 						$file_url = get_site_url().'/?mdocs-file='.$the_mdoc['id'].'|'.is_user_logged_in();
-						mdocs_doc_preview($file_url);
+						if($mdocs_hide_all_files) {
+							echo '<p>'.__('Preview is unavailable for this file.','mdocs').'</p>';
+						} else if( is_user_logged_in() == false && $mdocs_hide_all_files_non_members) {
+							echo '<p>'.__('Please login to view this file preview.','mdocs').'</p>';
+						} else mdocs_doc_preview($file_url);
 					} elseif($_POST['type'] == 'img') {
-						echo '<h1>'.$the_mdoc['filename'].'</h1>';
-						echo '<img class="mdocs-img-preview" src="?mdocs-img-preview='.$the_mdoc['filename'].'" />';
+						if($mdocs_hide_all_files) {
+							echo '<p>'.__('Preview is unavailable for this file.','mdocs').'</p>';
+						} else if( is_user_logged_in() == false && $mdocs_hide_all_files_non_members) {
+							echo '<p>'.__('Please login to view this file preview.','mdocs').'</p>';
+						} else {
+							echo '<h1>'.$the_mdoc['filename'].'</h1>';
+							echo '<img class="img-responsive center-block" src="?mdocs-img-preview='.$the_mdoc['filename'].'" />';
+						}
 					} elseif($_POST['type'] == 'show') {
 						if($_POST['show_type'] == 'preview') {
 							$upload_dir = wp_upload_dir();
 							$file_url = get_site_url().'/?mdocs-file='.$the_mdoc['id'].'|'.is_user_logged_in();
-							if(in_array($the_mdoc['type'], $mdocs_img_types)) echo '<img class="mdocs-img-preview" src="?mdocs-img-preview='.$the_mdoc['filename'].'" />';
-							else mdocs_doc_preview($file_url);
+							if($mdocs_hide_all_files) {
+								echo '<p>'.__('Preview is unavailable for this file.','mdocs').'</p>';
+							} else if( is_user_logged_in() == false && $mdocs_hide_all_files_non_members) {
+								echo '<p>'.__('Please login to view this file preview.','mdocs').'</p>';
+							} else {
+								if(in_array($the_mdoc['type'], $mdocs_img_types)) echo '<img class="mdocs-img-preview" src="?mdocs-img-preview='.$the_mdoc['filename'].'" />';
+								else mdocs_doc_preview($file_url);
+							}
 						} else {
 							$mdocs_desc = apply_filters('the_content', $the_mdoc['desc']);
 							$mdocs_desc = str_replace('\\','',$mdocs_desc);

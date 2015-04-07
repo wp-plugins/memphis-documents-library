@@ -21,6 +21,8 @@ function  mdocs_des_preview_tabs($the_mdoc) {
 	$mdocs_default_content = get_option('mdocs-default-content');
 	$mdocs_show_description = get_option('mdocs-show-description');
 	$mdocs_show_preview = get_option('mdocs-show-preview');
+	$mdocs_hide_all_files = get_option( 'mdocs-hide-all-files' );
+	$mdocs_hide_all_files_non_members = get_option( 'mdocs-hide-all-files-non-members' );
 	$upload_dir = wp_upload_dir();
 	//$file_url = $upload_dir['baseurl'].MDOCS_DIR.$the_mdoc['filename'];
 	$file_url = get_site_url().'/?mdocs-file='.$the_mdoc['id'].'&mdocs-url='.$the_mdoc['parent'];
@@ -38,19 +40,25 @@ function  mdocs_des_preview_tabs($the_mdoc) {
 			</div>
 			<?php
 		} elseif(!isset($_POST['show_type']) && $mdocs_show_preview && $mdocs_default_content == 'preview') {
-			$show_preview = mdocs_file_access($the_mdoc);
-			if( $show_preview ) {
-				$is_image = getimagesize($upload_dir['basedir'].MDOCS_DIR.$the_mdoc['filename']);
-			?>
-			<div class="mdoc-desc">
-			<?php if($is_image == false) { ?>
-			<p><?php mdocs_doc_preview($file_url); ?></p>
-			<?php } else { ?>
-			<iframe class="mdocs-img-preview" src="?mdocs-img-preview=<?php echo $the_mdoc['filename']; ?>"></iframe>
-			<?php } ?>
-			</div>
-			<?php
-			} else { echo '<p>'.__('Please login to access the preview.','mdocs').'</p>'; }
+			if($mdocs_hide_all_files) {
+				 echo '<p>'.__('Preview is unavailable for this file.','mdocs').'</p>';
+			} else if( is_user_logged_in() == false && $mdocs_hide_all_files_non_members) {
+				echo '<p>'.__('Please login to view this file preview.','mdocs').'</p>';
+			} else {
+				$show_preview = mdocs_file_access($the_mdoc);
+				if( $show_preview ) {
+					$is_image = getimagesize($upload_dir['basedir'].MDOCS_DIR.$the_mdoc['filename']);
+				?>
+				<div class="mdoc-desc">
+				<?php if($is_image == false) { ?>
+				<p><?php mdocs_doc_preview($file_url); ?></p>
+				<?php } else { ?>
+				<iframe class="mdocs-img-preview" src="?mdocs-img-preview=<?php echo $the_mdoc['filename']; ?>"></iframe>
+				<?php } ?>
+				</div>
+				<?php
+				} else { echo '<p>'.__('Please login to access the preview.','mdocs').'</p>'; }
+			}
 		}  ?>
 	</div>
 	<?php
@@ -90,7 +98,15 @@ function mdocs_post_page($att=null) {
 		$the_page .= '<div class="mdocs-clear-both"></div>';
 		$the_page .= '</div>';
 		$the_page .= ob_get_clean();
-		return $the_page;
+		//var_dump(is_user_logged_in());
+		//var_dump(get_option('mdocs-hide-all-posts-non-members'));
+		if(get_option('mdocs-hide-all-posts') == false && get_option('mdocs-hide-all-posts-non-members') == false) return $the_page;
+		elseif(is_user_logged_in() && get_option('mdocs-hide-all-posts-non-members')) return $the_page;
+		elseif(is_user_logged_in() == false && get_option('mdocs-hide-all-posts-non-members')) return 'You must be logged in to see this page.';
+		elseif(get_option('mdocs-hide-all-posts')) return 'Sorry you can\'t see the page.';
+		   
+		   
+		   //|| is_user_logged_in() == false && get_option('mdocs-hide-all-posts-non-members') == '1') return $the_page;
 	} else {
 		print nl2br(get_the_content('Continue Reading &rarr;'));
 	}
@@ -369,6 +385,7 @@ function mdocs_hide_show_toogle() {
 	$mdocs = get_option( 'mdocs-list' );
 	$mdocs_hide_all_files = get_option( 'mdocs-hide-all-files' );
 	$mdocs_hide_all_files_non_members = get_option( 'mdocs-hide-all-files-non-members' );
+	/*
 	$mdocs_hide_all_posts = get_option( 'mdocs-hide-all-posts' );
 	$mdocs_hide_all_posts_default = get_option( 'mdocs-hide-all-posts-default' );
 	$mdocs_hide_all_posts_non_members = get_option( 'mdocs-hide-all-posts-non-members' );
@@ -450,6 +467,7 @@ function mdocs_hide_show_toogle() {
 		}
 		
 	}
+	*/
 }
 
 function mdocs_check_read_write() {
@@ -603,7 +621,7 @@ function mdocs_list_header() {
 		<h2 class="mdocs-h2 pull-left"><?php _e("Documents Library",'mdocs'); ?></h2>
 		
 		<div class="btn-group">
-			<a href="?page=memphis-documents.php&mdocs-cat=<?php echo $current_cat; ?>&action=add-doc" class="btn btn-danger btn-sm"><?php _e('Add New Document','mdocs'); ?> <i class="fa fa-upload fa-lg"></i></a>
+			<a class="add-update-btn btn btn-danger btn-sm" data-toggle="modal" data-target="#mdocs-add-update" data-mdocs-id="" data-is-admin="<?php echo is_admin(); ?>" data-action-type="add-doc"  data-current-cat="<?php echo $current_cat; ?>" href=""><?php _e('Add New Document','mdocs'); ?> <i class="fa fa-upload fa-lg"></i></a>
 		</div>
 		<div class="btn-group">
 			<button class="btn btn-default dropdown-toggle btn-sm" type="button" id="dropdownMenu1" data-toggle="dropdown"><?php _e('Options','mdocs'); ?><span class="caret"></span></button>
@@ -625,18 +643,18 @@ function mdocs_list_header() {
 		<br><br>
 		<?php } ?>
 		
-		<nav class="navbar navbar-default" role="navigation">
+		<nav class="navbar navbar-default" role="navigation" id="mdocs-navbar">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mdocs-navbar-collapse">
 					  <span class="sr-only">Toggle navigation</span>
 					  <span class="icon-bar"></span>
 					  <span class="icon-bar"></span>
 					  <span class="icon-bar"></span>
 					</button>
-					<span class="navbar-brand" href="#"><?php _e('Categories','mdocs'); ?></span>
+					<span class="navbar-brand" href="#"><?php _e('Folders','mdocs'); ?></span>
 				</div>
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<div class="collapse navbar-collapse" id="mdocs-navbar-collapse">
 					<ul class="nav navbar-nav">
 						<?php
 						if(!empty($cats)) {
@@ -671,7 +689,12 @@ function mdocs_get_current_cat() {
 
 // GET ALL MDOCS POST AND DISPLAYS THEM ON THE MAIN PAGE.
 add_filter( 'pre_get_posts', 'mdocs_get_posts' );
-function mdocs_get_posts( $query ) { if ( is_home() && $query->is_main_query() ||  $query->is_search) $query->set( 'post_type', array( 'post', 'mdocs-posts' ) ); }
+function mdocs_get_posts( $query ) {
+	if ( is_home() && $query->is_main_query() ||  $query->is_search == false && !is_admin() && has_shortcode( $post->post_content, 'mdocs' )) {
+		if(get_option('mdocs-hide-all-posts') == false && get_option('mdocs-hide-all-posts-non-members') == false) $query->set( 'post_type', array( 'post', 'mdocs-posts' ) );
+		elseif(is_user_logged_in() && get_option('mdocs-hide-all-posts-non-members') == true) $query->set( 'post_type', array( 'post', 'mdocs-posts' ) );
+	}
+}
 // CREATES THE CUSTOM POST TYPE mDocs Posts which handles all the Memphis Document Libaray posts.
 function mdocs_post_pages() {
 	$labels = array(
@@ -712,4 +735,36 @@ add_action( 'init', 'mdocs_post_pages' );
 function mdocs_save_list($mdocs_list) {
 	if($mdocs_list != null) update_option('mdocs-list', $mdocs_list);
 	//else mdocs_errors(MDOCS_ERROR_7,'error'); 
+}
+
+function mdocs_nav_size($collapse) {
+	if($collapse) {
+?>
+<style type="text/css" media="screen" id="mdocs-nav-collapse">
+	@media (max-width: 10000px) {
+		.navbar-header { float: none; }
+		.navbar-toggle { display: block; }
+		.navbar-collapse { border-top: 1px solid transparent; box-shadow: inset 0 1px 0 rgba(255,255,255,0.1); }
+		.navbar-collapse.collapse { display: none!important; }
+		.navbar-nav { float: none !important; margin: 7.5px -15px; }
+		.navbar-nav>li { float: none; }
+		.navbar-nav>li>a { padding-top: 10px; padding-bottom: 10px; }
+		.navbar-collapse.collapse.in { display: block!important; }
+		.collapsing { overflow: hidden!important; }
+		#mdocs-navbar .navbar-collapse ul li { margin: 0; }
+	}
+</style>
+<?php
+	} else {
+?>
+<style type="text/css" media="screen" id="mdocs-nav-expand">
+	#mdocs-navbar .navbar-toggle { display: none !important; }
+	#mdocs-navbar .navbar-header { float: left; margin: 0;  }
+	#mdocs-navbar .navbar-header .navbar-brand  { margin: 0; } 
+	#mdocs-navbar .navbar-collapse { display: block; margin: 0px; border: none; }
+	#mdocs-navbar .navbar-collapse ul, #mdocs-navbar .navbar-collapse ul li { float: left; height: 50px;}
+	#mdocs-navbar .navbar-collapse ul li a { padding: 15px; }
+</style>
+<?php
+	}
 }

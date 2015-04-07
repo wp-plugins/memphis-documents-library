@@ -17,7 +17,7 @@ function mdocs_social($the_mdoc, $page_type='site') {
 			<div class="mdocs-plusone" ><div class="g-plusone" data-size="medium" data-href="<?php echo $the_permalink;?>"></div></div><?php
 		}
 		if($mdocs_show_ratings && $page_type != 'dashboard') {
-			echo '<div class="mdocs-rating-container ">';
+			echo '<div class="mdocs-rating-container-info-large">';
 			for($i=1;$i<=5;$i++) {
 				if($the_rating['average'] >= $i) echo '<i class="fa fa-star fa-2x mdocs-gold mdocs-big-star" id="'.$i.'"></i>';
 				elseif(ceil($the_rating['average']) == $i ) echo '<i class="fa fa-star-half-full fa-2x mdocs-gold mdocs-big-star" id="'.$i.'"></i>';

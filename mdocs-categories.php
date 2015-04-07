@@ -79,7 +79,7 @@ function mdocs_build_cat_td($mdocs_cat,$parent_index=0) {
 				<?php } ?>
 			</td>
 			<td id="add-cat">
-				<input  type="button" class="mdocs-add-sub-cat button button-primary" value="?php _e('Add Folder', 'mdocs'); ?>" onclick="mdocs_add_sub_cat( '<?php echo intval(get_option('mdocs-num-cats')); ?>', '<?php echo $cat['slug']; ?>','<?php echo $cat['depth']; ?>', this);" />
+				<input  type="button" class="mdocs-add-sub-cat button button-primary" value="<?php _e('Add Folder', 'mdocs'); ?>" onclick="mdocs_add_sub_cat( '<?php echo intval(get_option('mdocs-num-cats')); ?>', '<?php echo $cat['slug']; ?>','<?php echo $cat['depth']; ?>', this);" />
 			</td>
 		</tr>
 		<?php

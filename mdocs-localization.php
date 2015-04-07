@@ -12,7 +12,8 @@ add_action('init', 'mdocs_localization');
 //PASS VARIABLES TO JAVASCRIPT
 function mdocs_js_handle($script) {
 	wp_localize_script( $script, 'mdocs_js', array(
-		'version_delete' => __("You are about to delete this version.  Once deleted you will lost this version of the file!\n\n'Cancel' to stop, 'OK' to delete.",'mdocs'),
+		'version_file' => __("You are about to delete this file.  Once deleted you will lose this file!\n\n'Cancel' to stop, 'OK' to delete.",'mdocs'),
+		'version_delete' => __("You are about to delete this version.  Once deleted you will lose this version of the file!\n\n'Cancel' to stop, 'OK' to delete.",'mdocs'),
 		'category_delete' => __("You are about to delete this folder.  Any file in this folder will be lost!\n\n'Cancel' to stop, 'OK' to delete.",'mdocs'),
 		'remove' => __('Remove','mdocs'),
 		'new_category' => __('New Folder','mdocs'),
@@ -20,6 +21,11 @@ function mdocs_js_handle($script) {
 		'category_support' => __('Currently Memphis Documents Library only supports two sub categories.','mdocs'),
 		'restore_warning' => __('Are you sure you want continue.  All you files, posts and directories will be delete.','mdocs'),
 		'add_folder' => __('Add Folder', 'mdocs'),
+		'update_doc' => __('Updating Document', 'mdocs'),
+		'update_doc_btn' => __('Update Document' , 'mdocs'),
+		'add_doc' => __('Adding Document', 'mdocs'),
+		'add_doc_btn' => __('Add Document', 'mdocs'),
+		'current_file' => __('Current File','mdocs'),
 		'levels'=> 2,
 		'blog_id' => get_current_blog_id(),
 		'plugin_url' => plugins_url().'/memphis-documents-library/',
@@ -61,6 +67,15 @@ function mdocs_ajax_processing() {
 			break;
 		case 'rating-submit':
 			mdocs_set_rating(intval($_POST['mdocs_file_id']));
+			break;
+		case 'nav-collaspse':
+			mdocs_nav_size(true);
+			break;
+		case 'nav-expand':
+			mdocs_nav_size(false);
+			break;
+		case 'update-doc':
+			mdocs_add_update_ajax(__('Update Document','mdocs'));
 			break;
 	}
 	exit;

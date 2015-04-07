@@ -68,35 +68,35 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 		<tr>
 			<td id="title" class="mdocs-tooltip">
 				<?php
-				if($page_type == 'dashboard') {
-				?>
-					<a href="<?php echo 'admin.php?page=memphis-documents.php&mdocs-cat='.$current_cat.'&action=update-doc&mdocs-index='.$index; ?>" ><?php echo str_replace('\\','',$the_mdoc['name']).$status_tag; ?></a>
-				<?php }
-				else {
 					if($the_mdoc['post_status'] == 'private' && $read_private_posts == false) echo str_replace('\\','',$the_mdoc['name']).$status_tag;
 					else { ?>
 					<div class="btn-group">
 						<a class="dropdown-toggle mdocs-title-href" data-toggle="dropdown" href="#" ><?php echo $file_icon.' '.str_replace('\\','',$the_mdoc['name']).$status_tag; ?></a>
 						
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-							<li role="presentation" class="dropdown-header">File Options</li>
+							<li role="presentation" class="dropdown-header"><?php _e('File Options'); ?></li>
 							<?php
 								mdocs_download_rights($the_mdoc);
 								mdocs_preview_rights($the_mdoc);
-								mdocs_rating_rights($the_mdoc,$current_cat);
+								mdocs_rating_rights($the_mdoc);
 							?>
 							<li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo $the_mdoc_permalink; ?>" target="_blank"><i class="fa fa-arrow-circle-o-right"></i> <?php _e('Goto Post','mdocs'); ?></a></li>
 							<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><i class="fa fa-share"></i> <?php _e('Share','mdocs'); ?></a></li>
 							<?php if(is_admin()) { ?>
 							<li role="presentation" class="divider"></li>
-							<li role="presentation" class="dropdown-header">Admin Options</li>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo 'admin.php?page=memphis-documents.php&mdocs-cat='.$current_cat.'&action=update-doc&mdocs-index='.$index; ?>"><i class="fa fa-file-o"></i> <?php _e('Manage File','mdocs'); ?></a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=short-codes"><i class="fa fa-road"></i> <?php _e('Manage Versions','mdocs'); ?></a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=batch"><i class="fa fa-times-circle"></i> <?php _e('Delete File','mdocs'); ?></a></li>
+							<li role="presentation" class="dropdown-header"><?php _e('Admin Options'); ?></li>
+							<?php mdocs_add_update_rights($index, $current_cat); ?>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=<?php echo $current_cat; ?>&action=mdocs-versions&mdocs-index=<?php echo $index; ?>"><i class="fa fa-road"></i> <?php _e('Manage Versions','mdocs'); ?></a></li>
+							<li role="presentation">
+								<a onclick="mdocs_delete_file('<?php echo $index; ?>','<?php echo $current_cat; ?>','<?php echo $_SESSION['mdocs-nonce']; ?>');" role="menuitem" tabindex="-1" href="#"><i class="fa fa-times-circle"></i> <?php _e('Delete File','mdocs'); ?></a>
+							</li>
+							<li role="presentation" class="divider"></li>
+							<li role="presentation" class="dropdown-header"><i class="fa fa-laptop"></i> <?php _e('File Status:'.' '.ucfirst($the_mdoc['file_status'])); ?></li>
+							<li role="presentation" class="dropdown-header"><i class="fa fa-bullhorn"></i> <?php _e('Post Status:'.' '.ucfirst($the_mdoc['post_status'])); ?></li>
 							<?php } ?>
 						  </ul>
 					</div>
-					<?php }} ?>
+					<?php } ?>
 			</td>
 			<?php if($mdocs_show_downloads) { ?><td id="downloads"><i class="fa fa-cloud-download"></i> <b class="mdocs-orange"><?php echo $the_mdoc['downloads'].' '.__('Downloads','mdocs'); ?></b></td><?php } ?>
 			<?php if($mdocs_show_version) { ?><td id="version"><i class="fa fa-power-off"></i><b class="mdocs-blue"> <?php echo $the_mdoc['version']; ?></b></td><?php } ?>

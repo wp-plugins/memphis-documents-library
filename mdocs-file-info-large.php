@@ -44,6 +44,7 @@ function mdocs_file_info_large($the_mdoc, $page_type='site', $index=0, $current_
 			}
 		}
 	?>
+	<div class="mdocs-post-header" data-mdocs-id="<?php echo $the_mdoc['id']; ?>">
 	<div class="mdocs-post-button-box">
 		<?php
 		if ( current_user_can('read_private_posts') ) $read_private_posts = true;
@@ -52,9 +53,10 @@ function mdocs_file_info_large($the_mdoc, $page_type='site', $index=0, $current_
 		else { ?><h2><a href="<?php echo $the_mdoc_permalink; ?>" ><?php echo str_replace('\\','',$the_mdoc['name']); ?></a></h2><?php }
 		?>
 		<?php
-		if($mdocs_show_non_members  == 'off' && $user_logged_in == false ) { ?>
+		if($mdocs_hide_all_files) { ?><div class="mdocs-login-msg"><?php _e('This file can not<br>be downloaded.','mdocs'); ?></div><?php }
+		else if($mdocs_show_non_members  == 'off' && $user_logged_in == false || $user_logged_in == false && $mdocs_hide_all_files_non_members) { ?>
 			<div class="mdocs-login-msg"><?php _e('Please login<br>to download this file','mdocs'); ?></div>
-		<?php } elseif($the_mdoc['non_members'] == 'on' || $user_logged_in) { ?>
+		<?php } elseif($the_mdoc['non_members'] == 'on' || $user_logged_in ) { ?>
 			<input type="button" onclick="mdocs_download_file('<?php echo $the_mdoc['id']; ?>','<?php  echo $the_post->ID; ?>');" class="mdocs-download-btn" value="<?php echo __('Download','mdocs'); ?>">
 		</h2>
 		<?php } else { ?>
@@ -68,11 +70,12 @@ function mdocs_file_info_large($the_mdoc, $page_type='site', $index=0, $current_
 			else $text = __("Your Rating");
 			echo '<div class="mdocs-rating-container-small">';
 			echo '<div class="mdocs-green">'.$text.'</div><div id="mdocs-star-container">';
+			echo '<div class="mdocs-ratings-stars" data-my-rating="'.$the_rating['your_rating'].'">';
 			for($i=1;$i<=5;$i++) {
 				if($the_rating['your_rating'] >= $i) echo '<i class="fa fa-star  mdocs-gold mdocs-my-rating" id="'.$i.'"></i>';
 				else echo '<i class="fa fa-star-o mdocs-my-rating" id="'.$i.'"></i>';
 			}
-			echo '</div></div>';
+			echo '</div></div></div>';
 		}
 		?>
 	<div class="mdocs-post-file-info">
@@ -89,6 +92,7 @@ function mdocs_file_info_large($the_mdoc, $page_type='site', $index=0, $current_
 		<p><i class="fa fa-file "></i> <?php echo __('File Status','mdocs').': <b class="mdocs-olive">'.strtoupper($the_mdoc['file_status']).'</b>'; ?></p>
 		<p><i class="fa fa-file-text"></i> <?php echo __('Post Status','mdocs').': <b class="mdocs-salmon">'.strtoupper($post_status).'</b>'; ?></p>
 		<?php } ?>
+	</div>
 	</div>
 <?php
 		$the_page = ob_get_clean();

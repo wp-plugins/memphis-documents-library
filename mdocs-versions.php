@@ -13,10 +13,10 @@ function mdocs_versions() {
 ?>
 <div class="mdocs-uploader-bg"></div>
 <div class="mdocs-uploader">
-	<h2 class="mdocs-uploader-header">
-		<div class="close"><a href="<?php echo 'admin.php?page=memphis-documents.php&mdocs-cat='.$current_cat; ?>"><img src='<?php echo MDOC_URL; ?>/assets/imgs/close.png'/></a></div>
-		<?php echo __('Versions','mdocs').': '.$the_mdoc['name']; ?>
-	</h2>
+	<a href="<?php echo 'admin.php?page=memphis-documents.php&mdocs-cat='.$current_cat; ?>" type="button" class="close" id="mdocs-version-close"><span aria-hidden="true">&times;</span><span class="sr-only"><?php _e('Close','mdocs'); ?></span></a>
+	<div class="page-header">
+		<h1 id="mdocs-version-header"><?php echo __('Versions','mdocs'); ?> <small><?php echo $the_mdoc['filename']; ?></h1>
+	</div>
 	<div class="mdocs-ds-container">
 		<div class="mdocs-uploader-content">
 			<form class="mdocs-uploader-form" enctype="multipart/form-data" action="" method="POST">

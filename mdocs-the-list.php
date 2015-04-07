@@ -2,6 +2,9 @@
 function mdocs_the_list($att=null) {
 	global $post, $current_cat_array, $parent_cat_array;
 	ob_start();
+	//$is_admin = is_admin();
+	if(is_admin()) $page_type = 'dashboard';
+	else $page_type = 'site';
 	$is_read_write = mdocs_check_read_write();
 	if($is_read_write) {
 		mdocs_list_header();
@@ -43,10 +46,10 @@ function mdocs_the_list($att=null) {
 		<th class="mdocs-sort-option" data-sort-type="downloads" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Downloads','mdocs'); ?><?php if($mdocs_sort_type == 'downloads') echo $mdocs_sort_style_icon; ?></th><?php } ?>
 		<?php if(get_option('mdocs-show-version')) { ?>
 		<th class="mdocs-sort-option" data-sort-type="version" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Version','mdocs'); ?><?php if($mdocs_sort_type == 'version') echo $mdocs_sort_style_icon; ?></th><?php } ?>
-		<?php if(get_option('mdocs-show-owner')) { ?>
+		<?php if(get_option('mdocs-show-author')) { ?>
 		<th class="mdocs-sort-option" data-sort-type="owner" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Owner','mdocs'); ?><?php if($mdocs_sort_type == 'owner') echo $mdocs_sort_style_icon; ?></th><?php } ?>
-		<?php if(get_option('mdocs-show-updated')) { ?>
-		<th class="mdocs-sort-option" data-sort-type="modified" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Updated','mdocs'); ?><?php if($mdocs_sort_type == 'modified') echo $mdocs_sort_style_icon; ?></th><?php } ?>
+		<?php if(get_option('mdocs-show-update')) { ?>
+		<th class="mdocs-sort-option" data-sort-type="modified" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Last Modified','mdocs'); ?><?php if($mdocs_sort_type == 'modified') echo $mdocs_sort_style_icon; ?></th><?php } ?>
 		<?php if(get_option('mdocs-show-ratings')) { ?>
 		<th class="mdocs-sort-option" data-sort-type="rating" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Rating','mdocs'); ?><?php if($mdocs_sort_type == 'rating') echo $mdocs_sort_style_icon; ?></th><?php } ?>
 		</tr>
@@ -54,15 +57,15 @@ function mdocs_the_list($att=null) {
 		// SUB CATEGORIES
 		if(isset($current_cat_array['children'])) $num_cols = mdocs_get_subcats($current_cat_array, $parent_cat_array);
 		else $num_cols = mdocs_get_subcats($current_cat_array, $parent_cat_array, false);
-		foreach($mdocs as $index => $the_mdoc) {			
+		foreach($mdocs as $index => $the_mdoc) {
 			if($the_mdoc['cat'] == $current_cat || $current_cat == 'all') {
-				if($the_mdoc['file_status'] == 'public' ) {
+				if($the_mdoc['file_status'] == 'public' || is_admin()) {
 					$count ++;
 					$mdocs_post = get_post($the_mdoc['parent']);
 					$mdocs_desc = apply_filters('the_content', $mdocs_post->post_excerpt);
 					
 					if(get_option('mdocs-list-type') == 'small') {
-						mdocs_file_info_small($the_mdoc, 'site', $index, $current_cat); 
+						mdocs_file_info_small($the_mdoc, $page_type, $index, $current_cat); 
 					} else {
 						$user_logged_in = is_user_logged_in();
 						$mdocs_hide_all_files = get_option( 'mdocs-hide-all-files' );

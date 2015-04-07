@@ -1,4 +1,13 @@
 <?php
+function mdocs_add_update_rights($index, $current_cat) {
+	?>
+	<li role="presentation">
+		<a class="add-update-btn" role="menuitem" tabindex="-1" data-toggle="modal" data-target="#mdocs-add-update" data-mdocs-id="<?php echo $index; ?>" data-is-admin="<?php echo is_admin(); ?>" data-action-type="update-doc"  data-current-cat="<?php echo $current_cat; ?>" href="">
+			<i class="fa fa-file-o" ></i> <?php _e('Manage File','mdocs'); ?>
+		</a>
+	</li>
+	<?php
+}
 function mdocs_download_rights($the_mdoc) {
 	$the_mdoc_permalink = htmlspecialchars(get_permalink($the_mdoc['parent']));
 	$mdocs_show_non_members = $the_mdoc['non_members'];
@@ -11,27 +20,40 @@ function mdocs_download_rights($the_mdoc) {
 	<?php } 
 }
 function mdocs_preview_rights($the_mdoc) {
+	var_dump('mdocs-rights.php line: 23');
 	global $mdocs_img_types;
 	$mdocs_show_preview = get_option('mdocs-show-preview');
 	$mdocs_show_description = get_option('mdocs-show-description');
+	$mdocs_show_preview = get_option('mdocs-show-preview');
+	$mdocs_hide_all_files = get_option( 'mdocs-hide-all-files' );
 	$mdocs_show_non_members = $the_mdoc['non_members'];
 	$preview_type = 'file-preview';
 	
 	if(!in_array($the_mdoc['type'], $mdocs_img_types) ) $preview_type = 'file-preview';
 	else $preview_type = 'img-preview';
 	
-	?>
+	if($mdocs_hide_all_files) {
+		//fail
+	} else if($mdocs_show_preview == false) {
+		//fail
+	} else if( is_user_logged_in() == false && $mdocs_hide_all_files_non_members) {
+		//fail
+	} else {
+		?>
 	<li role="presentation"><a class="<?php echo $preview_type; ?>" role="menuitem" tabindex="-1" data-toggle="modal" data-target="#mdocs-file-preview" data-mdocs-id="<?php echo $the_mdoc['id']; ?>" data-is-admin="<?php echo is_admin(); ?>" href=""><i class="fa fa-search mdocs-preview-icon" ></i> <?php _e('Preview','mdocs'); ?></a></li>
 	<?php
+	}
+	
+	
+	
+	
 }
 
 function mdocs_rating_rights($the_mdoc) {
-	//global $post;
-	//if($post != null) $permalink = get_permalink($post->ID);
-	//if(is_admin()) $permalink = site_url().'/wp-admin/admin.php?page=memphis-documents.php&mdocs-cat='+$current_cat;
-	//var_dump($permalink);
+	if(get_option( 'mdocs-show-ratings' )) {
 	?>
 	<li role="presentation"><a class="ratings-button" role="menuitem" tabindex="-1" href="" data-toggle="modal" data-target="#mdocs-rating" data-mdocs-id="<?php echo $the_mdoc['id']; ?>" data-is-admin="<?php echo is_admin(); ?>"><i class="fa fa-star"></i> <?php _e('Rate','mdocs'); ?></a></li>
 	<?php
+	}
 }
 ?>

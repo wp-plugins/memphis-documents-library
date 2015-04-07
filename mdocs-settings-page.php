@@ -56,9 +56,11 @@ function mdocs_settings($cat) {
 			$wp_roles = get_editable_roles(); 
 			$mdocs_roles = get_option('mdocs-view-private');
 			foreach($wp_roles as $index => $role) {
+				if($role['name'] != 'Administrator') {
 			?>
 			<input type="checkbox" name="mdocs-view-private[<?php echo $index; ?>]" value="1"  <?php checked($mdocs_roles[$index] , 1) ?> /> <span><?php echo $role['name']; ?></span><br>
 			<?php
+				}
 			}
 			?>
 		</td>
@@ -86,13 +88,14 @@ function mdocs_settings($cat) {
 			<input type="checkbox" name="mdocs-show-version" value="1"  <?php checked( $mdocs_show_version, 1) ?>/> <?php _e('Version','mdocs'); ?><br>
 			<input type="checkbox" name="mdocs-show-update" value="1"  <?php checked( $mdocs_show_update, 1) ?>/> <?php _e('Updated','mdocs'); ?><br>
 			<input type="checkbox" name="mdocs-show-ratings" value="1"  <?php checked( $mdocs_show_ratings, 1) ?>/> <?php _e('Ratings','mdocs'); ?><br>
-			<input type="checkbox" name="mdocs-show-social" value="1"  <?php checked( $mdocs_show_social, 1) ?>/> <?php _e('Social','mdocs'); ?>
+			<input type="checkbox" name="mdocs-show-social" value="1"  <?php checked( $mdocs_show_social, 1) ?>/> <?php _e('Social','mdocs'); ?><br>
+			<input type="checkbox" name="mdocs-show-share" value="1"  <?php checked( $mdocs_show_share, 1) ?>/> <?php _e('Share Button','mdocs'); ?>
 		</td>
 	
 		<th><?php _e('Hide Things','mdocs'); ?></th>
 		<td>
 			<input type="checkbox" id="mdocs-hide-all-files" name="mdocs-hide-all-files" value="1"  <?php checked(1,$mdocs_hide_all_files) ?>/> <?php _e('All Files','mdocs'); ?><br>
-			<input type="checkbox" id="mdocs-hide-all-posts" name="mdocs-hide-all-posts" value="1"  <?php checked(1,$mdocs_hide_all_posts) ?>/> <?php _e('All Posts (May take awhile)','mdocs'); ?><br>
+			<input type="checkbox" id="mdocs-hide-all-posts" name="mdocs-hide-all-posts" value="1"  <?php checked(1,$mdocs_hide_all_posts) ?>/> <?php _e('All Posts','mdocs'); ?><br>
 			<input type="checkbox" id="mdocs-hide-all-files-non-members" name="mdocs-hide-all-files-non-members" value="1"  <?php checked(1,$mdocs_hide_all_files_non_members) ?>/> <?php _e('All Files: (Non Members)','mdocs'); ?><br>
 			<input type="checkbox" id="mdocs-hide-all-posts-non-members" name="mdocs-hide-all-posts-non-members" value="1"  <?php checked(1,$mdocs_hide_all_posts_non_members) ?>/> <?php _e('All Posts: (Non Members)','mdocs'); ?>
 		</td>

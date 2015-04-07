@@ -92,7 +92,9 @@ function mdocs_file_upload() {
 						if(!isset($upload['error'])) {
 							//$new_version = floatval($mdocs_version)+floatval($mdocs[$mdocs_index]['version']);
 							//if(floatval($mdocs_version) == 1) $new_version = number_format($new_version,0);
-							if($mdocs_version == '' || $mdocs_version == $mdocs[$mdocs_index]['version']) $mdocs_version = $mdocs[$mdocs_index]['version'].'.'.time();
+							if($mdocs_version == '') $mdocs_version = '1.0';
+							else if($mdocs_version == $mdocs[$mdocs_index]['version']) $mdocs_version = $mdocs[$mdocs_index]['version'].'.1';
+							
 							//elseif(!is_numeric($mdocs_version)) $mdocs_version = floatval($mdocs[$mdocs_index]['version'])+0.1;
 							$mdocs[$mdocs_index]['filename'] = $upload['filename'];
 							$mdocs[$mdocs_index]['name'] = $upload['name'];
