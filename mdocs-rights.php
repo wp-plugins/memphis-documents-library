@@ -8,6 +8,16 @@ function mdocs_add_update_rights($index, $current_cat) {
 	</li>
 	<?php
 }
+function mdocs_goto_post_rights($the_mdoc_permalink) {
+	?>
+	<li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo $the_mdoc_permalink; ?>" target="_blank"><i class="fa fa-arrow-circle-o-right"></i> <?php _e('Goto Post','mdocs'); ?></a></li>
+	<?php
+}
+function mdocs_manage_versions_rights($index, $current_cat) {
+	?>
+	<li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=<?php echo $current_cat; ?>&action=mdocs-versions&mdocs-index=<?php echo $index; ?>"><i class="fa fa-road"></i> <?php _e('Manage Versions','mdocs'); ?></a></li>
+	<?php
+}
 function mdocs_download_rights($the_mdoc) {
 	$the_mdoc_permalink = htmlspecialchars(get_permalink($the_mdoc['parent']));
 	$mdocs_show_non_members = $the_mdoc['non_members'];
@@ -20,7 +30,6 @@ function mdocs_download_rights($the_mdoc) {
 	<?php } 
 }
 function mdocs_preview_rights($the_mdoc) {
-	var_dump('mdocs-rights.php line: 23');
 	global $mdocs_img_types;
 	$mdocs_show_preview = get_option('mdocs-show-preview');
 	$mdocs_show_description = get_option('mdocs-show-description');
@@ -38,17 +47,30 @@ function mdocs_preview_rights($the_mdoc) {
 		//fail
 	} else if( is_user_logged_in() == false && $mdocs_hide_all_files_non_members) {
 		//fail
+	} elseif ( $the_mdoc['file_status'] == 'hidden') {
+		//fail
 	} else {
 		?>
 	<li role="presentation"><a class="<?php echo $preview_type; ?>" role="menuitem" tabindex="-1" data-toggle="modal" data-target="#mdocs-file-preview" data-mdocs-id="<?php echo $the_mdoc['id']; ?>" data-is-admin="<?php echo is_admin(); ?>" href=""><i class="fa fa-search mdocs-preview-icon" ></i> <?php _e('Preview','mdocs'); ?></a></li>
 	<?php
 	}
-	
-	
-	
-	
 }
-
+function mdocs_desciption_rights($the_mdocs) {
+	//$mdocs_show_show = get_option('mdocs-show-share');
+	//if($mdocs_show_show) {
+	?>
+	<li role="presentation"><a class="description-preview" role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#mdocs-description-preview" data-mdocs-id="<?php echo $the_mdocs['id']; ?>" data-is-admin="<?php echo is_admin(); ?>" ><i class="fa fa-leaf"></i> <?php _e('Description','mdocs'); ?></a></li>
+	<?php
+	//}
+}
+function mdocs_share_rights($permalink, $download) {
+	$mdocs_show_show = get_option('mdocs-show-share');
+	if($mdocs_show_show) {
+	?>
+	<li role="presentation"><a class="sharing-button" role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#mdocs-share" data-permalink="<?php echo $permalink;?>" data-download="<?php echo $download; ?>" ><i class="fa fa-share"></i> <?php _e('Share','mdocs'); ?></a></li>
+	<?php
+	}
+}
 function mdocs_rating_rights($the_mdoc) {
 	if(get_option( 'mdocs-show-ratings' )) {
 	?>

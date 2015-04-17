@@ -11,6 +11,7 @@ define('MDOCS_NEW', '<div class="mdocs-new">'.__('New','mdocs').'</div>');
 define('MDOCS_UPDATE_SMALL', '<span class="mdocs-new-updated-small badge pull-left alert-info ">'.__('Updated','mdocs').'</span>');
 define('MDOCS_NEW_SMALL', '<span class="mdocs-new-updated-small badge pull-left alert-success ">'.__('New','mdocs').'</span>');
 define('MDOCS_CURRENT_TIME', date('Y-m-d H:i:s', time()+MDOCS_TIME_OFFSET));
+define('BOX_DEV_ID', 'li557g92xf2fcaoxwxzxtbmhftzqsput');
 //define('MDOCS_VERSION', );
 $add_error = false;
 $mdocs_img_types = array('jpeg','jpg','png','gif');
@@ -33,9 +34,25 @@ function mdocs_register_settings() {
 		}
 		if(!isset($_GET['restore-default'])) {  
 			// PATCHES
+			// 3.0
+			register_setting('mdocs-patch-vars', 'mdocs-v3-0-patch-var-1');
+			add_action('mdocs-v3-0-patch-var-1',false);
+			if(get_option('mdocs-v3-0-patch-var-1') == false && is_array(get_option('mdocs-list'))) {
+				add_action( 'admin_head', 'mdocs_v3_0_patch' );
+				function mdocs_v3_0_patch() {
+					$mdocs = get_option('mdocs-list');
+					?>
+					<script type="application/x-javascript">
+						jQuery(document).ready(function() {
+							mdocs_v3_0_patch(<?php echo count($mdocs); ?>);
+						});
+					</script>
+					<?php
+				}
+			}
 			// 2.6.6
 			register_setting('mdocs-patch-vars', 'mdocs-v2-6-6-patch-var-1');
-			add_action('mdocs-v2-6-6-patch-var-1',false && is_array(get_option('mdocs-list')));
+			add_action('mdocs-v2-6-6-patch-var-1',false);
 			if(get_option('mdocs-v2-6-6-patch-var-1') == false && is_array(get_option('mdocs-list'))) {
 				$this_query = new WP_Query('category_name=mdocs-media&posts_per_page=-1');	
 				foreach($this_query->posts as $index => $post) set_post_type($post->ID,'mdocs-posts');
@@ -233,6 +250,9 @@ function mdocs_init_settings() {
 	if(is_string(get_option('mdocs-removed-mime-types'))) update_option('mdocs-removed-mime-types',array());
 	register_setting('mdocs-global-settings', 'mdocs-view-private');
 	add_option('mdocs-view-private', mdocs_init_view_private());
+	register_setting('mdocs-global-settings', 'mdocs-date-format');
+	add_option('mdocs-date-format', 'd-m-Y G:i');
+	
 	
 	//Update View Private Users
 	mdocs_update_view_private_users();
@@ -263,7 +283,7 @@ function mdocs_init_view_private() {
 
 //ADD CONTENT TO DOCUMENTS PAGE
 //[mdocs]
-function mdocs_shortcode($att, $content=null) { echo mdocs_the_list($att); }
+function mdocs_shortcode($att, $content=null) { return mdocs_the_list($att); }
 add_shortcode( 'mdocs', 'mdocs_shortcode' );
 //[mdocs_post_page]
 function mdocs_post_page_shortcode($att, $content=null) {
@@ -294,7 +314,7 @@ function mdocs_admin_script() {
 		wp_enqueue_script('mdocs-admin-script');
 		mdocs_inline_admin_css('mdocs-admin-style');
 		//FONT-AWESOME STYLE
-		wp_register_style( 'mdocs-font-awesome2-style', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
+		wp_register_style( 'mdocs-font-awesome2-style', '//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css');
 		wp_enqueue_style( 'mdocs-font-awesome2-style' );
 		//WORDPRESS IRIS COLOR PICKER
 		wp_enqueue_style( 'wp-color-picker' );
@@ -325,7 +345,7 @@ function mdocs_script() {
 		wp_enqueue_style( 'mdocs-style' );
 		mdocs_inline_css('mdocs-style');
 		//FONT-AWESOME STYLE
-		wp_register_style( 'mdocs-font-awesome2-style', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
+		wp_register_style( 'mdocs-font-awesome2-style', '//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css');
 		wp_enqueue_style( 'mdocs-font-awesome2-style' );
 		mdocs_js_handle('mdocs-script');
 	}

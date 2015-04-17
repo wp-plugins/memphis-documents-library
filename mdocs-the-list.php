@@ -7,19 +7,18 @@ function mdocs_the_list($att=null) {
 	else $page_type = 'site';
 	$is_read_write = mdocs_check_read_write();
 	if($is_read_write) {
-		mdocs_list_header();
 		$site_url = site_url();
 		$upload_dir = wp_upload_dir();	
 		$mdocs = get_option('mdocs-list');
 		$cats =  get_option('mdocs-cats');
-		$current_cat = mdocs_get_current_cat();
+		$current_cat = mdocs_get_current_cat($att);
 		if(isset($att['cat']) && $att['cat'] != 'All Files'  && !isset($_GET['mdocs-cat'])) {
-			//$current_cat = array_search($att['cat'],$cats);
-			var_dump('Need to fix categories => mdocs-the-list.php line 14.');
 			foreach($cats as $cat) {
 				if($att['cat'] == $cat['name']) { $current_cat = $cat['slug']; break; }
 			}
-		} elseif(isset($att['cat']) && $att['cat'] == 'All Files') $current_cat = 'all';
+			mdocs_list_header(false);
+		} elseif(isset($att['cat']) && $att['cat'] == 'All Files') { $current_cat = 'all'; mdocs_list_header(false); }
+		elseif(!isset($att['cat'])) mdocs_list_header();
 		$permalink = get_permalink($post->ID);
 		if(preg_match('/\?page_id=/',$permalink) || preg_match('/\?p=/',$permalink)) {
 			$mdocs_get = $permalink.'&mdocs-cat=';
@@ -32,8 +31,7 @@ function mdocs_the_list($att=null) {
 		if($mdocs_sort_style == 'desc') $mdocs_sort_style_icon = ' <i class="fa fa-chevron-down"></i>';
 		else $mdocs_sort_style_icon = ' <i class="fa fa-chevron-up"></i>';
 	?>
-	<div class="mdocs-container">
-		<?php mdocs_load_modals(); ?>	
+	<div class="mdocs-container">	
 		<?php if(isset($att['header'])) echo '<p>'.__($att['header']).'</p>'; ?>
 		<?php
 		$mdocs = mdocs_array_sort($mdocs, $mdocs_sort_type, $mdocs_sort_style);
@@ -55,8 +53,8 @@ function mdocs_the_list($att=null) {
 		</tr>
 		<?php
 		// SUB CATEGORIES
-		if(isset($current_cat_array['children'])) $num_cols = mdocs_get_subcats($current_cat_array, $parent_cat_array);
-		else $num_cols = mdocs_get_subcats($current_cat_array, $parent_cat_array, false);
+		if(isset($current_cat_array['children']) && !isset($att['cat'])) $num_cols = mdocs_get_subcats($current_cat_array, $parent_cat_array);
+		//else $num_cols = mdocs_get_subcats($current_cat_array, $parent_cat_array, false);
 		foreach($mdocs as $index => $the_mdoc) {
 			if($the_mdoc['cat'] == $current_cat || $current_cat == 'all') {
 				if($the_mdoc['file_status'] == 'public' || is_admin()) {

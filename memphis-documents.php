@@ -52,6 +52,7 @@ include 'mdocs-update-mime.php';
 include 'mdocs-restore-defaults.php';
 include 'mdocs-ratings.php';
 include 'mdocs-doc-preview.php';
+include 'mdocs-box-view.php';
 mdocs_nonce();
 if(!headers_sent() && stripos($_SERVER['REQUEST_URI'], '/feed') === false) add_action('send_headers', 'mdocs_send_headers');
 elseif (!is_numeric(stripos($_SERVER['REQUEST_URI'], '/feed'))) {

@@ -6,7 +6,7 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 	$the_post = get_post($the_mdoc['parent']);
 	$is_new = preg_match('/new=true/',$the_post->post_content);
 	$post_date = strtotime($the_post->post_date);
-	$last_modified = gmdate('d-m-y H:i',$the_mdoc['modified']+MDOCS_TIME_OFFSET);
+	$last_modified = gmdate(get_option('mdocs-date-format'),$the_mdoc['modified']+MDOCS_TIME_OFFSET);
 	$user_logged_in = is_user_logged_in();
 	$mdocs_show_non_members = $the_mdoc['non_members'];
 	$mdocs_hide_all_files = get_option( 'mdocs-hide-all-files' );
@@ -74,19 +74,25 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 						<a class="dropdown-toggle mdocs-title-href" data-toggle="dropdown" href="#" ><?php echo $file_icon.' '.str_replace('\\','',$the_mdoc['name']).$status_tag; ?></a>
 						
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+							<li role="presentation" class="dropdown-header"><i class="fa fa-medium"></i> &#187; <?php echo $the_mdoc['name']; ?></li>
+							<li role="presentation" class="divider"></li>
 							<li role="presentation" class="dropdown-header"><?php _e('File Options'); ?></li>
 							<?php
 								mdocs_download_rights($the_mdoc);
+								mdocs_desciption_rights($the_mdoc);
 								mdocs_preview_rights($the_mdoc);
 								mdocs_rating_rights($the_mdoc);
-							?>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo $the_mdoc_permalink; ?>" target="_blank"><i class="fa fa-arrow-circle-o-right"></i> <?php _e('Goto Post','mdocs'); ?></a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><i class="fa fa-share"></i> <?php _e('Share','mdocs'); ?></a></li>
-							<?php if(is_admin()) { ?>
+								mdocs_goto_post_rights($the_mdoc_permalink);
+								mdocs_share_rights($the_mdoc_permalink, get_site_url().'/?mdocs-file='.$the_mdoc['id'].'&mdocs-url='.$the_mdoc['parent']);
+								if(is_admin()) { ?>
 							<li role="presentation" class="divider"></li>
 							<li role="presentation" class="dropdown-header"><?php _e('Admin Options'); ?></li>
-							<?php mdocs_add_update_rights($index, $current_cat); ?>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=<?php echo $current_cat; ?>&action=mdocs-versions&mdocs-index=<?php echo $index; ?>"><i class="fa fa-road"></i> <?php _e('Manage Versions','mdocs'); ?></a></li>
+							<?php
+								mdocs_add_update_rights($index, $current_cat);
+								mdocs_manage_versions_rights($index, $current_cat);
+							?>
+							
+							
 							<li role="presentation">
 								<a onclick="mdocs_delete_file('<?php echo $index; ?>','<?php echo $current_cat; ?>','<?php echo $_SESSION['mdocs-nonce']; ?>');" role="menuitem" tabindex="-1" href="#"><i class="fa fa-times-circle"></i> <?php _e('Delete File','mdocs'); ?></a>
 							</li>

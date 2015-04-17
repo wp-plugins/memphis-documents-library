@@ -2,10 +2,14 @@ var toggle_share = false;
 
 // INITIALIZE THE ADMIN JAVASCRIPT
 function mdocs_wp() {
+    // INITALIZE BOOTSTRAP POPOVER FUNCTIONALITY
+    jQuery('[data-toggle="popover"]').popover();
     // ADD UPDATE DOCUMENT
     mdocs_add_update_documents();
     // TOOGLE DESCRIPTION/PREVIEW
     mdocs_toogle_description_preview();
+    // DESRIPTION PREVIEW
+    mdocs_description_preview();
     // FILE PREVIEW
     mdocs_file_preview();
     // IMAGE PREVIEW
@@ -16,12 +20,18 @@ function mdocs_wp() {
     mdocs_sort_files();
     // RATINGS SUBMIT
     mdocs_submit_rating('small');
+    // SHARING MODAL
+    mdocs_share_modal();
     // CHECK WITH OF DOCUMENTS CONTAINER
     mdocs_check_width();
     jQuery(window).resize(function() { mdocs_check_width(); });
 }
 // INITIALIZE THE ADMIN JAVASCRIPT
 function mdocs_admin() {
+    // MODAL CLOSE EVENT
+    mdocs_modal_close();
+    // INITALIZE BOOTSTRAP POPOVER FUNCTIONALITY
+    jQuery('[data-toggle="popover"]').popover();
     mdocs_color_pickers();
     // INITALIZE DRAGGABLE
     //jQuery(".draggable").draggable();
@@ -32,6 +42,8 @@ function mdocs_admin() {
     mdocs_toogle_disable_setting('#mdocs-hide-all-posts-non-members','#mdocs-hide-all-posts');
      // ADD UPDATE DOCUMENT
     mdocs_add_update_documents();
+    // DESRIPTION PREVIEW
+    mdocs_description_preview();
     // FILE PREVIEW
     mdocs_file_preview();
     // IMAGE PREVIEW
@@ -46,6 +58,8 @@ function mdocs_admin() {
     mdocs_sort_files();
     // RATING SYSTEM
     mdocs_ratings();
+    // SHARING MODAL
+    mdocs_share_modal();
     // SOCIAL CLICKED
     jQuery('.mdocs-show-social').click(function() {
 	    if (jQuery(this).hasClass('fa fa-plus-sign-alt')) {
@@ -85,8 +99,6 @@ function mdocs_admin() {
 }
  // ADD / UPDATE DOCUMENTS
 function mdocs_add_update_documents() {
-    
-    
     jQuery('.add-update-btn').click(function(event) {
 	var action_type = jQuery(this).data('action-type');
 	var mdocs_id = jQuery(this).data('mdocs-id');
@@ -101,7 +113,6 @@ function mdocs_add_update_documents() {
 		jQuery('#mdocs-add-update-form').prop('action', 'admin.php?page=memphis-documents.php&mdocs-cat='+current_cat);
 		jQuery('input[name="mdocs-type"]').prop('value', 'mdocs-update'); 
 		jQuery('input[name="mdocs-index"]').prop('value', mdocs_id);
-		jQuery('input[name="mdocs-cat"]').prop('value', current_cat);
 		jQuery('input[name="mdocs-pname"]').prop('value', doc_data['name']);
 		jQuery('input[name="mdocs-post-status-sys"]').prop('value', doc_data['post_status']);
 		action_text = mdocs_js.update_doc+' <small>'+doc_data['filename']+'</small>';
@@ -120,9 +131,19 @@ function mdocs_add_update_documents() {
 		jQuery("#mdocs-post-status option").each(function() {
 		    if(doc_data['post_status'] == jQuery(this).val()) jQuery(this).prop('selected',true);
 		});
+
+
+		
+		doc_data['desc'] = doc_data['desc'].replace(/(?:\r\n|\r|\n)/g, '<br />');
+		console.debug(doc_data['desc']);
 		tinyMCE.activeEditor.setContent(doc_data['desc']);
+		
 		jQuery('#mdocs-save-doc-btn').prop('value', mdocs_js.update_doc_btn);
 	    } else {
+		jQuery('input[name="mdocs-name"]').val('');
+		jQuery('option[value="'+current_cat+'"]').prop('selected', true);
+		jQuery('input[name="mdocs-version"]').val('1.0');
+		jQuery('#mdocs-current-doc').html('');
 		jQuery('input[name="mdocs-type"]').prop('value', 'mdocs-add');
 		action_text = mdocs_js.add_doc;
 		jQuery('#mdocs-save-doc-btn').prop('value', mdocs_js.add_doc_btn);
@@ -298,9 +319,9 @@ function mdocs_download_file(mdocs_file, mdocs_url) { window.location.href = '?m
 function mdocs_share(mdocs_link,mdocs_direct,the_id) {
 	if (toggle_share == false) {
 		jQuery('#'+the_id+' .mdocs-share-link').remove();
-		jQuery('#'+the_id).append('<div class="mdocs-share-link">');
-		jQuery('.mdocs-share-link').append('<p class="mdocs-download-page">Download Page: '+mdocs_link+'</p>');
-		jQuery('.mdocs-share-link').append('<p class="mdocs-direct-download">Direct Download: '+mdocs_direct+'</p>');
+		jQuery('#'+the_id).append('<div class="mdocs-share-link"><br>');
+		jQuery('.mdocs-share-link').append('<div class="well well-sm"><h3><i class="fa fa-arrow-circle-o-right"></i> Download Page</h3><p>'+mdocs_link+'</p></div>');
+		jQuery('.mdocs-share-link').append('<div class="well well-sm"><h3><i class="fa fa-download"></i> Direct Download</h3><p>'+mdocs_direct+'</p></div>');
 		jQuery('.mdocs-share-link').append('</div>');
 		toggle_share = true;
 	} else {
@@ -322,11 +343,10 @@ function mdocs_toogle_disable_setting(main, disable) {
 function mdocs_ratings() {    
     // DISPLAY RATING WIDGET
     jQuery('.ratings-button' ).click(function(event) {
-	//event.preventDefault();
+	jQuery('.mdocs-ratings-body').empty();
 	var mdocs_file_id = jQuery(this).data('mdocs-id');
 	var mdocs_is_admin = jQuery(this).data('is-admin');
 	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'rating',mdocs_file_id: mdocs_file_id, wp_root: mdocs_js.wp_root},function(data) {
-		jQuery('.mdocs-ratings-body').empty();
 		jQuery('.mdocs-ratings-body').html(data);
 		mdocs_submit_rating('large',mdocs_file_id);
 	});
@@ -373,38 +393,50 @@ function mdocs_restore_default() {
     } 
    
 }
+// DESRIPTION PREVIEW
+function mdocs_description_preview() {
+    jQuery('.description-preview' ).click(function(event) {
+	jQuery('.mdocs-description-preview-body').empty();
+	var mdocs_file_id = jQuery(this).data('mdocs-id');
+	var mdocs_is_admin = jQuery(this).data('is-admin');
+	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'show-desc',mdocs_file_id: mdocs_file_id, is_admin: mdocs_is_admin},function(data) {
+		jQuery('.mdocs-description-preview-body').html(data);
+	});
+    });
+}
 // FILE PREVIEW
 function mdocs_file_preview() {
     jQuery('.file-preview' ).click(function(event) {
-	//event.preventDefault();
+	jQuery('.mdocs-file-preview-body').empty();
 	var mdocs_file_id = jQuery(this).data('mdocs-id');
 	var mdocs_is_admin = jQuery(this).data('is-admin');
-	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'file',mdocs_file_id: mdocs_file_id, is_admin: mdocs_is_admin},function(data) {
-		jQuery('.mdocs-file-preview-body').empty();
-		jQuery('.mdocs-file-preview-body').html(data);
+	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'file',mdocs_file_id: mdocs_file_id, is_admin: mdocs_is_admin},function(data) {	
+	    jQuery('.mdocs-file-preview-body').html(data);
 	});
     });
 }
 // IMAGE PREVIEW
 function mdocs_image_preview() {
      jQuery('.img-preview' ).click(function() {
+	jQuery('.mdocs-file-preview-body').empty();
 	var mdocs_file_id = jQuery(this).data('mdocs-id');
 	var mdocs_is_admin = jQuery(this).data('is-admin');
 	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'img',mdocs_file_id: mdocs_file_id, is_admin: mdocs_is_admin},function(data) {
-	    jQuery('.mdocs-file-preview-body').empty();
 	    jQuery('.mdocs-file-preview-body').html(data);
 	});
     });
 }
 // TOOGLE DESCRIPTION/PREVIEW
 function mdocs_toogle_description_preview() {
-    jQuery('.mdocs-nav-tab' ).click(function(e) {
-	e.preventDefault();
+    jQuery('.mdocs-nav-tab' ).click(function(event) {
+	event.preventDefault();
+	jQuery('.mdocs-nav-tab').each(function() { jQuery(this).removeClass('mdocs-nav-tab-active'); });
+	jQuery(this).addClass('mdocs-nav-tab-active');
+	jQuery('#mdocs-show-container-'+mdocs_file_id).empty();
 	var mdocs_file_id = jQuery(this).data('mdocs-id');
 	var show_type = jQuery(this).data('mdocs-show-type');
 	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type:'show', show_type:show_type,mdocs_file_id: mdocs_file_id, wp_root: mdocs_js.wp_root},function(data) {
-		jQuery('#mdocs-show-container-'+mdocs_file_id).empty();
-		jQuery('#mdocs-show-container-'+mdocs_file_id).html(data);
+	    jQuery('#mdocs-show-container-'+mdocs_file_id).html(data);
 	});
     });
 }
@@ -442,4 +474,25 @@ function mdocs_check_width() {
 	    jQuery('head').append(data);
 	});
     }
+}
+// SHARING MODAL
+function mdocs_share_modal() {
+    jQuery('.sharing-button').click(function() {
+	jQuery('.mdocs-share-body').empty();
+	jQuery('.mdocs-share-body').html('<h1>Sharing</h1>');
+	jQuery('.mdocs-share-body').append('<div class="well well-sm"><h3><i class="fa fa-arrow-circle-o-right"></i> Download Page</h3><p>'+jQuery(this).data('permalink')+'</p></div>');
+	jQuery('.mdocs-share-body').append('<div class="well well-sm"><h3><i class="fa fa-download"></i> Direct Download</h3><p>'+jQuery(this).data('download')+'</p></div>');
+    });
+}
+// VERSION 3.0 JAVASCRIPT PATCH
+function mdocs_v3_0_patch(_numfiles) {
+    jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'mdocs-v3-0-patch'  },function(data) {
+	jQuery('body').append(data);
+    });
+}
+
+function mdocs_modal_close() {
+    jQuery('.modal').on('hidden.bs.modal', function () {
+	jQuery('.mdocs-modal-body').empty();
+    })
 }

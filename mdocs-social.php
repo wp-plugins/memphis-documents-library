@@ -16,6 +16,7 @@ function mdocs_social($the_mdoc, $page_type='site') {
 			<div class="mdocs-like"><iframe src="//www.facebook.com/plugins/like.php?href=<?php echo $the_permalink;?>&amp;width=450&amp;height=21&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe></div>
 			<div class="mdocs-plusone" ><div class="g-plusone" data-size="medium" data-href="<?php echo $the_permalink;?>"></div></div><?php
 		}
+		/*
 		if($mdocs_show_ratings && $page_type != 'dashboard') {
 			echo '<div class="mdocs-rating-container-info-large">';
 			for($i=1;$i<=5;$i++) {
@@ -25,7 +26,7 @@ function mdocs_social($the_mdoc, $page_type='site') {
 			}
 			echo '</div>';
 		}
-		
+		*/
 	} else {
 		?>
 		<div class="mdocs-social"  >

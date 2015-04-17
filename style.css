@@ -41,7 +41,7 @@
 	font-size: 14px !important;
 	cursor: pointer !important;
 	border: none !important;
-	margin-right: 5px !important; 
+	margin-right: 10px !important; 
 	padding: 10px !important;
 	font-weight: normal !important;
 	text-shadow: none !important;
@@ -84,16 +84,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 
  }
 .mdocs-share-link { clear: both; 
-    border:1px dashed #a6ca8a;
-	background: #e9ffd9;
-	border-radius:5px;
-    padding:10px 10px 10px 36px;
-    margin: 40px 10px 10px 10px;
-	text-align: center;
-	font-size: 17px;
-	font-weight: bold;
+    
 	}
-.mdoc-desc img { margin: 5px !important; padding: 0 !important; border: solid 1px #E2E2E2 !important;}
+
 .mdocs-container h2 { margin: 5px 10px; padding:0; font-weight: normal; }
 .mdocs-nav-wrapper { padding: 0 0 0 0 !important; line-height: 29px; display: block; overflow: hidden; margin: 0 !important; width: 100% !important; clear: both !important;}
 .mdocs-nav-tab { font-weight: normal !important; font-size: 20px !important; background: #e7e7e7; font-size: 17px !important; border-top:  solid 1px #DCDCDC !important; border-left:  solid 1px #DCDCDC; border-right:  solid 1px #DCDCDC; line-height: 24px; display: inline-block; padding: 4px 10px 6px; margin: 4px 2px 0px 2px !important; border-radius: 3px 3px 0 0; text-decoration: none; color: #AAA !important; text-shadow: none !important; white-space:nowrap !important; cursor: pointer !important; }
@@ -287,8 +280,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 .mdocs-file-preview-body { text-align: center; }
 .mdocs-file-preview-body h1 { text-align: left; }
 .mdocs-img-preview { min-height: 400px;}
+.mdocs-thumbnail { margin: 0 20px 10px 0;  }
+.mdocs-description-preview-body { overflow: auto; }
+.mdocs-show-container h1, .mdocs-modal-body h1 { clear: none !important; }
 
 .mdocs-show-container { border-top: solid 1px #e2e2e2; }
+#mdocs-desc_ifr { height: 500px !important; }
 
 /* JQUERY UI TOOLTIP */
 .ui-tooltip { background: url('assets/imgs/paper-bg.jpg') repeat  !important; border: 2px solid #cdcdcd; }

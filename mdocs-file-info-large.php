@@ -53,7 +53,7 @@ function mdocs_file_info_large($the_mdoc, $page_type='site', $index=0, $current_
 		else { ?><h2><a href="<?php echo $the_mdoc_permalink; ?>" ><?php echo str_replace('\\','',$the_mdoc['name']); ?></a></h2><?php }
 		?>
 		<?php
-		if($mdocs_hide_all_files) { ?><div class="mdocs-login-msg"><?php _e('This file can not<br>be downloaded.','mdocs'); ?></div><?php }
+		if($mdocs_hide_all_files || $the_mdoc['file_status'] == 'hidden') { ?><div class="mdocs-login-msg"><?php _e('This file can not<br>be downloaded.','mdocs'); ?></div><?php }
 		else if($mdocs_show_non_members  == 'off' && $user_logged_in == false || $user_logged_in == false && $mdocs_hide_all_files_non_members) { ?>
 			<div class="mdocs-login-msg"><?php _e('Please login<br>to download this file','mdocs'); ?></div>
 		<?php } elseif($the_mdoc['non_members'] == 'on' || $user_logged_in ) { ?>

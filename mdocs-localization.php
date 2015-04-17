@@ -1,5 +1,4 @@
 <?php
-
 $upload_dir = wp_upload_dir();
 $mdocs_zip = get_option('mdocs-zip');
 // LOCALIZATION INIT
@@ -76,6 +75,12 @@ function mdocs_ajax_processing() {
 			break;
 		case 'update-doc':
 			mdocs_add_update_ajax(__('Update Document','mdocs'));
+			break;
+		case 'mdocs-v3-0-patch':
+			mdocs_box_view_update_v3_0();
+			break;
+		case 'show-desc':
+			mdocs_show_description(intval($_POST['mdocs_file_id']));
 			break;
 	}
 	exit;

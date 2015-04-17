@@ -38,7 +38,6 @@ function mdocs_settings($cat) {
 		<input alt="PayPal - The safer, easier way to pay online!" name="submit" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" type="image" />
 		<img src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" alt="" width="1" height="1" border="0" />
 	</form>
-	
 </div>
 <h2><?php _e('Library Settings','mdocs'); ?></h2>
 <form enctype="multipart/form-data" method="post" action="options.php" class="mdocs-setting-form">
@@ -89,7 +88,6 @@ function mdocs_settings($cat) {
 			<input type="checkbox" name="mdocs-show-update" value="1"  <?php checked( $mdocs_show_update, 1) ?>/> <?php _e('Updated','mdocs'); ?><br>
 			<input type="checkbox" name="mdocs-show-ratings" value="1"  <?php checked( $mdocs_show_ratings, 1) ?>/> <?php _e('Ratings','mdocs'); ?><br>
 			<input type="checkbox" name="mdocs-show-social" value="1"  <?php checked( $mdocs_show_social, 1) ?>/> <?php _e('Social','mdocs'); ?><br>
-			<input type="checkbox" name="mdocs-show-share" value="1"  <?php checked( $mdocs_show_share, 1) ?>/> <?php _e('Share Button','mdocs'); ?>
 		</td>
 	
 		<th><?php _e('Hide Things','mdocs'); ?></th>
@@ -97,7 +95,19 @@ function mdocs_settings($cat) {
 			<input type="checkbox" id="mdocs-hide-all-files" name="mdocs-hide-all-files" value="1"  <?php checked(1,$mdocs_hide_all_files) ?>/> <?php _e('All Files','mdocs'); ?><br>
 			<input type="checkbox" id="mdocs-hide-all-posts" name="mdocs-hide-all-posts" value="1"  <?php checked(1,$mdocs_hide_all_posts) ?>/> <?php _e('All Posts','mdocs'); ?><br>
 			<input type="checkbox" id="mdocs-hide-all-files-non-members" name="mdocs-hide-all-files-non-members" value="1"  <?php checked(1,$mdocs_hide_all_files_non_members) ?>/> <?php _e('All Files: (Non Members)','mdocs'); ?><br>
-			<input type="checkbox" id="mdocs-hide-all-posts-non-members" name="mdocs-hide-all-posts-non-members" value="1"  <?php checked(1,$mdocs_hide_all_posts_non_members) ?>/> <?php _e('All Posts: (Non Members)','mdocs'); ?>
+			<input type="checkbox" id="mdocs-hide-all-posts-non-members" name="mdocs-hide-all-posts-non-members" value="1"  <?php checked(1,$mdocs_hide_all_posts_non_members) ?>/> <?php _e('All Posts: (Non Members)','mdocs'); ?><br>
+			
+		</td>
+	</tr>
+	<tr>
+		<th><?php _e('Show Sharing Button/Link','mdocs'); ?></th>
+		<td>
+			<input type="checkbox" name="mdocs-show-share" value="1"  <?php checked( $mdocs_show_share, 1) ?>/> 
+		</td>
+		<th><?php _e('Date/Time Format'); ?></th>
+		<td>
+			<input type="text" name="mdocs-date-format" value="<?php echo get_option('mdocs-date-format');?>"  /><br>
+			<a href="http://php.net/manual/en/function.date.php" target="_blank" alt="<?php _e('Date/Time Format Reference'); ?>"><?php _e('Date/Time Format Reference'); ?></a>
 		</td>
 	</tr>
 	<tr>

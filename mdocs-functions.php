@@ -24,26 +24,24 @@ function  mdocs_des_preview_tabs($the_mdoc) {
 	$mdocs_hide_all_files = get_option( 'mdocs-hide-all-files' );
 	$mdocs_hide_all_files_non_members = get_option( 'mdocs-hide-all-files-non-members' );
 	$upload_dir = wp_upload_dir();
-	//$file_url = $upload_dir['baseurl'].MDOCS_DIR.$the_mdoc['filename'];
-	$file_url = get_site_url().'/?mdocs-file='.$the_mdoc['id'].'&mdocs-url='.$the_mdoc['parent'];
 	ob_start();
 	?>
-	<?php if($mdocs_show_description && $mdocs_show_preview) { ?><a class="mdocs-nav-tab" data-mdocs-show-type="desc" data-mdocs-id="<?php echo $the_mdoc['id']; ?>"><?php _e('Description', 'mdocs'); ?></a><?php } ?>
-	<?php if($mdocs_show_preview && $mdocs_show_description) { ?><a class="mdocs-nav-tab"  data-mdocs-show-type="preview" data-mdocs-id="<?php echo $the_mdoc['id']; ?>"><?php _e('Preview', 'mdocs'); ?></a><?php } ?>
+	<?php if($mdocs_show_description && $mdocs_show_preview) { ?><a class="mdocs-nav-tab <?php if($mdocs_default_content=='description') echo 'mdocs-nav-tab-active'; ?>" data-mdocs-show-type="desc" data-mdocs-id="<?php echo $the_mdoc['id']; ?>"><?php _e('Description', 'mdocs'); ?></a><?php } ?>
+	<?php if($mdocs_show_preview && $mdocs_show_description) { ?><a class="mdocs-nav-tab <?php if($mdocs_default_content=='preview') echo 'mdocs-nav-tab-active'; ?>"  data-mdocs-show-type="preview" data-mdocs-id="<?php echo $the_mdoc['id']; ?>"><?php _e('Preview', 'mdocs'); ?></a><?php } ?>
 	<div class="mdocs-show-container" id="mdocs-show-container-<?php echo $the_mdoc['id']; ?>">
 		<?php
 		if(!isset($_POST['show_type']) && $mdocs_show_description && $mdocs_default_content == 'description') {
 			?>
-			<h3><?php _e('Description', 'mdocs'); ?></h3>
 			<div class="mdoc-desc">
-			<p><?php echo $mdocs_desc; ?></p>
+				<h3><?php _e('Description', 'mdocs'); ?></h3>
+				<?php mdocs_show_description($the_mdoc['id']); ?>
 			</div>
 			<?php
 		} elseif(!isset($_POST['show_type']) && $mdocs_show_preview && $mdocs_default_content == 'preview') {
-			if($mdocs_hide_all_files) {
-				 echo '<p>'.__('Preview is unavailable for this file.','mdocs').'</p>';
+			if($mdocs_hide_all_files || $the_mdoc['file_status'] == 'hidden') {
+				 echo '<div class="alert alert-warning" role="alert">'.__('Preview is unavailable for this file.','mdocs').'</div class="alert alert-warning" role="alert">';
 			} else if( is_user_logged_in() == false && $mdocs_hide_all_files_non_members) {
-				echo '<p>'.__('Please login to view this file preview.','mdocs').'</p>';
+				echo '<div class="alert alert-warning" role="alert">'.__('Please login to view this file preview.','mdocs').'</div>';
 			} else {
 				$show_preview = mdocs_file_access($the_mdoc);
 				if( $show_preview ) {
@@ -51,10 +49,9 @@ function  mdocs_des_preview_tabs($the_mdoc) {
 				?>
 				<div class="mdoc-desc">
 				<?php if($is_image == false) { ?>
-				<p><?php mdocs_doc_preview($file_url); ?></p>
-				<?php } else { ?>
-				<iframe class="mdocs-img-preview" src="?mdocs-img-preview=<?php echo $the_mdoc['filename']; ?>"></iframe>
-				<?php } ?>
+				<p><?php mdocs_doc_preview($the_mdoc); ?></p>
+				<?php
+				} else mdocs_show_image_preview($the_mdoc); ?>
 				</div>
 				<?php
 				} else { echo '<p>'.__('Please login to access the preview.','mdocs').'</p>'; }
@@ -477,12 +474,15 @@ function mdocs_check_read_write() {
 	return $is_read_write;
 }
 
-function mdocs_doc_preview($file,$echo=true) {
-	if($echo) {
-	?>
-	<iframe class="mdocs-google-doc" src="//drive.google.com/viewerng/viewer?url=<?php echo  $file; ?>&embedded=true" style="border: none;"></iframe>
+function mdocs_doc_preview($file) {
+	$boxview = new mdocs_box_view();
+	$view_file = $boxview->downloadFile($file['box-view-id']);
+	if(isset($view_file) && $view_file['type'] != 'error') { ?>
+	<iframe src="//view-api.box.com/1/sessions/<?php echo $view_file['id']; ?>/view?theme=dark" seamless fullscreen style="width: 100%; height: 800px;"></iframe>
+	<?php } else { ?>
+	<div class="alert alert-warning" role="alert"><?php echo $view_file['details'][0]['message']; ?></div>
 	<?php
-	} else  return '<iframe class="mdocs-google-doc" src="//drive.google.com/viewerng/viewer?url='.$file.'&embedded=true" style="border: none;"></iframe>';
+	}
 }
 
 function mdocs_file_access($the_mdoc) {
@@ -598,92 +598,117 @@ function mdocs_custom_mime_types($existing_mimes=array()) {
 	return $existing_mimes;
 }
 
-function mdocs_list_header() {
-	global $post, $current_cat_array, $parent_cat_array;
-	$cats = get_option('mdocs-cats');
-	$upload_dir = wp_upload_dir();
-	$message = '';
-	$current_cat = mdocs_get_current_cat();
-	mdocs_get_children_cats(get_option('mdocs-cats'),$current_cat);
-	if($post == null) $is_admin = true;
-	else {
-		$is_admin = false;
-		$permalink = get_permalink($post->ID);
-		if(preg_match('/\?page_id=/',$permalink) || preg_match('/\?p=/',$permalink)) {
-			$permalink = $permalink.'&mdocs-cat=';
-		} else $permalink = $permalink.'?mdocs-cat=';
-	}
-	?>
-	<div class="wrap">
-		<div class="mdocs-admin-preview"></div>
-		<?php if($message != "" && $type != 'update') { ?> <div id="message" class="error" ><p><?php _e($message); ?></p></div> <?php }?>
-		<?php if(is_admin()) { ?>
-		<h2 class="mdocs-h2 pull-left"><?php _e("Documents Library",'mdocs'); ?></h2>
-		
-		<div class="btn-group">
-			<a class="add-update-btn btn btn-danger btn-sm" data-toggle="modal" data-target="#mdocs-add-update" data-mdocs-id="" data-is-admin="<?php echo is_admin(); ?>" data-action-type="add-doc"  data-current-cat="<?php echo $current_cat; ?>" href=""><?php _e('Add New Document','mdocs'); ?> <i class="fa fa-upload fa-lg"></i></a>
-		</div>
-		<div class="btn-group">
-			<button class="btn btn-default dropdown-toggle btn-sm" type="button" id="dropdownMenu1" data-toggle="dropdown"><?php _e('Options','mdocs'); ?><span class="caret"></span></button>
-			<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-				 <li role="presentation" class="dropdown-header"><?php _e('File Options','mdocs'); ?></li>
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=cats"><?php _e('Edit Categories','mdocs'); ?></a></li>
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=allowed-file-types"><?php _e('Allowed File Types','mdocs'); ?></a></li>
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=import"><?php _e('Import','mdocs'); ?></a></li>
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=export"><?php _e('Export','mdocs'); ?></a></li>
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=batch"><?php _e('Batch Upload'); ?></a></li>
-			  <li role="presentation" class="divider"></li>
-			  <li role="presentation" class="dropdown-header"><?php _e('Admin Options','mdocs'); ?></li>
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=settings"><?php _e('Settings','mdocs'); ?></a></li>
-			  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=filesystem-cleanup"><?php _e('File System Cleanup','mdocs'); ?></a></li>
-			   <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=restore"><?php _e('Restore To Default','mdocs'); ?></a></li>
-			    <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=short-codes"><?php _e('Short Codes','mdocs'); ?></a></li>
-			</ul>
-		</div>
-		<br><br>
-		<?php } ?>
-		
-		<nav class="navbar navbar-default" role="navigation" id="mdocs-navbar">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mdocs-navbar-collapse">
-					  <span class="sr-only">Toggle navigation</span>
-					  <span class="icon-bar"></span>
-					  <span class="icon-bar"></span>
-					  <span class="icon-bar"></span>
-					</button>
-					<span class="navbar-brand" href="#"><?php _e('Folders','mdocs'); ?></span>
-				</div>
-				<div class="collapse navbar-collapse" id="mdocs-navbar-collapse">
-					<ul class="nav navbar-nav">
-						<?php
-						if(!empty($cats)) {
-							foreach( $cats as $index => $cat ){
-								if(isset($cat['slug']) && !empty($current_cat_array)) {
-									if( $cat['slug'] == $current_cat) $class = ' active';
-									elseif(isset($cats[$current_cat_array['base_parent']]['slug']) && $cats[$current_cat_array['base_parent']]['slug'] == $cat['slug']) $class = ' active';
-									else $class = '';
-								} else $class = '';
-								if(is_dir($upload_dir['basedir'].'/mdocs/')) {
-									if($is_admin) echo '<li class="'.$class.'"><a href="?page=memphis-documents.php&mdocs-cat='.$cat['slug'].' ">'.__($cat['name']).'</a></li>';
-									else echo '<li class="'.$class.'"><a href="'.$permalink.$cat['slug'].'">'.__($cat['name']).'</a></li>';
+function mdocs_list_header($show=true) {
+	if($show) {
+		global $post, $current_cat_array, $parent_cat_array;
+		$cats = get_option('mdocs-cats');
+		$upload_dir = wp_upload_dir();
+		$message = '';
+		$current_cat = mdocs_get_current_cat();
+		mdocs_get_children_cats(get_option('mdocs-cats'),$current_cat);
+		if($post == null) $is_admin = true;
+		else {
+			$is_admin = false;
+			$permalink = get_permalink($post->ID);
+			if(preg_match('/\?page_id=/',$permalink) || preg_match('/\?p=/',$permalink)) {
+				$permalink = $permalink.'&mdocs-cat=';
+			} else $permalink = $permalink.'?mdocs-cat=';
+		}
+		?>
+		<?php mdocs_load_modals(); ?>
+		<div class="wrap">
+			
+			<div class="mdocs-admin-preview"></div>
+			<?php if($message != "" && $type != 'update') { ?> <div id="message" class="error" ><p><?php _e($message); ?></p></div> <?php }?>
+			<?php if(is_admin()) { ?>
+			<h2 class="mdocs-h2 pull-left"><?php _e("Documents Library",'mdocs'); ?></h2>
+			
+			<div class="btn-group">
+				<a class="add-update-btn btn btn-danger btn-sm" data-toggle="modal" data-target="#mdocs-add-update" data-mdocs-id="" data-is-admin="<?php echo is_admin(); ?>" data-action-type="add-doc"  data-current-cat="<?php echo $current_cat; ?>" href=""><?php _e('Add New Document','mdocs'); ?> <i class="fa fa-upload fa-lg"></i></a>
+			</div>
+			<div class="btn-group">
+				<button class="btn btn-default dropdown-toggle btn-sm" type="button" id="dropdownMenu1" data-toggle="dropdown"><?php _e('Options','mdocs'); ?><span class="caret"></span></button>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+					 <li role="presentation" class="dropdown-header"><?php _e('File Options','mdocs'); ?></li>
+				  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=cats"><?php _e('Edit Categories','mdocs'); ?></a></li>
+				  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=allowed-file-types"><?php _e('Allowed File Types','mdocs'); ?></a></li>
+				  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=import"><?php _e('Import','mdocs'); ?></a></li>
+				  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=export"><?php _e('Export','mdocs'); ?></a></li>
+				  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=batch"><?php _e('Batch Upload'); ?></a></li>
+				  <li role="presentation" class="divider"></li>
+				  <li role="presentation" class="dropdown-header"><?php _e('Admin Options','mdocs'); ?></li>
+				  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=settings"><?php _e('Settings','mdocs'); ?></a></li>
+				  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=filesystem-cleanup"><?php _e('File System Cleanup','mdocs'); ?></a></li>
+				   <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=restore"><?php _e('Restore To Default','mdocs'); ?></a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=short-codes"><?php _e('Short Codes','mdocs'); ?></a></li>
+				</ul>
+			</div>
+			<br><br>
+			<?php } ?>
+			
+			<nav class="navbar navbar-default" role="navigation" id="mdocs-navbar">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mdocs-navbar-collapse">
+						  <span class="sr-only">Toggle navigation</span>
+						  <span class="icon-bar"></span>
+						  <span class="icon-bar"></span>
+						  <span class="icon-bar"></span>
+						</button>
+						<span class="navbar-brand" href="#"><?php _e('Folders','mdocs'); ?></span>
+					</div>
+					<div class="collapse navbar-collapse" id="mdocs-navbar-collapse">
+						<ul class="nav navbar-nav">
+							<?php
+							if(!empty($cats)) {
+								foreach( $cats as $index => $cat ){
+									if(isset($cat['slug']) && !empty($current_cat_array)) {
+										if( $cat['slug'] == $current_cat) $class = ' active';
+										elseif(isset($cats[$current_cat_array['base_parent']]['slug']) && $cats[$current_cat_array['base_parent']]['slug'] == $cat['slug']) $class = ' active';
+										else $class = '';
+									} else $class = '';
+									if(is_dir($upload_dir['basedir'].'/mdocs/')) {
+										if($is_admin) echo '<li class="'.$class.'"><a href="?page=memphis-documents.php&mdocs-cat='.$cat['slug'].' ">'.__($cat['name']).'</a></li>';
+										else echo '<li class="'.$class.'"><a href="'.$permalink.$cat['slug'].'">'.__($cat['name']).'</a></li>';
+									}
 								}
 							}
-						}
-						?>
-					</ul>
+							?>
+						</ul>
+					</div>
 				</div>
-			</div>
-		</nav>
-	<?php
+			</nav>
+		<?php
+		
+	} else {
+		mdocs_load_modals(); 
+		echo '<div class="wrap">';
+	}
 	return $current_cat;
 }
 
-function mdocs_get_current_cat() {
+function mdocs_recursive_search($array, $search_string='') {
+    if ($array) {
+        foreach ($array as $index => $value) {
+            if (is_array($value)) {
+                $result = mdocs_recursive_search($value, $search_string);
+				if($result != null) return $result;
+            } else {
+				if($search_string === $value) return $array;
+            }
+        }
+    }
+}
+
+function mdocs_get_current_cat($atts=null) {
 	$cats =  get_option('mdocs-cats');
 	$current_cat = '';
 	if(isset($_GET['mdocs-cat'])) $current_cat = $_GET['mdocs-cat'];
-	elseif(!is_string($cats)) $current_cat = $cats[0]['slug'];
+	elseif(!is_string($cats) && !isset($atts['cat'])) $current_cat = $cats[0]['slug'];
+	elseif(isset($atts['cat'])) {
+		$cat = mdocs_recursive_search($cats, $atts['cat']);
+		$current_cat = $cat['slug'];
+	}
 	return $current_cat;
 }
 
@@ -767,4 +792,96 @@ function mdocs_nav_size($collapse) {
 </style>
 <?php
 	}
+}
+function mdocs_box_view_update_v3_0() {
+	$mdocs = get_option('mdocs-list');
+	$boxview = new mdocs_box_view();
+	foreach($mdocs as $index => $the_mdoc) {
+		if(!isset($the_mdoc['box-view-id'])) {
+			$upload_file = $boxview->uploadFile(get_site_url().'/?mdocs-file='.$the_mdoc['id'].'&mdocs-url='.$the_mdoc['parent'], $the_mdoc['filename']);
+			sleep(3);
+			$the_mdoc['box-view-id'] = $upload_file['id'];
+			$mdocs[$index] = $the_mdoc;
+		}
+	}
+	//var_dump($mdocs);
+	update_option('mdocs-list', $mdocs);
+	update_option('mdocs-v3-0-patch-var-1',true);
+}
+function mdocs_show_description($id) {
+	$mdocs = get_option('mdocs-list');
+	foreach($mdocs as $index => $the_mdoc) if($the_mdoc['id'] == $id) { break; }
+	$mdocs_desc = apply_filters('the_content', $the_mdoc['desc']);
+	$mdocs_desc = str_replace('\\','',$mdocs_desc);
+	$boxview = new mdocs_box_view();
+	$thumbnail = $boxview->getThumbnail($the_mdoc['box-view-id']);
+	$json_thumbnail = json_decode($thumbnail,true);
+	$image_size = getimagesize(get_site_url().'?mdocs-img-preview='.$the_mdoc['filename']);
+	$thumbnail_size = 256;
+	?>
+	<h2><?php echo $the_mdoc['filename']; ?></h2>
+	<?php
+	if($json_thumbnail['type'] != 'error') {
+	?>
+	<div class="">
+		<img class="mdocs-thumbnail pull-left img-thumbnail img-responsive" src="<?php $boxview->displayThumbnail($thumbnail); ?>" alt="<?php echo $the_mdoc['filename']; ?>" />
+	</div>
+	<?php } elseif( $image_size != false) {
+		$width = $image_size[0];
+		$height = $image_size[1];
+		$aspect_ratio = round($width/$height,2);
+		// Width is greater than height and width is greater than thumbnail size
+		if($aspect_ratio > 1&&  $width > $thumbnail_size) {
+			$thumbnail_width = $thumbnail_size;
+			$thumbnail_height = $thumbnail_size/$aspect_ratio;
+		// Heigth is greater than width and height is greater then thumbnail size
+		} elseif($aspect_ratio < 1 && $height > $thumbnail_size) {
+			$aspect_ratio = round($height/$width,2);
+			$thumbnail_width = $thumbnail_size/$aspect_ratio;
+			$thumbnail_height = $thumbnail_size;
+		// Width and height are equal
+		} elseif($aspect_ratio == 1 ) {
+			$thumbnail_width = $thumbnail_size;
+			$thumbnail_height = $thumbnail_size;
+		// Width is greater than height and width is less than thumbnail size
+		} elseif($aspect_ratio > 1 && $width < $thumbnail_size) {
+			$thumbnail_width = $thumbnail_size;
+			$thumbnail_height = $thumbnail_size/$aspect_ratio;
+		// Hieght is greater than width and height is less than thumbnail size
+		} elseif($aspect_ratio > 1 && $height < $thumbnail_size) {
+			$thumbnail_width = $thumbnail_size/$aspect_ratio;
+			$thumbnail_height = $thumbnail_size;
+		}
+		ob_start();
+		$upload_dir = wp_upload_dir();
+		$src_image = $upload_dir['basedir'].MDOCS_DIR.$the_mdoc['filename'];
+		if($image_size['mime'] == 'image/jpeg') $image = imagecreatefromjpeg($src_image);
+		elseif($image_size['mime'] == 'image/png') $image = imagecreatefrompng($src_image);
+		elseif($image_size['mime'] == 'image/gif') $image = imagecreatefromgif($src_image);
+		$thumnail =imagecreatetruecolor($thumbnail_width,$thumbnail_height);
+		$white = imagecolorallocate($thumnail, 255, 255, 255);
+		imagefill($thumnail, 0, 0, $white);
+		imagecopyresampled($thumnail,$image,0,0,0,0,$thumbnail_width,$thumbnail_height,$image_size[0],$image_size[1]);
+		
+		imagepng($thumnail);
+		imagedestroy($image);
+		imagedestroy($thumnail);
+		$png = ob_get_clean();
+		$uri = "data:image/png;base64," . base64_encode($png);
+	?>
+	<div class="">
+		<img class="mdocs-thumbnail pull-left img-thumbnail  img-responsive" src="<?php echo $uri; ?>" alt="<?php echo $the_mdoc['filename']; ?>" />
+	</div>
+	<?php } ?>
+	<?php echo $mdocs_desc; ?>
+	<div class=clearfix"></div>
+	<?php
+}
+
+function mdocs_show_image_preview($the_mdoc) {
+	?>
+	<div style="text-align: center;">
+		<img class="img-thumbnail mdocs-img-preview" src="?mdocs-img-preview=<?php echo $the_mdoc['filename']; ?>" />
+	</div>
+	<?php
 }

@@ -191,6 +191,12 @@ function mdocs_uploader() {
 						</div>
 					</div>
 					<div class="form-group form-group-lg">
+						<label class="col-sm-2 control-label" for="mdocs-last-modified"><?php _e('Date','mdocs'); ?></label>
+						<div class="col-sm-10">
+							<input class="form-control" type="text" name="mdocs-last-modified" value="<?php echo gmdate(get_option('mdocs-date-format'),time());?>" />
+						</div>
+					</div>
+					<div class="form-group form-group-lg">
 						<label class="col-sm-2 control-label" for="mdocs"><?php _e('File Uploader','mdocs'); ?></label>
 						<div class="col-sm-10">
 							<input class="form-control" type="file" name="mdocs" />
@@ -232,7 +238,8 @@ function mdocs_uploader() {
 							<h2><?php _e('Description','mdocs'); ?></h2>
 							<br>
 							<div>
-							<?php wp_editor('', "mdocs-desc"); ?>
+							<?php
+							wp_editor('', "mdocs-desc",$wp_edit_settings); ?>
 							</div>
 						</div>
 					</div>

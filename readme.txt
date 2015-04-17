@@ -14,11 +14,16 @@ A documents library for WordPress.
 
 Memphis Documents Library is a  documents library for WordPress with a robust feature set.  It is a great tool for the organization and distribution of files.
 
-= What's New With Version 2.6 =
+= What's New With Version 3.0 =
 
+* *New* - Thumbnails of most documents now on the description page of each file.
+* *New* - Google Doc View has been replaced with Box Viewer API, this allows for some extra functionality not available with Google Docs.
+* *New* - The ability to change the Last Modified category of a file.
+* *New* - Added an option in the Settings to change the date format.
 * *New* - The ability to allow/deny user types access to Private Posts. 
 * *New* - In the setting menu you can now choose the allowed file types.
 * *New* - A restore defaults option has been added this will restore Memphis Documents Library to its factory state, *WARNING all files and post will be deleted*.
+* *Update* - Updated Font Awesome to version 4.3.0
 * *Update* - Updated localization files.
 * *Update* - Uninstall will not remove all saved variables , posts, files, categories, and directories for a single WordPress Site and also WordPress Multisite.
 * *Update* - Change the way date modified is handle, was using an array value now using file date modified attribute.
@@ -28,7 +33,9 @@ Memphis Documents Library is a  documents library for WordPress with a robust fe
 * *Bug* - Batch upload was cutting of filenames with dots in them.
 * *Bug* - Fixed bug causing new installs to produce errors, these errors would correct themselves but very annoying for users to see.
 * *Bug* - Removed extra label tag in sort box which was cause issues in Firefox.
-* *Bug* - Fixed Chrome bug, where file types that are allowed in WordPress are being blocked by Memphis Documents Library.
+* *Bug* - Fixed, Chrome bug, where file types that are allowed in WordPress are being blocked by Memphis Documents Library.
+* *Bug* - Fixed, when there are multiple categories on a page the get request fails to recognize each individual category.
+* *Rejected* - Short-code to add a download link to a post or page.
 
 
 = Memphis Documents Library Features =
@@ -285,19 +292,12 @@ Once uploaded the configuration menu is located in either the "Memphis" menu wit
 = 1.0 =
 * Initial Release of Memphis Documents Library
 == Feature Request ==
-* *Bug* - When there are multiple categories on a page the get request fails to recognize each individual category.
-* *Feature* - The ability to change the Last Modified category of a file.
-* *Feature* - Bulk Delete/Hide
-* *Feature* - Bulk move
-* *Feature* - Get thumbnails of the documents as the featured image for the post, as an alternative to Google Preview.
+* *Feature* - Bulk Delete/Hide/Move
 * *Feature* - Give other user types the ability to upload files.
-* *Feature* - Short-code to add a download link to a post or page.
 * *Feature* - Search shows only files that the specific user role has access too.
 * *Feature* - Added more level to categories.
 * *Feature* - Batch upload choose a category for all file before uploading them.
-* *Feature* - Add a pdf preview on the description page
 * *Feature* - Add a tag editor to the add/update document page.
 * *Feature* - In the Media tab find a way to display the category of the documents created by Memphis Documents.
 * *Feature* - Connect to Cloud Services (DropBox, SkyDrive, MediaFire, etc.)
-* *Feature* - Add an option in the Settings to change the date format from default European (dd-mm-yy) to American (mm-dd-yy)
 * *Feature* - Add the ability to change the path name and breadcrumb name.

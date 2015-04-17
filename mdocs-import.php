@@ -3,7 +3,7 @@ function mdocs_import() {
 	$upload_dir = wp_upload_dir();
 	mdocs_list_header();
 ?>
-<h1><?php _e('Import Files','mdocs'); ?></h1>
+<h2><?php _e('Import Files','mdocs'); ?></h2>
 <p><?php _e('There are two type of imports you can choose from.','mdocs'); ?></p>
 <p>
 	<ol>
