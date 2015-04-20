@@ -160,7 +160,7 @@ function mdocs_settings($cat) {
 				<textarea cols="30" rows="10" name="mdocs-htaccess"><?php echo $mdocs_htaccess; ?></textarea>
 		</td>
 	</tr>
-	<!--
+	<!-- ROLES AND PERMISSION SETTINGS 
 	<tr>
 		<td colspan="3">
 			<h2><?php _e('Roles & Permissions','mdocs'); ?></h2>

@@ -36,7 +36,7 @@ function mdocs_register_settings() {
 			// PATCHES
 			// 3.0
 			register_setting('mdocs-patch-vars', 'mdocs-v3-0-patch-var-1');
-			add_action('mdocs-v3-0-patch-var-1',false);
+			add_option('mdocs-v3-0-patch-var-1',false);
 			if(get_option('mdocs-v3-0-patch-var-1') == false && is_array(get_option('mdocs-list'))) {
 				add_action( 'admin_head', 'mdocs_v3_0_patch' );
 				function mdocs_v3_0_patch() {

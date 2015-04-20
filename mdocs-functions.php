@@ -478,7 +478,13 @@ function mdocs_doc_preview($file) {
 	$boxview = new mdocs_box_view();
 	$view_file = $boxview->downloadFile($file['box-view-id']);
 	if(isset($view_file) && $view_file['type'] != 'error') { ?>
-	<iframe src="//view-api.box.com/1/sessions/<?php echo $view_file['id']; ?>/view?theme=dark" seamless fullscreen style="width: 100%; height: 800px;"></iframe>
+	<script>
+		
+		var screenHeight = window.innerHeight-275;
+		
+		jQuery('#mdocs-box-view-iframe').css({'height': screenHeight})
+	</script>
+	<iframe id="mdocs-box-view-iframe" src="//view-api.box.com/1/sessions/<?php echo $view_file['id']; ?>/view?theme=dark" seamless fullscreen style="width: 100%; "></iframe>
 	<?php } else { ?>
 	<div class="alert alert-warning" role="alert"><?php echo $view_file['details'][0]['message']; ?></div>
 	<?php
@@ -630,7 +636,7 @@ function mdocs_list_header($show=true) {
 				<button class="btn btn-default dropdown-toggle btn-sm" type="button" id="dropdownMenu1" data-toggle="dropdown"><?php _e('Options','mdocs'); ?><span class="caret"></span></button>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 					 <li role="presentation" class="dropdown-header"><?php _e('File Options','mdocs'); ?></li>
-				  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=cats"><?php _e('Edit Categories','mdocs'); ?></a></li>
+				  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=cats"><?php _e('Edit Folders','mdocs'); ?></a></li>
 				  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=allowed-file-types"><?php _e('Allowed File Types','mdocs'); ?></a></li>
 				  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=import"><?php _e('Import','mdocs'); ?></a></li>
 				  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=export"><?php _e('Export','mdocs'); ?></a></li>
@@ -839,6 +845,11 @@ function mdocs_show_description($id) {
 			$aspect_ratio = round($height/$width,2);
 			$thumbnail_width = $thumbnail_size/$aspect_ratio;
 			$thumbnail_height = $thumbnail_size;
+		// Heigth is greater than width and height is less then thumbnail size
+		} elseif($aspect_ratio < 1 && $height < $thumbnail_size) {
+			$aspect_ratio = round($height/$width,2);
+			$thumbnail_width = $thumbnail_size/$aspect_ratio;
+			$thumbnail_height = $thumbnail_size;
 		// Width and height are equal
 		} elseif($aspect_ratio == 1 ) {
 			$thumbnail_width = $thumbnail_size;
@@ -850,6 +861,9 @@ function mdocs_show_description($id) {
 		// Hieght is greater than width and height is less than thumbnail size
 		} elseif($aspect_ratio > 1 && $height < $thumbnail_size) {
 			$thumbnail_width = $thumbnail_size/$aspect_ratio;
+			$thumbnail_height = $thumbnail_size;
+		} else {
+			$thumbnail_width = $thumbnail_size;
 			$thumbnail_height = $thumbnail_size;
 		}
 		ob_start();

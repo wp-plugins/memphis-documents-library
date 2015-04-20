@@ -487,7 +487,7 @@ function mdocs_share_modal() {
 // VERSION 3.0 JAVASCRIPT PATCH
 function mdocs_v3_0_patch(_numfiles) {
     jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'mdocs-v3-0-patch'  },function(data) {
-	jQuery('body').append(data);
+	//jQuery('body').append(data);
     });
 }
 
