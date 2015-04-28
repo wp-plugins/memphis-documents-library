@@ -2,7 +2,6 @@
 function mdocs_the_list($att=null) {
 	global $post, $current_cat_array, $parent_cat_array;
 	ob_start();
-	//$is_admin = is_admin();
 	if(is_admin()) $page_type = 'dashboard';
 	else $page_type = 'site';
 	$is_read_write = mdocs_check_read_write();

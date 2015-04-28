@@ -71,7 +71,7 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 					if($the_mdoc['post_status'] == 'private' && $read_private_posts == false) echo str_replace('\\','',$the_mdoc['name']).$status_tag;
 					else { ?>
 					<div class="btn-group">
-						<a class="dropdown-toggle mdocs-title-href" data-toggle="dropdown" href="#" ><?php echo $file_icon.' '.str_replace('\\','',$the_mdoc['name']).$status_tag; ?></a>
+						<a class="mdocs-title-href" data-toggle="dropdown" href="#" ><?php echo $file_icon.' '.str_replace('\\','',$the_mdoc['name']).$status_tag; ?></a>
 						
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 							<li role="presentation" class="dropdown-header"><i class="fa fa-medium"></i> &#187; <?php echo $the_mdoc['name']; ?></li>

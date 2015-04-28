@@ -79,6 +79,12 @@ function mdocs_ajax_processing() {
 		case 'mdocs-v3-0-patch':
 			mdocs_box_view_update_v3_0();
 			break;
+		case 'mdocs-v3-0-patch-run-updater':
+			mdocs_v3_0_patch_run_updater();
+			break;
+		case 'mdocs-v3-0-patch-cancel-updater':
+			mdocs_v3_0_patch_cancel_updater();
+			break;
 		case 'show-desc':
 			mdocs_show_description(intval($_POST['mdocs_file_id']));
 			break;

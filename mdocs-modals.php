@@ -32,7 +32,7 @@ function load_description_modal() {
 			<div class="modal-content">
 				<div class="modal-body">
 					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?php _e('Close','mdocs'); ?></span></button>
-					<div class="mdocs-description-preview-body mdocs-modal-body"></div>
+					<div class="mdocs-description-preview-body mdocs-modal-body mdocs-post"></div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

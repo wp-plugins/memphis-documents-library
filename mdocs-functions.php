@@ -85,7 +85,7 @@ function mdocs_post_page($att=null) {
 		else $mdocs_link = site_url().'/'.$query->post->post_name.'/';
 		$mdocs_desc = apply_filters('the_content', $post->post_excerpt);
 		ob_start();
-		$the_page = '<div class="mdocs-post">';
+		$the_page = '<div class="mdocs-post mdocs-post-current-file">';
 		$the_page .= mdocs_file_info_large($the_mdoc, 'site', $index, null);
 		$the_page .= '<div class="mdocs-clear-both"></div>';
 		$the_page .= mdocs_social($the_mdoc);
@@ -353,15 +353,17 @@ function mdocs_is_bot() {
 	$bots = strip_tags(file_get_contents(MDOCS_ROBOTS));
 	$bots = explode('|:::|',$bots);
 	foreach($bots as $bot) {
-        if ( stripos($_SERVER['HTTP_USER_AGENT'], $bot) !== false && $bot != 'via docs.google.com') return true;
+        if ( stripos($_SERVER['HTTP_USER_AGENT'], $bot) !== false && $bot != 'via docs.google.com') {
+			return true;
+		}
     }
 	return false;
 }
 
-function mdocs_send_bot_alert($url='') {
+function mdocs_send_bot_alert($url='', $is_bot=false) {
 	include_once 'wp-admin/includes/plugin.php';
 	$plugin_data = get_plugin_data( dirname(__FILE__).'/memphis-documents.php');
-	if(mdocs_is_bot()) $bot = "<span style='color: red;'>This is a know bot</span>";
+	if($is_bot === true) $bot = "<span style='color: red;'>This is a know bot</span>";
 	else $bot = "<span style='color: green;'>This is either a legitimate download or a unknown bot.</span>";
 	$to      = 'ian@howatson.net';
 	$subject = 'Bot Alert';
@@ -548,7 +550,7 @@ function mdocs_get_subcats($current, $parent, $has_children=true) {
 			$permalink = $permalink.'&mdocs-cat=';
 		} else $permalink = $permalink.'?mdocs-cat=';
 	} else $permalink = 'admin.php?page=memphis-documents.php&mdocs-cat=';
-	$num_cols = 2;
+	$num_cols = 1;
 	if(get_option('mdocs-show-downloads') == '1' || get_option('mdocs-show-downloads')) $num_cols++;
 	if(get_option('mdocs-show-author') == '1' || get_option('mdocs-show-author')) $num_cols++;
 	if(get_option('mdocs-show-version') == '1' || get_option('mdocs-show-version')) $num_cols++;
@@ -800,19 +802,60 @@ function mdocs_nav_size($collapse) {
 	}
 }
 function mdocs_box_view_update_v3_0() {
+	?>
+	<style>
+		body, html { overflow: hidden; }
+		.bg-3-0 { width: 100%; height: 100%; background: #000; position: absolute; top: 0; left: 0; z-index: 9999; padding: 0; margin: 0;  opacity:  0.7;}
+		.container-3-0 { position: absolute; top: 50px; z-index: 10000; width: 500px; background: #fff; margin-left: 50%; left: -250px; padding: 10px;}
+		.container-3-0 h1 { color: #2ea2cc; }
+		.container-3-0 h3 { color: red; }
+		.btn-container-3-0 { text-align: center; }
+		@media (max-width: 640px) {
+			.container-3-0 { width: 360px; left: -180px; z-index: 10000; margin-left: 50%}
+		}
+	</style>
+	<div class="bg-3-0"></div>
+	<div class="container-3-0">
+		<h1><?php _e('Memphis Documents Library', 'mdocs'); ?></h1>
+		<h2><?php _e('Document Preview Updater', 'mdocs'); ?></h2>
+		<p><?php _e('Version 3.0 of Memphis Documents Library now uses a new documents preview tool Called', 'mdocs'); ?> <a href="https://box-view.readme.io" target="_blank"><?php _e('Box View', 'mdocs'); ?></a>.</p>
+		<p><?php _e('This process requires an update to your Memphis Documents Library, which will be adding information needed for', 'mdocs'); ?> <a href="https://box-view.readme.io" target="_blank"><?php _e('Box View', 'mdocs'); ?></a> <?php _e('to work properly.', 'mdocs'); ?></p>
+		<h3><?php _e('Important, Please Read', 'mdocs'); ?></h3>
+		<p><b><?php _e('The process depending on the size of your Library can take a long time, so make sure you have the time run this updater.', 'mdocs'); ?></b></p>
+		<p><b><?php _e('If you choose not to run this updater now preview will not work.', 'mdocs'); ?></b></p>
+		<p><b><?php _e('You may run this process anytime by going to the Settings menu and pressing "Run Box View Updater".', 'mdocs'); ?></b></p>
+		<h3><?php _e('DO NOT LEAVE PAGE ONCE THIS UPDATER HAS STARTER!', 'mdocs'); ?></h3>
+		<div class="btn-container-3-0">
+			<button id="run-updater-3-0"><?php _e('Run Updater', 'mdocs'); ?></button>
+			<button id="not-now-3-0"><?php _e('Not Right Now', 'mdocs'); ?></button>
+		</div>
+	</div>
+	
+	<?php
+}
+function mdocs_v3_0_patch_run_updater() {
+	?>
+	
+	<?php
+	/*
 	$mdocs = get_option('mdocs-list');
 	$boxview = new mdocs_box_view();
 	foreach($mdocs as $index => $the_mdoc) {
 		if(!isset($the_mdoc['box-view-id'])) {
-			$upload_file = $boxview->uploadFile(get_site_url().'/?mdocs-file='.$the_mdoc['id'].'&mdocs-url='.$the_mdoc['parent'], $the_mdoc['filename']);
+			$upload_file = $boxview->uploadFile(get_site_url().'/?mdocs-file='.$the_mdoc['id'].'&mdocs-url='.$the_mdoc['parent'].'&is-box-view=true', $the_mdoc['filename']);
 			sleep(3);
 			$the_mdoc['box-view-id'] = $upload_file['id'];
 			$mdocs[$index] = $the_mdoc;
+			update_option('mdocs-list', $mdocs);
 		}
 	}
-	//var_dump($mdocs);
-	update_option('mdocs-list', $mdocs);
 	update_option('mdocs-v3-0-patch-var-1',true);
+	update_option('mdocs-box-view-updated',true);
+	*/
+}
+function mdocs_v3_0_patch_cancel_updater() {
+	update_option('mdocs-v3-0-patch-var-1',true);
+	update_option('mdocs-box-view-updated',false);
 }
 function mdocs_show_description($id) {
 	$mdocs = get_option('mdocs-list');

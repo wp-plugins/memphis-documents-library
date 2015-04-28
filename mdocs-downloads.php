@@ -15,10 +15,13 @@ function mdocs_download_file($export_file='') {
 	$non_member = '';
 	$file_status = '';
 	$send_bot_alert = false;
+	if(isset($_GET['is-box-view']) && $_GET['is-box-view'] == 'true') $box_view = true;
+	else $box_view = false;
 	if(!empty($export_file) ) { $filename = $export_file; }
 	elseif(isset($_GET['mdocs-version']) ) { $filename = isset($_GET['mdocs-version']); }
 	else {
-		if(is_modcs_google_doc_viewer() === false) $send_bot_alert = true;
+		if($box_view === true) $send_bot_alert = false;
+		else $send_bot_alert = true;
 		$explode = explode('|',$_GET["mdocs-file"]);
 		$mdocs_file = $explode[0];
 		$is_logged_in = $explode[1];
@@ -34,8 +37,8 @@ function mdocs_download_file($export_file='') {
 	if($non_member == '' && $is_logged_in == false || $file_status == 'hidden' && !is_admin() || $mdocs_hide_all_files  || $mdocs_hide_all_files_non_members && is_user_logged_in() == false) $login_denied = true;
 	else $login_denied = false;
 	
-	
-	if(mdocs_is_bot() == false && $login_denied == false && !isset($_GET['mdocs-export-file']) &&  is_modcs_google_doc_viewer() === false && !isset($_GET['mdocs-version'])) {
+	$mdocs_is_bot = mdocs_is_bot();
+	if($mdocs_is_bot === false && $login_denied == false && !isset($_GET['mdocs-export-file']) &&  $box_view === false && !isset($_GET['mdocs-version'])) {
 		$mdocs[$index]['downloads'] = (string)(intval($mdocs[$index]['downloads'])+1);
 		mdocs_save_list($mdocs);
 	}
@@ -46,8 +49,8 @@ function mdocs_download_file($export_file='') {
 	$filetype = wp_check_filetype($file );
 	//if(mdocs_is_bot()) mdocs_send_bot_alert();
 	
-	if($login_denied == false  || is_modcs_google_doc_viewer() ) {
-		if (file_exists($file) && mdocs_is_bot() == false  ) {		
+	if($login_denied == false  || $box_view ) {
+		if (file_exists($file) && $mdocs_is_bot === false  ) {		
 			header('Content-Description: File Transfer');
 			header('Content-Type: '.$filetype['type']);
 			header('Content-Disposition: attachment; filename='.$filename);
@@ -60,7 +63,7 @@ function mdocs_download_file($export_file='') {
 			ob_clean();
 			flush();
 			readfile($file);
-			if($send_bot_alert) mdocs_send_bot_alert($_GET['mdocs-url']);
+			if($send_bot_alert) mdocs_send_bot_alert($_GET['mdocs-url'], $mdocs_is_bot);
 			exit;
 		} else die(__('Check this file out','mdocs','mdocs').' <b>'.$filename. '</b>.  '.  __('Download it from').' <b>'.get_bloginfo('name').'</b>.<br><sup>'.__('powered by Memphis Documents Library','mdocs').'</sup>');
 	} else die(__('Sorry you are unauthorized to download this file.','mdocs'));

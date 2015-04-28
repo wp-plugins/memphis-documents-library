@@ -36,11 +36,19 @@ function mdocs_register_settings() {
 			// PATCHES
 			// 3.0
 			register_setting('mdocs-patch-vars', 'mdocs-v3-0-patch-var-1');
-			add_option('mdocs-v3-0-patch-var-1',false);
+			update_option('mdocs-v3-0-patch-var-1',true);
+			register_setting('mdocs-patch-vars', 'mdocs-box-view-updated');
+			add_option('mdocs-box-view-updated',false);
 			if(get_option('mdocs-v3-0-patch-var-1') == false && is_array(get_option('mdocs-list'))) {
 				add_action( 'admin_head', 'mdocs_v3_0_patch' );
 				function mdocs_v3_0_patch() {
 					$mdocs = get_option('mdocs-list');
+					//MEMPHIS DOCS
+					wp_register_script( 'mdocs-script-patch', MDOC_URL.'mdocs-script.js');
+					wp_enqueue_script('mdocs-script-patch');
+					wp_register_style( 'mdocs-font-awesome2-style-patch', '//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css');
+					wp_enqueue_style( 'mdocs-font-awesome2-style-patch' );
+					wp_localize_script( 'mdocs-script-patch', 'mdocs_patch_js', array('ajaxurl' => admin_url( 'admin-ajax.php' ), 'patch_text_3_0_1' => __('UPDATE HAS STARTER, DO NOT LEAVE THIS PAGE!'),'patch_text_3_0_2' => __('Go grab a coffee this my take awhile.'),));
 					?>
 					<script type="application/x-javascript">
 						jQuery(document).ready(function() {
@@ -49,6 +57,8 @@ function mdocs_register_settings() {
 					</script>
 					<?php
 				}
+				wp_deregister_script('mdocs-script-patch');
+				wp_deregister_style('mdocs-font-awesome2-style-patch');
 			}
 			// 2.6.6
 			register_setting('mdocs-patch-vars', 'mdocs-v2-6-6-patch-var-1');
@@ -307,9 +317,14 @@ function mdocs_admin_script() {
 		wp_enqueue_style( 'mdocs-jquery-ui-style' );
 		wp_enqueue_script( 'mdocs-jquery-ui-script', '//code.jquery.com/ui/1.10.3/jquery-ui.js' );
 		//MEMPHIS DOCS
-		wp_register_style( 'mdocs-admin-style', MDOC_URL.'/style.css');
+		wp_register_style( 'mdocs-style', MDOC_URL.'/mdocs-style.css');
+		wp_enqueue_style( 'mdocs-style' );
+		wp_register_style( 'mdocs-admin-style', MDOC_URL.'/mdocs-admin-style.css');
 		wp_enqueue_style( 'mdocs-admin-style' );
+		wp_register_style( 'mdocs-admin-style-old', MDOC_URL.'/style.css');
+		wp_enqueue_style( 'mdocs-admin-style-old' );
 		wp_register_script( 'mdocs-admin-script', MDOC_URL.'/mdocs-script.js');
+		wp_enqueue_script('mdocs-admin-script');
 		//INLINE STYLE
 		wp_enqueue_script('mdocs-admin-script');
 		mdocs_inline_admin_css('mdocs-admin-style');
@@ -339,10 +354,12 @@ function mdocs_script() {
 		wp_enqueue_style( 'mdocs-jquery-ui-style' );
 		wp_enqueue_script( 'mdocs-jquery-ui-script', '//code.jquery.com/ui/1.10.3/jquery-ui.js' );
 		//MEMPHIS DOCS 
-		wp_register_script( 'mdocs-script', MDOC_URL.'mdocs-script.js');
-		wp_enqueue_script('mdocs-script');
-		wp_register_style( 'mdocs-style', MDOC_URL.'style.css');
+		wp_register_style( 'mdocs-style', MDOC_URL.'/mdocs-style.css');
 		wp_enqueue_style( 'mdocs-style' );
+		wp_register_style( 'mdocs-style-old', MDOC_URL.'/style.css');
+		wp_enqueue_style( 'mdocs-style-old' );
+		wp_register_script( 'mdocs-script', MDOC_URL.'/mdocs-script.js');
+		wp_enqueue_script('mdocs-script');
 		mdocs_inline_css('mdocs-style');
 		//FONT-AWESOME STYLE
 		wp_register_style( 'mdocs-font-awesome2-style', '//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css');

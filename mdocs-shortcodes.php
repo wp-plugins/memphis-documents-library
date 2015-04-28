@@ -4,7 +4,7 @@ function mdocs_shortcodes($current_cat) {
 	?>
 	<div class="updated">
 		<h3>Short Codes</h3>
-		<table class="mdocs-shortcode-table" >
+		<table class="table table-hover" >
 			<tr>
 				<th><?php _e('Short Codes','mdocs');?></th>
 				<th><?php _e('Description','mdocs');?></th>

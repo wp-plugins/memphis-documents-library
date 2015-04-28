@@ -134,7 +134,7 @@ function mdocs_add_update_documents() {
 
 
 		
-		doc_data['desc'] = doc_data['desc'].replace(/(?:\r\n|\r|\n)/g, '<br />');
+		//doc_data['desc'] = doc_data['desc'].replace(/(?:\r\n|\r|\n)/g, '<br />');
 		console.debug(doc_data['desc']);
 		tinyMCE.activeEditor.setContent(doc_data['desc']);
 		
@@ -486,9 +486,29 @@ function mdocs_share_modal() {
 }
 // VERSION 3.0 JAVASCRIPT PATCH
 function mdocs_v3_0_patch(_numfiles) {
-    jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'mdocs-v3-0-patch'  },function(data) {
-	//jQuery('body').append(data);
+    jQuery.post(mdocs_patch_js.ajaxurl,{action: 'myajax-submit', type: 'mdocs-v3-0-patch'  },function(data) {
+	jQuery('body').append(data);
+	jQuery('#run-updater-3-0').click(function() {
+	    jQuery('.container-3-0').html('\
+		<div class="btn-container-3-0">\
+		    <h3>'+mdocs_patch_js.patch_text_3_0_1+'</h3>\
+		    <h1><i class="fa fa-spinner fa-pulse fa-3x"></i></h1>\
+		    <h2>'+mdocs_patch_js.patch_text_3_0_1+'</h2>\
+		</div>\
+		');
+	    jQuery.post(mdocs_patch_js.ajaxurl,{action: 'myajax-submit', type: 'mdocs-v3-0-patch-run-updater'  },function(data) {
+		//jQuery('.container-3-0').html(data);
+	    });
+	});
+	jQuery('#not-now-3-0').click(function() {
+	    jQuery.post(mdocs_patch_js.ajaxurl,{action: 'myajax-submit', type: 'mdocs-v3-0-patch-cancel-updater'  },function(data) {
+		jQuery('html, body').css('overflowY', 'auto');
+		jQuery('.bg-3-0').remove();
+		jQuery('.container-3-0').remove();
+	    });
+	});
     });
+   
 }
 
 function mdocs_modal_close() {
