@@ -13,21 +13,23 @@ function mdocs_load_preview() {
 			if(intval($the_mdoc['id']) == intval($_POST['mdocs_file_id']) && $found == false) {
 				if(is_user_logged_in() || $mdocs_show_non_members == 'on' && $mdocs_show_preview = '1' ) {
 					if($_POST['type'] == 'file') {
-						echo '<h1>'.$the_mdoc['filename'].'</h1>';
 						$upload_dir = wp_upload_dir();
 						$file_url = get_site_url().'/?mdocs-file='.$the_mdoc['id'].'|'.is_user_logged_in();
 						if($mdocs_hide_all_files || $the_mdoc['file_status'] == 'hidden') {
 							echo '<div class="alert alert-warning" role="alert">'.__('Preview is unavailable for this file.','mdocs').'</div>';
 						} else if( is_user_logged_in() == false && $mdocs_hide_all_files_non_members) {
 							echo '<div class="alert alert-warning" role="alert">'.__('Please login to view this file preview.','mdocs').'</div>';
-						} else mdocs_doc_preview($the_mdoc);
+						} else {
+							echo '<h4>'.$the_mdoc['filename'].'</h4>';
+							mdocs_doc_preview($the_mdoc);
+						}
 					} elseif($_POST['type'] == 'img') {
 						if($mdocs_hide_all_files) {
 							echo '<div class="alert alert-warning" role="alert">'.__('Preview is unavailable for this file.','mdocs').'</div>';
 						} else if( is_user_logged_in() == false && $mdocs_hide_all_files_non_members) {
 							echo '<div class="alert alert-warning" role="alert">'.__('Please login to view this file preview.','mdocs').'</div>';
 						} else {
-							echo '<h1>'.$the_mdoc['filename'].'</h1>';
+							echo '<h4>'.$the_mdoc['filename'].'</h4>';
 							mdocs_show_image_preview($the_mdoc);
 						}
 					} elseif($_POST['type'] == 'show') {
@@ -39,6 +41,7 @@ function mdocs_load_preview() {
 							} else if( is_user_logged_in() == false && $mdocs_hide_all_files_non_members) {
 								echo '<div class="alert alert-warning" role="alert">'.__('Please login to view this file preview.','mdocs').'</div>';
 							} else {
+								echo '<h4>'.$the_mdoc['filename'].'</h4>';
 								if(in_array($the_mdoc['type'], $mdocs_img_types)) mdocs_show_image_preview($the_mdoc);
 								else mdocs_doc_preview($the_mdoc);
 							}
@@ -47,7 +50,7 @@ function mdocs_load_preview() {
 							$mdocs_desc = str_replace('\\','',$mdocs_desc);
 							?>
 							<div class="mdoc-desc">
-								<h3><?php _e('Description', 'mdocs'); ?></h3>
+								
 								<?php mdocs_show_description($the_mdoc['id']); ?>
 							</div>
 							<?php

@@ -33,7 +33,6 @@ function  mdocs_des_preview_tabs($the_mdoc) {
 		if(!isset($_POST['show_type']) && $mdocs_show_description && $mdocs_default_content == 'description') {
 			?>
 			<div class="mdoc-desc">
-				<h3><?php _e('Description', 'mdocs'); ?></h3>
 				<?php mdocs_show_description($the_mdoc['id']); ?>
 			</div>
 			<?php
@@ -868,7 +867,7 @@ function mdocs_show_description($id) {
 	$image_size = getimagesize(get_site_url().'?mdocs-img-preview='.$the_mdoc['filename']);
 	$thumbnail_size = 256;
 	?>
-	<h2><?php echo $the_mdoc['filename']; ?></h2>
+	<h4><?php echo $the_mdoc['filename']; ?></h4>
 	<?php
 	if($json_thumbnail['type'] != 'error') {
 	?>

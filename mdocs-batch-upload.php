@@ -1,7 +1,6 @@
 <?php
 function mdocs_batch_upload($current_cat) {
 	// INPUT SANITIZATION
-	var_dump('mdocs-batch-upload.php line 4: add box-view-js.');
 	$post_page = sanitize_text_field($_REQUEST['page']);
 	$post_cat = sanitize_text_field($_REQUEST['mdocs-cat']);
 	$do_zip = false;

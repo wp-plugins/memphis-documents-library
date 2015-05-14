@@ -35,19 +35,20 @@ function mdocs_the_list($att=null) {
 		<?php
 		$mdocs = mdocs_array_sort($mdocs, $mdocs_sort_type, $mdocs_sort_style);
 		$count = 0;
+		$num_tds = 1;
 		if(get_option('mdocs-list-type') == 'small') echo '<table class="table table-hover table-condensed mdocs-list-table">';
 		?>
 		<tr class="hidden-sm hidden-xs">
 		<th class="mdocs-sort-option" data-sort-type="name" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Name','mdocs'); ?><?php if($mdocs_sort_type == 'name') echo $mdocs_sort_style_icon; ?></th>
-		<?php if(get_option('mdocs-show-downloads')) { ?>
+		<?php if(get_option('mdocs-show-downloads')) { $num_tds++; ?>
 		<th class="mdocs-sort-option" data-sort-type="downloads" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Downloads','mdocs'); ?><?php if($mdocs_sort_type == 'downloads') echo $mdocs_sort_style_icon; ?></th><?php } ?>
-		<?php if(get_option('mdocs-show-version')) { ?>
+		<?php if(get_option('mdocs-show-version')) { $num_tds++; ?>
 		<th class="mdocs-sort-option" data-sort-type="version" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Version','mdocs'); ?><?php if($mdocs_sort_type == 'version') echo $mdocs_sort_style_icon; ?></th><?php } ?>
-		<?php if(get_option('mdocs-show-author')) { ?>
+		<?php if(get_option('mdocs-show-author')) { $num_tds++; ?>
 		<th class="mdocs-sort-option" data-sort-type="owner" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Owner','mdocs'); ?><?php if($mdocs_sort_type == 'owner') echo $mdocs_sort_style_icon; ?></th><?php } ?>
-		<?php if(get_option('mdocs-show-update')) { ?>
+		<?php if(get_option('mdocs-show-update')) { $num_tds++; ?>
 		<th class="mdocs-sort-option" data-sort-type="modified" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Last Modified','mdocs'); ?><?php if($mdocs_sort_type == 'modified') echo $mdocs_sort_style_icon; ?></th><?php } ?>
-		<?php if(get_option('mdocs-show-ratings')) { ?>
+		<?php if(get_option('mdocs-show-ratings')) { $num_tds++; ?>
 		<th class="mdocs-sort-option" data-sort-type="rating" data-current-cat="<?php echo $current_cat; ?>" data-permalink="<?php echo $permalink; ?>"><?php _e('Rating','mdocs'); ?><?php if($mdocs_sort_type == 'rating') echo $mdocs_sort_style_icon; ?></th><?php } ?>
 		</tr>
 		<?php
@@ -88,7 +89,7 @@ function mdocs_the_list($att=null) {
 			} 
 		}
 		if($count == 0) {
-			?><tr><td colspan="<?php echo $num_cols; ?>"><p class="mdocs-nofiles" ><?php _e('No files found in this folder.','mdocs'); ?></p></td></tr><?php
+			?><tr><td colspan="<?php echo $num_tds; ?>"><p class="mdocs-nofiles" ><?php _e('No files found in this folder.','mdocs'); ?></p></td></tr><?php
 		}
 		if(get_option('mdocs-list-type') == 'small') echo '</table></div>';
 	} else mdocs_errors(__('Unable to create the directory "mdocs" which is needed by Memphis Documents Library. Its parent directory is not writable by the server?','mdocs'),'error');

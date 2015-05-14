@@ -1,11 +1,12 @@
 /* POST STYLE */
 .mdocs-post { background: #fff; padding: 0 !important; border: none; width: 100% !important; height: 100% !important; margin: 0px auto 40px 0; text-shadow: none !important; text-decoration: none !important; }
 .mdocs-post-current-file { border: solid 1px #e2e2e2; background: #fcfcfc; }
-.mdocs-post h1, .mdocs-post h2, .mdocs-post h3, .mdocs-post h4, .mdocs-post h5, .mdocs-post h6, .mdocs-post p { border: none !important; padding: 0 10px !important; margin: 0 !important;}
+.mdocs-post h1, .mdocs-post h2, .mdocs-post h3, .mdocs-post h4, .mdocs-post h5, .mdocs-post h6, .mdocs-post p { border: none !important; padding: 5px 10px !important; margin: 0 !important;}
 .mdocs-post-header a  { border: none !important; text-decoration:  none !important; }
 .mdocs-post ul, .mdocs-post ol { margin: 0 50px }
 .mdocs-post blockquote { margin: 10px 30px; }
 .mdocs-post img { margin: 10px; }
+.mdocs-description-preview-body { overflow: auto; }
 /* DESCRIPTION / PREVIEW CONTAINER */
 .mdocs-show-container { border-top: solid 1px #e2e2e2; }
 /* NEW / UPDATE BANNER */

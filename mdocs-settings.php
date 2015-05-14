@@ -36,7 +36,7 @@ function mdocs_register_settings() {
 			// PATCHES
 			// 3.0
 			register_setting('mdocs-patch-vars', 'mdocs-v3-0-patch-var-1');
-			update_option('mdocs-v3-0-patch-var-1',true);
+			add_option('mdocs-v3-0-patch-var-1',false);
 			register_setting('mdocs-patch-vars', 'mdocs-box-view-updated');
 			add_option('mdocs-box-view-updated',false);
 			if(get_option('mdocs-v3-0-patch-var-1') == false && is_array(get_option('mdocs-list'))) {
@@ -290,7 +290,12 @@ function mdocs_init_view_private() {
 	}
 	return $view_private;
 }
-
+//MODIFY TINYMCE
+function wptiny($initArray){
+    $initArray['height'] = '600px';
+    return $initArray;
+}
+add_filter('tiny_mce_before_init', 'wptiny');
 //ADD CONTENT TO DOCUMENTS PAGE
 //[mdocs]
 function mdocs_shortcode($att, $content=null) { return mdocs_the_list($att); }

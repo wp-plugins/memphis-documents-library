@@ -134,9 +134,11 @@ function mdocs_add_update_documents() {
 
 
 		
-		//doc_data['desc'] = doc_data['desc'].replace(/(?:\r\n|\r|\n)/g, '<br />');
+		doc_data['desc'] = doc_data['desc'].replace(/(?:\r\n|\r|\n|&nbsp;)/g, '<br />');
+		//doc_data['desc'].replaceWith( "<br/>" );
+		
 		console.debug(doc_data['desc']);
-		tinyMCE.activeEditor.setContent(doc_data['desc']);
+		tinyMCE.activeEditor.setContent(doc_data['desc'], {format : 'raw'});
 		
 		jQuery('#mdocs-save-doc-btn').prop('value', mdocs_js.update_doc_btn);
 	    } else {

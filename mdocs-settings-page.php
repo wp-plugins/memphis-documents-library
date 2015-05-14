@@ -42,6 +42,7 @@ function mdocs_settings($cat) {
 <h2><?php _e('Library Settings','mdocs'); ?></h2>
 <form enctype="multipart/form-data" method="post" action="options.php" class="mdocs-setting-form">
 	<?php settings_fields( 'mdocs-global-settings' ); ?>
+	<input type="hidden" name="mdocs-view-private[administrator]" value="1" />
 	<input type="hidden" name="mdocs-download-color-normal" value="<?php echo get_option( 'mdocs-download-color-normal' ); ?>" />
 	<input type="hidden" name="mdocs-download-color-hover" value="<?php echo get_option( 'mdocs-download-color-hover' ); ?>" />
 	<input type="hidden" name="mdocs-hide-all-posts-default" value="<?php echo get_option( 'mdocs-hide-all-posts-default' ); ?>" />
