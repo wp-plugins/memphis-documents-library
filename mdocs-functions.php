@@ -608,6 +608,8 @@ function mdocs_custom_mime_types($existing_mimes=array()) {
 function mdocs_list_header($show=true) {
 	if($show) {
 		global $post, $current_cat_array, $parent_cat_array;
+		$mdocs = get_option('mdocs-list');
+		$num_docs = count($mdocs);
 		$cats = get_option('mdocs-cats');
 		$upload_dir = wp_upload_dir();
 		$message = '';
@@ -644,6 +646,11 @@ function mdocs_list_header($show=true) {
 				  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=batch"><?php _e('Batch Upload'); ?></a></li>
 				  <li role="presentation" class="divider"></li>
 				  <li role="presentation" class="dropdown-header"><?php _e('Admin Options','mdocs'); ?></li>
+				  <?php
+				  if(get_option('mdocs-box-view-updated') == false) {
+					?>
+					<li role="presentation"><a style="color: #b04a48 !important;" role="menuitem" tabindex="-1" href="#" id="mdosc-3-0-patch-btn" data-num-docs="<?php echo $num_docs; ?>"><?php _e('Run 3.0 Patch','mdocs'); ?></a></li>
+					<?php } ?>
 				  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=settings"><?php _e('Settings','mdocs'); ?></a></li>
 				  <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=filesystem-cleanup"><?php _e('File System Cleanup','mdocs'); ?></a></li>
 				   <li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=restore"><?php _e('Restore To Default','mdocs'); ?></a></li>
@@ -833,10 +840,6 @@ function mdocs_box_view_update_v3_0() {
 	<?php
 }
 function mdocs_v3_0_patch_run_updater() {
-	?>
-	
-	<?php
-	/*
 	$mdocs = get_option('mdocs-list');
 	$boxview = new mdocs_box_view();
 	foreach($mdocs as $index => $the_mdoc) {
@@ -850,7 +853,6 @@ function mdocs_v3_0_patch_run_updater() {
 	}
 	update_option('mdocs-v3-0-patch-var-1',true);
 	update_option('mdocs-box-view-updated',true);
-	*/
 }
 function mdocs_v3_0_patch_cancel_updater() {
 	update_option('mdocs-v3-0-patch-var-1',true);

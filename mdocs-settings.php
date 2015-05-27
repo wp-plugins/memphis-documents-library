@@ -35,6 +35,8 @@ function mdocs_register_settings() {
 		if(!isset($_GET['restore-default'])) {  
 			// PATCHES
 			// 3.0
+			//delete_option('mdocs-v3-0-patch-var-1');
+			//delete_option('mdocs-box-view-updated');
 			register_setting('mdocs-patch-vars', 'mdocs-v3-0-patch-var-1');
 			add_option('mdocs-v3-0-patch-var-1',false);
 			register_setting('mdocs-patch-vars', 'mdocs-box-view-updated');
@@ -59,7 +61,7 @@ function mdocs_register_settings() {
 				}
 				wp_deregister_script('mdocs-script-patch');
 				wp_deregister_style('mdocs-font-awesome2-style-patch');
-			}
+			} 
 			// 2.6.6
 			register_setting('mdocs-patch-vars', 'mdocs-v2-6-6-patch-var-1');
 			add_action('mdocs-v2-6-6-patch-var-1',false);

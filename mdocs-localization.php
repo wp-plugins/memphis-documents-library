@@ -25,6 +25,8 @@ function mdocs_js_handle($script) {
 		'add_doc' => __('Adding Document', 'mdocs'),
 		'add_doc_btn' => __('Add Document', 'mdocs'),
 		'current_file' => __('Current File','mdocs'),
+		'patch_text_3_0_1' => __('UPDATE HAS STARTER, DO NOT LEAVE THIS PAGE!'),
+		'patch_text_3_0_2' => __('Go grab a coffee this my take awhile.'),
 		'levels'=> 2,
 		'blog_id' => get_current_blog_id(),
 		'plugin_url' => plugins_url().'/memphis-documents-library/',

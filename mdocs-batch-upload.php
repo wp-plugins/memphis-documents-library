@@ -33,22 +33,30 @@ function mdocs_batch_upload($current_cat) {
 -->
 <div class="updated">
 	<p><?php _e('Create a zip file of all the documents you want to upload.  You may name the file whatever you want.  Once you have created the file, simply upload it, then use the quick select form to place the files in the proper directory.  Once satisfied press the \'Complete\' button to finsh the process.','mdocs'); ?></p>
+	<h4><?php _e('NOTE: Depending on the amout of files, batch upload can take a long time, please be patient.', 'mdocs'); ?></h4>
 </div>
 
 <?php if($do_zip == false && $do_complte == false) { ?>
 <form class="mdocs-uploader-form" enctype="multipart/form-data" action="<?php echo get_site_url().'/wp-admin/admin.php?page='.$post_page.'&mdocs-cat='.$post_cat; ?>" method="POST">
-	<input type="file" name="mdocs-batch" /><br/>
+	<label><?php _e('Default Folder','mdocs'); ?>:
+	<select name="mdocs[cat][<?php echo $index; ?>]">
+			<?php mdocs_get_cats($cats, $current_cat); ?>
+	</select>
+	</label><br><br>
+	<input type="file" name="mdocs-batch" /><br>
 	<input type="submit" class="button button-primary" value="<?php _e('Upload Zip File','mdocs') ?>" /><br/>
 </form>
 <?php } elseif($do_zip) {
 	$cats = get_option('mdocs-cats');
-	$current_cat = key($cats);
+	if(!is_array($_POST['mdocs']['cat'])) $current_cat = key($cats);
+	else $current_cat = $_POST['mdocs']['cat'][0];
 	?>
 	<form class="mdocs-uploader-form" enctype="multipart/form-data" action="<?php echo get_site_url().'/wp-admin/admin.php?page='.$post_page.'&mdocs-cat='.$post_cat; ?>" method="POST">
 		<input type="hidden" name="mdocs-batch-complete" value="1" />
 		<input type="hidden" name="mdocs-type" value="mdocs-add" />
 		<?php
 		foreach($zip_result['file'] as $index => $zip_file) {
+			$filesize_mb = number_format(round(filesize($zip_file)/1024,0));
 			$file = explode('/',$zip_file);
 			if(count($file) == 1) $file = explode('\\',$zip_file);
 			$file = $file[count($file)-1];
@@ -62,7 +70,7 @@ function mdocs_batch_upload($current_cat) {
 				<input type="hidden" name="mdocs[filename][<?php echo $index; ?>]" value="<?php echo $filename; ?>" />
 				<input type="hidden" name="mdocs[tmp-file][<?php echo $index; ?>]" value="<?php echo $zip_file; ?>" />
 				<label><?php _e('File Name','mdocs'); ?>:
-					<input type="text" name="mdocs[name][<?php echo $index; ?>]" value="<?php echo $file; ?>"/>
+					<input type="text" name="mdocs[name][<?php echo $index; ?>]" value="<?php echo $file; ?>"/> <?php echo $filesize_mb.' KB'; ?>
 				</label>
 				<label><?php _e('Category','mdocs'); ?>:
 					<select name="mdocs[cat][<?php echo $index; ?>]">

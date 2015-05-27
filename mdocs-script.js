@@ -60,6 +60,12 @@ function mdocs_admin() {
     mdocs_ratings();
     // SHARING MODAL
     mdocs_share_modal();
+    // RUN 3.0 PATCH ON CLICK
+    jQuery('#mdosc-3-0-patch-btn').click(function(event) {
+	event.preventDefault();
+	var numfiles = Number(jQuery(this).data('num-docs'));
+	mdocs_v3_0_patch(numfiles);
+    });
     // SOCIAL CLICKED
     jQuery('.mdocs-show-social').click(function() {
 	    if (jQuery(this).hasClass('fa fa-plus-sign-alt')) {
@@ -488,31 +494,34 @@ function mdocs_share_modal() {
 }
 // VERSION 3.0 JAVASCRIPT PATCH
 function mdocs_v3_0_patch(_numfiles) {
-    jQuery.post(mdocs_patch_js.ajaxurl,{action: 'myajax-submit', type: 'mdocs-v3-0-patch'  },function(data) {
+    
+    if (typeof mdocs_js == 'object') var mdocs_vars = mdocs_js;
+    else var mdocs_vars = mdocs_patch_js;
+    
+    jQuery.post(mdocs_vars.ajaxurl,{action: 'myajax-submit', type: 'mdocs-v3-0-patch'  },function(data) {
 	jQuery('body').append(data);
 	jQuery('#run-updater-3-0').click(function() {
 	    jQuery('.container-3-0').html('\
 		<div class="btn-container-3-0">\
-		    <h3>'+mdocs_patch_js.patch_text_3_0_1+'</h3>\
+		    <h3>'+mdocs_vars.patch_text_3_0_1+'</h3>\
 		    <h1><i class="fa fa-spinner fa-pulse fa-3x"></i></h1>\
-		    <h2>'+mdocs_patch_js.patch_text_3_0_1+'</h2>\
+		    <h2>'+mdocs_vars.patch_text_3_0_2+'</h2>\
 		</div>\
 		');
-	    jQuery.post(mdocs_patch_js.ajaxurl,{action: 'myajax-submit', type: 'mdocs-v3-0-patch-run-updater'  },function(data) {
-		//jQuery('.container-3-0').html(data);
+	    jQuery.post(mdocs_vars.ajaxurl,{action: 'myajax-submit', type: 'mdocs-v3-0-patch-run-updater'  },function(data) {
+		window.location.href = '';
 	    });
 	});
 	jQuery('#not-now-3-0').click(function() {
-	    jQuery.post(mdocs_patch_js.ajaxurl,{action: 'myajax-submit', type: 'mdocs-v3-0-patch-cancel-updater'  },function(data) {
+	    jQuery.post(mdocs_vars.ajaxurl,{action: 'myajax-submit', type: 'mdocs-v3-0-patch-cancel-updater'  },function(data) {
 		jQuery('html, body').css('overflowY', 'auto');
 		jQuery('.bg-3-0').remove();
 		jQuery('.container-3-0').remove();
 	    });
 	});
     });
-   
 }
-
+// CLOSE ALL MODALS
 function mdocs_modal_close() {
     jQuery('.modal').on('hidden.bs.modal', function () {
 	jQuery('.mdocs-modal-body').empty();
