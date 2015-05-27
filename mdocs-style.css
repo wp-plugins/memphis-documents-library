@@ -50,6 +50,8 @@
 .mdocs-green { color: #779F00 !important; }
 .mdocs-olive { color: #808000 !important; }
 .mdocs-salmon { color: #FA8072 !important; }
+/* CONTRIBUTOR BADGES */
+.mdocs-contributors { font-size: 24px; margin-top: 15px;}
 /* THEME FIXES */
 .art-content { width: 100% !important; }
 #controlbarControls { display: none !important; }

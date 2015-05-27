@@ -138,7 +138,8 @@ function mdocs_process_file($file, $import=false) {
 	$post_status = $file['post-status'];
 	if($import) $desc = $file['desc'];
 	$upload_dir = wp_upload_dir();
-	if(isset($file['modifed'])) $modifed_date = date('Y-m-d H:i:s', $file['modifed']+MDOCS_TIME_OFFSET);
+	$date_format = get_option('mdocs-date-format');
+	if(isset($file['modifed'])) $modifed_date = gmdate($date_format, $file['modifed']+MDOCS_TIME_OFFSET);
 	else $modifed_date = MDOCS_CURRENT_TIME;
 	if($import == false) {
 		$upload['url'] = $upload_dir['baseurl'].'/mdocs/'.$file['name'];
@@ -635,6 +636,9 @@ function mdocs_list_header($show=true) {
 			<div class="btn-group">
 				<a class="add-update-btn btn btn-danger btn-sm" data-toggle="modal" data-target="#mdocs-add-update" data-mdocs-id="" data-is-admin="<?php echo is_admin(); ?>" data-action-type="add-doc"  data-current-cat="<?php echo $current_cat; ?>" href=""><?php _e('Add New Document','mdocs'); ?> <i class="fa fa-upload fa-lg"></i></a>
 			</div>
+			<?php
+			if (current_user_can( 'manage_options' )) {
+			?>
 			<div class="btn-group">
 				<button class="btn btn-default dropdown-toggle btn-sm" type="button" id="dropdownMenu1" data-toggle="dropdown"><?php _e('Options','mdocs'); ?><span class="caret"></span></button>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
@@ -657,6 +661,7 @@ function mdocs_list_header($show=true) {
 					<li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=short-codes"><?php _e('Short Codes','mdocs'); ?></a></li>
 				</ul>
 			</div>
+			<?php } ?>
 			<br><br>
 			<?php } ?>
 			
@@ -756,7 +761,7 @@ function mdocs_post_pages() {
 		'labels'              		=> $labels,
 		'public'              		=> true,
 		'publicly_queryable'  => true,
-		'show_ui'             	=> true,
+		'show_ui'             	=> false,
 		'show_in_menu' 		=> true,
 		'query_var'           	=> true,
 		'rewrite'             		=> array( 'slug' => 'mdocs-posts' ),
@@ -943,3 +948,4 @@ function mdocs_show_image_preview($the_mdoc) {
 	</div>
 	<?php
 }
+

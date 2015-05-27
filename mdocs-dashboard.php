@@ -1,14 +1,20 @@
 <?php
 function mdocs_dashboard_menu() {
 	global $add_error;
+	//var_dump(get_option('mdocs-allow-upload'));
+	add_menu_page( __('Memphis Documents Library','mdocs'), __('Memphis Docs','mdocs'), 'mdocs-dashboard', 'memphis-documents.php', 'mdocs_dashboard', MDOC_URL.'/assets/imgs/kon.ico'  );
+	
+	
+	/* REMOVING MEMPHIS CUSTOM LOGIN INTEGRATION
 	//MEMPHIS CUSTOM LOGIN INTEGRATION 3.0 AND HIGHER
 	$plugin_path = preg_replace('/memphis-documents-library/','',dirname(__FILE__));
 	if (is_plugin_active('memphis-wordpress-custom-login/memphis-wp-login.php')) $memphis_custom_login = (get_plugin_data($plugin_path.'memphis-wordpress-custom-login/memphis-wp-login.php'));
 	if(isset($memphis_custom_login['Version'])) $memphis_version = intval($memphis_custom_login['Version']);
 	else $memphis_version = 0;
-	If (!is_plugin_active('memphis-wordpress-custom-login/memphis-wp-login.php') || $memphis_version < 3) {
+	if (!is_plugin_active('memphis-wordpress-custom-login/memphis-wp-login.php') || $memphis_version < 3) {
 		add_menu_page( __('Memphis Documents Library','mdocs'), __('Memphis Docs','mdocs'), 'administrator', 'memphis-documents.php', 'mdocs_dashboard', MDOC_URL.'/assets/imgs/kon.ico'  );
 	}
+	*/
 	if ( is_admin() ){
 		add_action('admin_init','mdocs_register_settings');
 		add_action('admin_enqueue_scripts', 'mdocs_admin_script');
@@ -193,7 +199,10 @@ function mdocs_uploader() {
 					<div class="form-group form-group-lg">
 						<label class="col-sm-2 control-label" for="mdocs-last-modified"><?php _e('Date','mdocs'); ?></label>
 						<div class="col-sm-10">
-							<input class="form-control" type="text" name="mdocs-last-modified" value="<?php echo gmdate(get_option('mdocs-date-format'),time());?>" />
+							<?php $time_offset = get_option('gmt_offset');
+							
+							?>
+							<input class="form-control" type="text" name="mdocs-last-modified" value="<?php echo gmdate(get_option('mdocs-date-format'),time()+MDOCS_TIME_OFFSET);?>" />
 						</div>
 					</div>
 					<div class="form-group form-group-lg">
@@ -215,7 +224,7 @@ function mdocs_uploader() {
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="mdocs-post-status"><?php _e('Post Status','mdocs'); ?></label>
 						<div class="col-sm-10">
-							<select class="form-control input-lg" name="mdocs-post-status" id="mdocs-post-status" <?php  if($edit_type=='Update Document') { if($mdocs[$mdoc_index]['file_status'] == 'hidden' || get_option( 'mdocs-hide-all-files' ) || get_option( 'mdocs-hide-all-posts' )) echo 'disabled'; }?> >
+							<select class="form-control input-lg" name="mdocs-post-status" id="mdocs-post-status" >
 								<option value="publish" ><?php _e('Published','mdocs'); ?></option>
 								<option value="private" ><?php _e('Private','mdocs');  ?></option>
 								<option value="pending"  ><?php _e('Pending Review','mdocs');  ?></option>
@@ -231,6 +240,23 @@ function mdocs_uploader() {
 						<label class="col-sm-3 control-label" for="mdocs-non-members"><?php _e('Downloadable by Non Members','mdocs'); ?></label>
 						<div class="col-sm-1">
 							<input class="form-control" type="checkbox" name="mdocs-non-members" checked />
+						</div>
+					</div>
+					<div class="form-group form-group-lg">
+						<label class="col-sm-2 control-label" for="mdocs-social"><?php _e('Contributors','mdocs'); ?></label>
+						<div class="col-sm-10">
+							<input class="form-control" type="text" name="mdocs-contributors" id="mdocs-contributors" />
+							<div>
+								<?php
+								global $current_user;
+								//var_dump($mdoc_index);
+								if($edit_type=='Update Document') $owner = $mdocs[$mdoc_index]['owner'];
+								else $owner = $current_user->display_name;
+								//var_dump($edit_type);
+								?>
+								<span class="badge mdocs-contributors"><?php echo $owner; ?></span>
+								<span class="badge mdocs-contributors"><?php echo $owner; ?></span>
+							</div>
 						</div>
 					</div>
 					<div class="form-group">

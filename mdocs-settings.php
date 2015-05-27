@@ -34,7 +34,20 @@ function mdocs_register_settings() {
 		}
 		if(!isset($_GET['restore-default'])) {  
 			// PATCHES
-			// 3.0
+			// 3.0 patch 2
+			register_setting('mdocs-patch-vars', 'mdocs-v3-0-patch-var-2');
+			add_option('mdocs-v3-0-patch-var-2',false);
+			if(get_option('mdocs-v3-0-patch-var-2') == false && is_array(get_option('mdocs-list'))) {
+				$mdocs = get_option('mdocs-list');
+				global $current_user;
+				foreach($mdocs as $index => $the_mdoc) {
+					$mdocs[$index]['owner'] = $current_user->user_login;
+					$mdocs[$index]['contributors'] = array($current_user->user_login);
+				}
+				update_option('mdocs-list', $mdocs);
+				update_option('mdocs-v3-0-patch-var-2',true);
+			} 
+			// 3.0 patch 1
 			//delete_option('mdocs-v3-0-patch-var-1');
 			//delete_option('mdocs-box-view-updated');
 			register_setting('mdocs-patch-vars', 'mdocs-v3-0-patch-var-1');
@@ -264,6 +277,8 @@ function mdocs_init_settings() {
 	add_option('mdocs-view-private', mdocs_init_view_private());
 	register_setting('mdocs-global-settings', 'mdocs-date-format');
 	add_option('mdocs-date-format', 'd-m-Y G:i');
+	register_setting('mdocs-global-settings', 'mdocs-allow-upload');
+	add_option('mdocs-allow-upload', array());
 	
 	
 	//Update View Private Users

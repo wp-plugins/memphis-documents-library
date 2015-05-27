@@ -40,8 +40,6 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 	}
 	$tooltip .= '<p>'.$mdocs_desc.'</p>';
 	$tooltip .= '<div class="mdocs-divider"></div>';
-	
-	
 	$tooltip = htmlspecialchars($tooltip);
 	
 	if($mdocs_hide_all_files_non_members &&  is_user_logged_in() == false) $show_files = false;
@@ -88,14 +86,13 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 							<li role="presentation" class="divider"></li>
 							<li role="presentation" class="dropdown-header"><?php _e('Admin Options'); ?></li>
 							<?php
-								mdocs_add_update_rights($index, $current_cat);
-								mdocs_manage_versions_rights($index, $current_cat);
+								mdocs_add_update_rights($the_mdoc, $index, $current_cat);
+								mdocs_manage_versions_rights($the_mdoc, $index, $current_cat);
+								mdocs_delete_file_rights($the_mdoc, $index, $current_cat);
 							?>
 							
 							
-							<li role="presentation">
-								<a onclick="mdocs_delete_file('<?php echo $index; ?>','<?php echo $current_cat; ?>','<?php echo $_SESSION['mdocs-nonce']; ?>');" role="menuitem" tabindex="-1" href="#"><i class="fa fa-times-circle"></i> <?php _e('Delete File','mdocs'); ?></a>
-							</li>
+							
 							<li role="presentation" class="divider"></li>
 							<li role="presentation" class="dropdown-header"><i class="fa fa-laptop"></i> <?php _e('File Status:'.' '.ucfirst($the_mdoc['file_status'])); ?></li>
 							<li role="presentation" class="dropdown-header"><i class="fa fa-bullhorn"></i> <?php _e('Post Status:'.' '.ucfirst($the_mdoc['post_status'])); ?></li>
@@ -106,7 +103,7 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 			</td>
 			<?php if($mdocs_show_downloads) { ?><td id="downloads"><i class="fa fa-cloud-download"></i> <b class="mdocs-orange"><?php echo $the_mdoc['downloads'].' '.__('Downloads','mdocs'); ?></b></td><?php } ?>
 			<?php if($mdocs_show_version) { ?><td id="version"><i class="fa fa-power-off"></i><b class="mdocs-blue"> <?php echo $the_mdoc['version']; ?></b></td><?php } ?>
-			<?php if($mdocs_show_author) { ?><td id="owner"><i class="fa fa-pencil"></i> <i class="mdocs-green"><?php echo $the_mdoc['owner']; ?></i></td><?php } ?>
+			<?php if($mdocs_show_author) { ?><td id="owner"><i class="fa fa-pencil"></i> <i class="mdocs-green"><?php echo get_user_by('login', $the_mdoc['owner'])->display_name; ?></i></td><?php } ?>
 			<?php if($mdocs_show_update) { ?><td id="update"><i class="fa fa-calendar"></i> <b class="mdocs-red"><?php echo $last_modified; ?></b></td><?php } ?>
 			<?php
 				if($mdocs_show_ratings) {

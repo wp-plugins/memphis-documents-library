@@ -50,6 +50,27 @@ function mdocs_settings($cat) {
 
 <table class="table form-table mdocs-settings-table">
 	<tr>
+		<th><?php _e('Allowed to Upload'); ?></th>
+		<td>
+			<?php
+			$wp_roles = get_editable_roles();
+			if(!is_array(get_option('mdocs-allow-upload'))) update_option('mdocs-allow-upload' , array());
+			$mdocs_allow_upload = get_option('mdocs-allow-upload');
+			//var_dump($mdocs_allow_upload);
+			foreach($wp_roles as $index => $role) {
+				if($role['name'] != 'Administrator') {
+					$role_object = get_role($index);
+					if(array_key_exists($index, $mdocs_allow_upload)) $role_object->add_cap( 'mdocs-dashboard');
+					else $role_object->remove_cap( 'mdocs-dashboard');
+			?>
+			<input type="checkbox" name="mdocs-allow-upload[<?php echo $index; ?>]" value="1"  <?php checked($mdocs_allow_upload[$index] , 1) ?> /> <span><?php echo $role['name']; ?></span><br>
+			<?php
+				}
+			}
+			?>
+		</td>
+	</tr>
+	<tr>
 		<th><?php _e('Private File Post Viewing','mdocs'); ?></th>
 		<td>
 			<?php

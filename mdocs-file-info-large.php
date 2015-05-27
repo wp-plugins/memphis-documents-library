@@ -81,7 +81,7 @@ function mdocs_file_info_large($the_mdoc, $page_type='site', $index=0, $current_
 	<div class="mdocs-post-file-info">
 		<?php if($mdocs_show_ratings) { ?><p><i class="fa fa-star"></i> <?php echo $the_rating['average']; ?> <?php _e('Stars', 'mdocs'); ?> (<?php echo $the_rating['total']; ?>)</p> <?php } ?>
 		<?php if($mdocs_show_downloads) { ?><p class="mdocs-file-info"><i class="fa fa-cloud-download"></i> <b class="mdocs-orange"><?php echo $the_mdoc['downloads'].' '.__('Downloads','mdocs'); ?></b></p> <?php } ?>
-		<?php if($mdocs_show_author) { ?><p><i class="fa fa-pencil"></i> <?php _e('Author','mdocs'); ?>: <i class="mdocs-green"><?php echo $the_mdoc['owner']; ?></i></p> <?php } ?>
+		<?php if($mdocs_show_author) { ?><p><i class="fa fa-pencil"></i> <?php _e('Author','mdocs'); ?>: <i class="mdocs-green"><?php echo get_user_by('login', $the_mdoc['owner'])->display_name; ?></i></p> <?php } ?>
 		<?php if($mdocs_show_version) { ?><p><i class="fa fa-power-off"></i> <?php _e('Version','mdocs') ?>:  <b class="mdocs-blue"><?php echo $the_mdoc['version']; ?></b>
 			<?php if($page_type == 'site' ) { ?>
 				<!--<a href="<?php echo $the_mdoc_permalink.'&mdocs-cat='.$current_cat.'&mdocs-index='.$index; ?>&action=mdocs-versions">[ View More Versions ]</a>-->

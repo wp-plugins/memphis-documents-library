@@ -1,5 +1,7 @@
 <?php
-function mdocs_add_update_rights($index, $current_cat) {
+function mdocs_add_update_rights($the_mdoc, $index, $current_cat) {
+	global $current_user;
+	if($current_user->user_login === $the_mdoc['owner'] || current_user_can( 'manage_options' )) {
 	?>
 	<li role="presentation">
 		<a class="add-update-btn" role="menuitem" tabindex="-1" data-toggle="modal" data-target="#mdocs-add-update" data-mdocs-id="<?php echo $index; ?>" data-is-admin="<?php echo is_admin(); ?>" data-action-type="update-doc"  data-current-cat="<?php echo $current_cat; ?>" href="">
@@ -7,16 +9,20 @@ function mdocs_add_update_rights($index, $current_cat) {
 		</a>
 	</li>
 	<?php
+	}
 }
 function mdocs_goto_post_rights($the_mdoc_permalink) {
 	?>
 	<li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo $the_mdoc_permalink; ?>" target="_blank"><i class="fa fa-arrow-circle-o-right"></i> <?php _e('Goto Post','mdocs'); ?></a></li>
 	<?php
 }
-function mdocs_manage_versions_rights($index, $current_cat) {
+function mdocs_manage_versions_rights($the_mdoc, $index, $current_cat) {
+	global $current_user;
+	if($current_user->user_login === $the_mdoc['owner'] || current_user_can( 'manage_options' )) {
 	?>
 	<li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=<?php echo $current_cat; ?>&action=mdocs-versions&mdocs-index=<?php echo $index; ?>"><i class="fa fa-road"></i> <?php _e('Manage Versions','mdocs'); ?></a></li>
 	<?php
+	}
 }
 function mdocs_download_rights($the_mdoc) {
 	$the_mdoc_permalink = htmlspecialchars(get_permalink($the_mdoc['parent']));
@@ -75,6 +81,16 @@ function mdocs_rating_rights($the_mdoc) {
 	if(get_option( 'mdocs-show-ratings' )) {
 	?>
 	<li role="presentation"><a class="ratings-button" role="menuitem" tabindex="-1" href="" data-toggle="modal" data-target="#mdocs-rating" data-mdocs-id="<?php echo $the_mdoc['id']; ?>" data-is-admin="<?php echo is_admin(); ?>"><i class="fa fa-star"></i> <?php _e('Rate','mdocs'); ?></a></li>
+	<?php
+	}
+}
+function mdocs_delete_file_rights($the_mdoc, $index, $current_cat) {
+	global $current_user;
+	if($current_user->user_login === $the_mdoc['owner'] || current_user_can( 'manage_options' )) {
+	?>
+	<li role="presentation">
+		<a onclick="mdocs_delete_file('<?php echo $index; ?>','<?php echo $current_cat; ?>','<?php echo $_SESSION['mdocs-nonce']; ?>');" role="menuitem" tabindex="-1" href="#"><i class="fa fa-times-circle"></i> <?php _e('Delete File','mdocs'); ?></a>
+	</li>
 	<?php
 	}
 }
