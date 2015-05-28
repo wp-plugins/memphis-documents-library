@@ -18,12 +18,13 @@ function mdocs_file_upload() {
 	$mdocs_non_members = @$_POST['mdocs-non-members'];
 	$mdocs_file_status = $_POST['mdocs-file-status'];
 	$mdocs_doc_preview = @$_POST['mdocs-doc-preview'];
+	if(!is_array($_POST['mdocs-contributors']))  $_POST['mdocs-contributors'] = array();
 	if(isset($_POST['mdocs-post-status'])) $mdocs_post_status = $_POST['mdocs-post-status'];
 	else $mdocs_post_status = $_POST['mdocs-post-status-sys'];
 	if($_POST['mdocs-last-modified'] == '' || strtotime($_POST['mdocs-last-modified']) == false) $mdocs_last_modified = time();
 	else $mdocs_last_modified = strtotime($_POST['mdocs-last-modified']);
 	$upload_dir = wp_upload_dir();	
-	$mdocs_user = $current_user->display_name;
+	$mdocs_user = $current_user->user_login;
 	if($mdocs_file_status == 'hidden') $mdocs_post_status_sys = 'draft';
 	else $mdocs_post_status_sys = $mdocs_post_status;
 	$the_post_status = $mdocs_post_status_sys;
@@ -53,6 +54,7 @@ function mdocs_file_upload() {
 		if(!isset($upload['error'])) {
 			$boxview = new mdocs_box_view();
 			$boxview_file = $boxview->uploadFile(get_site_url().'/?mdocs-file='.$upload['attachment_id'].'&mdocs-url='.$upload['parent_id'], $upload['filename']);
+			//if(!is_array($_POST['mdocs-contributors']))  $_POST['mdocs-contributors'] = array();
 			array_push($mdocs, array(
 				'id'=>(string)$upload['attachment_id'],
 				'parent'=>(string)$upload['parent_id'],
@@ -62,6 +64,7 @@ function mdocs_file_upload() {
 				'type'=>$mdocs_fle_type,
 				'cat'=>$mdocs_cat,
 				'owner'=>$mdocs_user,
+				'contributors'=>$_POST['mdocs-contributors'],
 				'size'=>(string)$mdocs_fle_size,
 				'modified'=>(string)$mdocs_last_modified,
 				'version'=>(string)$mdocs_version,
@@ -81,7 +84,6 @@ function mdocs_file_upload() {
 			mdocs_save_list($mdocs);
 		} else mdocs_errors(MDOCS_ERROR_5,'error');
 	} else mdocs_errors(MDOCS_ERROR_2 , 'error');
-				
 			} elseif($mdocs_type == 'mdocs-update') {
 				if($_FILES['mdocs']['name'] != '') {
 					if($valid_mime_type) {
@@ -107,6 +109,7 @@ function mdocs_file_upload() {
 							$mdocs[$mdocs_index]['type'] = (string)$mdocs_fle_type;
 							$mdocs[$mdocs_index]['cat'] = $mdocs_cat;
 							$mdocs[$mdocs_index]['owner'] = $mdocs_user;
+							$mdocs[$mdocs_index]['contributors'] = $_POST['mdocs-contributors'];
 							$mdocs[$mdocs_index]['size'] = (string)$mdocs_fle_size;
 							$mdocs[$mdocs_index]['modified'] = (string)$mdocs_last_modified;
 							$mdocs[$mdocs_index]['show_social'] =(string)$mdocs_social;
@@ -122,8 +125,9 @@ function mdocs_file_upload() {
 						} else mdocs_errors(MDOCS_ERROR_5,'error');
 					} else mdocs_errors(MDOCS_ERROR_2 , 'error');
 				} else {
-					if($mdocs_desc == '') $desc = MDOCS_DEFAULT_DESC;
-					else $desc = $mdocs_desc;
+					//if($mdocs_desc == '') $desc = MDOCS_DEFAULT_DESC;
+					//else
+					$desc = $mdocs_desc;
 					if($mdocs_name == '') $mdocs[$mdocs_index]['name'] = $_POST['mdocs-pname'];
 					else $mdocs[$mdocs_index]['name'] = $mdocs_name;
 					if($mdocs_version == '') $mdocs_version = $mdocs[$mdocs_index]['version'];
@@ -131,6 +135,7 @@ function mdocs_file_upload() {
 					$mdocs[$mdocs_index]['version'] = (string)$mdocs_version;
 					$mdocs[$mdocs_index]['cat'] = $mdocs_cat;
 					$mdocs[$mdocs_index]['owner'] = $mdocs_user;
+					$mdocs[$mdocs_index]['contributors'] = $_POST['mdocs-contributors'];
 					$mdocs[$mdocs_index]['modified'] = (string)$mdocs_last_modified;
 					$mdocs[$mdocs_index]['show_social'] =(string)$mdocs_social;
 					$mdocs[$mdocs_index]['non_members'] =(string)$mdocs_non_members;
@@ -155,6 +160,7 @@ function mdocs_file_upload() {
 					wp_update_post( $mdocs_attachment );
 					$mdocs = mdocs_array_sort($mdocs, 'name', SORT_ASC);
 					mdocs_save_list($mdocs);
+					var_dump($_POST);
 				}
 			}
 		} else mdocs_errors(MDOCS_ERROR_3,'error');

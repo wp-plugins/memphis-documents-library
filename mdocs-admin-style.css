@@ -12,3 +12,6 @@
 /* DONATE BUTTON */
 .mdocs-donate-btn { position: absolute; right: 10px; top: 15px;}
 .mdocs-donate-btn input[type="image"] { float: right; }
+/* CONTRIBUTOR BADGES */
+.mdocs-contributors { font-size: 22px; display: inline-block; margin: 15px 5px; }
+.mdocs-contributors-delete-btn:hover { cursor: pointer; color: red; }

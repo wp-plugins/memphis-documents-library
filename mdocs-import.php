@@ -181,6 +181,7 @@ function mdocs_import_zip() {
 						'type'=>$mdocs_list_file[$key]['type'],
 						'cat'=>$mdocs_list_file[$key]['cat'],
 						'owner'=>$mdocs_list_file[$key]['owner'],
+						'contributors'=>$mdocs_list_file[$key]['contributors'],
 						'size'=>(string)$mdocs_list_file[$key]['size'],
 						'modified'=>(string)$mdocs_list_file[$key]['modified'],
 						'version'=>(string)$mdocs_list_file[$key]['version'],

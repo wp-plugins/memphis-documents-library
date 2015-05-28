@@ -133,8 +133,8 @@ function mdocs_process_file($file, $import=false) {
 	require_once(ABSPATH . 'wp-admin/includes/image.php');
 	if(isset($_POST['mdocs-type'])) $mdocs_type = $_POST['mdocs-type'];
 	else $mdocs_type = null;
-	if(!isset($_POST['mdocs-desc'])) $desc = MDOCS_DEFAULT_DESC;
-	else $desc = $_POST['mdocs-desc'];
+	//if(!isset($_POST['mdocs-desc'])) $desc = MDOCS_DEFAULT_DESC;
+	$desc = $_POST['mdocs-desc'];
 	$post_status = $file['post-status'];
 	if($import) $desc = $file['desc'];
 	$upload_dir = wp_upload_dir();

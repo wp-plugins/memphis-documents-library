@@ -130,28 +130,39 @@ function mdocs_add_update_documents() {
 		jQuery('input[name="mdocs-version"]').prop('value', doc_data['version']);
 		if (doc_data['show_social'] == 'on') jQuery('input[name="mdocs-social"]').prop('checked',true);
 		if (doc_data['non_members'] == 'on') jQuery('input[name="mdocs-non-members"]').prop('checked',true);
-		if(doc_data['file_status'] == 'hidden') jQuery("#mdocs-post-status").prop('disabled', true);
+		//if(doc_data['file_status'] == 'hidden') jQuery("#mdocs-post-status").prop('disabled', true);
 		jQuery("#mdocs-file-status option").each(function() {
 		    if(doc_data['file_status'] == jQuery(this).val()) jQuery(this).prop('selected',true);
 		});
 		jQuery("#mdocs-post-status option").each(function() {
 		    if(doc_data['post_status'] == jQuery(this).val()) jQuery(this).prop('selected',true);
 		});
-
-
+		jQuery('#mdocs-current-owner').html('<i class="fa fa-user"></i> '+doc_data['owner']);
+		jQuery('#mdocs-contributors-container').append('<input type="hidden" value="'+doc_data['owner']+'" name="mdocs-owner-value"/>');
+		// CONTRIBUTOR EDITOR
+		jQuery('span[id^="mdocs-contributors["]').each(function() { jQuery(this).remove(); });
+		jQuery('input[name^="mdocs-contributors["]').each(function() { jQuery(this).remove(); });
+		for(var i = 0; i < doc_data['contributors'].length; i++) {
+		    jQuery('#mdocs-contributors-container').append('<span class="label label-success mdocs-contributors" id="mdocs-contributors['+i+']" data-index="'+i+'"><i class="fa fa-user"></i> '+doc_data['contributors'][i]+' <i class="fa fa-times mdocs-contributors-delete-btn" id="mdocs-contributors-delete[mdocs-contributors['+i+']]"></i></span>');
+		    jQuery('#mdocs-contributors-container').append('<input type="hidden" value="'+doc_data['contributors'][i]+'" name="mdocs-contributors['+i+']"/>');
+		}
+		jQuery('.mdocs-contributors-delete-btn').click(function() {
+		    var index = jQuery(this).parent().data('index');
+		    jQuery(this).parent().remove();
+		    jQuery('input[name="mdocs-contributors['+index+']"]').remove();
+		});
+		
 		
 		doc_data['desc'] = doc_data['desc'].replace(/(?:\r\n|\r|\n|&nbsp;)/g, '<br />');
-		//doc_data['desc'].replaceWith( "<br/>" );
-		
-		console.debug(doc_data['desc']);
 		tinyMCE.activeEditor.setContent(doc_data['desc'], {format : 'raw'});
-		
 		jQuery('#mdocs-save-doc-btn').prop('value', mdocs_js.update_doc_btn);
 	    } else {
 		jQuery('input[name="mdocs-name"]').val('');
 		jQuery('option[value="'+current_cat+'"]').prop('selected', true);
 		jQuery('input[name="mdocs-version"]').val('1.0');
 		jQuery('#mdocs-current-doc').html('');
+		jQuery('#mdocs-current-owner').html('<i class="fa fa-user"></i> '+jQuery('input[name="mdocs-current-user"]').val());
+		jQuery('#mdocs-contributors-container').append('<input type="hidden" value="'+jQuery('input[name="mdocs-current-user"]').val()+'" id="mdocs-owner-value"/>');
 		jQuery('input[name="mdocs-type"]').prop('value', 'mdocs-add');
 		action_text = mdocs_js.add_doc;
 		jQuery('#mdocs-save-doc-btn').prop('value', mdocs_js.add_doc_btn);

@@ -156,6 +156,7 @@ function mdocs_add_update_ajax($edit_type='Add Document') {
 }
 
 function mdocs_uploader() {
+	global $current_user;
 	$cats = get_option('mdocs-cats');
 ?>
 <div class="row">
@@ -165,6 +166,7 @@ function mdocs_uploader() {
 		</div>
 		<div class="">
 			<form class="form-horizontal" enctype="multipart/form-data" action="" method="POST" id="mdocs-add-update-form">
+				<input type="hidden" name="mdocs-current-user" value="<?php echo $current_user->user_login; ?>" />
 				<input type="hidden" name="mdocs-type" value="" />
 				<input type="hidden" name="mdocs-index" value="" />
 				<input type="hidden" name="mdocs-cat" value="" />
@@ -245,18 +247,10 @@ function mdocs_uploader() {
 					<div class="form-group form-group-lg">
 						<label class="col-sm-2 control-label" for="mdocs-social"><?php _e('Contributors','mdocs'); ?></label>
 						<div class="col-sm-10">
-							<input class="form-control" type="text" name="mdocs-contributors" id="mdocs-contributors" />
-							<div>
-								<?php
-								global $current_user;
-								//var_dump($mdoc_index);
-								if($edit_type=='Update Document') $owner = $mdocs[$mdoc_index]['owner'];
-								else $owner = $current_user->display_name;
-								//var_dump($edit_type);
-								?>
-								<span class="badge mdocs-contributors"><?php echo $owner; ?></span>
-								<span class="badge mdocs-contributors"><?php echo $owner; ?></span>
+							<div id="mdocs-contributors-container">
+								<span class="label label-primary mdocs-contributors" id="mdocs-current-owner"></span>
 							</div>
+							<input class="form-control" type="text" name="mdocs-add-contributors" id="mdocs-add-contributors" placeholder="<?php _e('Add Contributor'); ?>"/>
 						</div>
 					</div>
 					<div class="form-group">
