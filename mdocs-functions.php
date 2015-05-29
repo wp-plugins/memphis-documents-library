@@ -949,3 +949,26 @@ function mdocs_show_image_preview($the_mdoc) {
 	<?php
 }
 
+function mdocs_search_users($user_search_string) {
+	$wp_roles = get_editable_roles();
+	$found_roles = array();
+	foreach($wp_roles as $index => $role) {
+		if(substr( $index, 0, strlen($user_search_string) ) === strtolower($user_search_string)) $found_roles[$index] = $role['name'];
+	}
+	$users_filter_search = get_users( array( 'search' => $user_search_string.'*' ) );
+	$found_users = array();
+	foreach($users_filter_search as $index => $user) $found_users[$user->user_login] = $user->display_name;
+	if(count($found_roles) > 0) {
+		echo '<h4>Roles</h4>';
+		echo '<div class="list-group">';
+	} 
+	foreach($found_roles as $index => $role) echo '<a href="#" class="list-group-item list-group-item-warning mdocs-search-results-roles" data-value="'.$index.'">'.$role.'</a>';
+	if(count($found_roles) > 0) echo '</div>';
+	if(count($found_users) > 0) {
+		echo '<h4>Users</h4>';
+		echo '<div class="list-group">';
+	}
+	foreach($found_users as $index => $user) echo '<a href="#" class="list-group-item list-group-item-warning mdocs-search-results-users" data-value="'.$index.'" >'.$user.'</a>';
+	if(count($found_users) > 0) echo '</div>';
+}
+

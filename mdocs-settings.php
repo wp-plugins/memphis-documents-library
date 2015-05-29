@@ -42,7 +42,7 @@ function mdocs_register_settings() {
 				global $current_user;
 				foreach($mdocs as $index => $the_mdoc) {
 					$mdocs[$index]['owner'] = $current_user->user_login;
-					$mdocs[$index]['contributors'] = array($current_user->user_login);
+					$mdocs[$index]['contributors'] = array();
 				}
 				update_option('mdocs-list', $mdocs);
 				update_option('mdocs-v3-0-patch-var-2',true);

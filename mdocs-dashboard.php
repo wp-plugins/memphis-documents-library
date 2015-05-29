@@ -250,7 +250,8 @@ function mdocs_uploader() {
 							<div id="mdocs-contributors-container">
 								<span class="label label-primary mdocs-contributors" id="mdocs-current-owner"></span>
 							</div>
-							<input class="form-control" type="text" name="mdocs-add-contributors" id="mdocs-add-contributors" placeholder="<?php _e('Add Contributor'); ?>"/>
+							<input autocomplete="off" class="form-control" type="text" name="mdocs-add-contributors" id="mdocs-add-contributors" placeholder="<?php _e('Add contributor, users and roles types are allowed.'); ?>"/>
+							<div class="mdocs-user-search-list hidden"></div>
 						</div>
 					</div>
 					<div class="form-group">

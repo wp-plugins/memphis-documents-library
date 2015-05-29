@@ -15,3 +15,4 @@
 /* CONTRIBUTOR BADGES */
 .mdocs-contributors { font-size: 22px; display: inline-block; margin: 15px 5px; }
 .mdocs-contributors-delete-btn:hover { cursor: pointer; color: red; }
+.mdocs-user-search-list { border: solid 1px #888; padding: 10px 20px; background: #fff; border-radius: 5px;}

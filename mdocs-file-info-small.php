@@ -6,7 +6,7 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 	$the_post = get_post($the_mdoc['parent']);
 	$is_new = preg_match('/new=true/',$the_post->post_content);
 	$post_date = strtotime($the_post->post_date);
-	$last_modified = gmdate(get_option('mdocs-date-format'),$the_mdoc['modified']+MDOCS_TIME_OFFSET);
+	$last_modified = gmdate(get_option('mdocs-date-format'),$the_mdoc['modified']);
 	$user_logged_in = is_user_logged_in();
 	$mdocs_show_non_members = $the_mdoc['non_members'];
 	$mdocs_hide_all_files = get_option( 'mdocs-hide-all-files' );

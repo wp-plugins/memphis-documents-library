@@ -83,7 +83,7 @@ function mdocs_admin() {
 	    var id = raw_id[raw_id.length-1];
 	    jQuery('#mdocs-social-index-'+id).hide();
 	    }
-	    
+
     });
    // ADD ROOT CATEGORY
     jQuery('#mdocs-add-cat').click(function(event) { event.preventDefault(); });
@@ -111,19 +111,19 @@ function mdocs_add_update_documents() {
 	var current_cat = jQuery(this).data('current-cat');
 	var nonce = jQuery(this).data('nonce');
 	var is_admin = jQuery(this).data('is-admin');
-	
+
 	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', 'type': action_type,'mdocs-index': mdocs_id, 'current-cat': current_cat, 'is-admin': is_admin},function(data) {
 	    var action_text = 'Add Document';
 	    if (action_type == 'update-doc') {
 		var doc_data = JSON.parse(data);
 		jQuery('#mdocs-add-update-form').prop('action', 'admin.php?page=memphis-documents.php&mdocs-cat='+current_cat);
-		jQuery('input[name="mdocs-type"]').prop('value', 'mdocs-update'); 
+		jQuery('input[name="mdocs-type"]').prop('value', 'mdocs-update');
 		jQuery('input[name="mdocs-index"]').prop('value', mdocs_id);
 		jQuery('input[name="mdocs-pname"]').prop('value', doc_data['name']);
 		jQuery('input[name="mdocs-post-status-sys"]').prop('value', doc_data['post_status']);
 		action_text = mdocs_js.update_doc+' <small>'+doc_data['filename']+'</small>';
-		 
-		
+
+
 		jQuery('#mdocs-current-doc').html(mdocs_js.current_file+': '+doc_data['filename']);
 		jQuery('input[name="mdocs-name"]').prop('value',doc_data['name']);
 		jQuery('option[value="'+doc_data['cat']+'"]').prop('selected',true);
@@ -146,13 +146,33 @@ function mdocs_add_update_documents() {
 		    jQuery('#mdocs-contributors-container').append('<span class="label label-success mdocs-contributors" id="mdocs-contributors['+i+']" data-index="'+i+'"><i class="fa fa-user"></i> '+doc_data['contributors'][i]+' <i class="fa fa-times mdocs-contributors-delete-btn" id="mdocs-contributors-delete[mdocs-contributors['+i+']]"></i></span>');
 		    jQuery('#mdocs-contributors-container').append('<input type="hidden" value="'+doc_data['contributors'][i]+'" name="mdocs-contributors['+i+']"/>');
 		}
-		jQuery('.mdocs-contributors-delete-btn').click(function() {
-		    var index = jQuery(this).parent().data('index');
-		    jQuery(this).parent().remove();
-		    jQuery('input[name="mdocs-contributors['+index+']"]').remove();
+		activate_contributors_delete_btn();
+		jQuery('#mdocs-add-contributors').keyup(function() {
+		    var search_string_length = jQuery(this).val().length;
+		    if (search_string_length > 2) {
+			jQuery('.mdocs-user-search-list').removeClass('hidden');
+			jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', 'type': 'search-users', 'user-search-string': jQuery('#mdocs-add-contributors').val()},function(data) {
+			    jQuery('.mdocs-user-search-list').html(data);
+			    jQuery('.mdocs-search-results-roles').click(function(event) {
+				event.preventDefault();
+				jQuery('#mdocs-contributors-container').append('<span class="label label-success mdocs-contributors" id="mdocs-contributors['+i+']" data-index="'+i+'"><i class="fa fa-user"></i> '+jQuery(this).data('value')+' <i class="fa fa-times mdocs-contributors-delete-btn" id="mdocs-contributors-delete[mdocs-contributors['+i+']]"></i></span>');
+				jQuery('#mdocs-contributors-container').append('<input type="hidden" value="'+jQuery(this).data('value')+'" name="mdocs-contributors['+i+']"/>');
+				i++;
+				activate_contributors_delete_btn();
+			    });
+			     jQuery('.mdocs-search-results-users').click(function(event) {
+				event.preventDefault();
+				jQuery('#mdocs-contributors-container').append('<span class="label label-success mdocs-contributors" id="mdocs-contributors['+i+']" data-index="'+i+'"><i class="fa fa-user"></i> '+jQuery(this).data('value')+' <i class="fa fa-times mdocs-contributors-delete-btn" id="mdocs-contributors-delete[mdocs-contributors['+i+']]"></i></span>');
+				jQuery('#mdocs-contributors-container').append('<input type="hidden" value="'+jQuery(this).data('value')+'" name="mdocs-contributors['+i+']"/>');
+				i++;
+				activate_contributors_delete_btn();
+			    });	
+			});
+		    } else  {
+			jQuery('.mdocs-user-search-list').addClass('hidden');
+			jQuery('.mdocs-user-search-list').html();
+		    }
 		});
-		
-		
 		doc_data['desc'] = doc_data['desc'].replace(/(?:\r\n|\r|\n|&nbsp;)/g, '<br />');
 		tinyMCE.activeEditor.setContent(doc_data['desc'], {format : 'raw'});
 		jQuery('#mdocs-save-doc-btn').prop('value', mdocs_js.update_doc_btn);
@@ -169,14 +189,22 @@ function mdocs_add_update_documents() {
 	    }
 	   jQuery('#mdocs-add-update-header').html(action_text);
 	});
-	
+
     });
-    
-    
+
+
+}
+//ACTIVATE CONTRIBUTOR DELETE BUTTON
+function activate_contributors_delete_btn() {
+    jQuery('.mdocs-contributors-delete-btn').click(function() {
+	var index = jQuery(this).parent().data('index');
+	jQuery(this).parent().remove();
+	jQuery('input[name="mdocs-contributors['+index+']"]').remove();
+    });
 }
 // ADD ROOT CATEGORY
 function add_main_category(total_cats) {
-    mdocs_add_sub_cat(total_cats, '', 0, jQuery('#the-list'), true); 
+    mdocs_add_sub_cat(total_cats, '', 0, jQuery('#the-list'), true);
 }
 // === COLOR PICKERS === //
 //INITIALIZE IRIS COLOR PICKER
@@ -313,7 +341,7 @@ function mdocs_add_sub_cat(total_cats, parent, parent_depth, object, is_parent) 
 	jQuery('#mdocs-cats').data('cat-index', subcat_index);
     } else alert(mdocs_js.category_support);
     //jQuery('.mdocs-add-sub-cat').unbind('click');
-   
+
 }
 // FUNCTIONS
 function mdocs_set_onleave() { window.onbeforeunload = function() { return mdocs_js.leave_page;}; }
@@ -359,7 +387,7 @@ function mdocs_toogle_disable_setting(main, disable) {
 	});
 }
 // RATINGS
-function mdocs_ratings() {    
+function mdocs_ratings() {
     // DISPLAY RATING WIDGET
     jQuery('.ratings-button' ).click(function(event) {
 	jQuery('.mdocs-ratings-body').empty();
@@ -380,7 +408,7 @@ function mdocs_submit_rating(size,file_id) {
 	    else  jQuery('#'+index).prop('class', 'fa fa-star-o '+size+' mdocs-my-rating');
 	}
     } else size = 'fa-1x';
-   
+
     jQuery('.mdocs-my-rating').click(function(event) {
 	if (size == 'fa-1x') file_id = jQuery('.mdocs-post-header').data('mdocs-id');
 	my_rating = jQuery(this).prop('id');
@@ -407,10 +435,10 @@ function mdocs_submit_rating(size,file_id) {
 function mdocs_restore_default() {
    if (confirm(mdocs_js.restore_warning)) {
 	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type:'restore', blog_id: mdocs_js.blog_id, is_admin: true},function(data) {
-	    window.location.href = "admin.php?page=memphis-documents.php&mdocs-cat=mdocuments&restore-default=true"; 
+	    window.location.href = "admin.php?page=memphis-documents.php&mdocs-cat=mdocuments&restore-default=true";
 	});
-    } 
-   
+    }
+
 }
 // DESRIPTION PREVIEW
 function mdocs_description_preview() {
@@ -429,7 +457,7 @@ function mdocs_file_preview() {
 	jQuery('.mdocs-file-preview-body').empty();
 	var mdocs_file_id = jQuery(this).data('mdocs-id');
 	var mdocs_is_admin = jQuery(this).data('is-admin');
-	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'file',mdocs_file_id: mdocs_file_id, is_admin: mdocs_is_admin},function(data) {	
+	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'file',mdocs_file_id: mdocs_file_id, is_admin: mdocs_is_admin},function(data) {
 	    jQuery('.mdocs-file-preview-body').html(data);
 	});
     });
@@ -479,7 +507,7 @@ function mdocs_sort_files(is_admin) {
 // CHECK WIDTH OF DOCUMENTS AREA
 is_collapsed = null;
 function mdocs_check_width() {
-    
+
     if(jQuery('#mdocs-navbar').width() < 600 && is_collapsed == false || jQuery('#mdocs-navbar').width() < 600 && is_collapsed == null) {
 	is_collapsed = true;
 	jQuery('#mdocs-nav-expand').remove();
@@ -505,10 +533,10 @@ function mdocs_share_modal() {
 }
 // VERSION 3.0 JAVASCRIPT PATCH
 function mdocs_v3_0_patch(_numfiles) {
-    
+
     if (typeof mdocs_js == 'object') var mdocs_vars = mdocs_js;
     else var mdocs_vars = mdocs_patch_js;
-    
+
     jQuery.post(mdocs_vars.ajaxurl,{action: 'myajax-submit', type: 'mdocs-v3-0-patch'  },function(data) {
 	jQuery('body').append(data);
 	jQuery('#run-updater-3-0').click(function() {

@@ -1,6 +1,6 @@
 <?php
 function mdocs_the_list($att=null) {
-	global $post, $current_cat_array, $parent_cat_array;
+	global $current_user, $post, $current_cat_array, $parent_cat_array;
 	ob_start();
 	if(is_admin()) $page_type = 'dashboard';
 	else $page_type = 'site';
@@ -57,7 +57,7 @@ function mdocs_the_list($att=null) {
 		//else $num_cols = mdocs_get_subcats($current_cat_array, $parent_cat_array, false);
 		foreach($mdocs as $index => $the_mdoc) {
 			if($the_mdoc['cat'] == $current_cat || $current_cat == 'all') {
-				if($the_mdoc['file_status'] == 'public' || is_admin()) {
+				if($the_mdoc['file_status'] == 'public' || is_admin() && $the_mdoc['owner'] == $current_user->user_login ||  in_array($current_user->user_login, $the_mdoc['contributors'])) {
 					$count ++;
 					$mdocs_post = get_post($the_mdoc['parent']);
 					$mdocs_desc = apply_filters('the_content', $mdocs_post->post_excerpt);

@@ -90,6 +90,9 @@ function mdocs_ajax_processing() {
 		case 'show-desc':
 			mdocs_show_description(intval($_POST['mdocs_file_id']));
 			break;
+		case 'search-users':
+			mdocs_search_users($_POST['user-search-string']);
+			break;
 	}
 	exit;
 }
