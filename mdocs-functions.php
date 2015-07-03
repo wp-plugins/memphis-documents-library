@@ -968,7 +968,7 @@ function mdocs_search_users($user_search_string) {
 		echo '<h4>Users</h4>';
 		echo '<div class="list-group">';
 	}
-	foreach($found_users as $index => $user) echo '<a href="#" class="list-group-item list-group-item-warning mdocs-search-results-users" data-value="'.$index.'" >'.$user.'</a>';
+	foreach($found_users as $index => $user) echo '<a href="#" class="list-group-item list-group-item-warning mdocs-search-results-users" data-value="'.$index.'" >'.$index.' - ('. $user.')</a>';
 	if(count($found_users) > 0) echo '</div>';
 }
 

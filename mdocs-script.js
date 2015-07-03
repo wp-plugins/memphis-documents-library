@@ -23,8 +23,8 @@ function mdocs_wp() {
     // SHARING MODAL
     mdocs_share_modal();
     // CHECK WITH OF DOCUMENTS CONTAINER
-    mdocs_check_width();
-    jQuery(window).resize(function() { mdocs_check_width(); });
+    //mdocs_check_width();
+    //jQuery(window).resize(function() { mdocs_check_width(); });
 }
 // INITIALIZE THE ADMIN JAVASCRIPT
 function mdocs_admin() {
@@ -100,8 +100,8 @@ function mdocs_admin() {
 	    else if (jQuery(this).val() == 'public') jQuery('#mdocs-post-status').removeAttr('disabled');
     });
     // CHECK WITH OF DOCUMENTS CONTAINER
-    mdocs_check_width();
-    jQuery(window).resize(function() { mdocs_check_width(); });
+    //mdocs_check_width();
+    //jQuery(window).resize(function() { mdocs_check_width(); });
 }
  // ADD / UPDATE DOCUMENTS
 function mdocs_add_update_documents() {
@@ -149,7 +149,7 @@ function mdocs_add_update_documents() {
 		activate_contributors_delete_btn();
 		jQuery('#mdocs-add-contributors').keyup(function() {
 		    var search_string_length = jQuery(this).val().length;
-		    if (search_string_length > 2) {
+		    if (search_string_length > 1) {
 			jQuery('.mdocs-user-search-list').removeClass('hidden');
 			jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', 'type': 'search-users', 'user-search-string': jQuery('#mdocs-add-contributors').val()},function(data) {
 			    jQuery('.mdocs-user-search-list').html(data);
@@ -165,6 +165,10 @@ function mdocs_add_update_documents() {
 				jQuery('#mdocs-contributors-container').append('<span class="label label-success mdocs-contributors" id="mdocs-contributors['+i+']" data-index="'+i+'"><i class="fa fa-user"></i> '+jQuery(this).data('value')+' <i class="fa fa-times mdocs-contributors-delete-btn" id="mdocs-contributors-delete[mdocs-contributors['+i+']]"></i></span>');
 				jQuery('#mdocs-contributors-container').append('<input type="hidden" value="'+jQuery(this).data('value')+'" name="mdocs-contributors['+i+']"/>');
 				i++;
+				jQuery('#mdocs-add-contributors').val('');
+				jQuery('.mdocs-user-search-list').html('');
+				jQuery('#mdocs-add-contributors').focus();
+				jQuery('.mdocs-user-search-list').addClass('hidden');
 				activate_contributors_delete_btn();
 			    });	
 			});
@@ -174,6 +178,8 @@ function mdocs_add_update_documents() {
 		    }
 		});
 		doc_data['desc'] = doc_data['desc'].replace(/(?:\r\n|\r|\n|&nbsp;)/g, '<br />');
+		//doc_data['desc'] = doc_data['desc'].replace(/\\\\/g, '<br />');
+		//console.debug(doc_data['desc']);
 		tinyMCE.activeEditor.setContent(doc_data['desc'], {format : 'raw'});
 		jQuery('#mdocs-save-doc-btn').prop('value', mdocs_js.update_doc_btn);
 	    } else {

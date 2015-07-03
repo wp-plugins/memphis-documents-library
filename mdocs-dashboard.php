@@ -260,7 +260,8 @@ function mdocs_uploader() {
 							<br>
 							<div>
 							<?php
-							wp_editor('', "mdocs-desc",$wp_edit_settings); ?>
+							wp_editor('', "mdocs-desc",$wp_edit_settings);
+							?>
 							</div>
 						</div>
 					</div>

@@ -70,10 +70,10 @@ function mdocs_ajax_processing() {
 			mdocs_set_rating(intval($_POST['mdocs_file_id']));
 			break;
 		case 'nav-collaspse':
-			mdocs_nav_size(true);
+			//mdocs_nav_size(true);
 			break;
 		case 'nav-expand':
-			mdocs_nav_size(false);
+			//mdocs_nav_size(false);
 			break;
 		case 'update-doc':
 			mdocs_add_update_ajax(__('Update Document','mdocs'));
