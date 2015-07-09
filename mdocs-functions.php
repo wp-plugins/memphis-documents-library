@@ -349,6 +349,7 @@ function is_modcs_google_doc_viewer() {
 }
 
 function mdocs_is_bot() {
+	/*
 	$upload_dir = wp_upload_dir();
 	$bots = strip_tags(file_get_contents(MDOCS_ROBOTS));
 	$bots = explode('|:::|',$bots);
@@ -357,6 +358,7 @@ function mdocs_is_bot() {
 			return true;
 		}
     }
+    */
 	return false;
 }
 
@@ -949,7 +951,10 @@ function mdocs_show_image_preview($the_mdoc) {
 	<?php
 }
 
-function mdocs_search_users($user_search_string) {
+function mdocs_search_users($user_search_string, $owner, $contributors) {
+	if(!is_array($owner)) $owner = array();
+	if(!is_array($contributors)) $contributors = array();
+	//var_dump($contributors);
 	$wp_roles = get_editable_roles();
 	$found_roles = array();
 	foreach($wp_roles as $index => $role) {
@@ -962,13 +967,21 @@ function mdocs_search_users($user_search_string) {
 		echo '<h4>Roles</h4>';
 		echo '<div class="list-group">';
 	} 
-	foreach($found_roles as $index => $role) echo '<a href="#" class="list-group-item list-group-item-warning mdocs-search-results-roles" data-value="'.$index.'">'.$role.'</a>';
+	foreach($found_roles as $index => $role) {
+		if(!in_array($index, $contributors)) {
+			echo '<a href="#" class="list-group-item list-group-item-warning mdocs-search-results-roles" data-value="'.$index.'">'.$role.'</a>';
+		}
+	}
 	if(count($found_roles) > 0) echo '</div>';
 	if(count($found_users) > 0) {
 		echo '<h4>Users</h4>';
 		echo '<div class="list-group">';
 	}
-	foreach($found_users as $index => $user) echo '<a href="#" class="list-group-item list-group-item-warning mdocs-search-results-users" data-value="'.$index.'" >'.$index.' - ('. $user.')</a>';
+	foreach($found_users as $index => $user) {
+		if($owner != $index && !in_array($index, $contributors)) {
+			echo '<a href="#" class="list-group-item list-group-item-warning mdocs-search-results-users" data-value="'.$index.'" >'.$index.' - ('. $user.')</a>';
+		}
+	}
 	if(count($found_users) > 0) echo '</div>';
 }
 

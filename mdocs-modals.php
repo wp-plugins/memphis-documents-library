@@ -8,7 +8,7 @@ function mdocs_load_modals() {
 }
 function load_add_update_modal() {
 	?>
-	<div class="modal fade" id="mdocs-add-update" tabindex="-1" role="dialog" aria-labelledby="mdocs-add-update" aria-hidden="true">
+	<div class="modal fade mdocs-modal" id="mdocs-add-update" tabindex="-1" role="dialog" aria-labelledby="mdocs-add-update" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-body">

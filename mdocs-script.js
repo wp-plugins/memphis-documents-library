@@ -28,6 +28,15 @@ function mdocs_wp() {
 }
 // INITIALIZE THE ADMIN JAVASCRIPT
 function mdocs_admin() {
+    tinyMCE.init({
+       
+        remove_linebreaks: false,
+              
+    });
+    
+    
+    //FIX FOCUS ISSUE WITH TINYMCE TEXTBOXES
+    jQuery(document).on('focusin', function(e) { e.stopImmediatePropagation(); });
     // MODAL CLOSE EVENT
     mdocs_modal_close();
     // INITALIZE BOOTSTRAP POPOVER FUNCTIONALITY
@@ -150,18 +159,30 @@ function mdocs_add_update_documents() {
 		jQuery('#mdocs-add-contributors').keyup(function() {
 		    var search_string_length = jQuery(this).val().length;
 		    if (search_string_length > 1) {
+			
+			var contributors = []
+			jQuery('input[name^="mdocs-contributors"]').each(function() {
+			    contributors.push(jQuery(this).val()); 
+			 });
+			
 			jQuery('.mdocs-user-search-list').removeClass('hidden');
-			jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', 'type': 'search-users', 'user-search-string': jQuery('#mdocs-add-contributors').val()},function(data) {
+			jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', 'type': 'search-users', 'user-search-string': jQuery('#mdocs-add-contributors').val(), 'owner': jQuery('input[name="mdocs-owner-value"]').val(), 'contributors':contributors},function(data) {
 			    jQuery('.mdocs-user-search-list').html(data);
 			    jQuery('.mdocs-search-results-roles').click(function(event) {
 				event.preventDefault();
+				//jQuery(this).remove();
 				jQuery('#mdocs-contributors-container').append('<span class="label label-success mdocs-contributors" id="mdocs-contributors['+i+']" data-index="'+i+'"><i class="fa fa-user"></i> '+jQuery(this).data('value')+' <i class="fa fa-times mdocs-contributors-delete-btn" id="mdocs-contributors-delete[mdocs-contributors['+i+']]"></i></span>');
 				jQuery('#mdocs-contributors-container').append('<input type="hidden" value="'+jQuery(this).data('value')+'" name="mdocs-contributors['+i+']"/>');
 				i++;
+				jQuery('#mdocs-add-contributors').val('');
+				jQuery('.mdocs-user-search-list').html('');
+				jQuery('#mdocs-add-contributors').focus();
+				jQuery('.mdocs-user-search-list').addClass('hidden');
 				activate_contributors_delete_btn();
 			    });
 			     jQuery('.mdocs-search-results-users').click(function(event) {
 				event.preventDefault();
+				//jQuery(this).remove();
 				jQuery('#mdocs-contributors-container').append('<span class="label label-success mdocs-contributors" id="mdocs-contributors['+i+']" data-index="'+i+'"><i class="fa fa-user"></i> '+jQuery(this).data('value')+' <i class="fa fa-times mdocs-contributors-delete-btn" id="mdocs-contributors-delete[mdocs-contributors['+i+']]"></i></span>');
 				jQuery('#mdocs-contributors-container').append('<input type="hidden" value="'+jQuery(this).data('value')+'" name="mdocs-contributors['+i+']"/>');
 				i++;
@@ -177,10 +198,16 @@ function mdocs_add_update_documents() {
 			jQuery('.mdocs-user-search-list').html();
 		    }
 		});
-		doc_data['desc'] = doc_data['desc'].replace(/(?:\r\n|\r|\n|&nbsp;)/g, '<br />');
-		//doc_data['desc'] = doc_data['desc'].replace(/\\\\/g, '<br />');
+		
 		//console.debug(doc_data['desc']);
-		tinyMCE.activeEditor.setContent(doc_data['desc'], {format : 'raw'});
+		//doc_data['desc'] = doc_data['desc'].replace(/(?:\r\n|\r|\n)/g, '<br />');
+		//console.debug(doc_data['desc']);
+		//doc_data['desc'] = doc_data['desc'].replace(/(?:\r\n|\r|\n|&nbsp;)/g, '');
+		//doc_data['desc'] = doc_data['desc'].replace(/&nbsp;/g, '<br />');
+		doc_data['desc'] = doc_data['desc'].replace(/\\/g, '');
+		doc_data['desc'] = doc_data['desc'].replace(/&quot;/g, '');
+		doc_data['desc'] = doc_data['desc'];
+		tinyMCE.activeEditor.setContent(doc_data['desc']);
 		jQuery('#mdocs-save-doc-btn').prop('value', mdocs_js.update_doc_btn);
 	    } else {
 		jQuery('input[name="mdocs-name"]').val('');

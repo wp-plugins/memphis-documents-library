@@ -1,4 +1,5 @@
 <?php
+add_filter( 'wp_default_editor', create_function('', 'return "tinymce";') );
 define('MDOCS_CATS', 'mdocs-cats.txt');
 define('MDOCS_LIST', 'mdocs-list.txt');
 define('MDOCS_DIR','/mdocs/');

@@ -1,3 +1,5 @@
+/* BOOTSTRAP FIXES */
+.mdocs-modal { overflow-y: auto !important; }
 /* POST STYLE */
 .mdocs-post { background: #fff; padding: 0 !important; border: none; width: 100% !important; height: 100% !important; margin: 0px auto 40px 0; text-shadow: none !important; text-decoration: none !important; }
 .mdocs-post-current-file { border: solid 1px #e2e2e2; background: #fcfcfc; }

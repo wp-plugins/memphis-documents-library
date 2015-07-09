@@ -260,6 +260,7 @@ function mdocs_uploader() {
 							<br>
 							<div>
 							<?php
+							//$wp_edit_settings = array('quicktags' => false);
 							wp_editor('', "mdocs-desc",$wp_edit_settings);
 							?>
 							</div>

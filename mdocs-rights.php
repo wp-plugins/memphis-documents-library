@@ -1,7 +1,8 @@
 <?php
 function mdocs_add_update_rights($the_mdoc, $index, $current_cat) {
 	global $current_user;
-	if($current_user->user_login === $the_mdoc['owner'] || current_user_can( 'manage_options' )) {
+	var_dump($current_user);
+	if($current_user->user_login === $the_mdoc['owner'] || current_user_can( 'manage_options' ) || in_array($current_user->user_login, $the_mdoc['contributors'])) {
 	?>
 	<li role="presentation">
 		<a class="add-update-btn" role="menuitem" tabindex="-1" data-toggle="modal" data-target="#mdocs-add-update" data-mdocs-id="<?php echo $index; ?>" data-is-admin="<?php echo is_admin(); ?>" data-action-type="update-doc"  data-current-cat="<?php echo $current_cat; ?>" href="">
@@ -18,7 +19,7 @@ function mdocs_goto_post_rights($the_mdoc_permalink) {
 }
 function mdocs_manage_versions_rights($the_mdoc, $index, $current_cat) {
 	global $current_user;
-	if($current_user->user_login === $the_mdoc['owner'] || current_user_can( 'manage_options' )) {
+	if($current_user->user_login === $the_mdoc['owner'] || current_user_can( 'manage_options' ) || in_array($current_user->user_login, $the_mdoc['contributors'])) {
 	?>
 	<li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=<?php echo $current_cat; ?>&action=mdocs-versions&mdocs-index=<?php echo $index; ?>"><i class="fa fa-road"></i> <?php _e('Manage Versions','mdocs'); ?></a></li>
 	<?php
@@ -86,7 +87,7 @@ function mdocs_rating_rights($the_mdoc) {
 }
 function mdocs_delete_file_rights($the_mdoc, $index, $current_cat) {
 	global $current_user;
-	if($current_user->user_login === $the_mdoc['owner'] || current_user_can( 'manage_options' )) {
+	if($current_user->user_login === $the_mdoc['owner'] || current_user_can( 'manage_options' ) || in_array($current_user->user_login, $the_mdoc['contributors'])) {
 	?>
 	<li role="presentation">
 		<a onclick="mdocs_delete_file('<?php echo $index; ?>','<?php echo $current_cat; ?>','<?php echo $_SESSION['mdocs-nonce']; ?>');" role="menuitem" tabindex="-1" href="#"><i class="fa fa-times-circle"></i> <?php _e('Delete File','mdocs'); ?></a>
