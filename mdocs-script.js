@@ -32,9 +32,7 @@ function mdocs_admin() {
        
         remove_linebreaks: false,
               
-    });
-    
-    
+    });  
     //FIX FOCUS ISSUE WITH TINYMCE TEXTBOXES
     jQuery(document).on('focusin', function(e) { e.stopImmediatePropagation(); });
     // MODAL CLOSE EVENT
@@ -562,6 +560,33 @@ function mdocs_share_modal() {
 	jQuery('.mdocs-share-body').html('<h1>Sharing</h1>');
 	jQuery('.mdocs-share-body').append('<div class="well well-sm"><h3><i class="fa fa-arrow-circle-o-right"></i> Download Page</h3><p>'+jQuery(this).data('permalink')+'</p></div>');
 	jQuery('.mdocs-share-body').append('<div class="well well-sm"><h3><i class="fa fa-download"></i> Direct Download</h3><p>'+jQuery(this).data('download')+'</p></div>');
+	
+	jQuery.post(mdocs_js.ajaxurl,{action: 'myajax-submit', type: 'show-social', 'doc-index': jQuery(this).data('doc-index')  },function(data) {
+	    jQuery('.mdocs-share-body').append(data);
+	    jQuery('.mdocs-share-body').append('<div id="fb-root"></div>');
+	    twttr.widgets.load();
+	    //FACEBOOK LIKE
+	    (function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4";
+		fjs.parentNode.insertBefore(js, fjs);
+	      }(document, 'script', 'facebook-jssdk'));
+	    //GOOGLE +1
+	    (function() {
+	      var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+	      po.src = 'https://apis.google.com/js/plusone.js';
+	      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+	    })();
+	    
+	     
+	    
+	});
+	
+	
+	
+	
     });
 }
 // VERSION 3.0 JAVASCRIPT PATCH

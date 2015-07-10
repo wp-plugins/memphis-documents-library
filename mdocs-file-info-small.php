@@ -81,7 +81,7 @@ function mdocs_file_info_small($the_mdoc, $page_type='site', $index=0, $current_
 								mdocs_preview_rights($the_mdoc);
 								mdocs_rating_rights($the_mdoc);
 								mdocs_goto_post_rights($the_mdoc_permalink);
-								mdocs_share_rights($the_mdoc_permalink, get_site_url().'/?mdocs-file='.$the_mdoc['id'].'&mdocs-url='.$the_mdoc['parent']);
+								mdocs_share_rights($index, $the_mdoc_permalink, get_site_url().'/?mdocs-file='.$the_mdoc['id'].'&mdocs-url='.$the_mdoc['parent']);
 								if(is_admin()) { ?>
 							<li role="presentation" class="divider"></li>
 							<li role="presentation" class="dropdown-header"><?php _e('Admin Options'); ?></li>

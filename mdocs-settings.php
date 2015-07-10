@@ -339,6 +339,8 @@ function mdocs_admin_script() {
 		wp_register_style( 'mdocs-jquery-ui-style', '//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
 		wp_enqueue_style( 'mdocs-jquery-ui-style' );
 		wp_enqueue_script( 'mdocs-jquery-ui-script', '//code.jquery.com/ui/1.10.3/jquery-ui.js' );
+		//TWITTER WIDGET
+		wp_enqueue_script( 'widgets.js', '//platform.twitter.com/widgets.js' );
 		//MEMPHIS DOCS
 		wp_register_style( 'mdocs-style', MDOC_URL.'/mdocs-style.css');
 		wp_enqueue_style( 'mdocs-style' );

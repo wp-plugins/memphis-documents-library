@@ -1,8 +1,8 @@
 <?php
 function mdocs_add_update_rights($the_mdoc, $index, $current_cat) {
 	global $current_user;
-	var_dump($current_user);
-	if($current_user->user_login === $the_mdoc['owner'] || current_user_can( 'manage_options' ) || in_array($current_user->user_login, $the_mdoc['contributors'])) {
+	$is_allowed = mdocs_check_role_rights($the_mdoc);
+	if($current_user->user_login === $the_mdoc['owner'] || current_user_can( 'manage_options' ) || in_array($current_user->user_login, $the_mdoc['contributors']) || $is_allowed) {
 	?>
 	<li role="presentation">
 		<a class="add-update-btn" role="menuitem" tabindex="-1" data-toggle="modal" data-target="#mdocs-add-update" data-mdocs-id="<?php echo $index; ?>" data-is-admin="<?php echo is_admin(); ?>" data-action-type="update-doc"  data-current-cat="<?php echo $current_cat; ?>" href="">
@@ -12,6 +12,14 @@ function mdocs_add_update_rights($the_mdoc, $index, $current_cat) {
 	<?php
 	}
 }
+function mdocs_check_role_rights($the_mdoc) {
+	global $current_user;
+	$is_allowed = false;
+	foreach($the_mdoc['contributors'] as $index => $role) {
+		if(in_array($role, $current_user->roles)) { $is_allowed = true; break; }
+	}
+	return $is_allowed;
+}
 function mdocs_goto_post_rights($the_mdoc_permalink) {
 	?>
 	<li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo $the_mdoc_permalink; ?>" target="_blank"><i class="fa fa-arrow-circle-o-right"></i> <?php _e('Goto Post','mdocs'); ?></a></li>
@@ -19,7 +27,8 @@ function mdocs_goto_post_rights($the_mdoc_permalink) {
 }
 function mdocs_manage_versions_rights($the_mdoc, $index, $current_cat) {
 	global $current_user;
-	if($current_user->user_login === $the_mdoc['owner'] || current_user_can( 'manage_options' ) || in_array($current_user->user_login, $the_mdoc['contributors'])) {
+	$is_allowed = mdocs_check_role_rights($the_mdoc);
+	if($current_user->user_login === $the_mdoc['owner'] || current_user_can( 'manage_options' ) || in_array($current_user->user_login, $the_mdoc['contributors']) || $is_allowed) {
 	?>
 	<li role="presentation"><a role="menuitem" tabindex="-1" href="?page=memphis-documents.php&mdocs-cat=<?php echo $current_cat; ?>&action=mdocs-versions&mdocs-index=<?php echo $index; ?>"><i class="fa fa-road"></i> <?php _e('Manage Versions','mdocs'); ?></a></li>
 	<?php
@@ -70,11 +79,11 @@ function mdocs_desciption_rights($the_mdocs) {
 	<?php
 	//}
 }
-function mdocs_share_rights($permalink, $download) {
+function mdocs_share_rights($index, $permalink, $download) {
 	$mdocs_show_show = get_option('mdocs-show-share');
 	if($mdocs_show_show) {
 	?>
-	<li role="presentation"><a class="sharing-button" role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#mdocs-share" data-permalink="<?php echo $permalink;?>" data-download="<?php echo $download; ?>" ><i class="fa fa-share"></i> <?php _e('Share','mdocs'); ?></a></li>
+	<li role="presentation"><a class="sharing-button" role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-doc-index="<?php echo $index; ?>" data-target="#mdocs-share" data-permalink="<?php echo $permalink;?>" data-download="<?php echo $download; ?>" ><i class="fa fa-share"></i> <?php _e('Share','mdocs'); ?></a></li>
 	<?php
 	}
 }
@@ -87,7 +96,8 @@ function mdocs_rating_rights($the_mdoc) {
 }
 function mdocs_delete_file_rights($the_mdoc, $index, $current_cat) {
 	global $current_user;
-	if($current_user->user_login === $the_mdoc['owner'] || current_user_can( 'manage_options' ) || in_array($current_user->user_login, $the_mdoc['contributors'])) {
+	$is_allowed = mdocs_check_role_rights($the_mdoc);
+	if($current_user->user_login === $the_mdoc['owner'] || current_user_can( 'manage_options' ) || in_array($current_user->user_login, $the_mdoc['contributors']) || $is_allowed) {
 	?>
 	<li role="presentation">
 		<a onclick="mdocs_delete_file('<?php echo $index; ?>','<?php echo $current_cat; ?>','<?php echo $_SESSION['mdocs-nonce']; ?>');" role="menuitem" tabindex="-1" href="#"><i class="fa fa-times-circle"></i> <?php _e('Delete File','mdocs'); ?></a>

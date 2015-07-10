@@ -93,6 +93,9 @@ function mdocs_ajax_processing() {
 		case 'search-users':
 			mdocs_search_users($_POST['user-search-string'], $_POST['owner'], $_POST['contributors']);
 			break;
+		case 'show-social':
+			echo mdocs_social(intval($_POST['doc-index']));
+			break;
 	}
 	exit;
 }

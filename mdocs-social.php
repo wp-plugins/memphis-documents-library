@@ -1,5 +1,23 @@
 <?php
 function mdocs_social($the_mdoc, $page_type='site') {
+	$mdocs = get_option('mdocs-list');
+	$mdocs = mdocs_array_sort();
+	if(is_numeric($the_mdoc)) {
+		$the_mdoc = $mdocs[$the_mdoc];
+		ob_start();
+		
+		if($the_mdoc['show_social'] ==='on' && get_option('mdocs-show-social') ) { ?>
+		<div class="mdocs-social-container">
+			<div class="mdocs-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo $the_permalink;?>" data-counturl="<?php echo $the_permalink;?>" data-text="<?php echo __('Download','mdocs').' #'.strtolower(preg_replace('/-| /','_',$the_mdoc['name'])).' #MemphisDocumentsLibrary'; ?>" width="50">Tweet</a></div>
+			<div class="mdocs-like"><div class="fb-like" data-href="<?php echo $the_permalink;?>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div></div>
+			<div class="mdocs-plusone" ><div class="g-plusone" data-size="medium" data-href="<?php echo $the_permalink;?>"></div></div>
+		</div>
+		<?php
+		}
+		//mdocs_social_scripts();
+		$the_social = ob_get_clean();
+		return $the_social;
+	}
 	$the_rating = mdocs_get_rating($the_mdoc);
 	$mdocs_show_ratings = get_option( 'mdocs-show-ratings' );
 	ob_start();
@@ -13,7 +31,7 @@ function mdocs_social($the_mdoc, $page_type='site') {
 			<?php } ?>
 		<?php if($the_mdoc['show_social'] ==='on' && get_option('mdocs-show-social') ) { ?>
 			<div class="mdocs-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo $the_permalink;?>" data-counturl="<?php echo $the_permalink;?>" data-text="<?php echo __('Download','mdocs').' #'.strtolower(preg_replace('/-| /','_',$the_mdoc['name'])).' #MemphisDocumentsLibrary'; ?>" width="50">Tweet</a></div>
-			<div class="mdocs-like"><iframe src="//www.facebook.com/plugins/like.php?href=<?php echo $the_permalink;?>&amp;width=450&amp;height=21&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe></div>
+			<div class="mdocs-like"><iframe src="//www.facebook.com/plugins/like.php?href=<?php echo $the_permalink;?>&amp;width=450&amp;height=21&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe></div>-->
 			<div class="mdocs-plusone" ><div class="g-plusone" data-size="medium" data-href="<?php echo $the_permalink;?>"></div></div><?php
 		}
 		/*
